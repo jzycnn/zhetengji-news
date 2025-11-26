@@ -21,56 +21,46 @@
             body { font-family: "Microsoft YaHei", -apple-system, BlinkMacSystemFont, sans-serif; background: var(--cb-gray); margin: 0; color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }
             
             header { background: var(--cb-blue); box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
-            .header-inner { max-width: 1100px; margin: 0 auto; padding: 0 15px; height: 60px; display: flex; align-items: center; justify-content: space-between; }
-            .logo { color: #fff; font-size: 20px; font-weight: bold; text-decoration: none; margin-right: 30px; }
+            .header-inner { max-width: 800px; margin: 0 auto; padding: 0 15px; height: 60px; display: flex; align-items: center; justify-content: space-between; }
+            .logo { color: #fff; font-size: 20px; font-weight: bold; text-decoration: none; margin-right: 30px; white-space: nowrap; }
             .nav-scroll { flex: 1; overflow-x: auto; white-space: nowrap; scrollbar-width: none; -ms-overflow-style: none; }
             .nav-scroll::-webkit-scrollbar { display: none; }
             .nav-btn { background: none; border: none; color: rgba(255,255,255,0.7); font-size: 15px; padding: 0 15px; cursor: pointer; height: 60px; line-height: 60px; transition: color 0.2s; }
             .nav-btn.active { color: #fff; font-weight: bold; border-bottom: 3px solid #fff; }
             
-            .container { max-width: 1100px; margin: 20px auto; padding: 0 15px; display: grid; grid-template-columns: 1fr 300px; gap: 20px; align-items: start; flex: 1; width: 100%; }
+            /* 【修改点】单栏居中布局，去除侧边栏占位 */
+            .container { max-width: 800px; margin: 30px auto; padding: 0 15px; flex: 1; width: 100%; }
 
             .news-list { background: transparent; }
-            .news-item { background: var(--white); margin-bottom: 15px; padding: 15px; display: flex; border: 1px solid #e0e0e0; border-radius: 4px; transition: box-shadow 0.2s; }
-            .news-item:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-color: #ccc; }
+            .news-item { background: var(--white); margin-bottom: 20px; padding: 20px; display: flex; border: 1px solid #e0e0e0; border-radius: 6px; transition: box-shadow 0.2s; }
+            .news-item:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.08); border-color: #ccc; transform: translateY(-2px); }
             
-            /* 图片容器 */
-            .item-img { width: 160px; height: 120px; flex-shrink: 0; margin-right: 20px; background: #f0f2f5; overflow: hidden; border-radius: 2px; position: relative; }
+            .item-img { width: 200px; height: 150px; flex-shrink: 0; margin-right: 25px; background: #f0f2f5; overflow: hidden; border-radius: 4px; position: relative; }
             .item-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; display: block; }
             .news-item:hover .item-img img { transform: scale(1.05); }
 
             .item-content { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-            .item-title { margin: 0 0 8px 0; font-size: 18px; line-height: 1.4; }
+            .item-title { margin: 0 0 10px 0; font-size: 19px; line-height: 1.4; font-weight: bold; }
             .item-title a { color: var(--text-main); text-decoration: none; }
             .item-title a:hover { color: var(--cb-blue); text-decoration: underline; }
-            .item-summary { font-size: 13px; color: #888; margin: 0 0 10px 0; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 38px; }
-            .item-meta { font-size: 12px; color: #999; display: flex; align-items: center; }
-            .meta-tag { margin-right: 10px; padding: 2px 6px; border-radius: 2px; }
+            .item-summary { font-size: 14px; color: #666; margin: 0 0 15px 0; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 45px; }
+            .item-meta { font-size: 13px; color: #999; display: flex; align-items: center; }
+            .meta-tag { margin-right: 12px; padding: 2px 8px; border-radius: 3px; font-weight: 500; }
             .tag-blue { background: #e6f0fa; color: var(--cb-blue); }
             
-            aside { background: var(--white); padding: 20px; border: 1px solid #e0e0e0; border-radius: 4px; position: sticky; top: 80px; }
-            .sidebar-title { font-size: 16px; border-left: 4px solid var(--cb-blue); padding-left: 10px; margin: 0 0 15px 0; color: #333; font-weight: bold; }
-            .sidebar-list { list-style: none; padding: 0; margin: 0; counter-reset: sidebar-counter; }
-            .sidebar-list li { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px dashed #eee; position: relative; padding-left: 28px; }
-            .sidebar-list li:last-child { border: none; }
-            .sidebar-list li::before { counter-increment: sidebar-counter; content: counter(sidebar-counter); position: absolute; left: 0; top: 2px; width: 20px; height: 20px; line-height: 20px; background: #ddd; color: #fff; text-align: center; border-radius: 4px; font-size: 12px; font-weight: bold; }
-            .sidebar-list li:nth-child(-n+3)::before { background: var(--cb-blue); }
-            .sidebar-list a { text-decoration: none; color: #555; font-size: 14px; line-height: 1.4; display: block; }
-            .sidebar-list a:hover { color: var(--cb-blue); }
-
-            .main-footer { background: #fff; border-top: 1px solid #e0e0e0; padding: 30px 0; margin-top: 40px; text-align: center; color: #999; font-size: 13px; width: 100%; }
+            /* Footer 样式 */
+            .main-footer { background: #fff; border-top: 1px solid #e0e0e0; padding: 40px 0; margin-top: 40px; text-align: center; color: #999; font-size: 13px; width: 100%; }
             .main-footer p { margin: 8px 0; }
             .main-footer a { color: #999; text-decoration: none; transition: color 0.2s; }
             .main-footer a:hover { color: var(--cb-blue); }
 
             @media (max-width: 768px) {
-                .container { grid-template-columns: 1fr; }
-                aside { display: none; }
-                .item-img { width: 100px; height: 75px; margin-right: 15px; }
-                .item-title { font-size: 16px; }
+                .item-img { width: 110px; height: 80px; margin-right: 15px; }
+                .item-title { font-size: 16px; margin-bottom: 5px; }
                 .item-summary { display: none; }
+                .news-item { padding: 15px; margin-bottom: 15px; }
                 .header-inner { padding: 0 10px; }
-                .main-footer { padding: 20px 0; margin-top: 20px; }
+                .container { margin: 15px auto; }
             }
         </style>
     </head>
@@ -87,6 +77,74 @@
         <div class="container">
             <main class="news-list" id="newsContainer">
                 
+        <article class="news-item" data-source="ithome">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/93672c81-d1b7-4bfc-a11a-00c07ab5d2b2.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ithome.com/0/900/531.htm" target="_blank">韩国第四次发射自研运载火箭“世界”号</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">IT之家</span>
+                    <span class="meta-date">11-27 07:45</span>
+                </div>
+                <p class="item-summary">IT之家 11 月 27 日消息，据央视新闻报道，当地时间 11 月 27 日凌晨，韩国自主研发的运载火箭“世界”号发射升空。这是“世界”号运载火箭第四次发射，也是该火箭首次在凌晨...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ithome">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/f1a7189c-12b6-431d-9c7a-8d6dcd27440e.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ithome.com/0/900/530.htm" target="_blank">《赛博朋克 2077》游戏全球累计销量突破 3500 万份</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">IT之家</span>
+                    <span class="meta-date">11-27 07:45</span>
+                </div>
+                <p class="item-summary">IT之家 11 月 27 日消息，开发商 CD Projekt RED（CDPR）在其 2025 年第三季度财报中宣布，旗下《赛博朋克 2077》游戏全球累计销量已正式突破 350...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ithome">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/9/9bbf4d96-60c2-4a5b-9c86-f18a1157075b.png%3Fx-bce-process%3Dimage/format%2Cf_auto/auto-orient%2Co_1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ithome.com/0/900/529.htm" target="_blank">理想 CEO 李想：具身智能最有价值产品将一定是具备自主能力的汽车</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">IT之家</span>
+                    <span class="meta-date">11-27 07:31</span>
+                </div>
+                <p class="item-summary">IT之家 11 月 27 日消息，理想汽车 CEO 李想在昨晚的理想汽车 2025Q3 财报会上提出观点称，未来 10 年，具身智能最有价值的产品一定是具备自动和主动能力的汽车。李...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="36kr">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.36krcdn.com/hsossms/20251126/v2_3b86461d16a849c881376631beef62f3%4012547972_oswg18940oswg437oswg388_img_png%3Fx-oss-process%3Dimage/quality%2Cq_100/format%2Cjpg/interlace%2C1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://36kr.com/p/3569573862439815?f=rss" target="_blank">36氪研究院 | 2025年中国出海零售品牌调研报告</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">36Kr</span>
+                    <span class="meta-date">11-27 07:30</span>
+                </div>
+                <p class="item-summary">在全球化与数字化浪潮的双重驱动下，中国出海零售品牌正迎来以“一体化商务”和“智能体商务”为核心的两大战略性变革。本报告基于对500家中国出海企业的深入调研，系统梳理了品牌在全球化进...</p>
+            </div>
+        </article>
+        
         <article class="news-item" data-source="ithome">
             
         <div class="item-img">
@@ -356,57 +414,6 @@
                     <span class="meta-date">11-26 22:38</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 26 日消息，索尼中国今天在B站宣布 α 新品发布会定档 12 月 2 日晚上 22 点整，有望推出 Alpha 7 V 全画幅无反相机等新品。结合IT之家此前...</p>
-            </div>
-        </article>
-        
-        <article class="news-item" data-source="ithome">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/d10e929f-34c2-48b1-87aa-e95068fd092c.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ithome.com/0/900/511.htm" target="_blank">英伟达 AI 芯片市场主导地位受挑战，股价 1 个月内大跌 14%</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">IT之家</span>
-                    <span class="meta-date">11-26 22:34</span>
-                </div>
-                <p class="item-summary">IT之家 11 月 26 日消息，据彭博社报道，英伟达公司正面临日益加剧的担忧：其在人工智能（AI）计算用半导体市场的主导地位正在松动。这种疑虑如今已开始在股票市场上显现。当地时间...</p>
-            </div>
-        </article>
-        
-        <article class="news-item" data-source="ithome">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/88962e15-5df2-4bde-a699-e03093d137c2.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ithome.com/0/900/509.htm" target="_blank">华为推出 Mate 80 RS 星钻保护壳：升级全包设计，售价 599 元</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">IT之家</span>
-                    <span class="meta-date">11-26 22:20</span>
-                </div>
-                <p class="item-summary">IT之家 11 月 26 日消息，Mate 80 RS 非凡大师星钻保护壳现已上架华为商城，相比 Mate 70RS 的星钻保护壳升级成全包设计，可以更好地保护手机边框，售价 59...</p>
-            </div>
-        </article>
-        
-        <article class="news-item" data-source="ithome">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/61848d24-0045-48e9-8af9-1d70fc9f1c62.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ithome.com/0/900/508.htm" target="_blank">华为 Mate 80 手机全系支持音质设置，可调尊享、舒享、静享三种模式</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">IT之家</span>
-                    <span class="meta-date">11-26 22:16</span>
-                </div>
-                <p class="item-summary">IT之家 11 月 26 日消息，今年 6 月，华为在 Pura 80 Pro / Pro+ / Ultra 系列机型上带来了音质设置功能，支持选择尊享、舒享、静享三种模式。IT之...</p>
             </div>
         </article>
         
@@ -1082,17 +1089,10 @@ Claude Opus 4.5 正式推出
         </article>
         
             </main>
-
-            <aside>
-                <h3 class="sidebar-title">今日头条</h3>
-                <ul class="sidebar-list">
-                    <li><a href="https://www.ithome.com/0/900/528.htm" target="_blank">苹果带屏 HomePod 前瞻：定位智能家居中枢，创新小组件、升级 Siri</a></li><li><a href="https://www.ithome.com/0/900/527.htm" target="_blank">英国新政：纯电及插混汽车将按行驶里程缴税</a></li><li><a href="https://www.ithome.com/0/900/526.htm" target="_blank">苹果再遭诉讼，被指在 iPhone 17 等产品中使用“冲突矿产”</a></li><li><a href="https://www.ithome.com/0/900/525.htm" target="_blank">Opera 更新 Neon 浏览器：引入 1 分钟深度研究、支持 AI 操作文档、集成 Gemini 3 Pro</a></li><li><a href="https://www.ithome.com/0/900/523.htm" target="_blank">华为 Mate 80 / X7 系列手机 HarmonyOS 6 系统亮点一览，支持 A2A 智能体协作、鸿蒙智能追焦等</a></li><li><a href="https://www.ithome.com/0/900/522.htm" target="_blank">消息称新款 iPad mini 要最早明年第三季度 / 第四季度上市，有望先 iPad Air 一步搭载 OLED 面板</a></li><li><a href="https://www.ithome.com/0/900/521.htm" target="_blank">小米精英驾驶・高阶驾驶培训今年最后一站“上海站”报名开启，首批 1 万人免费</a></li><li><a href="https://www.ithome.com/0/900/520.htm" target="_blank">特斯拉 Robotaxi 有望取消安全员，车内摄像头数据共享功能曝光</a></li><li><a href="https://www.ithome.com/0/900/519.htm" target="_blank">全球央行大调查：超六成没把 AI 用在核心业务，超九成不碰数字资产</a></li><li><a href="https://www.ithome.com/0/900/518.htm" target="_blank">华为 Mate X7 折叠屏旗舰手机定档 2025 年 12 月 11 日在迪拜发布</a></li>
-                </ul>
-            </aside>
         </div>
 
         <footer class="main-footer">
-            <p>更新于: 2025-11-27 07:29 (北京时间)</p>
+            <p>更新于: 2025-11-27 07:47 (北京时间)</p>
             <p><a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2025183710号-1</a></p>
             <p>&copy; 折疼记</p>
         </footer>
