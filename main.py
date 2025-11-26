@@ -22,19 +22,16 @@ feeds = [
 ]
 
 def get_image_from_html(html_content):
-    """ 智能提取图片：优先查找懒加载属性 """
+    """ 智能提取图片 """
     if not html_content: return None
     try:
         soup = BeautifulSoup(html_content, 'html.parser')
-        # 查找所有 img 标签
         imgs = soup.find_all('img')
         for img in imgs:
-            # 遍历常见的图片属性
             candidates = ['data-original', 'data-src', 'data-url', 'src']
             for attr in candidates:
                 url = img.get(attr)
                 if url and url.startswith('http'):
-                    # 过滤掉表情包、小图标、头像
                     if 'emoji' in url or '.gif' in url or 'avatar' in url: 
                         continue
                     return url
@@ -47,7 +44,6 @@ def process_image_url(original_url):
     original_url = original_url.strip()
     if not original_url.startswith('http'): return None
     encoded_url = urllib.parse.quote(original_url)
-    # 使用 wsrv.nl 代理
     return f"https://wsrv.nl/?url={encoded_url}&w=240&h=180&fit=cover&output=webp&q=80"
 
 def generate_html():
@@ -61,7 +57,7 @@ def generate_html():
             print(f"正在读取: {feed['name']}...")
             f = feedparser.parse(feed["url"])
             
-            # 【关键修改】增加抓取数量到 20，因为后面会过滤掉很多没图的
+            # 抓取前20条，备用过滤
             for entry in f.entries[:20]: 
                 content_html = ""
                 if hasattr(entry, 'content'): content_html = entry.content[0].value
@@ -71,7 +67,7 @@ def generate_html():
                 raw_img = get_image_from_html(content_html)
                 final_img = process_image_url(raw_img)
                 
-                # 【关键修改】后端过滤：如果没提取到图片，直接丢弃这条新闻
+                # 【强过滤】没有图片直接跳过
                 if not final_img:
                     continue
 
@@ -105,7 +101,7 @@ def generate_html():
 
     news_list_html = ""
     for art in articles:
-        # 【关键修改】前端过滤：onerror 时直接移除整个 .news-item 卡片
+        # 图片加载失败则删除整张卡片
         img_html = f'''
         <div class="item-img">
             <img src="{art["image"]}" loading="lazy" alt="封面" 
@@ -127,12 +123,6 @@ def generate_html():
         </article>
         """
     
-    # 侧边栏取前10条 (也是保证有图的，因为 articles 列表本身就已经过滤过了)
-    headline_articles = articles[:10]
-    sidebar_html = ""
-    for art in headline_articles:
-        sidebar_html += f'<li><a href="{art["link"]}" target="_blank">{art["title"]}</a></li>'
-
     tabs_html = '<button class="nav-btn active" onclick="filterNews(\'all\', this)">全部</button>'
     for feed in feeds[1:]:
         tabs_html += f'<button class="nav-btn" onclick="filterNews(\'{feed["id"]}\', this)">{feed["name"]}</button>'
@@ -164,56 +154,46 @@ def generate_html():
             body {{ font-family: "Microsoft YaHei", -apple-system, BlinkMacSystemFont, sans-serif; background: var(--cb-gray); margin: 0; color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }}
             
             header {{ background: var(--cb-blue); box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }}
-            .header-inner {{ max-width: 1100px; margin: 0 auto; padding: 0 15px; height: 60px; display: flex; align-items: center; justify-content: space-between; }}
-            .logo {{ color: #fff; font-size: 20px; font-weight: bold; text-decoration: none; margin-right: 30px; }}
+            .header-inner {{ max-width: 800px; margin: 0 auto; padding: 0 15px; height: 60px; display: flex; align-items: center; justify-content: space-between; }}
+            .logo {{ color: #fff; font-size: 20px; font-weight: bold; text-decoration: none; margin-right: 30px; white-space: nowrap; }}
             .nav-scroll {{ flex: 1; overflow-x: auto; white-space: nowrap; scrollbar-width: none; -ms-overflow-style: none; }}
             .nav-scroll::-webkit-scrollbar {{ display: none; }}
             .nav-btn {{ background: none; border: none; color: rgba(255,255,255,0.7); font-size: 15px; padding: 0 15px; cursor: pointer; height: 60px; line-height: 60px; transition: color 0.2s; }}
             .nav-btn.active {{ color: #fff; font-weight: bold; border-bottom: 3px solid #fff; }}
             
-            .container {{ max-width: 1100px; margin: 20px auto; padding: 0 15px; display: grid; grid-template-columns: 1fr 300px; gap: 20px; align-items: start; flex: 1; width: 100%; }}
+            /* 【修改点】单栏居中布局，去除侧边栏占位 */
+            .container {{ max-width: 800px; margin: 30px auto; padding: 0 15px; flex: 1; width: 100%; }}
 
             .news-list {{ background: transparent; }}
-            .news-item {{ background: var(--white); margin-bottom: 15px; padding: 15px; display: flex; border: 1px solid #e0e0e0; border-radius: 4px; transition: box-shadow 0.2s; }}
-            .news-item:hover {{ box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-color: #ccc; }}
+            .news-item {{ background: var(--white); margin-bottom: 20px; padding: 20px; display: flex; border: 1px solid #e0e0e0; border-radius: 6px; transition: box-shadow 0.2s; }}
+            .news-item:hover {{ box-shadow: 0 8px 20px rgba(0,0,0,0.08); border-color: #ccc; transform: translateY(-2px); }}
             
-            /* 图片容器 */
-            .item-img {{ width: 160px; height: 120px; flex-shrink: 0; margin-right: 20px; background: #f0f2f5; overflow: hidden; border-radius: 2px; position: relative; }}
+            .item-img {{ width: 200px; height: 150px; flex-shrink: 0; margin-right: 25px; background: #f0f2f5; overflow: hidden; border-radius: 4px; position: relative; }}
             .item-img img {{ width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; display: block; }}
             .news-item:hover .item-img img {{ transform: scale(1.05); }}
 
             .item-content {{ flex: 1; display: flex; flex-direction: column; justify-content: space-between; }}
-            .item-title {{ margin: 0 0 8px 0; font-size: 18px; line-height: 1.4; }}
+            .item-title {{ margin: 0 0 10px 0; font-size: 19px; line-height: 1.4; font-weight: bold; }}
             .item-title a {{ color: var(--text-main); text-decoration: none; }}
             .item-title a:hover {{ color: var(--cb-blue); text-decoration: underline; }}
-            .item-summary {{ font-size: 13px; color: #888; margin: 0 0 10px 0; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 38px; }}
-            .item-meta {{ font-size: 12px; color: #999; display: flex; align-items: center; }}
-            .meta-tag {{ margin-right: 10px; padding: 2px 6px; border-radius: 2px; }}
+            .item-summary {{ font-size: 14px; color: #666; margin: 0 0 15px 0; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 45px; }}
+            .item-meta {{ font-size: 13px; color: #999; display: flex; align-items: center; }}
+            .meta-tag {{ margin-right: 12px; padding: 2px 8px; border-radius: 3px; font-weight: 500; }}
             .tag-blue {{ background: #e6f0fa; color: var(--cb-blue); }}
             
-            aside {{ background: var(--white); padding: 20px; border: 1px solid #e0e0e0; border-radius: 4px; position: sticky; top: 80px; }}
-            .sidebar-title {{ font-size: 16px; border-left: 4px solid var(--cb-blue); padding-left: 10px; margin: 0 0 15px 0; color: #333; font-weight: bold; }}
-            .sidebar-list {{ list-style: none; padding: 0; margin: 0; counter-reset: sidebar-counter; }}
-            .sidebar-list li {{ margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px dashed #eee; position: relative; padding-left: 28px; }}
-            .sidebar-list li:last-child {{ border: none; }}
-            .sidebar-list li::before {{ counter-increment: sidebar-counter; content: counter(sidebar-counter); position: absolute; left: 0; top: 2px; width: 20px; height: 20px; line-height: 20px; background: #ddd; color: #fff; text-align: center; border-radius: 4px; font-size: 12px; font-weight: bold; }}
-            .sidebar-list li:nth-child(-n+3)::before {{ background: var(--cb-blue); }}
-            .sidebar-list a {{ text-decoration: none; color: #555; font-size: 14px; line-height: 1.4; display: block; }}
-            .sidebar-list a:hover {{ color: var(--cb-blue); }}
-
-            .main-footer {{ background: #fff; border-top: 1px solid #e0e0e0; padding: 30px 0; margin-top: 40px; text-align: center; color: #999; font-size: 13px; width: 100%; }}
+            /* Footer 样式 */
+            .main-footer {{ background: #fff; border-top: 1px solid #e0e0e0; padding: 40px 0; margin-top: 40px; text-align: center; color: #999; font-size: 13px; width: 100%; }}
             .main-footer p {{ margin: 8px 0; }}
             .main-footer a {{ color: #999; text-decoration: none; transition: color 0.2s; }}
             .main-footer a:hover {{ color: var(--cb-blue); }}
 
             @media (max-width: 768px) {{
-                .container {{ grid-template-columns: 1fr; }}
-                aside {{ display: none; }}
-                .item-img {{ width: 100px; height: 75px; margin-right: 15px; }}
-                .item-title {{ font-size: 16px; }}
+                .item-img {{ width: 110px; height: 80px; margin-right: 15px; }}
+                .item-title {{ font-size: 16px; margin-bottom: 5px; }}
                 .item-summary {{ display: none; }}
+                .news-item {{ padding: 15px; margin-bottom: 15px; }}
                 .header-inner {{ padding: 0 10px; }}
-                .main-footer {{ padding: 20px 0; margin-top: 20px; }}
+                .container {{ margin: 15px auto; }}
             }}
         </style>
     </head>
@@ -231,13 +211,6 @@ def generate_html():
             <main class="news-list" id="newsContainer">
                 {news_list_html}
             </main>
-
-            <aside>
-                <h3 class="sidebar-title">今日头条</h3>
-                <ul class="sidebar-list">
-                    {sidebar_html}
-                </ul>
-            </aside>
         </div>
 
         <footer class="main-footer">
