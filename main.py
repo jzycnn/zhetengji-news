@@ -1,188 +1,287 @@
 import feedparser
 import datetime
-import re
+import urllib.parse
 from bs4 import BeautifulSoup
 import ssl
+import random
 
-# 1. 解决旧版环境下 SSL 证书验证报错的问题
+# 1. SSL 证书修复
 if hasattr(ssl, '_create_unverified_context'):
     ssl._create_default_https_context = ssl._create_unverified_context
 
-# 2. 配置 RSS 新闻源
+# 2. 配置 RSS 源 (保持不变)
 feeds = [
-    {"name": "IT之家", "url": "https://www.ithome.com/rss/"},
-    {"name": "36Kr", "url": "https://36kr.com/feed"},
-    {"name": "Solidot", "url": "https://www.solidot.org/index.rss"},
-    {"name": "少数派", "url": "https://sspai.com/feed"},
-    {"name": "爱范儿", "url": "https://www.ifanr.com/feed"},
-    {"name": "月光博客", "url": "https://www.williamlong.info/rss.xml"},
+    {"id": "all", "name": "全部", "url": ""}, # 占位用于逻辑
+    {"id": "ithome", "name": "IT之家", "url": "https://www.ithome.com/rss/"},
+    {"id": "36kr", "name": "36Kr", "url": "https://36kr.com/feed"},
+    {"id": "solidot", "name": "Solidot", "url": "https://www.solidot.org/index.rss"},
+    {"id": "sspai", "name": "少数派", "url": "https://sspai.com/feed"},
+    {"id": "ifanr", "name": "爱范儿", "url": "https://www.ifanr.com/feed"},
+    {"id": "huxiu", "name": "虎嗅", "url": "https://www.huxiu.com/rss/0.xml"},
 ]
 
 def get_image_from_html(html_content):
-    """从 HTML 文本中提取第一张图片的 src"""
-    if not html_content:
-        return None
+    if not html_content: return None
     try:
         soup = BeautifulSoup(html_content, 'html.parser')
         img = soup.find('img')
-        if img and img.get('src'):
-            return img.get('src')
-    except:
-        return None
+        if img and img.get('src'): return img.get('src')
+    except: return None
     return None
+
+def process_image_url(original_url):
+    """ 图片代理与压缩 (cnBeta 风格不需要太大图，设定宽 240px) """
+    if not original_url: return None
+    original_url = original_url.strip()
+    if original_url.startswith('data:') or not original_url.startswith('http'): return None
+    # 使用 wsrv.nl 裁剪成 4:3 的小图，适合列表展示
+    encoded_url = urllib.parse.quote(original_url)
+    return f"https://wsrv.nl/?url={encoded_url}&w=240&h=180&fit=cover&output=webp"
 
 def generate_html():
     articles = []
-    
-    # 伪装浏览器 User-Agent，防止被拦截
     feedparser.USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
 
-    print("开始抓取新闻...")
-    for feed in feeds:
+    print("开始抓取...")
+    
+    # 真正的 RSS 源是从 feeds 列表的第2个开始
+    for feed in feeds[1:]:
         try:
             print(f"正在读取: {feed['name']}...")
-            # 增加 bozo_exception 容错处理
             f = feedparser.parse(feed["url"])
-            
-            for entry in f.entries[:8]: # 每个源只取最新的 8 条
-                # --- 图片提取逻辑 ---
+            for entry in f.entries[:10]: # 稍微多抓一点，丰富内容
+                # 图片处理
                 content_html = ""
-                if hasattr(entry, 'content'):
-                    content_html = entry.content[0].value
-                elif hasattr(entry, 'summary'):
-                    content_html = entry.summary
-                elif hasattr(entry, 'description'):
-                    content_html = entry.description
-
-                img_url = get_image_from_html(content_html)
+                if hasattr(entry, 'content'): content_html = entry.content[0].value
+                elif hasattr(entry, 'summary'): content_html = entry.summary
+                elif hasattr(entry, 'description'): content_html = entry.description
                 
-                # --- 时间处理逻辑 ---
-                pub_time = "刚刚"
-                if hasattr(entry, 'published'):
-                    pub_time = entry.published[:16] 
-                elif hasattr(entry, 'updated'):
-                    pub_time = entry.updated[:16]
+                raw_img = get_image_from_html(content_html)
+                final_img = process_image_url(raw_img)
+                
+                # 摘要处理 (截取纯文本)
+                summary_text = BeautifulSoup(content_html, 'html.parser').get_text()[:100] + "..." if content_html else "点击查看详情..."
 
-                # --- 存入数据 ---
+                # 时间处理
+                pub_time = entry.get('published', entry.get('updated', '最新'))[:16]
+
                 articles.append({
                     "title": entry.title,
                     "link": entry.link,
                     "date": pub_time,
                     "source": feed["name"],
-                    "image": img_url,
-                    # 获取时间戳用于排序，若无则使用当前时间
+                    "source_id": feed["id"], # 用于前端筛选
+                    "image": final_img,
+                    "summary": summary_text,
                     "timestamp": entry.get("published_parsed", datetime.datetime.now().timetuple())
                 })
         except Exception as e:
-            print(f"Error parsing {feed['name']}: {e}")
+            print(f"Error: {e}")
             continue
 
-    # 按时间倒序排序（最新的在前）
     articles.sort(key=lambda x: x["timestamp"] if x["timestamp"] else tuple(), reverse=True)
 
-    # 生成卡片 HTML
-    cards_html = ""
-    for article in articles:
+    # 生成左侧新闻列表 HTML
+    news_list_html = ""
+    for art in articles:
         img_html = ""
-        if article["image"]:
-            # 有图模式
-            img_html = f'<div class="card-img" style="background-image: url(\'{article["image"]}\');"></div>'
+        if art["image"]:
+            img_html = f'<div class="item-img"><img src="{art["image"]}" loading="lazy" alt="封面"></div>'
         else:
-            # 无图模式
-            img_html = f'<div class="card-img no-img"><span>{article["source"]}</span></div>'
+            # 无图时显示一个蓝色块，或者不显示，这里模仿 cnBeta 显示 LOGO 占位
+            img_html = f'<div class="item-img no-img">{art["source"][0]}</div>'
 
-        cards_html += f"""
-        <article class="card">
-            <a href="{article["link"]}" target="_blank" class="card-link">
-                {img_html}
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">{article["source"]}</span>
-                        <span class="time-tag">{article["date"]}</span>
-                    </div>
-                    <h3 class="card-title">{article["title"]}</h3>
+        news_list_html += f"""
+        <article class="news-item" data-source="{art['source_id']}">
+            {img_html}
+            <div class="item-content">
+                <h2 class="item-title"><a href="{art['link']}" target="_blank">{art['title']}</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">{art['source']}</span>
+                    <span class="meta-date">{art['date']}</span>
                 </div>
-            </a>
+                <p class="item-summary">{art['summary']}</p>
+            </div>
         </article>
         """
+    
+    # 生成右侧“热门/随机推荐” HTML (简单模拟)
+    random_articles = random.sample(articles, min(5, len(articles)))
+    sidebar_html = ""
+    for art in random_articles:
+        sidebar_html += f'<li><a href="{art["link"]}" target="_blank">{art["title"]}</a></li>'
+
+    # 生成顶部导航 Tabs
+    tabs_html = '<button class="nav-btn active" onclick="filterNews(\'all\', this)">全部</button>'
+    for feed in feeds[1:]:
+        tabs_html += f'<button class="nav-btn" onclick="filterNews(\'{feed["id"]}\', this)">{feed["name"]}</button>'
 
     update_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
 
-    # --- 完整的 HTML 模板 ---
+    # --- HTML 模板 (cnBeta 风格) ---
     template = f"""
     <!DOCTYPE html>
     <html lang="zh-CN">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- 这里的 no-referrer 是为了让部分防盗链图片能显示 -->
+        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
         <meta name="referrer" content="no-referrer">
-        <meta name="description" content="折疼记 - 每日自动更新的 IT 科技新闻聚合站">
-        <title>折疼记 - 科技早报</title>
+        <meta name="description" content="折疼记 - IT资讯聚合">
+        <title>折疼记 - 科技资讯</title>
         <style>
             :root {{
-                --primary: #d32f2f; /* 主色调：深红 */
-                --bg: #f5f7fa;
-                --card-bg: #ffffff;
-                --text: #2c3e50;
+                --cb-blue: #0b63b6; /* cnBeta 经典蓝 */
+                --cb-dark: #1f2937;
+                --cb-gray: #f2f2f2;
+                --text-main: #333;
+                --text-sub: #666;
+                --white: #fff;
             }}
-            body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: var(--bg); margin: 0; color: var(--text); }}
+            * {{ box-sizing: border-box; }}
+            body {{ 
+                font-family: "Microsoft YaHei", -apple-system, BlinkMacSystemFont, sans-serif; 
+                background: var(--cb-gray); 
+                margin: 0; 
+                color: var(--text-main); 
+            }}
             
-            /* 顶部导航 */
-            header {{ background: var(--primary); color: #fff; padding: 1rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 999; }}
-            .header-content {{ max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }}
-            .brand {{ font-size: 1.5rem; font-weight: bold; letter-spacing: 1px; }}
-            .time {{ font-size: 0.85rem; opacity: 0.8; }}
+            /* 顶部导航条 */
+            header {{ 
+                background: var(--cb-blue); 
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+                position: sticky; top: 0; z-index: 1000; 
+            }}
+            .header-inner {{ 
+                max-width: 1100px; margin: 0 auto; padding: 0 15px; height: 60px; 
+                display: flex; align-items: center; justify-content: space-between;
+            }}
+            .logo {{ color: #fff; font-size: 20px; font-weight: bold; text-decoration: none; margin-right: 30px; }}
+            .nav-scroll {{ 
+                flex: 1; overflow-x: auto; white-space: nowrap; 
+                scrollbar-width: none; /* 隐藏滚动条 */
+                -ms-overflow-style: none;
+            }}
+            .nav-scroll::-webkit-scrollbar {{ display: none; }}
+            
+            .nav-btn {{ 
+                background: none; border: none; color: rgba(255,255,255,0.7); 
+                font-size: 15px; padding: 0 15px; cursor: pointer; height: 60px; line-height: 60px;
+                transition: color 0.2s;
+            }}
+            .nav-btn.active {{ color: #fff; font-weight: bold; border-bottom: 3px solid #fff; }}
+            .nav-btn:hover {{ color: #fff; }}
 
-            /* 主体网格 */
-            main {{ max-width: 1200px; margin: 2rem auto; padding: 0 15px; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }}
+            /* 主体布局：双栏 */
+            .container {{ 
+                max-width: 1100px; margin: 20px auto; padding: 0 15px; 
+                display: grid; grid-template-columns: 1fr 300px; gap: 20px;
+                align-items: start;
+            }}
 
-            /* 卡片样式 */
-            .card {{ background: var(--card-bg); border-radius: 10px; overflow: hidden; transition: all 0.3s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 1px solid #eaeaea; }}
-            .card:hover {{ transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }}
-            .card-link {{ text-decoration: none; color: inherit; display: block; height: 100%; }}
+            /* 左侧列表 */
+            .news-list {{ background: transparent; }}
+            .news-item {{ 
+                background: var(--white); margin-bottom: 15px; padding: 15px; 
+                display: flex; border: 1px solid #e0e0e0; border-radius: 4px;
+                transition: box-shadow 0.2s;
+            }}
+            .news-item:hover {{ box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-color: #ccc; }}
             
-            /* 图片部分 */
-            .card-img {{ height: 150px; background-size: cover; background-position: center; }}
-            .no-img {{ display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #f6f7f9 0%, #e3e5e8 100%); color: #999; font-weight: bold; font-size: 1.2rem; }}
+            .item-img {{ 
+                width: 160px; height: 120px; flex-shrink: 0; margin-right: 20px; 
+                background: #eee; overflow: hidden; border-radius: 2px;
+            }}
+            .item-img img {{ width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }}
+            .news-item:hover .item-img img {{ transform: scale(1.05); }}
             
-            /* 文字部分 */
-            .card-content {{ padding: 15px; display: flex; flex-direction: column; height: 110px; justify-content: space-between; }}
-            .card-meta {{ display: flex; justify-content: space-between; font-size: 0.75rem; color: #888; margin-bottom: 8px; }}
-            .source-tag {{ background: #fef2f2; color: var(--primary); padding: 2px 6px; border-radius: 4px; font-weight: 500; }}
-            .card-title {{ margin: 0; font-size: 1rem; line-height: 1.5; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-weight: 600; }}
+            .no-img {{ display: flex; align-items: center; justify-content: center; color: var(--cb-blue); font-size: 2rem; font-weight: bold; background: #eef4fa; }}
+
+            .item-content {{ flex: 1; display: flex; flex-direction: column; justify-content: space-between; }}
+            .item-title {{ margin: 0 0 8px 0; font-size: 18px; line-height: 1.4; }}
+            .item-title a {{ color: var(--text-main); text-decoration: none; }}
+            .item-title a:hover {{ color: var(--cb-blue); text-decoration: underline; }}
             
-            /* 底部样式 */
-            footer {{ text-align: center; padding: 3rem 0; color: #999; font-size: 0.85rem; line-height: 1.8; }}
-            footer a {{ color: #666; text-decoration: none; transition: color 0.2s; }}
-            footer a:hover {{ color: var(--primary); }}
+            .item-summary {{ font-size: 13px; color: #888; margin: 0 0 10px 0; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 38px; }}
             
+            .item-meta {{ font-size: 12px; color: #999; display: flex; align-items: center; }}
+            .meta-tag {{ margin-right: 10px; padding: 2px 6px; border-radius: 2px; }}
+            .tag-blue {{ background: #e6f0fa; color: var(--cb-blue); }}
+            
+            /* 右侧侧边栏 */
+            aside {{ background: var(--white); padding: 20px; border: 1px solid #e0e0e0; border-radius: 4px; position: sticky; top: 80px; }}
+            .sidebar-title {{ font-size: 16px; border-left: 4px solid var(--cb-blue); padding-left: 10px; margin: 0 0 15px 0; color: #333; }}
+            .sidebar-list {{ list-style: none; padding: 0; margin: 0; }}
+            .sidebar-list li {{ margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px dashed #eee; }}
+            .sidebar-list li:last-child {{ border: none; margin: 0; padding: 0; }}
+            .sidebar-list a {{ text-decoration: none; color: #555; font-size: 14px; line-height: 1.4; display: block; }}
+            .sidebar-list a:hover {{ color: var(--cb-blue); }}
+
+            .beian-info {{ margin-top: 30px; font-size: 12px; color: #aaa; text-align: center; border-top: 1px solid #eee; padding-top: 20px; }}
+            .beian-info a {{ color: #aaa; text-decoration: none; }}
+
             /* 移动端适配 */
-            @media (max-width: 600px) {{
-                main {{ grid-template-columns: 1fr; }}
-                .card-img {{ height: 180px; }}
+            @media (max-width: 768px) {{
+                .container {{ grid-template-columns: 1fr; }}
+                aside {{ display: none; /* 手机端暂时隐藏侧边栏 */ }}
+                .item-img {{ width: 100px; height: 75px; margin-right: 15px; }}
+                .item-title {{ font-size: 16px; }}
+                .item-summary {{ display: none; /* 手机端不显示摘要，太挤 */ }}
+                .header-inner {{ padding: 0 10px; }}
             }}
         </style>
     </head>
     <body>
         <header>
-            <div class="header-content">
-                <div class="brand">折疼记</div>
-                <div class="time">更新: {update_time}</div>
+            <div class="header-inner">
+                <a href="#" class="logo">折疼记</a>
+                <div class="nav-scroll" id="navBar">
+                    {tabs_html}
+                </div>
             </div>
         </header>
-        
-        <main>
-            {cards_html}
-        </main>
 
-        <footer>
-            <p>聚合全网科技热点</p>
-            <p>
-                <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">浙ICP备2025183710号-1</a>
-            </p>
-            <p>&copy; {datetime.datetime.now().year} 折疼记. Powered by EdgeOne Pages.</p>
-        </footer>
+        <div class="container">
+            <!-- 左侧新闻流 -->
+            <main class="news-list" id="newsContainer">
+                {news_list_html}
+            </main>
+
+            <!-- 右侧侧边栏 -->
+            <aside>
+                <h3 class="sidebar-title">随机推荐</h3>
+                <ul class="sidebar-list">
+                    {sidebar_html}
+                </ul>
+                
+                <div class="beian-info">
+                    <p>更新于: {update_time}</p>
+                    <p><a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2025183710号-1</a></p>
+                    <p>&copy; 折疼记</p>
+                </div>
+            </aside>
+        </div>
+
+        <script>
+            function filterNews(sourceId, btn) {{
+                // 1. 按钮样式切换
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // 2. 筛选内容
+                const items = document.querySelectorAll('.news-item');
+                items.forEach(item => {{
+                    if (sourceId === 'all' || item.getAttribute('data-source') === sourceId) {{
+                        item.style.display = 'flex';
+                    }} else {{
+                        item.style.display = 'none';
+                    }}
+                }});
+                
+                // 3. 回到顶部 (优化体验)
+                window.scrollTo({{ top: 0, behavior: 'smooth' }});
+            }}
+        </script>
     </body>
     </html>
     """
