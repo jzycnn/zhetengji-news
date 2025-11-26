@@ -4,698 +4,952 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- 这里的 no-referrer 是为了让部分防盗链图片能显示 -->
+        <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
         <meta name="referrer" content="no-referrer">
-        <meta name="description" content="折疼记 - 每日自动更新的 IT 科技新闻聚合站">
-        <title>折疼记 - 科技早报</title>
+        <meta name="description" content="折疼记 - IT资讯聚合">
+        <title>折疼记 - 科技资讯</title>
         <style>
             :root {
-                --primary: #d32f2f; /* 主色调：深红 */
-                --bg: #f5f7fa;
-                --card-bg: #ffffff;
-                --text: #2c3e50;
+                --cb-blue: #0b63b6; /* cnBeta 经典蓝 */
+                --cb-dark: #1f2937;
+                --cb-gray: #f2f2f2;
+                --text-main: #333;
+                --text-sub: #666;
+                --white: #fff;
             }
-            body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: var(--bg); margin: 0; color: var(--text); }
+            * { box-sizing: border-box; }
+            body { 
+                font-family: "Microsoft YaHei", -apple-system, BlinkMacSystemFont, sans-serif; 
+                background: var(--cb-gray); 
+                margin: 0; 
+                color: var(--text-main); 
+            }
             
-            /* 顶部导航 */
-            header { background: var(--primary); color: #fff; padding: 1rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 999; }
-            .header-content { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
-            .brand { font-size: 1.5rem; font-weight: bold; letter-spacing: 1px; }
-            .time { font-size: 0.85rem; opacity: 0.8; }
+            /* 顶部导航条 */
+            header { 
+                background: var(--cb-blue); 
+                box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+                position: sticky; top: 0; z-index: 1000; 
+            }
+            .header-inner { 
+                max-width: 1100px; margin: 0 auto; padding: 0 15px; height: 60px; 
+                display: flex; align-items: center; justify-content: space-between;
+            }
+            .logo { color: #fff; font-size: 20px; font-weight: bold; text-decoration: none; margin-right: 30px; }
+            .nav-scroll { 
+                flex: 1; overflow-x: auto; white-space: nowrap; 
+                scrollbar-width: none; /* 隐藏滚动条 */
+                -ms-overflow-style: none;
+            }
+            .nav-scroll::-webkit-scrollbar { display: none; }
+            
+            .nav-btn { 
+                background: none; border: none; color: rgba(255,255,255,0.7); 
+                font-size: 15px; padding: 0 15px; cursor: pointer; height: 60px; line-height: 60px;
+                transition: color 0.2s;
+            }
+            .nav-btn.active { color: #fff; font-weight: bold; border-bottom: 3px solid #fff; }
+            .nav-btn:hover { color: #fff; }
 
-            /* 主体网格 */
-            main { max-width: 1200px; margin: 2rem auto; padding: 0 15px; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+            /* 主体布局：双栏 */
+            .container { 
+                max-width: 1100px; margin: 20px auto; padding: 0 15px; 
+                display: grid; grid-template-columns: 1fr 300px; gap: 20px;
+                align-items: start;
+            }
 
-            /* 卡片样式 */
-            .card { background: var(--card-bg); border-radius: 10px; overflow: hidden; transition: all 0.3s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 1px solid #eaeaea; }
-            .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-            .card-link { text-decoration: none; color: inherit; display: block; height: 100%; }
+            /* 左侧列表 */
+            .news-list { background: transparent; }
+            .news-item { 
+                background: var(--white); margin-bottom: 15px; padding: 15px; 
+                display: flex; border: 1px solid #e0e0e0; border-radius: 4px;
+                transition: box-shadow 0.2s;
+            }
+            .news-item:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-color: #ccc; }
             
-            /* 图片部分 */
-            .card-img { height: 150px; background-size: cover; background-position: center; }
-            .no-img { display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #f6f7f9 0%, #e3e5e8 100%); color: #999; font-weight: bold; font-size: 1.2rem; }
+            .item-img { 
+                width: 160px; height: 120px; flex-shrink: 0; margin-right: 20px; 
+                background: #eee; overflow: hidden; border-radius: 2px;
+            }
+            .item-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+            .news-item:hover .item-img img { transform: scale(1.05); }
             
-            /* 文字部分 */
-            .card-content { padding: 15px; display: flex; flex-direction: column; height: 110px; justify-content: space-between; }
-            .card-meta { display: flex; justify-content: space-between; font-size: 0.75rem; color: #888; margin-bottom: 8px; }
-            .source-tag { background: #fef2f2; color: var(--primary); padding: 2px 6px; border-radius: 4px; font-weight: 500; }
-            .card-title { margin: 0; font-size: 1rem; line-height: 1.5; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-weight: 600; }
+            .no-img { display: flex; align-items: center; justify-content: center; color: var(--cb-blue); font-size: 2rem; font-weight: bold; background: #eef4fa; }
+
+            .item-content { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
+            .item-title { margin: 0 0 8px 0; font-size: 18px; line-height: 1.4; }
+            .item-title a { color: var(--text-main); text-decoration: none; }
+            .item-title a:hover { color: var(--cb-blue); text-decoration: underline; }
             
-            /* 底部样式 */
-            footer { text-align: center; padding: 3rem 0; color: #999; font-size: 0.85rem; line-height: 1.8; }
-            footer a { color: #666; text-decoration: none; transition: color 0.2s; }
-            footer a:hover { color: var(--primary); }
+            .item-summary { font-size: 13px; color: #888; margin: 0 0 10px 0; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 38px; }
             
+            .item-meta { font-size: 12px; color: #999; display: flex; align-items: center; }
+            .meta-tag { margin-right: 10px; padding: 2px 6px; border-radius: 2px; }
+            .tag-blue { background: #e6f0fa; color: var(--cb-blue); }
+            
+            /* 右侧侧边栏 */
+            aside { background: var(--white); padding: 20px; border: 1px solid #e0e0e0; border-radius: 4px; position: sticky; top: 80px; }
+            .sidebar-title { font-size: 16px; border-left: 4px solid var(--cb-blue); padding-left: 10px; margin: 0 0 15px 0; color: #333; }
+            .sidebar-list { list-style: none; padding: 0; margin: 0; }
+            .sidebar-list li { margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px dashed #eee; }
+            .sidebar-list li:last-child { border: none; margin: 0; padding: 0; }
+            .sidebar-list a { text-decoration: none; color: #555; font-size: 14px; line-height: 1.4; display: block; }
+            .sidebar-list a:hover { color: var(--cb-blue); }
+
+            .beian-info { margin-top: 30px; font-size: 12px; color: #aaa; text-align: center; border-top: 1px solid #eee; padding-top: 20px; }
+            .beian-info a { color: #aaa; text-decoration: none; }
+
             /* 移动端适配 */
-            @media (max-width: 600px) {
-                main { grid-template-columns: 1fr; }
-                .card-img { height: 180px; }
+            @media (max-width: 768px) {
+                .container { grid-template-columns: 1fr; }
+                aside { display: none; /* 手机端暂时隐藏侧边栏 */ }
+                .item-img { width: 100px; height: 75px; margin-right: 15px; }
+                .item-title { font-size: 16px; }
+                .item-summary { display: none; /* 手机端不显示摘要，太挤 */ }
+                .header-inner { padding: 0 10px; }
             }
         </style>
     </head>
     <body>
         <header>
-            <div class="header-content">
-                <div class="brand">折疼记</div>
-                <div class="time">更新: 2025-11-26 22:36</div>
+            <div class="header-inner">
+                <a href="#" class="logo">折疼记</a>
+                <div class="nav-scroll" id="navBar">
+                    <button class="nav-btn active" onclick="filterNews('all', this)">全部</button><button class="nav-btn" onclick="filterNews('ithome', this)">IT之家</button><button class="nav-btn" onclick="filterNews('36kr', this)">36Kr</button><button class="nav-btn" onclick="filterNews('solidot', this)">Solidot</button><button class="nav-btn" onclick="filterNews('sspai', this)">少数派</button><button class="nav-btn" onclick="filterNews('ifanr', this)">爱范儿</button><button class="nav-btn" onclick="filterNews('huxiu', this)">虎嗅</button>
+                </div>
             </div>
         </header>
-        
-        <main>
-            
-        <article class="card">
-            <a href="https://www.ithome.com/0/900/523.htm" target="_blank" class="card-link">
-                <div class="card-img" style="background-image: url('https://img.ithome.com/newsuploadfiles/2025/11/5ca178e7-b8d2-4316-a8fa-be27decc19c0.jpg?x-bce-process=image/format,f_auto/auto-orient,o_1');"></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">IT之家</span>
-                        <span class="time-tag">Wed, 26 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">华为 Mate 80 / X7 系列手机 HarmonyOS 6 系统亮点一览，支持 A2A 智能体协作、鸿蒙智能追焦等</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.ithome.com/0/900/522.htm" target="_blank" class="card-link">
-                <div class="card-img" style="background-image: url('https://img.ithome.com/newsuploadfiles/2025/11/ea0d4f59-77f3-4943-b2cc-e9639fa17755.jpg?x-bce-process=image/format,f_auto');"></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">IT之家</span>
-                        <span class="time-tag">Wed, 26 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">消息称新款 iPad mini 要最早明年第三季度 / 第四季度上市，有望先 iPad Air 一步搭载 OLED 面板</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.solidot.org/story?sid=82902" target="_blank" class="card-link">
-                <div class="card-img no-img"><span>Solidot</span></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">Solidot</span>
-                        <span class="time-tag">Wed, 26 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">欧洲议会呼吁限制未成年人使用社媒</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.ithome.com/0/900/521.htm" target="_blank" class="card-link">
-                <div class="card-img" style="background-image: url('https://img.ithome.com/newsuploadfiles/2025/11/ecef9fe7-e9a2-47b2-8e26-525645961e64.jpg?x-bce-process=image/format,f_auto');"></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">IT之家</span>
-                        <span class="time-tag">Wed, 26 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">小米精英驾驶・高阶驾驶培训今年最后一站“上海站”报名开启，首批 1 万人免费</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.solidot.org/story?sid=82901" target="_blank" class="card-link">
-                <div class="card-img no-img"><span>Solidot</span></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">Solidot</span>
-                        <span class="time-tag">Wed, 26 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">马来西亚柔佛州停止批准一级和二级数据中心</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.ithome.com/0/900/520.htm" target="_blank" class="card-link">
-                <div class="card-img" style="background-image: url('https://img.ithome.com/newsuploadfiles/2025/11/7bc74d75-415d-4ae5-b253-25eb201f5abd.jpg?x-bce-process=image/format,f_auto');"></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">IT之家</span>
-                        <span class="time-tag">Wed, 26 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">特斯拉 Robotaxi 有望取消安全员，车内摄像头数据共享功能曝光</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.ithome.com/0/900/519.htm" target="_blank" class="card-link">
-                <div class="card-img" style="background-image: url('https://img.ithome.com/newsuploadfiles/2025/11/e7c97fa0-51ad-42a3-9a4b-e8af9659f4b8.jpg?x-bce-process=image/format,f_auto');"></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">IT之家</span>
-                        <span class="time-tag">Wed, 26 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">全球央行大调查：超六成没把 AI 用在核心业务，超九成不碰数字资产</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.ithome.com/0/900/518.htm" target="_blank" class="card-link">
-                <div class="card-img" style="background-image: url('https://img.ithome.com/newsuploadfiles/2025/11/1fbf073d-e174-4dc3-b536-b8ca5729fa29.jpg?x-bce-process=image/format,f_auto');"></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">IT之家</span>
-                        <span class="time-tag">Wed, 26 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">华为 Mate X7 折叠屏旗舰手机定档 2025 年 12 月 11 日在迪拜发布</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.ithome.com/0/900/517.htm" target="_blank" class="card-link">
-                <div class="card-img" style="background-image: url('https://img.ithome.com/newsuploadfiles/2025/11/a5325b82-e43c-4240-8c92-e3e50bf4efb3.jpg?x-bce-process=image/format,f_auto');"></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">IT之家</span>
-                        <span class="time-tag">Wed, 26 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">影石向攻克渐冻症慈善信托捐赠 300 万元，蔡磊致谢</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.ithome.com/0/900/516.htm" target="_blank" class="card-link">
-                <div class="card-img" style="background-image: url('https://img.ithome.com/newsuploadfiles/2025/11/3c58e5ad-b2ef-483c-a7ab-af0eff268fdc.jpg?x-bce-process=image/format,f_auto');"></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">IT之家</span>
-                        <span class="time-tag">Wed, 26 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">曝三星正研发新一代 Odyssey OLED G6 显示器：27 英寸 2K 面板，有望明年上市</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.solidot.org/story?sid=82900" target="_blank" class="card-link">
-                <div class="card-img no-img"><span>Solidot</span></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">Solidot</span>
-                        <span class="time-tag">Wed, 26 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">研究揭示大脑如何调配有限的工作记忆资源</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.solidot.org/story?sid=82899" target="_blank" class="card-link">
-                <div class="card-img no-img"><span>Solidot</span></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">Solidot</span>
-                        <span class="time-tag">Wed, 26 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">东南亚地区遭遇创纪录降雨和洪灾</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.ifanr.com/1646166?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank" class="card-link">
-                <div class="card-img" style="background-image: url('https://s3.ifanr.com/wp-content/uploads/2025/11/1-21.jpg');"></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">爱范儿</span>
-                        <span class="time-tag">Wed, 26 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">双座敞篷传奇落幕，宝马 Z4 即将停产</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://36kr.com/p/3569792504626311?f=rss" target="_blank" class="card-link">
-                <div class="card-img no-img"><span>36Kr</span></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">36Kr</span>
-                        <span class="time-tag">2025-11-26 19:17</span>
-                    </div>
-                    <h3 class="card-title">氪星晚报｜星动纪元与联合国工业发展组织达成战略合作；阿里千问进入电脑桌面，覆盖超1亿用户；渠江特大桥主桥成功合龙，成达万高铁全线路基工程进度超98%</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.ifanr.com/1646219?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank" class="card-link">
-                <div class="card-img" style="background-image: url('https://s3.ifanr.com/wp-content/uploads/2025/11/GT-T.jpg');"></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">爱范儿</span>
-                        <span class="time-tag">Wed, 26 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">高通发布了第五代骁龙 8，它和第五代骁龙 8 至尊版有什么不一样？</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://36kr.com/p/3548417282732163?f=rss" target="_blank" class="card-link">
-                <div class="card-img" style="background-image: url('https://img.36krcdn.com/hsossms/20251126/v2_ba6e96cc068d4a34ac15a17b75799eec@1934172915_oswg3907006oswg3200oswg2133_img_jpg?x-oss-process=image/quality,q_80/format,jpg/interlace,1');"></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">36Kr</span>
-                        <span class="time-tag">2025-11-26 17:46</span>
-                    </div>
-                    <h3 class="card-title">美国电吉他品牌「Fender」中国首开体验空间，营收增速已超两位数丨早期项目</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.ifanr.com/1646168?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank" class="card-link">
-                <div class="card-img" style="background-image: url('https://s3.ifanr.com/wp-content/uploads/2025/11/VS-DwarkeshPateldwarkeshspX-0124.jpg');"></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">爱范儿</span>
-                        <span class="time-tag">Wed, 26 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">Ilya 罕见发声：Scaling 时代已结束，我们对 AGI 的定义可能全错了</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://36kr.com/p/3568209254562693?f=rss" target="_blank" class="card-link">
-                <div class="card-img" style="background-image: url('https://img.36krcdn.com/hsossms/20251126/v2_3b5b58fe1aeb4dd291f99dda7df3f383@6208701_oswg10374367oswg3024oswg4032_img_png?x-oss-process=image/quality,q_80/format,jpg/interlace,1');"></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">36Kr</span>
-                        <span class="time-tag">2025-11-26 17:46</span>
-                    </div>
-                    <h3 class="card-title">反社交媒体时代，在「盲盒饭局」中重建关系的年轻人 | 早期项目</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://sspai.com/post/104007" target="_blank" class="card-link">
-                <div class="card-img no-img"><span>少数派</span></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">少数派</span>
-                        <span class="time-tag">Wed, 26 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">「捡垃圾」搭建远程文件服务器，顺便聊聊飞牛付费穿透</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.solidot.org/story?sid=82898" target="_blank" class="card-link">
-                <div class="card-img no-img"><span>Solidot</span></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">Solidot</span>
-                        <span class="time-tag">Wed, 26 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">美国网红对他们无法购买的中国造电动汽车赞不绝口</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://36kr.com/p/3569587200277633?f=rss" target="_blank" class="card-link">
-                <div class="card-img no-img"><span>36Kr</span></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">36Kr</span>
-                        <span class="time-tag">2025-11-26 15:32</span>
-                    </div>
-                    <h3 class="card-title">求购新凯来公司、Momenta公司老股份额；转让持有XAI老股的基金LP份额｜资情留言板第174期</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.solidot.org/story?sid=82897" target="_blank" class="card-link">
-                <div class="card-img no-img"><span>Solidot</span></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">Solidot</span>
-                        <span class="time-tag">Wed, 26 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">上一次有射击游戏销量超过《使命召唤》是 2006 年</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://sspai.com/post/84574" target="_blank" class="card-link">
-                <div class="card-img no-img"><span>少数派</span></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">少数派</span>
-                        <span class="time-tag">Wed, 26 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">入门到精通：从今天开始成为感冒专家</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.ifanr.com/1646048?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank" class="card-link">
-                <div class="card-img" style="background-image: url('https://s3.ifanr.com/wp-content/uploads/2025/11/d6274656c3229f2ce016a5a0a3735b74.jpeg');"></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">爱范儿</span>
-                        <span class="time-tag">Wed, 26 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">夸克 AI 浏览器全面升级，可随时唤起千问</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.solidot.org/story?sid=82896" target="_blank" class="card-link">
-                <div class="card-img no-img"><span>Solidot</span></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">Solidot</span>
-                        <span class="time-tag">Wed, 26 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">FX 将制作改编自《孤岛惊魂》的电视剧</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.solidot.org/story?sid=82895" target="_blank" class="card-link">
-                <div class="card-img no-img"><span>Solidot</span></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">Solidot</span>
-                        <span class="time-tag">Wed, 26 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">AI 并不能思考</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://36kr.com/p/3569503374703747?f=rss" target="_blank" class="card-link">
-                <div class="card-img no-img"><span>36Kr</span></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">36Kr</span>
-                        <span class="time-tag">2025-11-26 14:13</span>
-                    </div>
-                    <h3 class="card-title">字节旗下番茄系2024年收入超300亿，今年有望翻倍｜36氪独家</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://sspai.com/post/103819" target="_blank" class="card-link">
-                <div class="card-img no-img"><span>少数派</span></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">少数派</span>
-                        <span class="time-tag">Wed, 26 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">谈谈不自律的良好生活</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.ifanr.com/1646112?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank" class="card-link">
-                <div class="card-img" style="background-image: url('https://s3.ifanr.com/wp-content/uploads/2025/11/header-ver-c.jpeg');"></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">爱范儿</span>
-                        <span class="time-tag">Wed, 26 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">定义国产高端新十年，华为 Mate 和鸿蒙 6 给出回答</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://36kr.com/p/3568566627056517?f=rss" target="_blank" class="card-link">
-                <div class="card-img no-img"><span>36Kr</span></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">36Kr</span>
-                        <span class="time-tag">2025-11-26 09:30</span>
-                    </div>
-                    <h3 class="card-title">云鲸中国区负责人王俊刚已于近期离职｜硬氪独家</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.ifanr.com/1646106?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank" class="card-link">
-                <div class="card-img" style="background-image: url('https://s3.ifanr.com/images/ep/cover-images/chun_bai_wu_shi_li_de_niu_zi_xi_ha_ge_cover.jpg');"></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">爱范儿</span>
-                        <span class="time-tag">Wed, 26 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">早报｜折叠屏 iPhone 或命名 Ultra/4699 元起，华为 Mate80 系列发布/「史上最严」充电宝新规将实施，3C认证全面失效</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://36kr.com/p/3552360997141633?f=rss" target="_blank" class="card-link">
-                <div class="card-img" style="background-image: url('https://img.36krcdn.com/hsossms/20240409/v2_33a934852edf4d5ba8e485cbde5f48e3@6022551_oswg1937048oswg1280oswg853_img_jpg?x-oss-process=image/quality,q_90/format,jpg/interlace,1/format,jpg/interlace,1/format,jpg/interlace,1/format,jpg/interlace,1');"></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">36Kr</span>
-                        <span class="time-tag">2025-11-26 08:30</span>
-                    </div>
-                    <h3 class="card-title">特斯联半年报：营收增长77%，迈入空间智能时代</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://36kr.com/p/3569142279224197?f=rss" target="_blank" class="card-link">
-                <div class="card-img" style="background-image: url('https://img.36krcdn.com/hsossms/20251126/v2_018b7b3604c84c7cb56c581c09f5ed4e@6100851_oswg106672oswg700oswg398_img_000?x-oss-process=image/format,jpg/interlace,1');"></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">36Kr</span>
-                        <span class="time-tag">2025-11-26 08:02</span>
-                    </div>
-                    <h3 class="card-title">8点1氪｜充电宝新规将落地，原3C认证将全面失效；上海地铁试点“站票车厢” ；超级猩猩客服回应“闭店潮”</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://sspai.com/post/104095" target="_blank" class="card-link">
-                <div class="card-img no-img"><span>少数派</span></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">少数派</span>
-                        <span class="time-tag">Wed, 26 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">派早报：华为发布多款新品等</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.ifanr.com/1646013?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank" class="card-link">
-                <div class="card-img" style="background-image: url('https://s3.ifanr.com/wp-content/uploads/2025/11/00-2.jpg');"></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">爱范儿</span>
-                        <span class="time-tag">Tue, 25 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">今年广州车展，主角不是车企</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.ifanr.com/1646033?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank" class="card-link">
-                <div class="card-img" style="background-image: url('https://s3.ifanr.com/wp-content/uploads/2025/11/IMG_0002-1.jpeg');"></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">爱范儿</span>
-                        <span class="time-tag">Tue, 25 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">华为 Mate 旗舰新机上手：我们用 20 倍长焦微距，找到了一个小彩蛋</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://sspai.com/post/104066" target="_blank" class="card-link">
-                <div class="card-img no-img"><span>少数派</span></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">少数派</span>
-                        <span class="time-tag">Tue, 25 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">社区速递 119 | 派友对智能眼镜的看法、一周热评以及新玩意</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://sspai.com/post/104065" target="_blank" class="card-link">
-                <div class="card-img no-img"><span>少数派</span></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">少数派</span>
-                        <span class="time-tag">Tue, 25 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">直播预告｜飞傲 DM15 R2R 便携蓝牙 CD 播放机 正式发售</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://sspai.com/prime/story/wechat-read-annotations-widget-tasker" target="_blank" class="card-link">
-                <div class="card-img no-img"><span>少数派</span></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">少数派</span>
-                        <span class="time-tag">Tue, 25 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">用 Tasker 在桌面上随机回顾微信读书笔记</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://sspai.com/post/104030" target="_blank" class="card-link">
-                <div class="card-img no-img"><span>少数派</span></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">少数派</span>
-                        <span class="time-tag">Tue, 25 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">Matrix 圆桌｜聊聊那些让你离不开的「平台独占」</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.williamlong.info/archives/7521.html" target="_blank" class="card-link">
-                <div class="card-img" style="background-image: url('https://www.williamlong.info/upload/7520_5.jpg');"></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">月光博客</span>
-                        <span class="time-tag">Mon, 10 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">电信诈骗后的复盘：我妈妈的95万元，是怎么从手机银行里消失的</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.williamlong.info/archives/7520.html" target="_blank" class="card-link">
-                <div class="card-img" style="background-image: url('https://www.williamlong.info/upload/7520_1.jpg');"></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">月光博客</span>
-                        <span class="time-tag">Sat, 01 Nov 2025</span>
-                    </div>
-                    <h3 class="card-title">我妈妈被电信诈骗95万元的全过程</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.williamlong.info/archives/7516.html" target="_blank" class="card-link">
-                <div class="card-img no-img"><span>月光博客</span></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">月光博客</span>
-                        <span class="time-tag">Tue, 30 Sep 2025</span>
-                    </div>
-                    <h3 class="card-title">网信办开展“清朗·整治恶意挑动负面情绪问题”专项行动</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.williamlong.info/archives/7515.html" target="_blank" class="card-link">
-                <div class="card-img" style="background-image: url('https://www.williamlong.info/upload/5098_2.jpg');"></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">月光博客</span>
-                        <span class="time-tag">Sat, 20 Sep 2025</span>
-                    </div>
-                    <h3 class="card-title">翟欣欣敲诈勒索案一审获刑12年</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.williamlong.info/archives/7514.html" target="_blank" class="card-link">
-                <div class="card-img no-img"><span>月光博客</span></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">月光博客</span>
-                        <span class="time-tag">Wed, 10 Sep 2025</span>
-                    </div>
-                    <h3 class="card-title">《绝命毒师》影评：力工觉醒后的梭哈至死</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.williamlong.info/archives/7513.html" target="_blank" class="card-link">
-                <div class="card-img no-img"><span>月光博客</span></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">月光博客</span>
-                        <span class="time-tag">Mon, 01 Sep 2025</span>
-                    </div>
-                    <h3 class="card-title">《人工智能生成合成内容标识办法》正式施行</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.williamlong.info/archives/7511.html" target="_blank" class="card-link">
-                <div class="card-img no-img"><span>月光博客</span></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">月光博客</span>
-                        <span class="time-tag">Wed, 20 Aug 2025</span>
-                    </div>
-                    <h3 class="card-title">腾讯子公司实习HR怒怼求职者后被开除</h3>
-                </div>
-            </a>
-        </article>
-        
-        <article class="card">
-            <a href="https://www.williamlong.info/archives/7510.html" target="_blank" class="card-link">
-                <div class="card-img no-img"><span>月光博客</span></div>
-                <div class="card-content">
-                    <div class="card-meta">
-                        <span class="source-tag">月光博客</span>
-                        <span class="time-tag">Sun, 10 Aug 2025</span>
-                    </div>
-                    <h3 class="card-title">OpenAI发布最强模型GPT-5，免费向所有用户开放</h3>
-                </div>
-            </a>
-        </article>
-        
-        </main>
 
-        <footer>
-            <p>聚合全网科技热点</p>
-            <p>
-                <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">浙ICP备2025183710号-1</a>
-            </p>
-            <p>&copy; 2025 折疼记. Powered by EdgeOne Pages.</p>
-        </footer>
+        <div class="container">
+            <!-- 左侧新闻流 -->
+            <main class="news-list" id="newsContainer">
+                
+        <article class="news-item" data-source="ithome">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/5ca178e7-b8d2-4316-a8fa-be27decc19c0.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto/auto-orient%2Co_1&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ithome.com/0/900/523.htm" target="_blank">华为 Mate 80 / X7 系列手机 HarmonyOS 6 系统亮点一览，支持 A2A 智能体协作、鸿蒙智能追焦等</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">IT之家</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">IT之家 11 月 26 日消息，在昨天的华为新品线上发布会上，Mate 80 系列、Mate X7 手机正式发布，两款新机首发搭载鸿蒙 HarmonyOS 6 操作系统，带来全新沉浸光感效果、并内置...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ithome">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/ea0d4f59-77f3-4943-b2cc-e9639fa17755.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ithome.com/0/900/522.htm" target="_blank">消息称新款 iPad mini 要最早明年第三季度 / 第四季度上市，有望先 iPad Air 一步搭载 OLED 面板</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">IT之家</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">IT之家 11 月 26 日消息，博主 @刹那数码 今天在微博透露，苹果 iPad mini 平板将先 iPad Air 一步率先搭载 OLED 面板。不过博主在下方补充道，他也不知道新款 iPad ...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="solidot">
+            <div class="item-img no-img">S</div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.solidot.org/story?sid=82902" target="_blank">欧洲议会呼吁限制未成年人使用社媒</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">Solidot</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">欧洲议会周三呼吁欧盟设定儿童使用社交媒体的最低年龄限制，以应对青少年因过度接触社交媒体而导致的心理健康问题日益增多的现状。此前澳大利亚通过了全球首个针对 16 岁以下儿童的社交媒体禁令，丹麦和马来西亚...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ithome">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/ecef9fe7-e9a2-47b2-8e26-525645961e64.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ithome.com/0/900/521.htm" target="_blank">小米精英驾驶・高阶驾驶培训今年最后一站“上海站”报名开启，首批 1 万人免费</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">IT之家</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">IT之家 11 月 26 日消息，小米汽车官方今日宣布小米精英驾驶・高阶驾驶培训今年最后一站 —— 上海站报名已开启，首批 10000 人免费。据介绍，培训共分三期报名，本站培训将在上海国际赛车场试驾...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="solidot">
+            <div class="item-img no-img">S</div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.solidot.org/story?sid=82901" target="_blank">马来西亚柔佛州停止批准一级和二级数据中心</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">Solidot</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">马来西亚柔佛州停止批准一级和二级数据中心，理由这些数据中心用水量太高。柔佛是东南亚数据中心枢纽之一。截至 2025 年 11 月它批准了 51 个数据中心项目，其中 17 个已投入运营，11 个正在建...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ithome">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/7bc74d75-415d-4ae5-b253-25eb201f5abd.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ithome.com/0/900/520.htm" target="_blank">特斯拉 Robotaxi 有望取消安全员，车内摄像头数据共享功能曝光</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">IT之家</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">IT之家 11 月 26 日消息，据科技媒体 teslarati 今天报道，特斯拉 Robotaxi App 25.11.5 版已现身互联网，各路消息人士对其进行反编译后发现，特斯拉似乎正准备为 Ro...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ithome">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/e7c97fa0-51ad-42a3-9a4b-e8af9659f4b8.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ithome.com/0/900/519.htm" target="_blank">全球央行大调查：超六成没把 AI 用在核心业务，超九成不碰数字资产</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">IT之家</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">IT之家 11 月 26 日消息，根据国际官方货币与金融机构论坛（OMFIF）于本周三发布的一项调查报告，人工智能（AI）目前尚未成为全球大多数央行运营的核心组成部分，而数字资产则基本被排除在投资组合...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ithome">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/1fbf073d-e174-4dc3-b536-b8ca5729fa29.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ithome.com/0/900/518.htm" target="_blank">华为 Mate X7 折叠屏旗舰手机定档 2025 年 12 月 11 日在迪拜发布</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">IT之家</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">IT之家 11 月 26 日消息，华为官方今日宣布，Mate X7 折叠屏旗舰手机将于 2025 年 12 月 11 日在迪拜发布，号称开启全新篇章。华为 Mate X7 折叠屏手机已于昨日在国内发布...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ithome">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/a5325b82-e43c-4240-8c92-e3e50bf4efb3.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ithome.com/0/900/517.htm" target="_blank">影石向攻克渐冻症慈善信托捐赠 300 万元，蔡磊致谢</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">IT之家</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">IT之家 11 月 26 日消息，影石创新科技股份有限公司今日向攻克渐冻症慈善信托捐赠了 300 万元，渐冻症抗争者、京东前副总裁蔡磊发文致谢：“感谢你们对科研进展的关注与支持。相信科技的力量，众志成...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ithome">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/3c58e5ad-b2ef-483c-a7ab-af0eff268fdc.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ithome.com/0/900/516.htm" target="_blank">曝三星正研发新一代 Odyssey OLED G6 显示器：27 英寸 2K 面板，有望明年上市</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">IT之家</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">IT之家 11 月 26 日消息，据科技媒体 Sammobile 今天报道，三星正在研发新一代 Odyssey OLED G6 显示器，预计将在 CES 2026（2026 年 1 月 6 日-1 月...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="solidot">
+            <div class="item-img no-img">S</div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.solidot.org/story?sid=82900" target="_blank">研究揭示大脑如何调配有限的工作记忆资源</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">Solidot</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">根据发表在《Nature Communications》期刊上的一项研究，对猕猴前额叶皮层神经元活动的分析揭示了大脑如何调配有限的工作记忆资源。分析发现，当记忆负荷增加时，大脑并不是不断招募新的神经元...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ithome">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/31933e50-cf91-4e71-b650-6eac54b65215.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ithome.com/0/900/515.htm" target="_blank">荣耀手机上线「游戏预更新」功能：系统可在夜间闲时自动检测、下载资源包</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">IT之家</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">IT之家 11 月 26 日消息，据荣耀游戏研发工程师 @荣耀冯同学 今日分享，荣耀手机上线了「游戏预更新」功能。功能开启后，系统会在夜间闲时自动检测、下载更新的游戏资源包。路径如下：应用市场 → 游...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ithome">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/b1f76d7a-9fb8-419f-8b54-90dd1e90b8b9.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ithome.com/0/900/514.htm" target="_blank">经典指纹滑动功能回归：华为 Mate 80 系列手机支持智控键下滑打开通知中心</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">IT之家</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">IT之家 11 月 26 日消息，华为此前为后置指纹的机型开发过系列功能，包括控制相机拍摄、接听来电、打开通知面板等。遗憾的是，随着华为后续机型取消后置指纹设计，系列功能也逐渐消失。IT之家注意到，华...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="solidot">
+            <div class="item-img no-img">S</div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.solidot.org/story?sid=82899" target="_blank">东南亚地区遭遇创纪录降雨和洪灾</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">Solidot</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">东南亚的泰国、越南、菲律宾和马来西亚都遭遇了创纪录降雨以及随之而来的洪灾。受灾人口数以百万计。气象专家警告称，未来几周暴雨将沿着马来半岛朝印尼和新加坡前进。东南亚异常强的降雨是两大气候系统——拉尼娜（...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ifanr">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/1-21.jpg&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ifanr.com/1646166?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">双座敞篷传奇落幕，宝马 Z4 即将停产</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">爱范儿</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">
+继丰田宣布 GR Supra 停产之后，其「孪生兄弟」宝马 Z4 也迎来了终章。
+近日，宝马确认将在 2026 年春季正式结束 Z4（G29 世代）的生产。自 1995 年 Z3 问世以来，宝马持续...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="36kr">
+            <div class="item-img no-img">3</div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://36kr.com/p/3569792504626311?f=rss" target="_blank">氪星晚报｜星动纪元与联合国工业发展组织达成战略合作；阿里千问进入电脑桌面，覆盖超1亿用户；渠江特大桥主桥成功合龙，成达万高铁全线路基工程进度超98%</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">36Kr</span>
+                    <span class="meta-date">2025-11-26 19:17</span>
+                </div>
+                <p class="item-summary">大公司：
+科兴与巴西开启十年疫苗合作，创中国疫苗最大金额国际订单
+36氪获悉，当地时间2025年11月24日，科兴与巴西卫生部签署了两项PDP（产品开发伙伴关系）项目，成为首个中标该项目的中国疫苗企业...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ifanr">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/GT-T.jpg&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ifanr.com/1646219?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">高通发布了第五代骁龙 8，它和第五代骁龙 8 至尊版有什么不一样？</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">爱范儿</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">
+对于高通来说，骁龙 8 至尊版的能力已经被各家 Android 阵营的品牌所认可，它已经是旗舰手机的第一选择。关于次旗舰的选择，倒是历来并不统一，有的品牌会选择上一代的骁龙 8 至尊版，比如刚刚发布...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="huxiu">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/26/182754201638.jpg&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="http://www.huxiu.com/article/4810062.html?f=wangzhan" target="_blank">超70亿独角兽“原地解散”，无人车赛道却将爆发？</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">虎嗅</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">
+本文来自微信公众号：物流进化TransLog，作者：晓璐，原文标题：《超70亿独角兽“原地解散”！无人车赛道下一个出局者，会是谁？》，题图来自：视觉中国（毫末智行的“小魔驼”在四川省体育馆巡逻）无人...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="huxiu">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/23/141958939817.jpg&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="http://www.huxiu.com/article/4808755.html?f=wangzhan" target="_blank">智驾下一个关键挑战，是不被别人摘“桃子”？</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">虎嗅</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">
+出品丨虎嗅汽车组作者丨李赓 头图提供丨元戎启行时间来到2025年末，自动驾驶竟然再次“热”了起来。2025年10月至11月，中国广义自动驾驶领域（含Robotaxi、智驾厂商、RoboVan等），融...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="36kr">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//img.36krcdn.com/hsossms/20251126/v2_ba6e96cc068d4a34ac15a17b75799eec%401934172915_oswg3907006oswg3200oswg2133_img_jpg%3Fx-oss-process%3Dimage/quality%2Cq_80/format%2Cjpg/interlace%2C1&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://36kr.com/p/3548417282732163?f=rss" target="_blank">美国电吉他品牌「Fender」中国首开体验空间，营收增速已超两位数丨早期项目</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">36Kr</span>
+                    <span class="meta-date">2025-11-26 17:46</span>
+                </div>
+                <p class="item-summary">摇滚乐史的传奇品牌，进入中国13年后，终于走向线下了。
+Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小作坊里萌芽，Leo 在这里发明出第一款量产电吉他 Telecast...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ifanr">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/VS-DwarkeshPateldwarkeshspX-0124.jpg&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ifanr.com/1646168?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">Ilya 罕见发声：Scaling 时代已结束，我们对 AGI 的定义可能全错了</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">爱范儿</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">修个 bug 可以来回把同一个错误引回来，写代码能绕一圈又走回原地。
+但几乎所有 AI 公司都坚信，只要把模型做大、把数据堆满、把算力扔进去，智能就会自动涌现。这套规模定律（Scaling Law）曾...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="36kr">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//img.36krcdn.com/hsossms/20251126/v2_3b5b58fe1aeb4dd291f99dda7df3f383%406208701_oswg10374367oswg3024oswg4032_img_png%3Fx-oss-process%3Dimage/quality%2Cq_80/format%2Cjpg/interlace%2C1&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://36kr.com/p/3568209254562693?f=rss" target="_blank">反社交媒体时代，在「盲盒饭局」中重建关系的年轻人 | 早期项目</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">36Kr</span>
+                    <span class="meta-date">2025-11-26 17:46</span>
+                </div>
+                <p class="item-summary">反社交媒体时代已经到来。
+上述结论，出自美国知名杂志《大西洋月刊》11月初发布的文章。过去十余年，Facebook、Instagram等以“促进人际关系”为目的的社交产品不断扩张。如今，全球已有超过6...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="sspai">
+            <div class="item-img no-img">少</div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://sspai.com/post/104007" target="_blank">「捡垃圾」搭建远程文件服务器，顺便聊聊飞牛付费穿透</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">少数派</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">去年 11 月左右，笔者为了服务于部门的日常工作，先后使用迷你主机和自组主机两台设备，搭建了飞牛作为部门的文件服务器。本文汇总了这个过程中的选型思路、配置流程和方案对比，希望能为有类似需求的朋友提供一...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="solidot">
+            <div class="item-img no-img">S</div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.solidot.org/story?sid=82898" target="_blank">美国网红对他们无法购买的中国造电动汽车赞不绝口</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">Solidot</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">Omar Rana 第一次驾驶中国造汽车是 2015 年海外旅行期间的租车，中国汽车给他的第一印象很糟糕。到了 2024年，一家他从未听说过的公司 DCar Studio 邀请他去洛杉矶试驾中国公司制...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="huxiu">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/25/114503820025.png&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="http://www.huxiu.com/article/4809394.html?f=wangzhan" target="_blank">10个月狂开5000家门店，又一餐饮万店品牌诞生</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">虎嗅</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">
+幸运咖门店数量从5000家暴涨到1万家，成为继蜜雪冰城后又一万店咖啡品牌，速度惊人。那么瑞幸、幸运咖的万店奇迹证明了什么？下载虎嗅APP，第一时间获取深度独到的商业科技资讯，连接更多创新人群与线下活...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="36kr">
+            <div class="item-img no-img">3</div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://36kr.com/p/3569587200277633?f=rss" target="_blank">求购新凯来公司、Momenta公司老股份额；转让持有XAI老股的基金LP份额｜资情留言板第174期</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">36Kr</span>
+                    <span class="meta-date">2025-11-26 15:32</span>
+                </div>
+                <p class="item-summary">资产交易市场，信息瞬息万变，消息真假难辨，即使买卖双方花费大量的时间、精力，推动成交往往困难重重。为了能够帮助买卖双方更快速链接市场信息和潜在交易对手，避免不必要的投入与浪费，我们特地打造了这样一档栏...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="solidot">
+            <div class="item-img no-img">S</div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.solidot.org/story?sid=82897" target="_blank">上一次有射击游戏销量超过《使命召唤》是 2006 年</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">Solidot</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">微软/动视旗下的《使命召唤》系列支配游戏行业已长达 20 年。上一次美国射击类游戏销量超过《使命召唤》还是 2006 年的《战争机器（Gears of War）》，上一次 FPS 游戏销量超过《使命召...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="sspai">
+            <div class="item-img no-img">少</div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://sspai.com/post/84574" target="_blank">入门到精通：从今天开始成为感冒专家</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">少数派</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">感冒，这个看似微不足道的小病，似乎却成了人类和疾病斗争的缩影。查看全文...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ifanr">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/d6274656c3229f2ce016a5a0a3735b74.jpeg&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ifanr.com/1646048?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">夸克 AI 浏览器全面升级，可随时唤起千问</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">爱范儿</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">现在的浏览器，越来越「重」了。
+写方案要开着 Word，查资料要切回浏览器，回消息又得跳到微信。屏幕被切得支离破碎，注意力也跟着碎掉。每次想让 AI 帮忙，都要先经历一番「寻找 AI 在哪里」的折腾。...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="solidot">
+            <div class="item-img no-img">S</div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.solidot.org/story?sid=82896" target="_blank">FX 将制作改编自《孤岛惊魂》的电视剧</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">Solidot</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">迪士尼旗下的 FX 将制作改编自育碧游戏《孤岛惊魂》系列的电视剧。《孤岛惊魂（Far Cry）》系列最早由德国 Crytek 工作室制作，之后由育碧旗下的工作室制作了五部续作和多部衍生作品，但每一部都...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="huxiu">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/25/230310937200.jpg&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="http://www.huxiu.com/article/4809737.html?f=wangzhan" target="_blank">机器人学会“思考”后，以后真能在家帮我们干活了吗？</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">虎嗅</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">
+黑芝麻智能推出的“全脑智能”体系，为什么能帮助整个机器人行业实现从“蚯蚓”到“大猩猩”的进化，从而让机器人们变得更智能？下载虎嗅APP，第一时间获取深度独到的商业科技资讯，连接更多创新人群与线下活动...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="solidot">
+            <div class="item-img no-img">S</div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.solidot.org/story?sid=82895" target="_blank">AI 并不能思考</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">Solidot</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">Cognitive Resonance 创始人 Benjamin Riley 认为 AI 并不能思考。今天的 AI 热是基于一个根本性的误解：语言的建模并不等同于智能。根据目前的神经学，人类的思维在很...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="36kr">
+            <div class="item-img no-img">3</div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://36kr.com/p/3569503374703747?f=rss" target="_blank">字节旗下番茄系2024年收入超300亿，今年有望翻倍｜36氪独家</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">36Kr</span>
+                    <span class="meta-date">2025-11-26 14:13</span>
+                </div>
+                <p class="item-summary">作者｜兰杰
+编辑｜乔芊、杨轩
+36氪独家获悉，据接近字节跳动人士消息，2024年字节旗下番茄系业务（包含番茄小说、红果短剧、番茄畅听以及悟空搜索等在内）的收入超300亿元，整体利润约为30亿-50亿元...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="sspai">
+            <div class="item-img no-img">少</div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://sspai.com/post/103819" target="_blank">谈谈不自律的良好生活</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">少数派</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">Matrix首页推荐Matrix是少数派的写作社区，我们主张分享真实的产品体验，有实用价值的经验与思考。我们会不定期挑选Matrix最优质的文章，展示来自用户的最真实的体验和观点。文章代表作者个人观点...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ifanr">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/header-ver-c.jpeg&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ifanr.com/1646112?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">定义国产高端新十年，华为 Mate 和鸿蒙 6 给出回答</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">爱范儿</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">
+通常，提到一部手机的名字，我们总会联想到其背后的特质——比如 nova 总让人想到「年轻」，而 Pura 系列显然就是「时尚」，至于 Mate ——能让人联想到的词很多，但没有一个比这个词更合适：「...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="huxiu">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/21/225055451482.png&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="http://www.huxiu.com/article/4808283.html?f=wangzhan" target="_blank">如果开战它能撑多久？乌克兰能撑三年，日本未必能撑得过三周</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">虎嗅</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">
+如果日本爆发了战争，他们能撑多久？今天咱们就从电网、能源、工业、国土、人口、补给这6个国家骨架出发，详细地聊聊这个问题。下载虎嗅APP，第一时间获取深度独到的商业科技资讯，连接更多创新人群与线下活动...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="huxiu">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/25/114323970627.jpg&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="http://www.huxiu.com/article/4809392.html?f=wangzhan" target="_blank">开到美国的费大厨，“抛弃”辣椒炒肉了？</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">虎嗅</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">
+开到美国的费大厨，居然把辣椒炒肉撤了！圣地亚哥首店的广告一曝光，网友立马发现主菜竟然变成了西兰花炒牛肉，连品牌名也精简了。下载虎嗅APP，第一时间获取深度独到的商业科技资讯，连接更多创新人群与线下活...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="36kr">
+            <div class="item-img no-img">3</div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://36kr.com/p/3568566627056517?f=rss" target="_blank">云鲸中国区负责人王俊刚已于近期离职｜硬氪独家</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">36Kr</span>
+                    <span class="meta-date">2025-11-26 09:30</span>
+                </div>
+                <p class="item-summary">作者｜黄楠
+编辑｜袁斯来
+硬氪从多个独立信源确认，云鲸智能中国区负责人王俊刚已于近期离职，目前其后续动向尚未明确。
+这次王俊刚的离职并无前兆，相对突然。他于2024年加入云鲸，此前曾任石头科技电商总监...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ifanr">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/images/ep/cover-images/chun_bai_wu_shi_li_de_niu_zi_xi_ha_ge_cover.jpg&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ifanr.com/1646106?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">早报｜折叠屏 iPhone 或命名 Ultra/4699 元起，华为 Mate80 系列发布/「史上最严」充电宝新规将实施，3C认证全面失效</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">爱范儿</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">
+
+
+
+
+苹果折叠屏 iPhone 或命名「Ultra」，售价突破 1.7 万元
+
+
+
+
+
+亚马逊「算力帝国」浮出水面，数据中心规模突破 900 座
+
+
+
+
+
+「史上最严」充电宝新规明年实施，七成产能...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="36kr">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//img.36krcdn.com/hsossms/20240409/v2_33a934852edf4d5ba8e485cbde5f48e3%406022551_oswg1937048oswg1280oswg853_img_jpg%3Fx-oss-process%3Dimage/quality%2Cq_90/format%2Cjpg/interlace%2C1/format%2Cjpg/interlace%2C1/format%2Cjpg/interlace%2C1/format%2Cjpg/interlace%2C1&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://36kr.com/p/3552360997141633?f=rss" target="_blank">特斯联半年报：营收增长77%，迈入空间智能时代</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">36Kr</span>
+                    <span class="meta-date">2025-11-26 08:30</span>
+                </div>
+                <p class="item-summary">作者｜黄楠
+编辑｜袁斯来
+冲刺“国内AIoT第一股”的人工智能物联网企业特斯联完成财务数据更新，发布2025年上半年营收情况及业务进展。
+最新财务数据显示，截至2025年6月30日，特斯联上半年收入6...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="36kr">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//img.36krcdn.com/hsossms/20251126/v2_018b7b3604c84c7cb56c581c09f5ed4e%406100851_oswg106672oswg700oswg398_img_000%3Fx-oss-process%3Dimage/format%2Cjpg/interlace%2C1&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://36kr.com/p/3569142279224197?f=rss" target="_blank">8点1氪｜充电宝新规将落地，原3C认证将全面失效；上海地铁试点“站票车厢” ；超级猩猩客服回应“闭店潮”</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">36Kr</span>
+                    <span class="meta-date">2025-11-26 08:02</span>
+                </div>
+                <p class="item-summary">今日热点导览
+
+香港小学生人数跌至30年新低
+消息称苹果iPhone Fold折叠屏手机已实现无折痕设计
+奥司他韦近7天销量暴涨237%
+非洲猪瘟疫情爆发，韩国发布“严重”级危机警报
+格力股东会召开，...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="sspai">
+            <div class="item-img no-img">少</div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://sspai.com/post/104095" target="_blank">派早报：华为发布多款新品等</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">少数派</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">柯达推出 Snapic A1 胶片傻瓜相机，Google 智能助理将在 2026 年停止服务等。查看全文...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="huxiu">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/26/055018927274.jpg&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="http://www.huxiu.com/article/4809050.html?f=wangzhan" target="_blank">梁建章有底气</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">虎嗅</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">
+作者｜Eastland头图｜视觉中国2025年11月18日，携程集团（NASDAQ：TCOM；HK：09961）发布《2025年第三季度业绩公告》。2025年前三季，携程营收471亿、同比增长15....</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="solidot">
+            <div class="item-img no-img">S</div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.solidot.org/story?sid=82894" target="_blank">新加坡要求苹果和 Google 采取行动防止冒充政府发送短信</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">Solidot</span>
+                    <span class="meta-date">Wed, 26 Nov 2025</span>
+                </div>
+                <p class="item-summary">苹果公司及谷歌公司须在星期天（11月30日）前，遵守新加坡警察部队指令，采取措施防止用户通过 iMessage 及 Google Messages 冒充 gov.sg 及政府机构发短信。新加坡警方依据...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="solidot">
+            <div class="item-img no-img">S</div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.solidot.org/story?sid=82893" target="_blank">联想囤积了可供一整年使用的内存</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">Solidot</span>
+                    <span class="meta-date">Tue, 25 Nov 2025</span>
+                </div>
+                <p class="item-summary">为应对 AI 热所引发的供应短缺，联想正在囤积内存等重要 PC 零部件。联想 CFO 郑孝明周一接受彭博社采访时表示，该公司目前的 PC 零部件库存比平常高 50%。随着 AI 热导致内存等零部件价格...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ifanr">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/00-2.jpg&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ifanr.com/1646013?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">今年广州车展，主角不是车企</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">爱范儿</span>
+                    <span class="meta-date">Tue, 25 Nov 2025</span>
+                </div>
+                <p class="item-summary">
+上周五广州车展媒体日结束后的回家路上，我刷到了一条小红书帖子。
+一位当天在展台担任接待的女孩发问：「做『小蜜蜂』是不是比站展台轻松一点？」
+
+我一时间没明白「小蜜蜂」是什么，搜索了一圈才明白，「小蜜...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="36kr">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//img.36krcdn.com/hsossms/20251125/v2_295c77e64a774796919b061feee3ea0f%406227116_oswg186670oswg1920oswg1280_img_jpg%3Fx-oss-process%3Dimage/quality%2Cq_100/format%2Cjpg/interlace%2C1&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://36kr.com/p/3568484680219781?f=rss" target="_blank">黑芝麻智能发布SesameX平台，给各种机器人装上“通用大脑”丨最前线</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">36Kr</span>
+                    <span class="meta-date">2025-11-25 21:52</span>
+                </div>
+                <p class="item-summary">文｜富充
+编辑｜苏建勋
+36氪获悉，近日，黑芝麻智能正式推出面向机器人产业的SesameX多维智能计算平台，这是业界首个机器人商业化专属部署平台。
+目前，SesameX平台已率先与星程智能、深庭记、云...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="36kr">
+            <div class="item-img no-img">3</div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://36kr.com/p/3568501130460297?f=rss" target="_blank">华为发布开源AI容器技术Flex:ai：让闲置算力“动起来”，把一张卡切给多任务使用丨最前线</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">36Kr</span>
+                    <span class="meta-date">2025-11-25 21:51</span>
+                </div>
+                <p class="item-summary">文｜富充
+编辑｜苏建勋
+当前，“算力不够用”和“算力被浪费”正在同时发生。
+36氪获悉，近日举行的2025AI容器应用落地与发展论坛上，华为公司正式发布AI容器技术——Flex:ai，通过三项技术创新...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ifanr">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/IMG_0002-1.jpeg&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ifanr.com/1646033?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">华为 Mate 旗舰新机上手：我们用 20 倍长焦微距，找到了一个小彩蛋</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">爱范儿</span>
+                    <span class="meta-date">Tue, 25 Nov 2025</span>
+                </div>
+                <p class="item-summary">
+刚刚新鲜发布的华为 Mate 80 手机和一系列新品，爱范儿已经第一时间开箱上手体验。来看看今年最强华为手机，有什么亮点？
+首先看华为 Mate 80 Pro Max，我们拿到的是「极昼金」配色。这...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ifanr">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/7M304957.jpg&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ifanr.com/1646049?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">荣耀 500 Pro 体验：Live 图也支持路人消除，从影像到性能全覆盖的 AI 手机</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">爱范儿</span>
+                    <span class="meta-date">Tue, 25 Nov 2025</span>
+                </div>
+                <p class="item-summary">
+近日，荣耀推出了数字系列新品，新品有荣耀 500 标准版和荣耀 500 Pro 两款，标准版定价 2699 元起，500 Pro 定价 3599 元起售。
+
+设计部分，荣耀 500 系列的后盖采用了...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="huxiu">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/25/154026957345.jpg&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="http://www.huxiu.com/article/4809011.html?f=wangzhan" target="_blank">西贝之后，“带孩子去哪儿吃饭”造就了新商机</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">虎嗅</span>
+                    <span class="meta-date">Tue, 25 Nov 2025</span>
+                </div>
+                <p class="item-summary">
+餐饮巨头抢着给孩子做儿童餐，目的可不只是想让家长多花钱这么简单，儿童餐的4500亿生意，是收割父母还是模仿麦门？下载虎嗅APP，第一时间获取深度独到的商业科技资讯，连接更多创新人群与线下活动...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="sspai">
+            <div class="item-img no-img">少</div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://sspai.com/post/104066" target="_blank">社区速递 119 | 派友对智能眼镜的看法、一周热评以及新玩意</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">少数派</span>
+                    <span class="meta-date">Tue, 25 Nov 2025</span>
+                </div>
+                <p class="item-summary">除了首页时间流和侧栏的精选展位，少数派Matrix社区还有很多优秀内容因条件所限无法得到有效曝光，因此我们决定重启Matrix周报，并在此基础上添加更多社区内容、作者投稿新玩意呈现给大家。💬一派热议在...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ifanr">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/coverifanr-1.jpg&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ifanr.com/1645965?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">4699 元起！华为发布 Mate 80 系列：全能、直屏，还有性价比</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">爱范儿</span>
+                    <span class="meta-date">Tue, 25 Nov 2025</span>
+                </div>
+                <p class="item-summary">今年华为开了很多发布会，推出了不少「又新又怪」的产品——「阔折叠」Pura X、「折叠电脑」MateBook Fold、「一目双镜」Pura 80 Ultra 等等……
+但今天发布的华为 Mate 8...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="sspai">
+            <div class="item-img no-img">少</div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://sspai.com/post/104065" target="_blank">直播预告｜飞傲 DM15 R2R 便携蓝牙 CD 播放机 正式发售</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">少数派</span>
+                    <span class="meta-date">Tue, 25 Nov 2025</span>
+                </div>
+                <p class="item-summary">有关注过少数派共创项目的派友对这把键盘应该不陌生：​来自FiiO飞傲的HiFi音乐键盘：KB3-少数派联名款，其内置的解码器与耳放，是你桌面端享受音乐的强力搭档。同时凭借镁铝合金的金属面板、凯华鲸落轴...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="sspai">
+            <div class="item-img no-img">少</div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://sspai.com/prime/story/wechat-read-annotations-widget-tasker" target="_blank">用 Tasker 在桌面上随机回顾微信读书笔记</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">少数派</span>
+                    <span class="meta-date">Tue, 25 Nov 2025</span>
+                </div>
+                <p class="item-summary">不知不觉已经使用了微信读书快10年，打开笔记页面一看，已经留下了8000多条笔记。一直以来，我希望能在桌面上用一个小组件随机回顾我的那些笔记，蓦然回首，重温旧梦。不过，从iPhone等到换了安卓，微信...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="sspai">
+            <div class="item-img no-img">少</div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://sspai.com/post/104030" target="_blank">Matrix 圆桌｜聊聊那些让你离不开的「平台独占」</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">少数派</span>
+                    <span class="meta-date">Tue, 25 Nov 2025</span>
+                </div>
+                <p class="item-summary">每当在 iOS 和 Android 之间权衡，总有些应用、服务和体验让人难以割舍，甚至最终影响我们的选购决策；另一方面，新的生态、初来乍到，很多人也难免有「我应该尝试些什么东西」的疑惑。我们选登了一些...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="huxiu">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/22/210600524831.jpg&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="http://www.huxiu.com/article/4808514.html?f=wangzhan" target="_blank">华为又开始放大招了，再次改变了AI算力的发展模式？</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">虎嗅</span>
+                    <span class="meta-date">Tue, 25 Nov 2025</span>
+                </div>
+                <p class="item-summary">
+华为又开始放大招了，再次改变了AI算力的发展模式。21号华为发布了一款叫Flex：ai的AI容器软件，把AI竞争从拼硬件性能强不强推到了拼系统效率高不高的新阶段，那么这个Flex：ai到底是个啥？下...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="sspai">
+            <div class="item-img no-img">少</div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://sspai.com/post/103458" target="_blank">习惯养成 ABC：要如何克服内心的静摩擦力？</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">少数派</span>
+                    <span class="meta-date">Tue, 25 Nov 2025</span>
+                </div>
+                <p class="item-summary">Matrix首页推荐Matrix是少数派的写作社区，我们主张分享真实的产品体验，有实用价值的经验与思考。我们会不定期挑选Matrix最优质的文章，展示来自用户的最真实的体验和观点。文章代表作者个人观点...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="huxiu">
+            <div class="item-img"><img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/24/102258260986.jpeg&w=240&h=180&fit=cover&output=webp" loading="lazy" alt="封面"></div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="http://www.huxiu.com/article/4808845.html?f=wangzhan" target="_blank">北京VS杭州，谁是AI第一城？</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">虎嗅</span>
+                    <span class="meta-date">Tue, 25 Nov 2025</span>
+                </div>
+                <p class="item-summary">
+2025年之前，北京是毫无疑问的王者。百度率先发布文心大模型，很快kimi、智谱崭露头角，那时候的杭州还是“电商”之城、“网红“之城，跟AI好像没什么关系。
+
+今年初，DeepSeek横空出世，在全...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="sspai">
+            <div class="item-img no-img">少</div>
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://sspai.com/post/104063" target="_blank">派早报：荣耀发布 500 系列手机，抖音发布《抖音社区法律行业公约》等</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">少数派</span>
+                    <span class="meta-date">Tue, 25 Nov 2025</span>
+                </div>
+                <p class="item-summary">联发科发布天玑座舱芯片 P1 Ultra，育碧公布采用 AI 队友的试验性游戏项目 Teammates 等。查看全文...</p>
+            </div>
+        </article>
+        
+            </main>
+
+            <!-- 右侧侧边栏 -->
+            <aside>
+                <h3 class="sidebar-title">随机推荐</h3>
+                <ul class="sidebar-list">
+                    <li><a href="https://www.ithome.com/0/900/517.htm" target="_blank">影石向攻克渐冻症慈善信托捐赠 300 万元，蔡磊致谢</a></li><li><a href="https://www.solidot.org/story?sid=82895" target="_blank">AI 并不能思考</a></li><li><a href="http://www.huxiu.com/article/4809392.html?f=wangzhan" target="_blank">开到美国的费大厨，“抛弃”辣椒炒肉了？</a></li><li><a href="http://www.huxiu.com/article/4810062.html?f=wangzhan" target="_blank">超70亿独角兽“原地解散”，无人车赛道却将爆发？</a></li><li><a href="http://www.huxiu.com/article/4808283.html?f=wangzhan" target="_blank">如果开战它能撑多久？乌克兰能撑三年，日本未必能撑得过三周</a></li>
+                </ul>
+                
+                <div class="beian-info">
+                    <p>更新于: 2025-11-26 22:46</p>
+                    <p><a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2025183710号-1</a></p>
+                    <p>&copy; 折疼记</p>
+                </div>
+            </aside>
+        </div>
+
+        <script>
+            function filterNews(sourceId, btn) {
+                // 1. 按钮样式切换
+                document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                // 2. 筛选内容
+                const items = document.querySelectorAll('.news-item');
+                items.forEach(item => {
+                    if (sourceId === 'all' || item.getAttribute('data-source') === sourceId) {
+                        item.style.display = 'flex';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+                
+                // 3. 回到顶部 (优化体验)
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        </script>
     </body>
     </html>
     
