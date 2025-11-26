@@ -3,7 +3,7 @@ import datetime
 import urllib.parse
 from bs4 import BeautifulSoup
 import ssl
-import random
+import json
 
 # 1. SSL 证书修复
 if hasattr(ssl, '_create_unverified_context'):
@@ -32,8 +32,7 @@ def get_image_from_html(html_content):
             for attr in candidates:
                 url = img.get(attr)
                 if url and url.startswith('http'):
-                    if 'emoji' in url or '.gif' in url or 'avatar' in url: 
-                        continue
+                    if 'emoji' in url or '.gif' in url or 'avatar' in url: continue
                     return url
     except: return None
     return None
@@ -46,6 +45,11 @@ def process_image_url(original_url):
     encoded_url = urllib.parse.quote(original_url)
     return f"https://wsrv.nl/?url={encoded_url}&w=240&h=180&fit=cover&output=webp&q=80"
 
+def clean_text(html):
+    """ 清洗 HTML 获取纯文本，用于 AI 上下文 """
+    if not html: return ""
+    return BeautifulSoup(html, 'html.parser').get_text().strip()
+
 def generate_html():
     articles = []
     feedparser.USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36"
@@ -57,7 +61,6 @@ def generate_html():
             print(f"正在读取: {feed['name']}...")
             f = feedparser.parse(feed["url"])
             
-            # 抓取前20条，备用过滤
             for entry in f.entries[:20]: 
                 content_html = ""
                 if hasattr(entry, 'content'): content_html = entry.content[0].value
@@ -67,12 +70,15 @@ def generate_html():
                 raw_img = get_image_from_html(content_html)
                 final_img = process_image_url(raw_img)
                 
-                # 【强过滤】没有图片直接跳过
-                if not final_img:
-                    continue
+                # 强过滤：无图不要
+                if not final_img: continue
 
-                soup_text = BeautifulSoup(content_html, 'html.parser').get_text()
-                summary_text = soup_text.strip()[:90] + "..." if soup_text else entry.title
+                # 获取用于显示的摘要 (短)
+                soup_text = clean_text(content_html)
+                summary_short = soup_text[:90] + "..." if soup_text else entry.title
+                
+                # 获取用于 AI 的全文 (长，但RSS通常只有摘要)
+                full_content_for_ai = soup_text[:2000] # 限制长度防止 AI Token 溢出
 
                 try:
                     if hasattr(entry, 'published_parsed') and entry.published_parsed:
@@ -85,12 +91,13 @@ def generate_html():
 
                 articles.append({
                     "title": entry.title,
-                    "link": entry.link,
+                    "link": entry.link, # 原文链接保留，用于“阅读原文”
                     "date": pub_time,
                     "source": feed["name"],
                     "source_id": feed["id"],
                     "image": final_img,
-                    "summary": summary_text,
+                    "summary": summary_short,
+                    "full_content": full_content_for_ai, # 隐藏数据
                     "timestamp": entry.get("published_parsed", datetime.datetime.now().timetuple())
                 })
         except Exception as e:
@@ -100,8 +107,10 @@ def generate_html():
     articles.sort(key=lambda x: x["timestamp"] if x["timestamp"] else tuple(), reverse=True)
 
     news_list_html = ""
-    for art in articles:
-        # 图片加载失败则删除整张卡片
+    for index, art in enumerate(articles):
+        # 我们把全文内容 escape 后存在 data-content 属性里
+        safe_content = json.dumps(art['full_content']).replace('"', '&quot;')
+        
         img_html = f'''
         <div class="item-img">
             <img src="{art["image"]}" loading="lazy" alt="封面" 
@@ -109,16 +118,25 @@ def generate_html():
         </div>
         '''
 
+        # 注意：这里去掉了 target="_blank"，onclick 调用 openModal
         news_list_html += f"""
-        <article class="news-item" data-source="{art['source_id']}">
+        <article class="news-item" data-source="{art['source_id']}" onclick="openModal({index})">
             {img_html}
             <div class="item-content">
-                <h2 class="item-title"><a href="{art['link']}" target="_blank">{art['title']}</a></h2>
+                <h2 class="item-title">{art['title']}</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">{art['source']}</span>
                     <span class="meta-date">{art['date']}</span>
                 </div>
                 <p class="item-summary">{art['summary']}</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-{index}" style="display:none;" 
+                     data-title="{art['title']}" 
+                     data-link="{art['link']}"
+                     data-source="{art['source']}"
+                     data-date="{art['date']}">
+                     {art['full_content']}
+                </div>
             </div>
         </article>
         """
@@ -136,79 +154,99 @@ def generate_html():
     <html lang="zh-CN">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
         <meta name="referrer" content="no-referrer">
-        <meta name="description" content="折疼记 - IT资讯聚合">
-        <title>折疼记 - 科技资讯</title>
+        <title>折疼记 - AI 驱动的资讯站</title>
         <style>
-            :root {{
-                --cb-blue: #0b63b6;
-                --cb-dark: #1f2937;
-                --cb-gray: #f2f2f2;
-                --text-main: #333;
-                --text-sub: #666;
-                --white: #fff;
-            }}
-            * {{ box-sizing: border-box; }}
-            body {{ font-family: "Microsoft YaHei", -apple-system, BlinkMacSystemFont, sans-serif; background: var(--cb-gray); margin: 0; color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }}
+            :root {{ --cb-blue: #0b63b6; --bg-gray: #f2f2f2; --white: #fff; --text: #333; }}
+            * {{ box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }}
+            body {{ font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", sans-serif; background: var(--bg-gray); margin: 0; color: var(--text); display: flex; flex-direction: column; min-height: 100vh; }}
             
-            header {{ background: var(--cb-blue); box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }}
-            .header-inner {{ max-width: 800px; margin: 0 auto; padding: 0 15px; height: 60px; display: flex; align-items: center; justify-content: space-between; }}
-            .logo {{ color: #fff; font-size: 20px; font-weight: bold; text-decoration: none; margin-right: 30px; white-space: nowrap; }}
-            .nav-scroll {{ flex: 1; overflow-x: auto; white-space: nowrap; scrollbar-width: none; -ms-overflow-style: none; }}
+            /* 顶部导航 */
+            header {{ background: var(--cb-blue); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }}
+            .header-inner {{ max-width: 800px; margin: 0 auto; height: 56px; display: flex; align-items: center; padding: 0 15px; }}
+            .logo {{ color: #fff; font-size: 18px; font-weight: 800; margin-right: 20px; }}
+            .nav-scroll {{ flex: 1; overflow-x: auto; white-space: nowrap; display: flex; scrollbar-width: none; }}
             .nav-scroll::-webkit-scrollbar {{ display: none; }}
-            .nav-btn {{ background: none; border: none; color: rgba(255,255,255,0.7); font-size: 15px; padding: 0 15px; cursor: pointer; height: 60px; line-height: 60px; transition: color 0.2s; }}
+            .nav-btn {{ background: none; border: none; color: rgba(255,255,255,0.7); font-size: 14px; padding: 0 12px; height: 56px; transition: color 0.2s; }}
             .nav-btn.active {{ color: #fff; font-weight: bold; border-bottom: 3px solid #fff; }}
             
-            /* 【修改点】单栏居中布局，去除侧边栏占位 */
-            .container {{ max-width: 800px; margin: 30px auto; padding: 0 15px; flex: 1; width: 100%; }}
-
-            .news-list {{ background: transparent; }}
-            .news-item {{ background: var(--white); margin-bottom: 20px; padding: 20px; display: flex; border: 1px solid #e0e0e0; border-radius: 6px; transition: box-shadow 0.2s; }}
-            .news-item:hover {{ box-shadow: 0 8px 20px rgba(0,0,0,0.08); border-color: #ccc; transform: translateY(-2px); }}
+            /* 列表区域 */
+            .container {{ max-width: 800px; margin: 20px auto; padding: 0 15px; width: 100%; flex: 1; }}
+            .news-item {{ background: var(--white); margin-bottom: 15px; padding: 15px; display: flex; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); cursor: pointer; transition: background 0.2s; }}
+            .news-item:active {{ background: #f9f9f9; }}
             
-            .item-img {{ width: 200px; height: 150px; flex-shrink: 0; margin-right: 25px; background: #f0f2f5; overflow: hidden; border-radius: 4px; position: relative; }}
-            .item-img img {{ width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; display: block; }}
-            .news-item:hover .item-img img {{ transform: scale(1.05); }}
-
+            .item-img {{ width: 110px; height: 80px; flex-shrink: 0; margin-right: 15px; background: #eee; border-radius: 4px; overflow: hidden; }}
+            .item-img img {{ width: 100%; height: 100%; object-fit: cover; }}
+            
             .item-content {{ flex: 1; display: flex; flex-direction: column; justify-content: space-between; }}
-            .item-title {{ margin: 0 0 10px 0; font-size: 19px; line-height: 1.4; font-weight: bold; }}
-            .item-title a {{ color: var(--text-main); text-decoration: none; }}
-            .item-title a:hover {{ color: var(--cb-blue); text-decoration: underline; }}
-            .item-summary {{ font-size: 14px; color: #666; margin: 0 0 15px 0; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 45px; }}
-            .item-meta {{ font-size: 13px; color: #999; display: flex; align-items: center; }}
-            .meta-tag {{ margin-right: 12px; padding: 2px 8px; border-radius: 3px; font-weight: 500; }}
-            .tag-blue {{ background: #e6f0fa; color: var(--cb-blue); }}
-            
-            /* Footer 样式 */
-            .main-footer {{ background: #fff; border-top: 1px solid #e0e0e0; padding: 40px 0; margin-top: 40px; text-align: center; color: #999; font-size: 13px; width: 100%; }}
-            .main-footer p {{ margin: 8px 0; }}
-            .main-footer a {{ color: #999; text-decoration: none; transition: color 0.2s; }}
-            .main-footer a:hover {{ color: var(--cb-blue); }}
+            .item-title {{ margin: 0 0 6px 0; font-size: 16px; font-weight: bold; line-height: 1.4; color: #222; }}
+            .item-meta {{ font-size: 12px; color: #999; display: flex; align-items: center; margin-bottom: 6px; }}
+            .tag-blue {{ color: var(--cb-blue); margin-right: 10px; background: rgba(11,99,182,0.1); padding: 1px 4px; border-radius: 2px; }}
+            .item-summary {{ font-size: 13px; color: #666; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }}
 
-            @media (max-width: 768px) {{
-                .item-img {{ width: 110px; height: 80px; margin-right: 15px; }}
-                .item-title {{ font-size: 16px; margin-bottom: 5px; }}
-                .item-summary {{ display: none; }}
-                .news-item {{ padding: 15px; margin-bottom: 15px; }}
-                .header-inner {{ padding: 0 10px; }}
-                .container {{ margin: 15px auto; }}
+            /* 底部 */
+            .main-footer {{ text-align: center; padding: 30px 0; color: #ccc; font-size: 12px; background: #fff; margin-top: 20px; }}
+            .main-footer a {{ color: #ccc; text-decoration: none; }}
+
+            /* --- 模态框 (站内阅读 + AI) --- */
+            .modal-overlay {{ position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: none; opacity: 0; transition: opacity 0.3s; }}
+            .modal-overlay.open {{ display: block; opacity: 1; }}
+            
+            .modal-card {{ 
+                position: fixed; bottom: 0; left: 0; width: 100%; height: 90vh; 
+                background: #fff; border-radius: 16px 16px 0 0; 
+                transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+                z-index: 2001; display: flex; flex-direction: column;
+                box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
             }}
+            .modal-overlay.open .modal-card {{ transform: translateY(0); }}
+
+            /* PC 端适配模态框 */
+            @media (min-width: 769px) {{
+                .modal-card {{ 
+                    width: 700px; height: 85vh; 
+                    left: 50%; top: 50%; bottom: auto;
+                    transform: translate(-50%, -40%) scale(0.95); opacity: 0;
+                    border-radius: 12px; 
+                }}
+                .modal-overlay.open .modal-card {{ transform: translate(-50%, -50%) scale(1); opacity: 1; }}
+            }}
+
+            .modal-header {{ padding: 15px 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; background: #fff; border-radius: 16px 16px 0 0; }}
+            .close-btn {{ font-size: 24px; color: #999; cursor: pointer; padding: 0 10px; }}
+            
+            .modal-body {{ flex: 1; overflow-y: auto; padding: 20px; -webkit-overflow-scrolling: touch; }}
+            .article-title {{ font-size: 22px; font-weight: bold; margin-bottom: 10px; color: #222; }}
+            .article-meta {{ color: #999; font-size: 13px; margin-bottom: 20px; }}
+            .article-content {{ font-size: 16px; line-height: 1.8; color: #333; }}
+            .read-more-btn {{ display: block; width: 100%; text-align: center; background: #f5f5f5; color: #666; padding: 12px; margin-top: 30px; border-radius: 8px; text-decoration: none; font-size: 14px; }}
+            
+            /* AI 区域 */
+            .ai-section {{ border-top: 1px solid #eee; background: #fcfcfc; padding: 15px; display: flex; flex-direction: column; }}
+            .ai-chat-box {{ height: 150px; overflow-y: auto; background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 10px; margin-bottom: 10px; font-size: 14px; }}
+            .ai-msg {{ margin-bottom: 8px; }}
+            .ai-msg.user {{ color: var(--cb-blue); font-weight: bold; }}
+            .ai-msg.bot {{ color: #333; }}
+            .ai-input-area {{ display: flex; }}
+            .ai-input {{ flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }}
+            .ai-send-btn {{ margin-left: 10px; background: var(--cb-blue); color: #fff; border: none; padding: 0 15px; border-radius: 6px; cursor: pointer; }}
+            .ai-send-btn:disabled {{ background: #ccc; }}
         </style>
     </head>
     <body>
         <header>
             <div class="header-inner">
-                <a href="#" class="logo">折疼记</a>
-                <div class="nav-scroll" id="navBar">
+                <div class="logo">折疼记</div>
+                <div class="nav-scroll">
                     {tabs_html}
                 </div>
             </div>
         </header>
 
         <div class="container">
-            <main class="news-list" id="newsContainer">
+            <main id="newsContainer">
                 {news_list_html}
             </main>
         </div>
@@ -216,22 +254,159 @@ def generate_html():
         <footer class="main-footer">
             <p>更新于: {update_time} (北京时间)</p>
             <p><a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2025183710号-1</a></p>
-            <p>&copy; 折疼记</p>
+            <p>© 折疼记</p>
         </footer>
 
+        <!-- 模态框结构 -->
+        <div class="modal-overlay" id="articleModal" onclick="closeModal(event)">
+            <div class="modal-card" onclick="event.stopPropagation()">
+                <div class="modal-header">
+                    <span style="font-weight:bold; color:#0b63b6;">✨ 站内智能阅读</span>
+                    <span class="close-btn" onclick="closeModal()">×</span>
+                </div>
+                <div class="modal-body">
+                    <h1 class="article-title" id="mTitle"></h1>
+                    <div class="article-meta" id="mMeta"></div>
+                    <div class="article-content" id="mContent"></div>
+                    <a href="" target="_blank" id="mLink" class="read-more-btn">查看源站全文 (跳转)</a>
+                </div>
+                
+                <div class="ai-section">
+                    <div class="ai-chat-box" id="aiChatBox">
+                        <div class="ai-msg bot">🤖 你好，我是本文的 AI 助手。你可以问我：<br>- "总结一下这篇文章"<br>- "这事儿对我有什么影响？"</div>
+                    </div>
+                    <div class="ai-input-area">
+                        <input type="text" class="ai-input" id="aiInput" placeholder="问问 AI..." onkeypress="handleEnter(event)">
+                        <button class="ai-send-btn" id="aiBtn" onclick="sendToAI()">发送</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script>
+            // 全局变量存储当前文章内容
+            let currentArticleContext = "";
+
+            // 1. 筛选逻辑
             function filterNews(sourceId, btn) {{
                 document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                const items = document.querySelectorAll('.news-item');
-                items.forEach(item => {{
-                    if (sourceId === 'all' || item.getAttribute('data-source') === sourceId) {{
-                        item.style.display = 'flex';
-                    }} else {{
-                        item.style.display = 'none';
-                    }}
+                document.querySelectorAll('.news-item').forEach(item => {{
+                    item.style.display = (sourceId === 'all' || item.getAttribute('data-source') === sourceId) ? 'flex' : 'none';
                 }});
                 window.scrollTo({{ top: 0, behavior: 'smooth' }});
+            }}
+
+            // 2. 打开模态框
+            function openModal(index) {{
+                const dataDiv = document.getElementById('data-' + index);
+                const title = dataDiv.getAttribute('data-title');
+                const source = dataDiv.getAttribute('data-source');
+                const date = dataDiv.getAttribute('data-date');
+                const link = dataDiv.getAttribute('data-link');
+                const content = dataDiv.innerText; // 获取隐藏的全文
+
+                document.getElementById('mTitle').innerText = title;
+                document.getElementById('mMeta').innerText = `${{source}} · ${{date}}`;
+                
+                // 简单的内容格式化，防止太乱
+                document.getElementById('mContent').innerHTML = content.length > 5 ? content : '<p>暂无详细正文，请使用 AI 分析或查看源站。</p>';
+                
+                document.getElementById('mLink').href = link;
+                
+                // 保存上下文给 AI
+                currentArticleContext = `标题：${{title}}\\n内容：${{content.substring(0, 1500)}}`; // 限制长度
+
+                // 重置 AI 聊天框
+                const chatBox = document.getElementById('aiChatBox');
+                chatBox.innerHTML = '<div class="ai-msg bot">🤖 针对这篇新闻，你有什么想问的？</div>';
+
+                // 显示动画
+                const overlay = document.getElementById('articleModal');
+                overlay.style.display = 'block';
+                // 强制重绘
+                overlay.offsetHeight; 
+                overlay.classList.add('open');
+                document.body.style.overflow = 'hidden'; // 禁止背景滚动
+            }}
+
+            // 3. 关闭模态框
+            function closeModal(e) {{
+                const overlay = document.getElementById('articleModal');
+                overlay.classList.remove('open');
+                setTimeout(() => {{ overlay.style.display = 'none'; }}, 300);
+                document.body.style.overflow = '';
+            }}
+
+            // 4. AI 逻辑 (使用 Fetch 调用 API)
+            async function sendToAI() {{
+                const input = document.getElementById('aiInput');
+                const btn = document.getElementById('aiBtn');
+                const chatBox = document.getElementById('aiChatBox');
+                const question = input.value.trim();
+                
+                if (!question) return;
+
+                // UI 更新
+                input.value = '';
+                input.disabled = true;
+                btn.disabled = true;
+                btn.innerText = '思考中...';
+                
+                chatBox.innerHTML += `<div class="ai-msg user">我: ${{question}}</div>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+
+                try {{
+                    // --- ⚠️ 这里是调用 AI 的核心 ---
+                    // 由于没有后端，我们只能前端调用。
+                    // 实际使用时，请将下面的 API_KEY 替换为你自己的 DeepSeek 或 OpenAI Key
+                    // 如果你不想暴露 Key，只能用下面的“模拟模式”
+                    
+                    const API_KEY = ""; // 🔴 【请填入你的 API KEY，例如 sk-xxxxx】
+                    const API_URL = "https://api.deepseek.com/chat/completions"; // DeepSeek 地址
+
+                    let aiResponseText = "";
+
+                    if (!API_KEY) {{
+                        // 模拟模式 (如果你没填 Key)
+                        await new Promise(r => setTimeout(r, 1000));
+                        aiResponseText = "⚠️ 提示：你需要在 main.py 的 JS 代码中填入 API Key 才能真正调用 AI。\\n\\n不过我可以模拟回答：根据这篇文章，" + question + " 的核心在于...";
+                    }} else {{
+                        // 真实调用模式
+                        const response = await fetch(API_URL, {{
+                            method: "POST",
+                            headers: {{
+                                "Content-Type": "application/json",
+                                "Authorization": `Bearer ${{API_KEY}}`
+                            }},
+                            body: JSON.stringify({{
+                                model: "deepseek-chat",
+                                messages: [
+                                    {{role: "system", content: "你是一个科技新闻助手。用户会给你一篇文章内容，请根据内容回答用户的问题。回答要简练。如果文章没提到，就说不知道。"}},
+                                    {{role: "user", content: `文章内容：${{currentArticleContext}}\\n\\n用户问题：${{question}}`}}
+                                ],
+                                stream: false
+                            }})
+                        }});
+                        const data = await response.json();
+                        aiResponseText = data.choices[0].message.content;
+                    }}
+
+                    chatBox.innerHTML += `<div class="ai-msg bot">AI: ${{aiResponseText}}</div>`;
+
+                }} catch (err) {{
+                    chatBox.innerHTML += `<div class="ai-msg bot" style="color:red">出错啦: ${{err.message}}</div>`;
+                }} finally {{
+                    input.disabled = false;
+                    btn.disabled = false;
+                    btn.innerText = '发送';
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                    input.focus();
+                }}
+            }}
+
+            function handleEnter(e) {{
+                if (e.key === 'Enter') sendToAI();
             }}
         </script>
     </body>
