@@ -34,12 +34,10 @@
             .news-item { background: var(--white); margin-bottom: 15px; padding: 15px; display: flex; border: 1px solid #e0e0e0; border-radius: 4px; transition: box-shadow 0.2s; }
             .news-item:hover { box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-color: #ccc; }
             
+            /* 图片容器 */
             .item-img { width: 160px; height: 120px; flex-shrink: 0; margin-right: 20px; background: #f0f2f5; overflow: hidden; border-radius: 2px; position: relative; }
             .item-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; display: block; }
             .news-item:hover .item-img img { transform: scale(1.05); }
-            .fallback-text { display: none; }
-            .no-img-fallback { display: flex; align-items: center; justify-content: center; background: #eef4fa; }
-            .no-img-fallback .fallback-text { display: block; color: var(--cb-blue); font-size: 2rem; font-weight: bold; }
 
             .item-content { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
             .item-title { margin: 0 0 8px 0; font-size: 18px; line-height: 1.4; }
@@ -60,7 +58,6 @@
             .sidebar-list a { text-decoration: none; color: #555; font-size: 14px; line-height: 1.4; display: block; }
             .sidebar-list a:hover { color: var(--cb-blue); }
 
-            /* 底部样式 (Footer) */
             .main-footer { background: #fff; border-top: 1px solid #e0e0e0; padding: 30px 0; margin-top: 40px; text-align: center; color: #999; font-size: 13px; width: 100%; }
             .main-footer p { margin: 8px 0; }
             .main-footer a { color: #999; text-decoration: none; transition: color 0.2s; }
@@ -92,11 +89,28 @@
                 
         <article class="news-item" data-source="ithome">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/4bfecdd2-d4da-42c0-9261-85c9bf0dc5e2.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto/auto-orient%2Co_1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">I</div>
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/db1b43e1-d316-49e5-8726-8d87156bf8f0.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ithome.com/0/900/528.htm" target="_blank">苹果带屏 HomePod 前瞻：定位智能家居中枢，创新小组件、升级 Siri</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">IT之家</span>
+                    <span class="meta-date">11-27 07:28</span>
+                </div>
+                <p class="item-summary">IT之家 11 月 27 日消息，科技媒体 Appleinsider 昨日（11 月 26 日）发布博文，汇总和梳理了现有信息，认为苹果有望在 2026 年春季推出首款智能家居显示...</p>
             </div>
+        </article>
+        
+        <article class="news-item" data-source="ithome">
             
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/4bfecdd2-d4da-42c0-9261-85c9bf0dc5e2.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto/auto-orient%2Co_1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="https://www.ithome.com/0/900/527.htm" target="_blank">英国新政：纯电及插混汽车将按行驶里程缴税</a></h2>
                 <div class="item-meta">
@@ -107,37 +121,13 @@
             </div>
         </article>
         
-        <article class="news-item" data-source="36kr">
-            <div class="item-img no-img-fallback"><div class="fallback-text">3</div></div>
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://36kr.com/newsflashes/3570518155328644?f=rss" target="_blank">美国购房贷款申请量升至2023年以来最高水平</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">36Kr</span>
-                    <span class="meta-date">11-27 07:18</span>
-                </div>
-                <p class="item-summary">尽管借贷成本仍处于高位，但上周美国购房抵押贷款申请量跃升至2023年初以来的最高水平。抵押贷款银行家协会（Mortgage Bankers Association，MBA）周三公布...</p>
-            </div>
-        </article>
-        
-        <article class="news-item" data-source="36kr">
-            <div class="item-img no-img-fallback"><div class="fallback-text">3</div></div>
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://36kr.com/newsflashes/3570516646525828?f=rss" target="_blank">22万科MTN004将召开持有人会议，审议债券展期事项</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">36Kr</span>
-                    <span class="meta-date">11-27 07:17</span>
-                </div>
-                <p class="item-summary">36氪获悉，上海浦东发展银行股份有限公司发布《关于召开万科企业股份有限公司2022年度第四期中期票据2025年第一次持有人会议的公告》。为稳妥推进本期债券本息兑付工作，特召开持有人...</p>
-            </div>
-        </article>
-        
         <article class="news-item" data-source="ithome">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/f9618a98-cdc3-44fb-8764-460ad7a90eac.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">I</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/f9618a98-cdc3-44fb-8764-460ad7a90eac.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="https://www.ithome.com/0/900/526.htm" target="_blank">苹果再遭诉讼，被指在 iPhone 17 等产品中使用“冲突矿产”</a></h2>
                 <div class="item-meta">
@@ -150,11 +140,11 @@
         
         <article class="news-item" data-source="ithome">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/6f1a08fe-c600-48ab-8bc8-4dd88d66ac54.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">I</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/6f1a08fe-c600-48ab-8bc8-4dd88d66ac54.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="https://www.ithome.com/0/900/525.htm" target="_blank">Opera 更新 Neon 浏览器：引入 1 分钟深度研究、支持 AI 操作文档、集成 Gemini 3 Pro</a></h2>
                 <div class="item-meta">
@@ -166,24 +156,12 @@
         </article>
         
         <article class="news-item" data-source="ithome">
-            <div class="item-img no-img-fallback"><div class="fallback-text">I</div></div>
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ithome.com/0/900/524.htm" target="_blank">苹果上诉挑战印度“全球营业额”大棒，潜在罚款最高 380 亿美元</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">IT之家</span>
-                    <span class="meta-date">11-27 06:53</span>
-                </div>
-                <p class="item-summary">IT之家 11 月 27 日消息，路透社今天（11 月 27 日）发布博文，报道称苹果公司已向印度德里高等法院提起诉讼，挑战该国新修订的反垄断罚款法，进而规避高达 380 亿美元（...</p>
-            </div>
-        </article>
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/5ca178e7-b8d2-4316-a8fa-be27decc19c0.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto/auto-orient%2Co_1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
         
-        <article class="news-item" data-source="ithome">
-            
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/5ca178e7-b8d2-4316-a8fa-be27decc19c0.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto/auto-orient%2Co_1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">I</div>
-            </div>
-            
             <div class="item-content">
                 <h2 class="item-title"><a href="https://www.ithome.com/0/900/523.htm" target="_blank">华为 Mate 80 / X7 系列手机 HarmonyOS 6 系统亮点一览，支持 A2A 智能体协作、鸿蒙智能追焦等</a></h2>
                 <div class="item-meta">
@@ -196,11 +174,11 @@
         
         <article class="news-item" data-source="ithome">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/ea0d4f59-77f3-4943-b2cc-e9639fa17755.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">I</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/ea0d4f59-77f3-4943-b2cc-e9639fa17755.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="https://www.ithome.com/0/900/522.htm" target="_blank">消息称新款 iPad mini 要最早明年第三季度 / 第四季度上市，有望先 iPad Air 一步搭载 OLED 面板</a></h2>
                 <div class="item-meta">
@@ -211,25 +189,13 @@
             </div>
         </article>
         
-        <article class="news-item" data-source="solidot">
-            <div class="item-img no-img-fallback"><div class="fallback-text">S</div></div>
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://www.solidot.org/story?sid=82902" target="_blank">欧洲议会呼吁限制未成年人使用社媒</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">Solidot</span>
-                    <span class="meta-date">11-26 23:33</span>
-                </div>
-                <p class="item-summary">欧洲议会周三呼吁欧盟设定儿童使用社交媒体的最低年龄限制，以应对青少年因过度接触社交媒体而导致的心理健康问题日益增多的现状。此前澳大利亚通过了全球首个针对 16 岁以下儿童的社交媒体...</p>
-            </div>
-        </article>
-        
         <article class="news-item" data-source="ithome">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/ecef9fe7-e9a2-47b2-8e26-525645961e64.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">I</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/ecef9fe7-e9a2-47b2-8e26-525645961e64.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="https://www.ithome.com/0/900/521.htm" target="_blank">小米精英驾驶・高阶驾驶培训今年最后一站“上海站”报名开启，首批 1 万人免费</a></h2>
                 <div class="item-meta">
@@ -240,25 +206,13 @@
             </div>
         </article>
         
-        <article class="news-item" data-source="solidot">
-            <div class="item-img no-img-fallback"><div class="fallback-text">S</div></div>
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://www.solidot.org/story?sid=82901" target="_blank">马来西亚柔佛州停止批准一级和二级数据中心</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">Solidot</span>
-                    <span class="meta-date">11-26 23:29</span>
-                </div>
-                <p class="item-summary">马来西亚柔佛州停止批准一级和二级数据中心，理由这些数据中心用水量太高。柔佛是东南亚数据中心枢纽之一。截至 2025 年 11 月它批准了 51 个数据中心项目，其中 17 个已投入...</p>
-            </div>
-        </article>
-        
         <article class="news-item" data-source="ithome">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/7bc74d75-415d-4ae5-b253-25eb201f5abd.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">I</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/7bc74d75-415d-4ae5-b253-25eb201f5abd.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="https://www.ithome.com/0/900/520.htm" target="_blank">特斯拉 Robotaxi 有望取消安全员，车内摄像头数据共享功能曝光</a></h2>
                 <div class="item-meta">
@@ -271,11 +225,11 @@
         
         <article class="news-item" data-source="ithome">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/e7c97fa0-51ad-42a3-9a4b-e8af9659f4b8.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">I</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/e7c97fa0-51ad-42a3-9a4b-e8af9659f4b8.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="https://www.ithome.com/0/900/519.htm" target="_blank">全球央行大调查：超六成没把 AI 用在核心业务，超九成不碰数字资产</a></h2>
                 <div class="item-meta">
@@ -288,11 +242,11 @@
         
         <article class="news-item" data-source="ithome">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/1fbf073d-e174-4dc3-b536-b8ca5729fa29.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">I</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/1fbf073d-e174-4dc3-b536-b8ca5729fa29.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="https://www.ithome.com/0/900/518.htm" target="_blank">华为 Mate X7 折叠屏旗舰手机定档 2025 年 12 月 11 日在迪拜发布</a></h2>
                 <div class="item-meta">
@@ -305,11 +259,11 @@
         
         <article class="news-item" data-source="ithome">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/a5325b82-e43c-4240-8c92-e3e50bf4efb3.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">I</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/a5325b82-e43c-4240-8c92-e3e50bf4efb3.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="https://www.ithome.com/0/900/517.htm" target="_blank">影石向攻克渐冻症慈善信托捐赠 300 万元，蔡磊致谢</a></h2>
                 <div class="item-meta">
@@ -322,11 +276,11 @@
         
         <article class="news-item" data-source="ithome">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/3c58e5ad-b2ef-483c-a7ab-af0eff268fdc.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">I</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/3c58e5ad-b2ef-483c-a7ab-af0eff268fdc.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="https://www.ithome.com/0/900/516.htm" target="_blank">曝三星正研发新一代 Odyssey OLED G6 显示器：27 英寸 2K 面板，有望明年上市</a></h2>
                 <div class="item-meta">
@@ -337,37 +291,132 @@
             </div>
         </article>
         
-        <article class="news-item" data-source="solidot">
-            <div class="item-img no-img-fallback"><div class="fallback-text">S</div></div>
+        <article class="news-item" data-source="ithome">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/31933e50-cf91-4e71-b650-6eac54b65215.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.solidot.org/story?sid=82900" target="_blank">研究揭示大脑如何调配有限的工作记忆资源</a></h2>
+                <h2 class="item-title"><a href="https://www.ithome.com/0/900/515.htm" target="_blank">荣耀手机上线「游戏预更新」功能：系统可在夜间闲时自动检测、下载资源包</a></h2>
                 <div class="item-meta">
-                    <span class="meta-tag tag-blue">Solidot</span>
-                    <span class="meta-date">11-26 22:56</span>
+                    <span class="meta-tag tag-blue">IT之家</span>
+                    <span class="meta-date">11-26 22:54</span>
                 </div>
-                <p class="item-summary">根据发表在《Nature Communications》期刊上的一项研究，对猕猴前额叶皮层神经元活动的分析揭示了大脑如何调配有限的工作记忆资源。分析发现，当记忆负荷增加时，大脑并不...</p>
+                <p class="item-summary">IT之家 11 月 26 日消息，据荣耀游戏研发工程师 @荣耀冯同学 今日分享，荣耀手机上线了「游戏预更新」功能。功能开启后，系统会在夜间闲时自动检测、下载更新的游戏资源包。路径如...</p>
             </div>
         </article>
         
-        <article class="news-item" data-source="solidot">
-            <div class="item-img no-img-fallback"><div class="fallback-text">S</div></div>
+        <article class="news-item" data-source="ithome">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/b1f76d7a-9fb8-419f-8b54-90dd1e90b8b9.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.solidot.org/story?sid=82899" target="_blank">东南亚地区遭遇创纪录降雨和洪灾</a></h2>
+                <h2 class="item-title"><a href="https://www.ithome.com/0/900/514.htm" target="_blank">经典指纹滑动功能回归：华为 Mate 80 系列手机支持智控键下滑打开通知中心</a></h2>
                 <div class="item-meta">
-                    <span class="meta-tag tag-blue">Solidot</span>
-                    <span class="meta-date">11-26 22:26</span>
+                    <span class="meta-tag tag-blue">IT之家</span>
+                    <span class="meta-date">11-26 22:46</span>
                 </div>
-                <p class="item-summary">东南亚的泰国、越南、菲律宾和马来西亚都遭遇了创纪录降雨以及随之而来的洪灾。受灾人口数以百万计。气象专家警告称，未来几周暴雨将沿着马来半岛朝印尼和新加坡前进。东南亚异常强的降雨是两大...</p>
+                <p class="item-summary">IT之家 11 月 26 日消息，华为此前为后置指纹的机型开发过系列功能，包括控制相机拍摄、接听来电、打开通知面板等。遗憾的是，随着华为后续机型取消后置指纹设计，系列功能也逐渐消失...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ithome">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/b3428ada-8eb4-4053-83e1-deaa7e1358c5.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto/auto-orient%2Co_1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ithome.com/0/900/513.htm" target="_blank">铁路 12306 客服回应网络平台兜售积分：积分不能转让</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">IT之家</span>
+                    <span class="meta-date">11-26 22:43</span>
+                </div>
+                <p class="item-summary">IT之家 11 月 26 日消息，据央视新闻报道，近日有网友反映有二手电商平台兜售铁路 12306 会员积分，对此铁路 12306 客服人员表示，火车票积分不能转让。据IT之家了解...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ithome">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/2d6c4de9-2fbb-45f5-ba88-aaef72cfe228.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ithome.com/0/900/512.htm" target="_blank">索尼 α 新品发布会定档 12 月 2 日，有望推出 Alpha 7 V 全画幅无反相机</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">IT之家</span>
+                    <span class="meta-date">11-26 22:38</span>
+                </div>
+                <p class="item-summary">IT之家 11 月 26 日消息，索尼中国今天在B站宣布 α 新品发布会定档 12 月 2 日晚上 22 点整，有望推出 Alpha 7 V 全画幅无反相机等新品。结合IT之家此前...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ithome">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/d10e929f-34c2-48b1-87aa-e95068fd092c.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ithome.com/0/900/511.htm" target="_blank">英伟达 AI 芯片市场主导地位受挑战，股价 1 个月内大跌 14%</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">IT之家</span>
+                    <span class="meta-date">11-26 22:34</span>
+                </div>
+                <p class="item-summary">IT之家 11 月 26 日消息，据彭博社报道，英伟达公司正面临日益加剧的担忧：其在人工智能（AI）计算用半导体市场的主导地位正在松动。这种疑虑如今已开始在股票市场上显现。当地时间...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ithome">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/88962e15-5df2-4bde-a699-e03093d137c2.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ithome.com/0/900/509.htm" target="_blank">华为推出 Mate 80 RS 星钻保护壳：升级全包设计，售价 599 元</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">IT之家</span>
+                    <span class="meta-date">11-26 22:20</span>
+                </div>
+                <p class="item-summary">IT之家 11 月 26 日消息，Mate 80 RS 非凡大师星钻保护壳现已上架华为商城，相比 Mate 70RS 的星钻保护壳升级成全包设计，可以更好地保护手机边框，售价 59...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ithome">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/61848d24-0045-48e9-8af9-1d70fc9f1c62.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ithome.com/0/900/508.htm" target="_blank">华为 Mate 80 手机全系支持音质设置，可调尊享、舒享、静享三种模式</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">IT之家</span>
+                    <span class="meta-date">11-26 22:16</span>
+                </div>
+                <p class="item-summary">IT之家 11 月 26 日消息，今年 6 月，华为在 Pura 80 Pro / Pro+ / Ultra 系列机型上带来了音质设置功能，支持选择尊享、舒享、静享三种模式。IT之...</p>
             </div>
         </article>
         
         <article class="news-item" data-source="ifanr">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/1-21.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">爱</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/1-21.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="https://www.ifanr.com/1646166?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">双座敞篷传奇落幕，宝马 Z4 即将停产</a></h2>
                 <div class="item-meta">
@@ -379,27 +428,13 @@
             </div>
         </article>
         
-        <article class="news-item" data-source="36kr">
-            <div class="item-img no-img-fallback"><div class="fallback-text">3</div></div>
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://36kr.com/p/3569792504626311?f=rss" target="_blank">氪星晚报｜星动纪元与联合国工业发展组织达成战略合作；阿里千问进入电脑桌面，覆盖超1亿用户；渠江特大桥主桥成功合龙，成达万高铁全线路基工程进度超98%</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">36Kr</span>
-                    <span class="meta-date">11-26 19:17</span>
-                </div>
-                <p class="item-summary">大公司：
-科兴与巴西开启十年疫苗合作，创中国疫苗最大金额国际订单
-36氪获悉，当地时间2025年11月24日，科兴与巴西卫生部签署了两项PDP（产品开发伙伴关系）项目，成为首个中标...</p>
-            </div>
-        </article>
-        
         <article class="news-item" data-source="ifanr">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/GT-T.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">爱</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/GT-T.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="https://www.ifanr.com/1646219?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">高通发布了第五代骁龙 8，它和第五代骁龙 8 至尊版有什么不一样？</a></h2>
                 <div class="item-meta">
@@ -412,11 +447,11 @@
         
         <article class="news-item" data-source="huxiu">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/26/182754201638.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">虎</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/26/182754201638.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="http://www.huxiu.com/article/4810062.html?f=wangzhan" target="_blank">超70亿独角兽“原地解散”，无人车赛道却将爆发？</a></h2>
                 <div class="item-meta">
@@ -429,11 +464,11 @@
         
         <article class="news-item" data-source="huxiu">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/23/141958939817.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">虎</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/23/141958939817.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="http://www.huxiu.com/article/4808755.html?f=wangzhan" target="_blank">智驾下一个关键挑战，是不被别人摘“桃子”？</a></h2>
                 <div class="item-meta">
@@ -446,11 +481,11 @@
         
         <article class="news-item" data-source="36kr">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//img.36krcdn.com/hsossms/20251126/v2_ba6e96cc068d4a34ac15a17b75799eec%401934172915_oswg3907006oswg3200oswg2133_img_jpg%3Fx-oss-process%3Dimage/quality%2Cq_80/format%2Cjpg/interlace%2C1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">3</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.36krcdn.com/hsossms/20251126/v2_ba6e96cc068d4a34ac15a17b75799eec%401934172915_oswg3907006oswg3200oswg2133_img_jpg%3Fx-oss-process%3Dimage/quality%2Cq_80/format%2Cjpg/interlace%2C1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="https://36kr.com/p/3548417282732163?f=rss" target="_blank">美国电吉他品牌「Fender」中国首开体验空间，营收增速已超两位数丨早期项目</a></h2>
                 <div class="item-meta">
@@ -464,11 +499,11 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
         
         <article class="news-item" data-source="ifanr">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/VS-DwarkeshPateldwarkeshspX-0124.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">爱</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/VS-DwarkeshPateldwarkeshspX-0124.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="https://www.ifanr.com/1646168?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">Ilya 罕见发声：Scaling 时代已结束，我们对 AGI 的定义可能全错了</a></h2>
                 <div class="item-meta">
@@ -482,11 +517,11 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
         
         <article class="news-item" data-source="36kr">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//img.36krcdn.com/hsossms/20251126/v2_3b5b58fe1aeb4dd291f99dda7df3f383%406208701_oswg10374367oswg3024oswg4032_img_png%3Fx-oss-process%3Dimage/quality%2Cq_80/format%2Cjpg/interlace%2C1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">3</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.36krcdn.com/hsossms/20251126/v2_3b5b58fe1aeb4dd291f99dda7df3f383%406208701_oswg10374367oswg3024oswg4032_img_png%3Fx-oss-process%3Dimage/quality%2Cq_80/format%2Cjpg/interlace%2C1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="https://36kr.com/p/3568209254562693?f=rss" target="_blank">反社交媒体时代，在「盲盒饭局」中重建关系的年轻人 | 早期项目</a></h2>
                 <div class="item-meta">
@@ -498,37 +533,13 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
             </div>
         </article>
         
-        <article class="news-item" data-source="sspai">
-            <div class="item-img no-img-fallback"><div class="fallback-text">少</div></div>
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://sspai.com/post/104007" target="_blank">「捡垃圾」搭建远程文件服务器，顺便聊聊飞牛付费穿透</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">少数派</span>
-                    <span class="meta-date">11-26 17:22</span>
-                </div>
-                <p class="item-summary">去年 11 月左右，笔者为了服务于部门的日常工作，先后使用迷你主机和自组主机两台设备，搭建了飞牛作为部门的文件服务器。本文汇总了这个过程中的选型思路、配置流程和方案对比，希望能为有...</p>
-            </div>
-        </article>
-        
-        <article class="news-item" data-source="solidot">
-            <div class="item-img no-img-fallback"><div class="fallback-text">S</div></div>
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://www.solidot.org/story?sid=82898" target="_blank">美国网红对他们无法购买的中国造电动汽车赞不绝口</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">Solidot</span>
-                    <span class="meta-date">11-26 16:37</span>
-                </div>
-                <p class="item-summary">Omar Rana 第一次驾驶中国造汽车是 2015 年海外旅行期间的租车，中国汽车给他的第一印象很糟糕。到了 2024年，一家他从未听说过的公司 DCar Studio 邀请他去...</p>
-            </div>
-        </article>
-        
         <article class="news-item" data-source="huxiu">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/25/114503820025.png&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">虎</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/25/114503820025.png&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="http://www.huxiu.com/article/4809394.html?f=wangzhan" target="_blank">10个月狂开5000家门店，又一餐饮万店品牌诞生</a></h2>
                 <div class="item-meta">
@@ -539,49 +550,13 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
             </div>
         </article>
         
-        <article class="news-item" data-source="36kr">
-            <div class="item-img no-img-fallback"><div class="fallback-text">3</div></div>
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://36kr.com/p/3569587200277633?f=rss" target="_blank">求购新凯来公司、Momenta公司老股份额；转让持有XAI老股的基金LP份额｜资情留言板第174期</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">36Kr</span>
-                    <span class="meta-date">11-26 15:32</span>
-                </div>
-                <p class="item-summary">资产交易市场，信息瞬息万变，消息真假难辨，即使买卖双方花费大量的时间、精力，推动成交往往困难重重。为了能够帮助买卖双方更快速链接市场信息和潜在交易对手，避免不必要的投入与浪费，我们...</p>
-            </div>
-        </article>
-        
-        <article class="news-item" data-source="solidot">
-            <div class="item-img no-img-fallback"><div class="fallback-text">S</div></div>
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://www.solidot.org/story?sid=82897" target="_blank">上一次有射击游戏销量超过《使命召唤》是 2006 年</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">Solidot</span>
-                    <span class="meta-date">11-26 15:26</span>
-                </div>
-                <p class="item-summary">微软/动视旗下的《使命召唤》系列支配游戏行业已长达 20 年。上一次美国射击类游戏销量超过《使命召唤》还是 2006 年的《战争机器（Gears of War）》，上一次 FPS ...</p>
-            </div>
-        </article>
-        
-        <article class="news-item" data-source="sspai">
-            <div class="item-img no-img-fallback"><div class="fallback-text">少</div></div>
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://sspai.com/post/84574" target="_blank">入门到精通：从今天开始成为感冒专家</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">少数派</span>
-                    <span class="meta-date">11-26 15:16</span>
-                </div>
-                <p class="item-summary">感冒，这个看似微不足道的小病，似乎却成了人类和疾病斗争的缩影。查看全文...</p>
-            </div>
-        </article>
-        
         <article class="news-item" data-source="ifanr">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/d6274656c3229f2ce016a5a0a3735b74.jpeg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">爱</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/d6274656c3229f2ce016a5a0a3735b74.jpeg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="https://www.ifanr.com/1646048?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">夸克 AI 浏览器全面升级，可随时唤起千问</a></h2>
                 <div class="item-meta">
@@ -593,25 +568,13 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
             </div>
         </article>
         
-        <article class="news-item" data-source="solidot">
-            <div class="item-img no-img-fallback"><div class="fallback-text">S</div></div>
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://www.solidot.org/story?sid=82896" target="_blank">FX 将制作改编自《孤岛惊魂》的电视剧</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">Solidot</span>
-                    <span class="meta-date">11-26 14:46</span>
-                </div>
-                <p class="item-summary">迪士尼旗下的 FX 将制作改编自育碧游戏《孤岛惊魂》系列的电视剧。《孤岛惊魂（Far Cry）》系列最早由德国 Crytek 工作室制作，之后由育碧旗下的工作室制作了五部续作和多部...</p>
-            </div>
-        </article>
-        
         <article class="news-item" data-source="huxiu">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/25/230310937200.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">虎</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/25/230310937200.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="http://www.huxiu.com/article/4809737.html?f=wangzhan" target="_blank">机器人学会“思考”后，以后真能在家帮我们干活了吗？</a></h2>
                 <div class="item-meta">
@@ -622,51 +585,13 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
             </div>
         </article>
         
-        <article class="news-item" data-source="solidot">
-            <div class="item-img no-img-fallback"><div class="fallback-text">S</div></div>
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://www.solidot.org/story?sid=82895" target="_blank">AI 并不能思考</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">Solidot</span>
-                    <span class="meta-date">11-26 14:18</span>
-                </div>
-                <p class="item-summary">Cognitive Resonance 创始人 Benjamin Riley 认为 AI 并不能思考。今天的 AI 热是基于一个根本性的误解：语言的建模并不等同于智能。根据目前的神...</p>
-            </div>
-        </article>
-        
-        <article class="news-item" data-source="36kr">
-            <div class="item-img no-img-fallback"><div class="fallback-text">3</div></div>
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://36kr.com/p/3569503374703747?f=rss" target="_blank">字节旗下番茄系2024年收入超300亿，今年有望翻倍｜36氪独家</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">36Kr</span>
-                    <span class="meta-date">11-26 14:13</span>
-                </div>
-                <p class="item-summary">作者｜兰杰
-编辑｜乔芊、杨轩
-36氪独家获悉，据接近字节跳动人士消息，2024年字节旗下番茄系业务（包含番茄小说、红果短剧、番茄畅听以及悟空搜索等在内）的收入超300亿元，整体利润...</p>
-            </div>
-        </article>
-        
-        <article class="news-item" data-source="sspai">
-            <div class="item-img no-img-fallback"><div class="fallback-text">少</div></div>
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://sspai.com/post/103819" target="_blank">谈谈不自律的良好生活</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">少数派</span>
-                    <span class="meta-date">11-26 11:28</span>
-                </div>
-                <p class="item-summary">Matrix首页推荐Matrix是少数派的写作社区，我们主张分享真实的产品体验，有实用价值的经验与思考。我们会不定期挑选Matrix最优质的文章，展示来自用户的最真实的体验和观点。...</p>
-            </div>
-        </article>
-        
         <article class="news-item" data-source="ifanr">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/header-ver-c.jpeg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">爱</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/header-ver-c.jpeg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="https://www.ifanr.com/1646112?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">定义国产高端新十年，华为 Mate 和鸿蒙 6 给出回答</a></h2>
                 <div class="item-meta">
@@ -679,11 +604,11 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
         
         <article class="news-item" data-source="huxiu">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/21/225055451482.png&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">虎</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/21/225055451482.png&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="http://www.huxiu.com/article/4808283.html?f=wangzhan" target="_blank">如果开战它能撑多久？乌克兰能撑三年，日本未必能撑得过三周</a></h2>
                 <div class="item-meta">
@@ -696,11 +621,11 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
         
         <article class="news-item" data-source="huxiu">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/25/114323970627.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">虎</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/25/114323970627.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="http://www.huxiu.com/article/4809392.html?f=wangzhan" target="_blank">开到美国的费大厨，“抛弃”辣椒炒肉了？</a></h2>
                 <div class="item-meta">
@@ -711,28 +636,13 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
             </div>
         </article>
         
-        <article class="news-item" data-source="36kr">
-            <div class="item-img no-img-fallback"><div class="fallback-text">3</div></div>
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://36kr.com/p/3568566627056517?f=rss" target="_blank">云鲸中国区负责人王俊刚已于近期离职｜硬氪独家</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">36Kr</span>
-                    <span class="meta-date">11-26 09:30</span>
-                </div>
-                <p class="item-summary">作者｜黄楠
-编辑｜袁斯来
-硬氪从多个独立信源确认，云鲸智能中国区负责人王俊刚已于近期离职，目前其后续动向尚未明确。
-这次王俊刚的离职并无前兆，相对突然。他于2024年加入云鲸，此前...</p>
-            </div>
-        </article>
-        
         <article class="news-item" data-source="ifanr">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/images/ep/cover-images/chun_bai_wu_shi_li_de_niu_zi_xi_ha_ge_cover.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">爱</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/images/ep/cover-images/chun_bai_wu_shi_li_de_niu_zi_xi_ha_ge_cover.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="https://www.ifanr.com/1646106?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">早报｜折叠屏 iPhone 或命名 Ultra/4699 元起，华为 Mate80 系列发布/「史上最严」充电宝新规将实施，3C认证全面失效</a></h2>
                 <div class="item-meta">
@@ -757,11 +667,11 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
         
         <article class="news-item" data-source="36kr">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//img.36krcdn.com/hsossms/20240409/v2_33a934852edf4d5ba8e485cbde5f48e3%406022551_oswg1937048oswg1280oswg853_img_jpg%3Fx-oss-process%3Dimage/quality%2Cq_90/format%2Cjpg/interlace%2C1/format%2Cjpg/interlace%2C1/format%2Cjpg/interlace%2C1/format%2Cjpg/interlace%2C1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">3</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.36krcdn.com/hsossms/20240409/v2_33a934852edf4d5ba8e485cbde5f48e3%406022551_oswg1937048oswg1280oswg853_img_jpg%3Fx-oss-process%3Dimage/quality%2Cq_90/format%2Cjpg/interlace%2C1/format%2Cjpg/interlace%2C1/format%2Cjpg/interlace%2C1/format%2Cjpg/interlace%2C1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="https://36kr.com/p/3552360997141633?f=rss" target="_blank">特斯联半年报：营收增长77%，迈入空间智能时代</a></h2>
                 <div class="item-meta">
@@ -777,11 +687,11 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
         
         <article class="news-item" data-source="36kr">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//img.36krcdn.com/hsossms/20251126/v2_018b7b3604c84c7cb56c581c09f5ed4e%406100851_oswg106672oswg700oswg398_img_000%3Fx-oss-process%3Dimage/format%2Cjpg/interlace%2C1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">3</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.36krcdn.com/hsossms/20251126/v2_018b7b3604c84c7cb56c581c09f5ed4e%406100851_oswg106672oswg700oswg398_img_000%3Fx-oss-process%3Dimage/format%2Cjpg/interlace%2C1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="https://36kr.com/p/3569142279224197?f=rss" target="_blank">8点1氪｜充电宝新规将落地，原3C认证将全面失效；上海地铁试点“站票车厢” ；超级猩猩客服回应“闭店潮”</a></h2>
                 <div class="item-meta">
@@ -797,25 +707,13 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
             </div>
         </article>
         
-        <article class="news-item" data-source="sspai">
-            <div class="item-img no-img-fallback"><div class="fallback-text">少</div></div>
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://sspai.com/post/104095" target="_blank">派早报：华为发布多款新品等</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">少数派</span>
-                    <span class="meta-date">11-26 07:30</span>
-                </div>
-                <p class="item-summary">柯达推出 Snapic A1 胶片傻瓜相机，Google 智能助理将在 2026 年停止服务等。查看全文...</p>
-            </div>
-        </article>
-        
         <article class="news-item" data-source="huxiu">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/26/055018927274.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">虎</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/26/055018927274.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="http://www.huxiu.com/article/4809050.html?f=wangzhan" target="_blank">梁建章有底气</a></h2>
                 <div class="item-meta">
@@ -826,49 +724,13 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
             </div>
         </article>
         
-        <article class="news-item" data-source="solidot">
-            <div class="item-img no-img-fallback"><div class="fallback-text">S</div></div>
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://www.solidot.org/story?sid=82894" target="_blank">新加坡要求苹果和 Google 采取行动防止冒充政府发送短信</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">Solidot</span>
-                    <span class="meta-date">11-26 00:23</span>
-                </div>
-                <p class="item-summary">苹果公司及谷歌公司须在星期天（11月30日）前，遵守新加坡警察部队指令，采取措施防止用户通过 iMessage 及 Google Messages 冒充 gov.sg 及政府机构发...</p>
-            </div>
-        </article>
-        
-        <article class="news-item" data-source="solidot">
-            <div class="item-img no-img-fallback"><div class="fallback-text">S</div></div>
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://www.solidot.org/story?sid=82893" target="_blank">联想囤积了可供一整年使用的内存</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">Solidot</span>
-                    <span class="meta-date">11-25 23:41</span>
-                </div>
-                <p class="item-summary">为应对 AI 热所引发的供应短缺，联想正在囤积内存等重要 PC 零部件。联想 CFO 郑孝明周一接受彭博社采访时表示，该公司目前的 PC 零部件库存比平常高 50%。随着 AI 热...</p>
-            </div>
-        </article>
-        
-        <article class="news-item" data-source="solidot">
-            <div class="item-img no-img-fallback"><div class="fallback-text">S</div></div>
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://www.solidot.org/story?sid=82892" target="_blank">大脑结构在 9、32、66 和 83 岁时经历重大变化</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">Solidot</span>
-                    <span class="meta-date">11-25 23:25</span>
-                </div>
-                <p class="item-summary">根据发表在《Nature Communications》期刊上的一项研究，剑桥大学团队利用 MRI diffusion scans 数据集对比了年龄在 0-90 岁之间的 3802...</p>
-            </div>
-        </article>
-        
         <article class="news-item" data-source="ifanr">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/00-2.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">爱</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/00-2.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="https://www.ifanr.com/1646013?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">今年广州车展，主角不是车企</a></h2>
                 <div class="item-meta">
@@ -884,11 +746,11 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
         
         <article class="news-item" data-source="36kr">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//img.36krcdn.com/hsossms/20251125/v2_295c77e64a774796919b061feee3ea0f%406227116_oswg186670oswg1920oswg1280_img_jpg%3Fx-oss-process%3Dimage/quality%2Cq_100/format%2Cjpg/interlace%2C1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">3</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.36krcdn.com/hsossms/20251125/v2_295c77e64a774796919b061feee3ea0f%406227116_oswg186670oswg1920oswg1280_img_jpg%3Fx-oss-process%3Dimage/quality%2Cq_100/format%2Cjpg/interlace%2C1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="https://36kr.com/p/3568484680219781?f=rss" target="_blank">黑芝麻智能发布SesameX平台，给各种机器人装上“通用大脑”丨最前线</a></h2>
                 <div class="item-meta">
@@ -902,40 +764,13 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
             </div>
         </article>
         
-        <article class="news-item" data-source="36kr">
-            <div class="item-img no-img-fallback"><div class="fallback-text">3</div></div>
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://36kr.com/p/3568501130460297?f=rss" target="_blank">华为发布开源AI容器技术Flex:ai：让闲置算力“动起来”，把一张卡切给多任务使用丨最前线</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">36Kr</span>
-                    <span class="meta-date">11-25 21:51</span>
-                </div>
-                <p class="item-summary">文｜富充
-编辑｜苏建勋
-当前，“算力不够用”和“算力被浪费”正在同时发生。
-36氪获悉，近日举行的2025AI容器应用落地与发展论坛上，华为公司正式发布AI容器技术——Flex:a...</p>
-            </div>
-        </article>
-        
-        <article class="news-item" data-source="solidot">
-            <div class="item-img no-img-fallback"><div class="fallback-text">S</div></div>
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://www.solidot.org/story?sid=82890" target="_blank">中国首次发射应急飞船神舟二十二号</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">Solidot</span>
-                    <span class="meta-date">11-25 21:49</span>
-                </div>
-                <p class="item-summary">中国载人航天工程办公室宣布于 11 月 25 日 12 时 11 分在酒泉卫星发射中心发射了神舟二十二号飞船。这是中国首次发射应急飞船，原因是神舟二十号飞船原计划 11 月 5 日...</p>
-            </div>
-        </article>
-        
         <article class="news-item" data-source="ifanr">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/IMG_0002-1.jpeg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">爱</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/IMG_0002-1.jpeg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="https://www.ifanr.com/1646033?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">华为 Mate 旗舰新机上手：我们用 20 倍长焦微距，找到了一个小彩蛋</a></h2>
                 <div class="item-meta">
@@ -949,11 +784,11 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
         
         <article class="news-item" data-source="ifanr">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/7M304957.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">爱</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/7M304957.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="https://www.ifanr.com/1646049?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">荣耀 500 Pro 体验：Live 图也支持路人消除，从影像到性能全覆盖的 AI 手机</a></h2>
                 <div class="item-meta">
@@ -968,11 +803,11 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
         
         <article class="news-item" data-source="huxiu">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/25/154026957345.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">虎</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/25/154026957345.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="http://www.huxiu.com/article/4809011.html?f=wangzhan" target="_blank">西贝之后，“带孩子去哪儿吃饭”造就了新商机</a></h2>
                 <div class="item-meta">
@@ -983,25 +818,13 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
             </div>
         </article>
         
-        <article class="news-item" data-source="sspai">
-            <div class="item-img no-img-fallback"><div class="fallback-text">少</div></div>
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://sspai.com/post/104066" target="_blank">社区速递 119 | 派友对智能眼镜的看法、一周热评以及新玩意</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">少数派</span>
-                    <span class="meta-date">11-25 17:30</span>
-                </div>
-                <p class="item-summary">除了首页时间流和侧栏的精选展位，少数派Matrix社区还有很多优秀内容因条件所限无法得到有效曝光，因此我们决定重启Matrix周报，并在此基础上添加更多社区内容、作者投稿新玩意呈现...</p>
-            </div>
-        </article>
-        
         <article class="news-item" data-source="ifanr">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/coverifanr-1.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">爱</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/coverifanr-1.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="https://www.ifanr.com/1645965?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">4699 元起！华为发布 Mate 80 系列：全能、直屏，还有性价比</a></h2>
                 <div class="item-meta">
@@ -1013,49 +836,13 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
             </div>
         </article>
         
-        <article class="news-item" data-source="sspai">
-            <div class="item-img no-img-fallback"><div class="fallback-text">少</div></div>
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://sspai.com/post/104065" target="_blank">直播预告｜飞傲 DM15 R2R 便携蓝牙 CD 播放机 正式发售</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">少数派</span>
-                    <span class="meta-date">11-25 16:00</span>
-                </div>
-                <p class="item-summary">有关注过少数派共创项目的派友对这把键盘应该不陌生：​来自FiiO飞傲的HiFi音乐键盘：KB3-少数派联名款，其内置的解码器与耳放，是你桌面端享受音乐的强力搭档。同时凭借镁铝合金的...</p>
-            </div>
-        </article>
-        
-        <article class="news-item" data-source="sspai">
-            <div class="item-img no-img-fallback"><div class="fallback-text">少</div></div>
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://sspai.com/prime/story/wechat-read-annotations-widget-tasker" target="_blank">用 Tasker 在桌面上随机回顾微信读书笔记</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">少数派</span>
-                    <span class="meta-date">11-25 15:42</span>
-                </div>
-                <p class="item-summary">不知不觉已经使用了微信读书快10年，打开笔记页面一看，已经留下了8000多条笔记。一直以来，我希望能在桌面上用一个小组件随机回顾我的那些笔记，蓦然回首，重温旧梦。不过，从iPhon...</p>
-            </div>
-        </article>
-        
-        <article class="news-item" data-source="sspai">
-            <div class="item-img no-img-fallback"><div class="fallback-text">少</div></div>
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://sspai.com/post/104030" target="_blank">Matrix 圆桌｜聊聊那些让你离不开的「平台独占」</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">少数派</span>
-                    <span class="meta-date">11-25 15:00</span>
-                </div>
-                <p class="item-summary">每当在 iOS 和 Android 之间权衡，总有些应用、服务和体验让人难以割舍，甚至最终影响我们的选购决策；另一方面，新的生态、初来乍到，很多人也难免有「我应该尝试些什么东西」的...</p>
-            </div>
-        </article>
-        
         <article class="news-item" data-source="ifanr">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/BhkHHxz2.jpeg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">爱</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/BhkHHxz2.jpeg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="https://www.ifanr.com/1645943?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">ChatGPT 这个新功能，想把淘宝小红书 B 站的活全干了</a></h2>
                 <div class="item-meta">
@@ -1069,11 +856,11 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
         
         <article class="news-item" data-source="huxiu">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/22/210600524831.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">虎</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/22/210600524831.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="http://www.huxiu.com/article/4808514.html?f=wangzhan" target="_blank">华为又开始放大招了，再次改变了AI算力的发展模式？</a></h2>
                 <div class="item-meta">
@@ -1084,25 +871,13 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
             </div>
         </article>
         
-        <article class="news-item" data-source="sspai">
-            <div class="item-img no-img-fallback"><div class="fallback-text">少</div></div>
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://sspai.com/post/103458" target="_blank">习惯养成 ABC：要如何克服内心的静摩擦力？</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">少数派</span>
-                    <span class="meta-date">11-25 11:33</span>
-                </div>
-                <p class="item-summary">Matrix首页推荐Matrix是少数派的写作社区，我们主张分享真实的产品体验，有实用价值的经验与思考。我们会不定期挑选Matrix最优质的文章，展示来自用户的最真实的体验和观点。...</p>
-            </div>
-        </article>
-        
         <article class="news-item" data-source="huxiu">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/24/102258260986.jpeg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">虎</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/24/102258260986.jpeg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="http://www.huxiu.com/article/4808845.html?f=wangzhan" target="_blank">北京VS杭州，谁是AI第一城？</a></h2>
                 <div class="item-meta">
@@ -1117,11 +892,11 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
         
         <article class="news-item" data-source="ifanr">
             
-            <div class="item-img">
-                <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/images/ep/cover-images/xia_tian_chong_lang_cover.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">爱</div>
-            </div>
-            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/images/ep/cover-images/xia_tian_chong_lang_cover.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
                 <h2 class="item-title"><a href="https://www.ifanr.com/1645932?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">早报｜ChatGPT推出购物研究功能/豆包输入法官宣上线/Google苹果互传功能或登陆更多安卓手机</a></h2>
                 <div class="item-meta">
@@ -1148,15 +923,161 @@ Claude Opus 4.5 正式推出
             </div>
         </article>
         
-        <article class="news-item" data-source="sspai">
-            <div class="item-img no-img-fallback"><div class="fallback-text">少</div></div>
+        <article class="news-item" data-source="ifanr">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/33.jpeg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
             <div class="item-content">
-                <h2 class="item-title"><a href="https://sspai.com/post/104063" target="_blank">派早报：荣耀发布 500 系列手机，抖音发布《抖音社区法律行业公约》等</a></h2>
+                <h2 class="item-title"><a href="https://www.ifanr.com/1645911?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">编程测试碾压人类！Claude Opus 4.5 深夜突袭，AI 编程进入「超人时代」</a></h2>
                 <div class="item-meta">
-                    <span class="meta-tag tag-blue">少数派</span>
-                    <span class="meta-date">11-25 07:56</span>
+                    <span class="meta-tag tag-blue">爱范儿</span>
+                    <span class="meta-date">11-25 07:13</span>
                 </div>
-                <p class="item-summary">联发科发布天玑座舱芯片 P1 Ultra，育碧公布采用 AI 队友的试验性游戏项目 Teammates 等。查看全文...</p>
+                <p class="item-summary">最近这段时间，大模型发布就跟下饺子似的，一个接一个往外冒。
+前脚 Gemini 3 Pro 刚抢了两周风头，后脚 Claude Opus 4.5 刚刚就正式发布，还是主打编程，还是...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ifanr">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/Weixin-Image_20251124175632_2865_68.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ifanr.com/1645857?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">元宝上线一句话生成视频，这会是评论区的整活小能手</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">爱范儿</span>
+                    <span class="meta-date">11-24 18:32</span>
+                </div>
+                <p class="item-summary">「@元宝，总结一下这篇文章」，自从在微信公众号留言区能@元宝之后，让元宝来总结文章内容成了最热门的玩法。
+但元宝能做的远不止是总结一篇文章，就在 Nano Banana Pro 发...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ifanr">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/42.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ifanr.com/1645817?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">理想 VLA 再更新，不但自主充电还能躲「鱼雷」</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">爱范儿</span>
+                    <span class="meta-date">11-24 17:43</span>
+                </div>
+                <p class="item-summary">每当苹果在 WWDC 发布新版 iOS，相关热搜总是会出现类似这样的话题：究竟哪款老 iPhone 首次被排除在升级名单之外，不幸「掉队」？
+新能源汽车也是如此——引入智能化后，「...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ifanr">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/cover-1-1024x436.png&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ifanr.com/1645848?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">iOS 27 首曝：缝缝补补又一年，苹果 AI 明年见？</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">爱范儿</span>
+                    <span class="meta-date">11-24 17:15</span>
+                </div>
+                <p class="item-summary">iOS 26 的液态玻璃还没捂热，长达一年的 iOS 27 「爆料发布会」就开始了。
+在最新的报道中，彭博社首次公开了 iOS 27 的一些总体信息，简单概括就是八个字：
+优化为主...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ifanr">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/bc12tm.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ifanr.com/1645791?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">对话奔驰大中华区负责人佟欧福：跑得快并不重要，重要的是又快又久</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">爱范儿</span>
+                    <span class="meta-date">11-24 14:36</span>
+                </div>
+                <p class="item-summary">奔驰是一家可以定义什么是「车」的公司。
+这当然是因为一百多年前，奔驰创始人卡尔·奔驰发明了现代意义上的汽车，当然也是因为如今 AMG 定义了什么是性能车的典范，或者迈巴赫定义了什么...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ifanr">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/sama-1.png&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ifanr.com/1645776?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">Nano Banana终于不是文盲了，但我可能会变「傻」</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">爱范儿</span>
+                    <span class="meta-date">11-24 14:29</span>
+                </div>
+                <p class="item-summary">过去一个周末 Gemini 3 Pro Image 的能力被反复「折磨」，花样越来越多——噢，你问这是什么，它的另一个名字是 Nano Banana 2。这么跟个恶搞一样的名字，居...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ifanr">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/Gemini_Generated_Image_fyk7xwfyk7xwfyk7.png&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ifanr.com/1645715?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">豆包输入法上线，用了两天我在微信聊天不想再打字</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">爱范儿</span>
+                    <span class="meta-date">11-24 10:35</span>
+                </div>
+                <p class="item-summary">如果你用过一些手机系统自带输入法，一定懂那种它好像没学过中文的无力感。
+正因如此，第三方输入法才得以遍地开花。
+当官方输入法不好用，用户自然会用脚投票。最近字节推出了豆包输入法 1...</p>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ifanr">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/images/ep/cover-images/pan_yan_de_nv_shi_cover.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title"><a href="https://www.ifanr.com/1645721?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">早报｜iOS 27更新方向曝光：继续修修补补/广州首场 AI 嘉年华 AIDONE 收官/俞敏洪再发致歉信：员工与管理层应互相成就</a></h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">爱范儿</span>
+                    <span class="meta-date">11-24 08:59</span>
+                </div>
+                <p class="item-summary">消息称 iOS 27 将专注于细节打磨
+
+
+
+
+
+20+AI 品牌齐聚广州，我在 AIDONE 见证了 AI 的100 种打开方式
+
+
+
+
+
+小米回应「汽车工厂内电池产线起火」
+
+...</p>
             </div>
         </article>
         
@@ -1165,13 +1086,13 @@ Claude Opus 4.5 正式推出
             <aside>
                 <h3 class="sidebar-title">今日头条</h3>
                 <ul class="sidebar-list">
-                    <li><a href="https://www.ithome.com/0/900/527.htm" target="_blank">英国新政：纯电及插混汽车将按行驶里程缴税</a></li><li><a href="https://36kr.com/newsflashes/3570518155328644?f=rss" target="_blank">美国购房贷款申请量升至2023年以来最高水平</a></li><li><a href="https://36kr.com/newsflashes/3570516646525828?f=rss" target="_blank">22万科MTN004将召开持有人会议，审议债券展期事项</a></li><li><a href="https://www.ithome.com/0/900/526.htm" target="_blank">苹果再遭诉讼，被指在 iPhone 17 等产品中使用“冲突矿产”</a></li><li><a href="https://www.ithome.com/0/900/525.htm" target="_blank">Opera 更新 Neon 浏览器：引入 1 分钟深度研究、支持 AI 操作文档、集成 Gemini 3 Pro</a></li><li><a href="https://www.ithome.com/0/900/524.htm" target="_blank">苹果上诉挑战印度“全球营业额”大棒，潜在罚款最高 380 亿美元</a></li><li><a href="https://www.ithome.com/0/900/523.htm" target="_blank">华为 Mate 80 / X7 系列手机 HarmonyOS 6 系统亮点一览，支持 A2A 智能体协作、鸿蒙智能追焦等</a></li><li><a href="https://www.ithome.com/0/900/522.htm" target="_blank">消息称新款 iPad mini 要最早明年第三季度 / 第四季度上市，有望先 iPad Air 一步搭载 OLED 面板</a></li><li><a href="https://www.solidot.org/story?sid=82902" target="_blank">欧洲议会呼吁限制未成年人使用社媒</a></li><li><a href="https://www.ithome.com/0/900/521.htm" target="_blank">小米精英驾驶・高阶驾驶培训今年最后一站“上海站”报名开启，首批 1 万人免费</a></li>
+                    <li><a href="https://www.ithome.com/0/900/528.htm" target="_blank">苹果带屏 HomePod 前瞻：定位智能家居中枢，创新小组件、升级 Siri</a></li><li><a href="https://www.ithome.com/0/900/527.htm" target="_blank">英国新政：纯电及插混汽车将按行驶里程缴税</a></li><li><a href="https://www.ithome.com/0/900/526.htm" target="_blank">苹果再遭诉讼，被指在 iPhone 17 等产品中使用“冲突矿产”</a></li><li><a href="https://www.ithome.com/0/900/525.htm" target="_blank">Opera 更新 Neon 浏览器：引入 1 分钟深度研究、支持 AI 操作文档、集成 Gemini 3 Pro</a></li><li><a href="https://www.ithome.com/0/900/523.htm" target="_blank">华为 Mate 80 / X7 系列手机 HarmonyOS 6 系统亮点一览，支持 A2A 智能体协作、鸿蒙智能追焦等</a></li><li><a href="https://www.ithome.com/0/900/522.htm" target="_blank">消息称新款 iPad mini 要最早明年第三季度 / 第四季度上市，有望先 iPad Air 一步搭载 OLED 面板</a></li><li><a href="https://www.ithome.com/0/900/521.htm" target="_blank">小米精英驾驶・高阶驾驶培训今年最后一站“上海站”报名开启，首批 1 万人免费</a></li><li><a href="https://www.ithome.com/0/900/520.htm" target="_blank">特斯拉 Robotaxi 有望取消安全员，车内摄像头数据共享功能曝光</a></li><li><a href="https://www.ithome.com/0/900/519.htm" target="_blank">全球央行大调查：超六成没把 AI 用在核心业务，超九成不碰数字资产</a></li><li><a href="https://www.ithome.com/0/900/518.htm" target="_blank">华为 Mate X7 折叠屏旗舰手机定档 2025 年 12 月 11 日在迪拜发布</a></li>
                 </ul>
             </aside>
         </div>
 
         <footer class="main-footer">
-            <p>更新于: 2025-11-27 07:21 (北京时间)</p>
+            <p>更新于: 2025-11-27 07:29 (北京时间)</p>
             <p><a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2025183710号-1</a></p>
             <p>&copy; 折疼记</p>
         </footer>
