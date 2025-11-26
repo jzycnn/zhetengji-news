@@ -26,13 +26,17 @@ def get_image_from_html(html_content):
     if not html_content: return None
     try:
         soup = BeautifulSoup(html_content, 'html.parser')
-        img = soup.find('img')
-        if img:
+        # 查找所有 img 标签
+        imgs = soup.find_all('img')
+        for img in imgs:
+            # 遍历常见的图片属性
             candidates = ['data-original', 'data-src', 'data-url', 'src']
             for attr in candidates:
                 url = img.get(attr)
                 if url and url.startswith('http'):
-                    if 'emoji' in url or '.gif' in url: continue
+                    # 过滤掉表情包、小图标、头像
+                    if 'emoji' in url or '.gif' in url or 'avatar' in url: 
+                        continue
                     return url
     except: return None
     return None
@@ -43,6 +47,7 @@ def process_image_url(original_url):
     original_url = original_url.strip()
     if not original_url.startswith('http'): return None
     encoded_url = urllib.parse.quote(original_url)
+    # 使用 wsrv.nl 代理
     return f"https://wsrv.nl/?url={encoded_url}&w=240&h=180&fit=cover&output=webp&q=80"
 
 def generate_html():
@@ -55,7 +60,9 @@ def generate_html():
         try:
             print(f"正在读取: {feed['name']}...")
             f = feedparser.parse(feed["url"])
-            for entry in f.entries[:12]: 
+            
+            # 【关键修改】增加抓取数量到 20，因为后面会过滤掉很多没图的
+            for entry in f.entries[:20]: 
                 content_html = ""
                 if hasattr(entry, 'content'): content_html = entry.content[0].value
                 elif hasattr(entry, 'summary'): content_html = entry.summary
@@ -64,6 +71,10 @@ def generate_html():
                 raw_img = get_image_from_html(content_html)
                 final_img = process_image_url(raw_img)
                 
+                # 【关键修改】后端过滤：如果没提取到图片，直接丢弃这条新闻
+                if not final_img:
+                    continue
+
                 soup_text = BeautifulSoup(content_html, 'html.parser').get_text()
                 summary_text = soup_text.strip()[:90] + "..." if soup_text else entry.title
 
@@ -94,16 +105,13 @@ def generate_html():
 
     news_list_html = ""
     for art in articles:
-        img_html = ""
-        if art["image"]:
-            img_html = f'''
-            <div class="item-img">
-                <img src="{art["image"]}" loading="lazy" alt="封面" onerror="this.onerror=null;this.parentNode.classList.add('no-img-fallback');this.style.display='none';">
-                <div class="fallback-text">{art["source"][0]}</div>
-            </div>
-            '''
-        else:
-            img_html = f'<div class="item-img no-img-fallback"><div class="fallback-text">{art["source"][0]}</div></div>'
+        # 【关键修改】前端过滤：onerror 时直接移除整个 .news-item 卡片
+        img_html = f'''
+        <div class="item-img">
+            <img src="{art["image"]}" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        '''
 
         news_list_html += f"""
         <article class="news-item" data-source="{art['source_id']}">
@@ -119,6 +127,7 @@ def generate_html():
         </article>
         """
     
+    # 侧边栏取前10条 (也是保证有图的，因为 articles 列表本身就已经过滤过了)
     headline_articles = articles[:10]
     sidebar_html = ""
     for art in headline_articles:
@@ -168,12 +177,10 @@ def generate_html():
             .news-item {{ background: var(--white); margin-bottom: 15px; padding: 15px; display: flex; border: 1px solid #e0e0e0; border-radius: 4px; transition: box-shadow 0.2s; }}
             .news-item:hover {{ box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-color: #ccc; }}
             
+            /* 图片容器 */
             .item-img {{ width: 160px; height: 120px; flex-shrink: 0; margin-right: 20px; background: #f0f2f5; overflow: hidden; border-radius: 2px; position: relative; }}
             .item-img img {{ width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; display: block; }}
             .news-item:hover .item-img img {{ transform: scale(1.05); }}
-            .fallback-text {{ display: none; }}
-            .no-img-fallback {{ display: flex; align-items: center; justify-content: center; background: #eef4fa; }}
-            .no-img-fallback .fallback-text {{ display: block; color: var(--cb-blue); font-size: 2rem; font-weight: bold; }}
 
             .item-content {{ flex: 1; display: flex; flex-direction: column; justify-content: space-between; }}
             .item-title {{ margin: 0 0 8px 0; font-size: 18px; line-height: 1.4; }}
@@ -194,7 +201,6 @@ def generate_html():
             .sidebar-list a {{ text-decoration: none; color: #555; font-size: 14px; line-height: 1.4; display: block; }}
             .sidebar-list a:hover {{ color: var(--cb-blue); }}
 
-            /* 底部样式 (Footer) */
             .main-footer {{ background: #fff; border-top: 1px solid #e0e0e0; padding: 30px 0; margin-top: 40px; text-align: center; color: #999; font-size: 13px; width: 100%; }}
             .main-footer p {{ margin: 8px 0; }}
             .main-footer a {{ color: #999; text-decoration: none; transition: color 0.2s; }}
