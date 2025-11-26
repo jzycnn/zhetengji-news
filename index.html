@@ -4,45 +4,49 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- 这里的 no-referrer 是为了让部分防盗链图片能显示 -->
         <meta name="referrer" content="no-referrer">
-        <meta name="description" content="折藤记 - 每日自动更新的 IT 科技新闻聚合站">
-        <title>折藤记 - 科技早报</title>
+        <meta name="description" content="折疼记 - 每日自动更新的 IT 科技新闻聚合站">
+        <title>折疼记 - 科技早报</title>
         <style>
             :root {
-                --primary: #d32f2f;
+                --primary: #d32f2f; /* 主色调：深红 */
                 --bg: #f5f7fa;
-                --card-bg: #fff;
+                --card-bg: #ffffff;
                 --text: #2c3e50;
             }
             body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; background: var(--bg); margin: 0; color: var(--text); }
             
-            /* 顶部 */
+            /* 顶部导航 */
             header { background: var(--primary); color: #fff; padding: 1rem 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 999; }
             .header-content { max-width: 1200px; margin: 0 auto; padding: 0 20px; display: flex; justify-content: space-between; align-items: center; }
             .brand { font-size: 1.5rem; font-weight: bold; letter-spacing: 1px; }
             .time { font-size: 0.85rem; opacity: 0.8; }
 
-            /* 网格 */
+            /* 主体网格 */
             main { max-width: 1200px; margin: 2rem auto; padding: 0 15px; display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
 
-            /* 卡片 */
+            /* 卡片样式 */
             .card { background: var(--card-bg); border-radius: 10px; overflow: hidden; transition: all 0.3s ease; box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 1px solid #eaeaea; }
             .card:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
-            .card-link { text-decoration: none; color: inherit; display: block; }
+            .card-link { text-decoration: none; color: inherit; display: block; height: 100%; }
             
-            /* 图片 */
+            /* 图片部分 */
             .card-img { height: 150px; background-size: cover; background-position: center; }
-            .no-img { display: flex; align-items: center; justify-content: center; background: #eee; color: #999; font-weight: bold; font-size: 1.2rem; }
+            .no-img { display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #f6f7f9 0%, #e3e5e8 100%); color: #999; font-weight: bold; font-size: 1.2rem; }
             
-            /* 文字 */
+            /* 文字部分 */
             .card-content { padding: 15px; display: flex; flex-direction: column; height: 110px; justify-content: space-between; }
             .card-meta { display: flex; justify-content: space-between; font-size: 0.75rem; color: #888; margin-bottom: 8px; }
             .source-tag { background: #fef2f2; color: var(--primary); padding: 2px 6px; border-radius: 4px; font-weight: 500; }
-            .card-title { margin: 0; font-size: 1rem; line-height: 1.5; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+            .card-title { margin: 0; font-size: 1rem; line-height: 1.5; color: #333; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; font-weight: 600; }
             
-            footer { text-align: center; padding: 3rem 0; color: #999; font-size: 0.85rem; }
-            footer a { color: #666; text-decoration: none; }
+            /* 底部样式 */
+            footer { text-align: center; padding: 3rem 0; color: #999; font-size: 0.85rem; line-height: 1.8; }
+            footer a { color: #666; text-decoration: none; transition: color 0.2s; }
+            footer a:hover { color: var(--primary); }
             
+            /* 移动端适配 */
             @media (max-width: 600px) {
                 main { grid-template-columns: 1fr; }
                 .card-img { height: 180px; }
@@ -52,11 +56,13 @@
     <body>
         <header>
             <div class="header-content">
-                <div class="brand">折藤记</div>
-                <div class="time">更新: 2025-11-26 22:09</div>
+                <div class="brand">折疼记</div>
+                <div class="time">更新: 2025-11-26 22:16</div>
             </div>
         </header>
+        
         <main>
+            
         <article class="card">
             <a href="https://www.ithome.com/0/900/523.htm" target="_blank" class="card-link">
                 <div class="card-img" style="background-image: url('https://img.ithome.com/newsuploadfiles/2025/11/5ca178e7-b8d2-4316-a8fa-be27decc19c0.jpg?x-bce-process=image/format,f_auto/auto-orient,o_1');"></div>
@@ -680,10 +686,15 @@
                 </div>
             </a>
         </article>
+        
         </main>
+
         <footer>
-            <p>聚合全网科技热点 | 备案名：折藤记</p>
-            <p>&copy; 2025 Powered by EdgeOne Pages</p>
+            <p>聚合全网科技热点</p>
+            <p>
+                <a href="https://beian.miit.gov.cn/" target="_blank" rel="noopener noreferrer">浙ICP备2025183710号-1</a>
+            </p>
+            <p>&copy; 2025 折疼记. Powered by EdgeOne Pages.</p>
         </footer>
     </body>
     </html>
