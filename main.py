@@ -3,15 +3,14 @@ import datetime
 import urllib.parse
 from bs4 import BeautifulSoup
 import ssl
-import random
 
 # 1. SSL 证书修复
 if hasattr(ssl, '_create_unverified_context'):
     ssl._create_default_https_context = ssl._create_unverified_context
 
-# 2. 配置 RSS 源 (保持不变)
+# 2. 配置 RSS 源
 feeds = [
-    {"id": "all", "name": "全部", "url": ""}, # 占位用于逻辑
+    {"id": "all", "name": "全部", "url": ""},
     {"id": "ithome", "name": "IT之家", "url": "https://www.ithome.com/rss/"},
     {"id": "36kr", "name": "36Kr", "url": "https://36kr.com/feed"},
     {"id": "solidot", "name": "Solidot", "url": "https://www.solidot.org/index.rss"},
@@ -30,11 +29,10 @@ def get_image_from_html(html_content):
     return None
 
 def process_image_url(original_url):
-    """ 图片代理与压缩 (cnBeta 风格不需要太大图，设定宽 240px) """
+    """ 图片代理与压缩 (cnBeta 风格) """
     if not original_url: return None
     original_url = original_url.strip()
     if original_url.startswith('data:') or not original_url.startswith('http'): return None
-    # 使用 wsrv.nl 裁剪成 4:3 的小图，适合列表展示
     encoded_url = urllib.parse.quote(original_url)
     return f"https://wsrv.nl/?url={encoded_url}&w=240&h=180&fit=cover&output=webp"
 
@@ -44,13 +42,11 @@ def generate_html():
 
     print("开始抓取...")
     
-    # 真正的 RSS 源是从 feeds 列表的第2个开始
     for feed in feeds[1:]:
         try:
             print(f"正在读取: {feed['name']}...")
             f = feedparser.parse(feed["url"])
-            for entry in f.entries[:10]: # 稍微多抓一点，丰富内容
-                # 图片处理
+            for entry in f.entries[:12]: # 略微增加抓取量，确保头条够新
                 content_html = ""
                 if hasattr(entry, 'content'): content_html = entry.content[0].value
                 elif hasattr(entry, 'summary'): content_html = entry.summary
@@ -59,18 +55,25 @@ def generate_html():
                 raw_img = get_image_from_html(content_html)
                 final_img = process_image_url(raw_img)
                 
-                # 摘要处理 (截取纯文本)
-                summary_text = BeautifulSoup(content_html, 'html.parser').get_text()[:100] + "..." if content_html else "点击查看详情..."
+                summary_text = BeautifulSoup(content_html, 'html.parser').get_text()[:90] + "..." if content_html else "点击查看详情..."
 
-                # 时间处理
-                pub_time = entry.get('published', entry.get('updated', '最新'))[:16]
+                # --- 时间处理 ---
+                try:
+                    if hasattr(entry, 'published_parsed') and entry.published_parsed:
+                        dt = datetime.datetime(*entry.published_parsed[:6])
+                        # 修正 RSS 时间显示 (+8小时)
+                        pub_time = (dt + datetime.timedelta(hours=8)).strftime("%m-%d %H:%M")
+                    else:
+                        pub_time = "最新"
+                except:
+                    pub_time = "最新"
 
                 articles.append({
                     "title": entry.title,
                     "link": entry.link,
                     "date": pub_time,
                     "source": feed["name"],
-                    "source_id": feed["id"], # 用于前端筛选
+                    "source_id": feed["id"],
                     "image": final_img,
                     "summary": summary_text,
                     "timestamp": entry.get("published_parsed", datetime.datetime.now().timetuple())
@@ -79,16 +82,16 @@ def generate_html():
             print(f"Error: {e}")
             continue
 
+    # 按时间倒序排序（最新的在最前）
     articles.sort(key=lambda x: x["timestamp"] if x["timestamp"] else tuple(), reverse=True)
 
-    # 生成左侧新闻列表 HTML
+    # 生成主列表 HTML
     news_list_html = ""
     for art in articles:
         img_html = ""
         if art["image"]:
             img_html = f'<div class="item-img"><img src="{art["image"]}" loading="lazy" alt="封面"></div>'
         else:
-            # 无图时显示一个蓝色块，或者不显示，这里模仿 cnBeta 显示 LOGO 占位
             img_html = f'<div class="item-img no-img">{art["source"][0]}</div>'
 
         news_list_html += f"""
@@ -105,20 +108,22 @@ def generate_html():
         </article>
         """
     
-    # 生成右侧“热门/随机推荐” HTML (简单模拟)
-    random_articles = random.sample(articles, min(5, len(articles)))
+    # --- 生成“今日头条” HTML (不再随机，取前 10 条) ---
+    # 并且只保留纯文字标题，配合 CSS 序号显示
+    headline_articles = articles[:10]
     sidebar_html = ""
-    for art in random_articles:
+    for art in headline_articles:
         sidebar_html += f'<li><a href="{art["link"]}" target="_blank">{art["title"]}</a></li>'
 
-    # 生成顶部导航 Tabs
     tabs_html = '<button class="nav-btn active" onclick="filterNews(\'all\', this)">全部</button>'
     for feed in feeds[1:]:
         tabs_html += f'<button class="nav-btn" onclick="filterNews(\'{feed["id"]}\', this)">{feed["name"]}</button>'
 
-    update_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
+    # 北京时间
+    utc_now = datetime.datetime.utcnow()
+    beijing_now = utc_now + datetime.timedelta(hours=8)
+    update_time = beijing_now.strftime("%Y-%m-%d %H:%M")
 
-    # --- HTML 模板 (cnBeta 风格) ---
     template = f"""
     <!DOCTYPE html>
     <html lang="zh-CN">
@@ -131,7 +136,7 @@ def generate_html():
         <title>折疼记 - 科技资讯</title>
         <style>
             :root {{
-                --cb-blue: #0b63b6; /* cnBeta 经典蓝 */
+                --cb-blue: #0b63b6;
                 --cb-dark: #1f2937;
                 --cb-gray: #f2f2f2;
                 --text-main: #333;
@@ -139,94 +144,68 @@ def generate_html():
                 --white: #fff;
             }}
             * {{ box-sizing: border-box; }}
-            body {{ 
-                font-family: "Microsoft YaHei", -apple-system, BlinkMacSystemFont, sans-serif; 
-                background: var(--cb-gray); 
-                margin: 0; 
-                color: var(--text-main); 
-            }}
+            body {{ font-family: "Microsoft YaHei", -apple-system, BlinkMacSystemFont, sans-serif; background: var(--cb-gray); margin: 0; color: var(--text-main); }}
             
-            /* 顶部导航条 */
-            header {{ 
-                background: var(--cb-blue); 
-                box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
-                position: sticky; top: 0; z-index: 1000; 
-            }}
-            .header-inner {{ 
-                max-width: 1100px; margin: 0 auto; padding: 0 15px; height: 60px; 
-                display: flex; align-items: center; justify-content: space-between;
-            }}
+            header {{ background: var(--cb-blue); box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }}
+            .header-inner {{ max-width: 1100px; margin: 0 auto; padding: 0 15px; height: 60px; display: flex; align-items: center; justify-content: space-between; }}
             .logo {{ color: #fff; font-size: 20px; font-weight: bold; text-decoration: none; margin-right: 30px; }}
-            .nav-scroll {{ 
-                flex: 1; overflow-x: auto; white-space: nowrap; 
-                scrollbar-width: none; /* 隐藏滚动条 */
-                -ms-overflow-style: none;
-            }}
+            .nav-scroll {{ flex: 1; overflow-x: auto; white-space: nowrap; scrollbar-width: none; -ms-overflow-style: none; }}
             .nav-scroll::-webkit-scrollbar {{ display: none; }}
-            
-            .nav-btn {{ 
-                background: none; border: none; color: rgba(255,255,255,0.7); 
-                font-size: 15px; padding: 0 15px; cursor: pointer; height: 60px; line-height: 60px;
-                transition: color 0.2s;
-            }}
+            .nav-btn {{ background: none; border: none; color: rgba(255,255,255,0.7); font-size: 15px; padding: 0 15px; cursor: pointer; height: 60px; line-height: 60px; transition: color 0.2s; }}
             .nav-btn.active {{ color: #fff; font-weight: bold; border-bottom: 3px solid #fff; }}
-            .nav-btn:hover {{ color: #fff; }}
+            
+            .container {{ max-width: 1100px; margin: 20px auto; padding: 0 15px; display: grid; grid-template-columns: 1fr 300px; gap: 20px; align-items: start; }}
 
-            /* 主体布局：双栏 */
-            .container {{ 
-                max-width: 1100px; margin: 20px auto; padding: 0 15px; 
-                display: grid; grid-template-columns: 1fr 300px; gap: 20px;
-                align-items: start;
-            }}
-
-            /* 左侧列表 */
             .news-list {{ background: transparent; }}
-            .news-item {{ 
-                background: var(--white); margin-bottom: 15px; padding: 15px; 
-                display: flex; border: 1px solid #e0e0e0; border-radius: 4px;
-                transition: box-shadow 0.2s;
-            }}
+            .news-item {{ background: var(--white); margin-bottom: 15px; padding: 15px; display: flex; border: 1px solid #e0e0e0; border-radius: 4px; transition: box-shadow 0.2s; }}
             .news-item:hover {{ box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-color: #ccc; }}
             
-            .item-img {{ 
-                width: 160px; height: 120px; flex-shrink: 0; margin-right: 20px; 
-                background: #eee; overflow: hidden; border-radius: 2px;
-            }}
+            .item-img {{ width: 160px; height: 120px; flex-shrink: 0; margin-right: 20px; background: #eee; overflow: hidden; border-radius: 2px; }}
             .item-img img {{ width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }}
             .news-item:hover .item-img img {{ transform: scale(1.05); }}
-            
             .no-img {{ display: flex; align-items: center; justify-content: center; color: var(--cb-blue); font-size: 2rem; font-weight: bold; background: #eef4fa; }}
 
             .item-content {{ flex: 1; display: flex; flex-direction: column; justify-content: space-between; }}
             .item-title {{ margin: 0 0 8px 0; font-size: 18px; line-height: 1.4; }}
             .item-title a {{ color: var(--text-main); text-decoration: none; }}
             .item-title a:hover {{ color: var(--cb-blue); text-decoration: underline; }}
-            
             .item-summary {{ font-size: 13px; color: #888; margin: 0 0 10px 0; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 38px; }}
-            
             .item-meta {{ font-size: 12px; color: #999; display: flex; align-items: center; }}
             .meta-tag {{ margin-right: 10px; padding: 2px 6px; border-radius: 2px; }}
             .tag-blue {{ background: #e6f0fa; color: var(--cb-blue); }}
             
-            /* 右侧侧边栏 */
+            /* --- 侧边栏样式优化：数字排行 --- */
             aside {{ background: var(--white); padding: 20px; border: 1px solid #e0e0e0; border-radius: 4px; position: sticky; top: 80px; }}
-            .sidebar-title {{ font-size: 16px; border-left: 4px solid var(--cb-blue); padding-left: 10px; margin: 0 0 15px 0; color: #333; }}
-            .sidebar-list {{ list-style: none; padding: 0; margin: 0; }}
-            .sidebar-list li {{ margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px dashed #eee; }}
-            .sidebar-list li:last-child {{ border: none; margin: 0; padding: 0; }}
+            .sidebar-title {{ font-size: 16px; border-left: 4px solid var(--cb-blue); padding-left: 10px; margin: 0 0 15px 0; color: #333; font-weight: bold; }}
+            
+            .sidebar-list {{ list-style: none; padding: 0; margin: 0; counter-reset: sidebar-counter; }}
+            .sidebar-list li {{ margin-bottom: 12px; padding-bottom: 12px; border-bottom: 1px dashed #eee; position: relative; padding-left: 28px; }}
+            .sidebar-list li:last-child {{ border: none; }}
+            
+            /* 排名数字样式 */
+            .sidebar-list li::before {{
+                counter-increment: sidebar-counter;
+                content: counter(sidebar-counter);
+                position: absolute; left: 0; top: 2px;
+                width: 20px; height: 20px; line-height: 20px;
+                background: #ddd; color: #fff; text-align: center;
+                border-radius: 4px; font-size: 12px; font-weight: bold;
+            }}
+            /* 前三名高亮 */
+            .sidebar-list li:nth-child(-n+3)::before {{ background: var(--cb-blue); }}
+
             .sidebar-list a {{ text-decoration: none; color: #555; font-size: 14px; line-height: 1.4; display: block; }}
             .sidebar-list a:hover {{ color: var(--cb-blue); }}
 
             .beian-info {{ margin-top: 30px; font-size: 12px; color: #aaa; text-align: center; border-top: 1px solid #eee; padding-top: 20px; }}
             .beian-info a {{ color: #aaa; text-decoration: none; }}
 
-            /* 移动端适配 */
             @media (max-width: 768px) {{
                 .container {{ grid-template-columns: 1fr; }}
-                aside {{ display: none; /* 手机端暂时隐藏侧边栏 */ }}
+                aside {{ display: none; }}
                 .item-img {{ width: 100px; height: 75px; margin-right: 15px; }}
                 .item-title {{ font-size: 16px; }}
-                .item-summary {{ display: none; /* 手机端不显示摘要，太挤 */ }}
+                .item-summary {{ display: none; }}
                 .header-inner {{ padding: 0 10px; }}
             }}
         </style>
@@ -242,20 +221,18 @@ def generate_html():
         </header>
 
         <div class="container">
-            <!-- 左侧新闻流 -->
             <main class="news-list" id="newsContainer">
                 {news_list_html}
             </main>
 
-            <!-- 右侧侧边栏 -->
             <aside>
-                <h3 class="sidebar-title">随机推荐</h3>
+                <h3 class="sidebar-title">今日头条</h3>
                 <ul class="sidebar-list">
                     {sidebar_html}
                 </ul>
                 
                 <div class="beian-info">
-                    <p>更新于: {update_time}</p>
+                    <p>更新于: {update_time} (北京时间)</p>
                     <p><a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2025183710号-1</a></p>
                     <p>&copy; 折疼记</p>
                 </div>
@@ -264,11 +241,8 @@ def generate_html():
 
         <script>
             function filterNews(sourceId, btn) {{
-                // 1. 按钮样式切换
                 document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-
-                // 2. 筛选内容
                 const items = document.querySelectorAll('.news-item');
                 items.forEach(item => {{
                     if (sourceId === 'all' || item.getAttribute('data-source') === sourceId) {{
@@ -277,8 +251,6 @@ def generate_html():
                         item.style.display = 'none';
                     }}
                 }});
-                
-                // 3. 回到顶部 (优化体验)
                 window.scrollTo({{ top: 0, behavior: 'smooth' }});
             }}
         </script>
@@ -288,8 +260,6 @@ def generate_html():
     
     with open("index.html", "w", encoding="utf-8") as f:
         f.write(template)
-    
-    print("HTML 生成成功！")
 
 if __name__ == "__main__":
     generate_html()
