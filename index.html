@@ -3,81 +3,101 @@
     <html lang="zh-CN">
     <head>
         <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
         <meta name="referrer" content="no-referrer">
-        <meta name="description" content="折疼记 - IT资讯聚合">
-        <title>折疼记 - 科技资讯</title>
+        <title>折疼记 - AI 驱动的资讯站</title>
         <style>
-            :root {
-                --cb-blue: #0b63b6;
-                --cb-dark: #1f2937;
-                --cb-gray: #f2f2f2;
-                --text-main: #333;
-                --text-sub: #666;
-                --white: #fff;
-            }
-            * { box-sizing: border-box; }
-            body { font-family: "Microsoft YaHei", -apple-system, BlinkMacSystemFont, sans-serif; background: var(--cb-gray); margin: 0; color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }
+            :root { --cb-blue: #0b63b6; --bg-gray: #f2f2f2; --white: #fff; --text: #333; }
+            * { box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
+            body { font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", sans-serif; background: var(--bg-gray); margin: 0; color: var(--text); display: flex; flex-direction: column; min-height: 100vh; }
             
-            header { background: var(--cb-blue); box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
-            .header-inner { max-width: 800px; margin: 0 auto; padding: 0 15px; height: 60px; display: flex; align-items: center; justify-content: space-between; }
-            .logo { color: #fff; font-size: 20px; font-weight: bold; text-decoration: none; margin-right: 30px; white-space: nowrap; }
-            .nav-scroll { flex: 1; overflow-x: auto; white-space: nowrap; scrollbar-width: none; -ms-overflow-style: none; }
+            /* 顶部导航 */
+            header { background: var(--cb-blue); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+            .header-inner { max-width: 800px; margin: 0 auto; height: 56px; display: flex; align-items: center; padding: 0 15px; }
+            .logo { color: #fff; font-size: 18px; font-weight: 800; margin-right: 20px; }
+            .nav-scroll { flex: 1; overflow-x: auto; white-space: nowrap; display: flex; scrollbar-width: none; }
             .nav-scroll::-webkit-scrollbar { display: none; }
-            .nav-btn { background: none; border: none; color: rgba(255,255,255,0.7); font-size: 15px; padding: 0 15px; cursor: pointer; height: 60px; line-height: 60px; transition: color 0.2s; }
+            .nav-btn { background: none; border: none; color: rgba(255,255,255,0.7); font-size: 14px; padding: 0 12px; height: 56px; transition: color 0.2s; }
             .nav-btn.active { color: #fff; font-weight: bold; border-bottom: 3px solid #fff; }
             
-            /* 【修改点】单栏居中布局，去除侧边栏占位 */
-            .container { max-width: 800px; margin: 30px auto; padding: 0 15px; flex: 1; width: 100%; }
-
-            .news-list { background: transparent; }
-            .news-item { background: var(--white); margin-bottom: 20px; padding: 20px; display: flex; border: 1px solid #e0e0e0; border-radius: 6px; transition: box-shadow 0.2s; }
-            .news-item:hover { box-shadow: 0 8px 20px rgba(0,0,0,0.08); border-color: #ccc; transform: translateY(-2px); }
+            /* 列表区域 */
+            .container { max-width: 800px; margin: 20px auto; padding: 0 15px; width: 100%; flex: 1; }
+            .news-item { background: var(--white); margin-bottom: 15px; padding: 15px; display: flex; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); cursor: pointer; transition: background 0.2s; }
+            .news-item:active { background: #f9f9f9; }
             
-            .item-img { width: 200px; height: 150px; flex-shrink: 0; margin-right: 25px; background: #f0f2f5; overflow: hidden; border-radius: 4px; position: relative; }
-            .item-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; display: block; }
-            .news-item:hover .item-img img { transform: scale(1.05); }
-
+            .item-img { width: 110px; height: 80px; flex-shrink: 0; margin-right: 15px; background: #eee; border-radius: 4px; overflow: hidden; }
+            .item-img img { width: 100%; height: 100%; object-fit: cover; }
+            
             .item-content { flex: 1; display: flex; flex-direction: column; justify-content: space-between; }
-            .item-title { margin: 0 0 10px 0; font-size: 19px; line-height: 1.4; font-weight: bold; }
-            .item-title a { color: var(--text-main); text-decoration: none; }
-            .item-title a:hover { color: var(--cb-blue); text-decoration: underline; }
-            .item-summary { font-size: 14px; color: #666; margin: 0 0 15px 0; line-height: 1.6; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; height: 45px; }
-            .item-meta { font-size: 13px; color: #999; display: flex; align-items: center; }
-            .meta-tag { margin-right: 12px; padding: 2px 8px; border-radius: 3px; font-weight: 500; }
-            .tag-blue { background: #e6f0fa; color: var(--cb-blue); }
-            
-            /* Footer 样式 */
-            .main-footer { background: #fff; border-top: 1px solid #e0e0e0; padding: 40px 0; margin-top: 40px; text-align: center; color: #999; font-size: 13px; width: 100%; }
-            .main-footer p { margin: 8px 0; }
-            .main-footer a { color: #999; text-decoration: none; transition: color 0.2s; }
-            .main-footer a:hover { color: var(--cb-blue); }
+            .item-title { margin: 0 0 6px 0; font-size: 16px; font-weight: bold; line-height: 1.4; color: #222; }
+            .item-meta { font-size: 12px; color: #999; display: flex; align-items: center; margin-bottom: 6px; }
+            .tag-blue { color: var(--cb-blue); margin-right: 10px; background: rgba(11,99,182,0.1); padding: 1px 4px; border-radius: 2px; }
+            .item-summary { font-size: 13px; color: #666; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
-            @media (max-width: 768px) {
-                .item-img { width: 110px; height: 80px; margin-right: 15px; }
-                .item-title { font-size: 16px; margin-bottom: 5px; }
-                .item-summary { display: none; }
-                .news-item { padding: 15px; margin-bottom: 15px; }
-                .header-inner { padding: 0 10px; }
-                .container { margin: 15px auto; }
+            /* 底部 */
+            .main-footer { text-align: center; padding: 30px 0; color: #ccc; font-size: 12px; background: #fff; margin-top: 20px; }
+            .main-footer a { color: #ccc; text-decoration: none; }
+
+            /* --- 模态框 (站内阅读 + AI) --- */
+            .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: none; opacity: 0; transition: opacity 0.3s; }
+            .modal-overlay.open { display: block; opacity: 1; }
+            
+            .modal-card { 
+                position: fixed; bottom: 0; left: 0; width: 100%; height: 90vh; 
+                background: #fff; border-radius: 16px 16px 0 0; 
+                transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+                z-index: 2001; display: flex; flex-direction: column;
+                box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
             }
+            .modal-overlay.open .modal-card { transform: translateY(0); }
+
+            /* PC 端适配模态框 */
+            @media (min-width: 769px) {
+                .modal-card { 
+                    width: 700px; height: 85vh; 
+                    left: 50%; top: 50%; bottom: auto;
+                    transform: translate(-50%, -40%) scale(0.95); opacity: 0;
+                    border-radius: 12px; 
+                }
+                .modal-overlay.open .modal-card { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+            }
+
+            .modal-header { padding: 15px 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; background: #fff; border-radius: 16px 16px 0 0; }
+            .close-btn { font-size: 24px; color: #999; cursor: pointer; padding: 0 10px; }
+            
+            .modal-body { flex: 1; overflow-y: auto; padding: 20px; -webkit-overflow-scrolling: touch; }
+            .article-title { font-size: 22px; font-weight: bold; margin-bottom: 10px; color: #222; }
+            .article-meta { color: #999; font-size: 13px; margin-bottom: 20px; }
+            .article-content { font-size: 16px; line-height: 1.8; color: #333; }
+            .read-more-btn { display: block; width: 100%; text-align: center; background: #f5f5f5; color: #666; padding: 12px; margin-top: 30px; border-radius: 8px; text-decoration: none; font-size: 14px; }
+            
+            /* AI 区域 */
+            .ai-section { border-top: 1px solid #eee; background: #fcfcfc; padding: 15px; display: flex; flex-direction: column; }
+            .ai-chat-box { height: 150px; overflow-y: auto; background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 10px; margin-bottom: 10px; font-size: 14px; }
+            .ai-msg { margin-bottom: 8px; }
+            .ai-msg.user { color: var(--cb-blue); font-weight: bold; }
+            .ai-msg.bot { color: #333; }
+            .ai-input-area { display: flex; }
+            .ai-input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
+            .ai-send-btn { margin-left: 10px; background: var(--cb-blue); color: #fff; border: none; padding: 0 15px; border-radius: 6px; cursor: pointer; }
+            .ai-send-btn:disabled { background: #ccc; }
         </style>
     </head>
     <body>
         <header>
             <div class="header-inner">
-                <a href="#" class="logo">折疼记</a>
-                <div class="nav-scroll" id="navBar">
+                <div class="logo">折疼记</div>
+                <div class="nav-scroll">
                     <button class="nav-btn active" onclick="filterNews('all', this)">全部</button><button class="nav-btn" onclick="filterNews('ithome', this)">IT之家</button><button class="nav-btn" onclick="filterNews('36kr', this)">36Kr</button><button class="nav-btn" onclick="filterNews('solidot', this)">Solidot</button><button class="nav-btn" onclick="filterNews('sspai', this)">少数派</button><button class="nav-btn" onclick="filterNews('ifanr', this)">爱范儿</button><button class="nav-btn" onclick="filterNews('huxiu', this)">虎嗅</button><button class="nav-btn" onclick="filterNews('coolapk', this)">酷安</button>
                 </div>
             </div>
         </header>
 
         <div class="container">
-            <main class="news-list" id="newsContainer">
+            <main id="newsContainer">
                 
-        <article class="news-item" data-source="ithome">
+        <article class="news-item" data-source="ithome" onclick="openModal(0)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/93672c81-d1b7-4bfc-a11a-00c07ab5d2b2.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -85,16 +105,24 @@
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ithome.com/0/900/531.htm" target="_blank">韩国第四次发射自研运载火箭“世界”号</a></h2>
+                <h2 class="item-title">韩国第四次发射自研运载火箭“世界”号</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">IT之家</span>
                     <span class="meta-date">11-27 07:45</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 27 日消息，据央视新闻报道，当地时间 11 月 27 日凌晨，韩国自主研发的运载火箭“世界”号发射升空。这是“世界”号运载火箭第四次发射，也是该火箭首次在凌晨...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-0" style="display:none;" 
+                     data-title="韩国第四次发射自研运载火箭“世界”号" 
+                     data-link="https://www.ithome.com/0/900/531.htm"
+                     data-source="IT之家"
+                     data-date="11-27 07:45">
+                     IT之家 11 月 27 日消息，据央视新闻报道，当地时间 11 月 27 日凌晨，韩国自主研发的运载火箭“世界”号发射升空。这是“世界”号运载火箭第四次发射，也是该火箭首次在凌晨发射。与第三次发射相比，本次“世界”号搭载的卫星数量和重量均有所增加。此次“世界”号共搭载一颗新一代中型卫星 3 号和 12 颗超小型立方体卫星，重量约增加两倍。此次“世界”号自研火箭因压力传感器信号异常而较原定时间推迟发射。据悉，“世界”号此前三次发射，第一次失败，另外两次则获得成功。IT之家查询获悉，“世界”号是一种三级运载火箭，一级配备了 4 台本国研制的 75 吨级推力的液体火箭发动机，火箭起飞重量约 200 吨，最大运载能力达到 1.9 吨。“世界”号火箭曾在 2021 年 10 月进行了首次发射，但首飞以失败告终。2022 年 6 月 21 日，“世界”号火箭第二次发射获得成功，将卫星模型送入预定轨道，验证了“世界”号最多可将 1.9 吨的卫星送入近地轨道的能力，韩国成为世界上第 11 个独立使用国产火箭发射本国卫星的国家。
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome">
+        <article class="news-item" data-source="ithome" onclick="openModal(1)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/f1a7189c-12b6-431d-9c7a-8d6dcd27440e.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -102,16 +130,24 @@
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ithome.com/0/900/530.htm" target="_blank">《赛博朋克 2077》游戏全球累计销量突破 3500 万份</a></h2>
+                <h2 class="item-title">《赛博朋克 2077》游戏全球累计销量突破 3500 万份</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">IT之家</span>
                     <span class="meta-date">11-27 07:45</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 27 日消息，开发商 CD Projekt RED（CDPR）在其 2025 年第三季度财报中宣布，旗下《赛博朋克 2077》游戏全球累计销量已正式突破 350...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-1" style="display:none;" 
+                     data-title="《赛博朋克 2077》游戏全球累计销量突破 3500 万份" 
+                     data-link="https://www.ithome.com/0/900/530.htm"
+                     data-source="IT之家"
+                     data-date="11-27 07:45">
+                     IT之家 11 月 27 日消息，开发商 CD Projekt RED（CDPR）在其 2025 年第三季度财报中宣布，旗下《赛博朋克 2077》游戏全球累计销量已正式突破 3500 万份。《赛博朋克 2077》于 2020 年 12 月发行，尽管初期因在上一代主机（PS4 和 Xbox One）上表现不佳而饱受批评，但 CDPR 通过后续多年的持续修复和内容更新，尤其是 2.0 版本的重大改进，成功扭转了游戏的口碑，让其销量在去年达到 3000 万份后，又稳步增长了 500 万份。CDPR 联席 CEO 米哈乌・诺瓦科夫斯基（Michał Nowakowski）在财报会议上表示：“我们对《赛博朋克 2077》时至今日依然表现出色并持续吸引新玩家感到非常高兴和满意。”他强调，超过 3500 万的销量证明了该系列 IP（知识产权）拥有持久的生命力，这让公司可以更大胆地规划其未来发展。IT之家援引博文介绍，CDPR 正持续加大对续作（代号“Project Orion”，也称《赛博朋克 2》）的投入，其开发团队规模已扩大至 135 人，分别在温哥华、华沙以及为该项目专门开设的波士顿工作室工作。财报数据显示，CDPR 目前的主要开发重心依然是其另一款旗舰 IP《巫师》系列的新作。代号为“Polaris”的《巫-师 4》项目团队已达到 447 人，远超其他项目。根据 CDPR 公布的开发路线图，一旦《巫师 4》完成开发并成功上市，公司预计会将更多开发资源转移至《赛博朋克 2》项目上。这款续作被寄予厚望，旨在更好地展现其“美式”风格的世界观设定，而新成立的波士顿工作室将在其中扮演关键角色。相关阅读：《〈赛博朋克 2〉游戏新爆料：转向虚幻引擎 5 开发，将含多人在线模式》
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome">
+        <article class="news-item" data-source="ithome" onclick="openModal(2)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/9/9bbf4d96-60c2-4a5b-9c86-f18a1157075b.png%3Fx-bce-process%3Dimage/format%2Cf_auto/auto-orient%2Co_1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -119,16 +155,24 @@
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ithome.com/0/900/529.htm" target="_blank">理想 CEO 李想：具身智能最有价值产品将一定是具备自主能力的汽车</a></h2>
+                <h2 class="item-title">理想 CEO 李想：具身智能最有价值产品将一定是具备自主能力的汽车</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">IT之家</span>
                     <span class="meta-date">11-27 07:31</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 27 日消息，理想汽车 CEO 李想在昨晚的理想汽车 2025Q3 财报会上提出观点称，未来 10 年，具身智能最有价值的产品一定是具备自动和主动能力的汽车。李...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-2" style="display:none;" 
+                     data-title="理想 CEO 李想：具身智能最有价值产品将一定是具备自主能力的汽车" 
+                     data-link="https://www.ithome.com/0/900/529.htm"
+                     data-source="IT之家"
+                     data-date="11-27 07:31">
+                     IT之家 11 月 27 日消息，理想汽车 CEO 李想在昨晚的理想汽车 2025Q3 财报会上提出观点称，未来 10 年，具身智能最有价值的产品一定是具备自动和主动能力的汽车。李想认为，汽车的终极形态应是“汽车机器人”，即物理世界的具身智能产品。《变形金刚》《霹雳游侠》《赛车总动员》等作品已经清晰展现，汽车本就是机器人的核心形态之一。要实现这一目标，需为汽车赋予“感知-决策-行动”的完整能力：以传感器为“眼耳”捕捉环境信息，以 AI 模型为“大脑神经”处理数据，以高性能硬件为“躯干器官”支撑操作。在其看来，汽车将不仅是“顶级司机”，更能主动提供全场景服务，包括自动迎接用户、代客停车充电、开关车门，甚至能够“扮演父母、助理、乘务员的角色”，在车内提供堪比飞机头等舱的生活服务和空间照顾。IT之家从李想的发言获悉，理想汽车目标在未来 3-5 年内成为“具身智能领域表现最好”的企业。
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="36kr">
+        <article class="news-item" data-source="36kr" onclick="openModal(3)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.36krcdn.com/hsossms/20251126/v2_3b86461d16a849c881376631beef62f3%4012547972_oswg18940oswg437oswg388_img_png%3Fx-oss-process%3Dimage/quality%2Cq_100/format%2Cjpg/interlace%2C1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -136,16 +180,39 @@
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://36kr.com/p/3569573862439815?f=rss" target="_blank">36氪研究院 | 2025年中国出海零售品牌调研报告</a></h2>
+                <h2 class="item-title">36氪研究院 | 2025年中国出海零售品牌调研报告</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">36Kr</span>
                     <span class="meta-date">11-27 07:30</span>
                 </div>
                 <p class="item-summary">在全球化与数字化浪潮的双重驱动下，中国出海零售品牌正迎来以“一体化商务”和“智能体商务”为核心的两大战略性变革。本报告基于对500家中国出海企业的深入调研，系统梳理了品牌在全球化进...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-3" style="display:none;" 
+                     data-title="36氪研究院 | 2025年中国出海零售品牌调研报告" 
+                     data-link="https://36kr.com/p/3569573862439815?f=rss"
+                     data-source="36Kr"
+                     data-date="11-27 07:30">
+                     在全球化与数字化浪潮的双重驱动下，中国出海零售品牌正迎来以“一体化商务”和“智能体商务”为核心的两大战略性变革。本报告基于对500家中国出海企业的深入调研，系统梳理了品牌在全球化进程中面临的关键挑战、发展机遇与未来路径，旨在为行业提供前瞻性战略参考。
+一、市场趋势：消费者需求升级驱动全渠道融合，一体化商务成为核心竞争力
+随着全球消费者购买行为日益多元化、高效化及个性化，零售品牌亟需构建以消费者为中心的无缝购物体验。一体化商务通过整合线上线下等多重渠道，实现“一个品牌、一种体验”的统一服务闭环，已成为提升用户忠诚度与销售转化率的关键抓手。然而，调研显示，目前多数出海企业虽已完成多渠道布局，却因数据孤岛问题难以实现渠道协同与运营闭环，成为阻碍一体化商务落地的核心瓶颈。
+
+二、技术变革：生成式AI催化智能体商务，重构零售模式与增长边界
+生成式AI的迅猛发展正推动“智能体商务”迅速普及。这一新兴模式通过AI智能体重塑消费流程、拓展销售场景，并显著提升运营效率。值得强调的是，智能体商务并非孤立存在，而是与一体化商务深度耦合：在AI赋能下，品牌能够实现超高效、高度个性化的无缝体验，形成“一体化×智能化”的倍增效应，开辟全新增长空间。然而，目前出海企业对AI智能体的应用仍处于探索阶段，其在营销推荐、供应链优化、支付风控等环节的潜力尚未充分释放，未来增长前景广阔。
+
+三、核心基础：全渠道数据打通是迈向一体化与智能体的关键前提
+无论是实现渠道协同的一体化商务，还是构建情景感知的智能体系统，均依赖全维度数据的贯通与融合。其中，支付数据作为连接交易、用户与场景的核心枢纽，成为打通全链路的关键环节。通过构建“一体化与智能化支付”体系，品牌能够将支付环节从交易端点升级为数据中枢与策略节点，为业务一体化与决策智能化奠定基础。
+
+
+四、支付挑战与解决方案：以专业支付服务破解体验、安全与效率难题
+在支付层面，出海企业普遍面临三大核心挑战：支付体验优化、安全合规管理与运营降本增效。对于仍处于成长阶段的出海企业而言，借助专业第三方支付服务成为投入产出比最优的解决路径：支付体验层面，专业服务商通过整合全球支付方式、支持一键支付等功能，并结合AI技术实现个性化推荐与智能路由选择，显著提升消费者支付成功率与满意度；安全与合规层面，依托海量交易数据构建的智能风控与反欺诈系统，能够帮助品牌有效规避数据泄露与跨境合规风险；成本与效率层面，智能汇兑、动态结算等支付优化工具可显著降低货币转换与支付处理成本，加速资金周转，提升整体财务效率。
+
+期待本篇报告能为中国出海品牌及行业从业者带来启发借鉴和价值参考，助力中国品牌全球化征程业绩与效率双增。
+更多精彩内容，详见《2025年中国出海零售品牌调研报告》，点击下载链接，提取码：8xhw。
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome">
+        <article class="news-item" data-source="ithome" onclick="openModal(4)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/db1b43e1-d316-49e5-8726-8d87156bf8f0.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -153,16 +220,24 @@
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ithome.com/0/900/528.htm" target="_blank">苹果带屏 HomePod 前瞻：定位智能家居中枢，创新小组件、升级 Siri</a></h2>
+                <h2 class="item-title">苹果带屏 HomePod 前瞻：定位智能家居中枢，创新小组件、升级 Siri</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">IT之家</span>
                     <span class="meta-date">11-27 07:28</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 27 日消息，科技媒体 Appleinsider 昨日（11 月 26 日）发布博文，汇总和梳理了现有信息，认为苹果有望在 2026 年春季推出首款智能家居显示...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-4" style="display:none;" 
+                     data-title="苹果带屏 HomePod 前瞻：定位智能家居中枢，创新小组件、升级 Siri" 
+                     data-link="https://www.ithome.com/0/900/528.htm"
+                     data-source="IT之家"
+                     data-date="11-27 07:28">
+                     IT之家 11 月 27 日消息，科技媒体 Appleinsider 昨日（11 月 26 日）发布博文，汇总和梳理了现有信息，认为苹果有望在 2026 年春季推出首款智能家居显示屏，也可以认为是带屏幕的 HomePod（或叫 HomePad），定位为智能家居中枢。 小组件技术与无 App Store 设计该媒体指出该设备的一大亮点，是创新应用小组件（Widgets）技术。苹果已在 iOS 和 macOS 上为小组件奠定了坚实基础，而在这款 6~7 英寸的智能显示器上，苹果将移植这个成熟的交互体验。IT之家援引博文介绍，该设备可能借鉴 macOS Tahoe 的技术，支持用户将 iPhone 上的任何小组件直接投射到显示器上，从而解决了初期没有独立 App Store 的问题。Siri 重大升级，成为设备交互核心Siri 的智能化升级是推动这款设备诞生的另一关键因素。随着 iOS 18 中 Apple Intelligence 的发布，Siri 获得了与 ChatGPT 的集成能力、更强的自然语言理解能力以及对用户设备本地数据的深度访问权限。对于智能显示器而言，语音将是主要交互方式。升级后的 Siri 不仅能提供通知摘要（例如描述门口摄像头的动态），还能通过全新的 App Intents 技术，无需在显示器上安装完整应用，可以直接在第三方应用内执行操作，如查询订单、搜索信息或发送消息。软硬件深度融合，构建强大智能家居生态在操作系统层面，传闻该设备将运行基于 tvOS 开发的全新 homeOS，并可能借鉴 Apple TV 上成熟的控制中心界面，用于管理连接、智能家居设备和用户账户。硬件方面，苹果自研的 N1 无线芯片内置了 Thread 网络协议，可为智能家居设备构建低功耗网状网络。同时，苹果积极参与并推动 Matter 1.5 标准，特别是其中的摄像头技术，这意味着未来任何支持 Matter 的摄像头都能无缝接入这款智能显示器，从而为用户提供一个真正统一、高效的智能家居控制中心。
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome">
+        <article class="news-item" data-source="ithome" onclick="openModal(5)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/4bfecdd2-d4da-42c0-9261-85c9bf0dc5e2.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto/auto-orient%2Co_1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -170,16 +245,24 @@
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ithome.com/0/900/527.htm" target="_blank">英国新政：纯电及插混汽车将按行驶里程缴税</a></h2>
+                <h2 class="item-title">英国新政：纯电及插混汽车将按行驶里程缴税</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">IT之家</span>
                     <span class="meta-date">11-27 07:20</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 27 日消息，据外媒 Carscoops 今日报道，英国政府即将出台一项重磅政策，确认未来将对纯电与插电式混合动力汽车实行按里程计费，当地的新能源车将首次不再享...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-5" style="display:none;" 
+                     data-title="英国新政：纯电及插混汽车将按行驶里程缴税" 
+                     data-link="https://www.ithome.com/0/900/527.htm"
+                     data-source="IT之家"
+                     data-date="11-27 07:20">
+                     IT之家 11 月 27 日消息，据外媒 Carscoops 今日报道，英国政府即将出台一项重磅政策，确认未来将对纯电与插电式混合动力汽车实行按里程计费，当地的新能源车将首次不再享受免税状态。随着汽油和柴油销量下滑、燃油税收入不断萎缩，财政部在多年寻找替代方案后终于敲定方向：电动汽车将与燃油车一样按行驶里程贡献财政收入，尽管政府仍在口头上强调支持清洁交通转型。根据计划，纯电汽车将按每英里 3 便士收费，插混则按每英里 1.5 便士收费。以一年行驶 8500 英里（13700km）为例，车主要支付的额外费用约为 255 英镑（IT之家注：现汇率约合 2378 元人民币），仍只有燃油车型在同等里程下支付燃油税的一半。预算责任办公室预测，该制度实施首年可带来 11 亿英镑（现汇率约合 102.59 亿元人民币）收入，两年后可能接近翻倍，增长幅度取决于电动汽车销量。该机构同时也警告，收费制度本身会抑制消费者购买意愿。预算案目前尚未披露如何精确记录车辆行驶里程等技术细则，不过按公里收费已经板上钉钉，计划在 2028 年 4 月启动。美国部分州（包括俄勒冈州）和新西兰已经实行类似做法。为了让电动汽车依然保有吸引力，英国政府同步提高“高价车附加税”的门槛，从 2026 年 4 月起由 4 万英镑提升至 5 万英镑。英国政府也会继续提供电动汽车补贴，将最高 3750 英镑（现汇率约合 34973 元人民币）的补贴计划延长到 2029—2030 财年，预计每年花费约 3 亿英镑。
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome">
+        <article class="news-item" data-source="ithome" onclick="openModal(6)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/f9618a98-cdc3-44fb-8764-460ad7a90eac.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -187,16 +270,24 @@
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ithome.com/0/900/526.htm" target="_blank">苹果再遭诉讼，被指在 iPhone 17 等产品中使用“冲突矿产”</a></h2>
+                <h2 class="item-title">苹果再遭诉讼，被指在 iPhone 17 等产品中使用“冲突矿产”</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">IT之家</span>
                     <span class="meta-date">11-27 07:13</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 27 日消息，科技媒体 Appleinsider 昨日（11 月 26 日）发布博文，报道称维权组织“国际权利倡导者”（IRAdvocates）向苹果公司提起新...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-6" style="display:none;" 
+                     data-title="苹果再遭诉讼，被指在 iPhone 17 等产品中使用“冲突矿产”" 
+                     data-link="https://www.ithome.com/0/900/526.htm"
+                     data-source="IT之家"
+                     data-date="11-27 07:13">
+                     IT之家 11 月 27 日消息，科技媒体 Appleinsider 昨日（11 月 26 日）发布博文，报道称维权组织“国际权利倡导者”（IRAdvocates）向苹果公司提起新诉讼，指控其在产品中使用了“冲突矿产”。IT之家注：冲突矿产（Conflict Minerals）指在武装冲突和人权侵犯频发的地区开采的矿物。销售这些矿产的收入可能被用于资助当地的暴力冲突，通常特指“3TG”，即锡（Tin）、钨（Tungsten）、钽（Tantalum）和金（Gold）。图源：Pixabay该组织声称，这些矿产关联中非地区刚果民主共和国（DRC）和卢旺达地区的暴力冲突及人权侵犯行为，此次诉讼的核心诉求是请求法院裁定，苹果公司使用这些矿产的行为是否违反了消费者保护法。诉讼指控“冲突矿产”是刚果民主共和国东部的矿区被武装团体占领后，通过卢旺达走私而来的。钶钽铁矿（Coltan）是生产钽和铌的关键原料，这两种金属广泛应用于 iPhone 等苹果设备中。这并非“国际权利倡导者”首次对苹果采取法律行动。该组织曾于 2019 年因钴矿采购问题，起诉苹果及其他科技巨头，但该案在 2024 年被法院驳回。当时法官认为，在全球供应链中购买钴矿，并不足以证明苹果等公司是人权侵犯的共犯。目前尚不清楚此次新诉讼的法律论据与旧案有何不同，但钶钽铁矿等材料从开采到加工的全程追踪体系或许会成为焦点。
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome">
+        <article class="news-item" data-source="ithome" onclick="openModal(7)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/6f1a08fe-c600-48ab-8bc8-4dd88d66ac54.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -204,16 +295,24 @@
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ithome.com/0/900/525.htm" target="_blank">Opera 更新 Neon 浏览器：引入 1 分钟深度研究、支持 AI 操作文档、集成 Gemini 3 Pro</a></h2>
+                <h2 class="item-title">Opera 更新 Neon 浏览器：引入 1 分钟深度研究、支持 AI 操作文档、集成 Gemini 3 Pro</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">IT之家</span>
                     <span class="meta-date">11-27 07:03</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 27 日消息，科技媒体 9to5Mac 昨日（11 月 26 日）发布博文，报道称 Opera 更新其 AI 浏览器 Neon，为平衡快速查询与深度分析的需求，...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-7" style="display:none;" 
+                     data-title="Opera 更新 Neon 浏览器：引入 1 分钟深度研究、支持 AI 操作文档、集成 Gemini 3 Pro" 
+                     data-link="https://www.ithome.com/0/900/525.htm"
+                     data-source="IT之家"
+                     data-date="11-27 07:03">
+                     IT之家 11 月 27 日消息，科技媒体 9to5Mac 昨日（11 月 26 日）发布博文，报道称 Opera 更新其 AI 浏览器 Neon，为平衡快速查询与深度分析的需求，重点推出了“1 分钟深度研究”模式。IT之家援引博文介绍，本次更新的核心亮点是为深度研究智能体（ODRA）引入了全新的“1 分钟深度研究”模式。Opera 官方表示，该模式旨在填补简单 AI 查询与全面深度研究之间的空白。它通过分解复杂问题，调动尽可能多的“研究员”（即 AI 线程）并行处理同一任务，从而在短时间内生成比标准 AI 概述更深入的分析结果，满足了用户对中等深度信息的高效获取需求。在 AI 模型支持方面，Neon Chat 功能迎来了重大升级。新版本不仅在聊天界面中加入了模型选择器，还正式集成了谷歌最新发布的 Gemini 3 Pro 和 Nano Banana Pro 两款大语言模型。更值得一提的是，新功能允许用户在对话过程中随时切换模型，这为处理复杂或多阶段任务提供了极大的灵活性，让用户可以根据不同需求调用最合适的 AI 能力。Google Docs 集成功能也正式上线。Neon 的“Do”智能体现在可以与 Google Docs 无缝协作。用户只需在浏览器的全功能地址栏中选择“Do”智能体，然后用自然语言下达指令，即可创建一份新的 Google 文档。同时，该智能体也支持编辑现有文档，包括根据指令增删内容、修改文档名称，甚至在必要时联网搜索相关信息以完善文档内容，进一步提升内容创作和编辑的自动化水平。Opera Neon 浏览器目前采取订阅模式，月费为 19.99 美元（IT之家注：现汇率约合 141.8 元人民币）。对这些新功能感兴趣的用户，可以访问其官方网站申请加入等候名单，以获取体验资格。
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome">
+        <article class="news-item" data-source="ithome" onclick="openModal(8)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/5ca178e7-b8d2-4316-a8fa-be27decc19c0.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto/auto-orient%2Co_1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -221,16 +320,24 @@
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ithome.com/0/900/523.htm" target="_blank">华为 Mate 80 / X7 系列手机 HarmonyOS 6 系统亮点一览，支持 A2A 智能体协作、鸿蒙智能追焦等</a></h2>
+                <h2 class="item-title">华为 Mate 80 / X7 系列手机 HarmonyOS 6 系统亮点一览，支持 A2A 智能体协作、鸿蒙智能追焦等</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">IT之家</span>
                     <span class="meta-date">11-26 23:50</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 26 日消息，在昨天的华为新品线上发布会上，Mate 80 系列、Mate X7 手机正式发布，两款新机首发搭载鸿蒙 HarmonyOS 6 操作系统，带来全新...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-8" style="display:none;" 
+                     data-title="华为 Mate 80 / X7 系列手机 HarmonyOS 6 系统亮点一览，支持 A2A 智能体协作、鸿蒙智能追焦等" 
+                     data-link="https://www.ithome.com/0/900/523.htm"
+                     data-source="IT之家"
+                     data-date="11-26 23:50">
+                     IT之家 11 月 26 日消息，在昨天的华为新品线上发布会上，Mate 80 系列、Mate X7 手机正式发布，两款新机首发搭载鸿蒙 HarmonyOS 6 操作系统，带来全新沉浸光感效果、并内置鸿蒙 AI 等。IT之家注意到，华为鸿蒙 HarmonyOS 官方微博还发布了一图知，介绍了华为 Mate 80 / Mate X7 系列手机的系统新特性。流畅：Mate 80 / 80 Pro（12GB）性能提升 35%、Mate 80 Pro（16GB）/ Pro Max / Mate X7 性能提升 42%、Mate 80 RS 非凡大师性能提升 45%（均对比上代 Mate 70 系列）；内置方舟引擎，应用秒启提升 29%、内容秒开提升 36%、页面秒加载提升 39%外观：全新沉浸光感视效、小胖手主题智能：AI 魔法表情、AI 辅助构图、AI 一键成片、AI 灵动主角主题、元气心情主题、鸿蒙智能追焦、小艺帮帮忙、A2A 智能体协作实用：户外探索模式、智感握姿、智能文档分析、分屏联动、全局批注、一碰即传安全：3D ToF 人脸支付、AI 防窥保护、加密分享、亲情防诈值得一提的是，华为常务董事、产品投资委员会主任、终端 BG 董事长余承东还宣布，搭载 HarmonyOS 5 和 HarmonyOS 6 的设备正式突破 2700 万，鸿蒙设备日均新增 10 万台。相关阅读：《搭载华为 HarmonyOS 5 和 HarmonyOS 6 的设备数突破 2700 万》
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome">
+        <article class="news-item" data-source="ithome" onclick="openModal(9)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/ea0d4f59-77f3-4943-b2cc-e9639fa17755.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -238,16 +345,24 @@
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ithome.com/0/900/522.htm" target="_blank">消息称新款 iPad mini 要最早明年第三季度 / 第四季度上市，有望先 iPad Air 一步搭载 OLED 面板</a></h2>
+                <h2 class="item-title">消息称新款 iPad mini 要最早明年第三季度 / 第四季度上市，有望先 iPad Air 一步搭载 OLED 面板</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">IT之家</span>
                     <span class="meta-date">11-26 23:42</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 26 日消息，博主 @刹那数码 今天在微博透露，苹果 iPad mini 平板将先 iPad Air 一步率先搭载 OLED 面板。不过博主在下方补充道，他也不...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-9" style="display:none;" 
+                     data-title="消息称新款 iPad mini 要最早明年第三季度 / 第四季度上市，有望先 iPad Air 一步搭载 OLED 面板" 
+                     data-link="https://www.ithome.com/0/900/522.htm"
+                     data-source="IT之家"
+                     data-date="11-26 23:42">
+                     IT之家 11 月 26 日消息，博主 @刹那数码 今天在微博透露，苹果 iPad mini 平板将先 iPad Air 一步率先搭载 OLED 面板。不过博主在下方补充道，他也不知道新款 iPad mini 的屏幕具体规格，这款平板最早也要等到 2026 年第三季度或第四季度才能上市，得到时候再看。结合IT之家此前援引彭博社记者马克・古尔曼消息，苹果 iPad mini 有望成为继 Pro 系列后首款配备 OLED 屏幕的机型，目前其代号为 J510，预计将搭载性能更强的 A19 Pro 芯片，性能有望看齐 iPhone 17 Pro 系列手机。▲ IT之家实拍：iPad mini （A17 Pro），下同得益于 OLED 面板，iPad mini 预计将在屏幕亮度、纯黑色对比度等方面实现重大升级，可能会搭载一套全新的扬声器系统，采用振动式技术发声，从而可以移除机身上的传统扬声器开孔，防水性能有望看齐 iPhone，让用户在泡澡时也能用大屏幕刷剧、打游戏。
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome">
+        <article class="news-item" data-source="ithome" onclick="openModal(10)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/ecef9fe7-e9a2-47b2-8e26-525645961e64.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -255,16 +370,24 @@
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ithome.com/0/900/521.htm" target="_blank">小米精英驾驶・高阶驾驶培训今年最后一站“上海站”报名开启，首批 1 万人免费</a></h2>
+                <h2 class="item-title">小米精英驾驶・高阶驾驶培训今年最后一站“上海站”报名开启，首批 1 万人免费</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">IT之家</span>
                     <span class="meta-date">11-26 23:32</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 26 日消息，小米汽车官方今日宣布小米精英驾驶・高阶驾驶培训今年最后一站 —— 上海站报名已开启，首批 10000 人免费。据介绍，培训共分三期报名，本站培训将...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-10" style="display:none;" 
+                     data-title="小米精英驾驶・高阶驾驶培训今年最后一站“上海站”报名开启，首批 1 万人免费" 
+                     data-link="https://www.ithome.com/0/900/521.htm"
+                     data-source="IT之家"
+                     data-date="11-26 23:32">
+                     IT之家 11 月 26 日消息，小米汽车官方今日宣布小米精英驾驶・高阶驾驶培训今年最后一站 —— 上海站报名已开启，首批 10000 人免费。据介绍，培训共分三期报名，本站培训将在上海国际赛车场试驾场地进行，包含 1 项理论及 4 项实车操作课程，车主可驾驶小米 SU7，在加速制动练习、绕桩、湿滑路面和金卡纳训练等项目中，积累驾驶经验，提升安全驾驶能力。IT之家附教学内容：理论课 | SU7 深度定制理论课实操课 | 加速 / 制动 / 紧急变线练习实操课 | 绕桩练习实操课 | 低附着路面驾驶练习实操课 | 金卡纳练习
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome">
+        <article class="news-item" data-source="ithome" onclick="openModal(11)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/7bc74d75-415d-4ae5-b253-25eb201f5abd.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -272,16 +395,24 @@
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ithome.com/0/900/520.htm" target="_blank">特斯拉 Robotaxi 有望取消安全员，车内摄像头数据共享功能曝光</a></h2>
+                <h2 class="item-title">特斯拉 Robotaxi 有望取消安全员，车内摄像头数据共享功能曝光</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">IT之家</span>
                     <span class="meta-date">11-26 23:27</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 26 日消息，据科技媒体 teslarati 今天报道，特斯拉 Robotaxi App 25.11.5 版已现身互联网，各路消息人士对其进行反编译后发现，特斯...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-11" style="display:none;" 
+                     data-title="特斯拉 Robotaxi 有望取消安全员，车内摄像头数据共享功能曝光" 
+                     data-link="https://www.ithome.com/0/900/520.htm"
+                     data-source="IT之家"
+                     data-date="11-26 23:27">
+                     IT之家 11 月 26 日消息，据科技媒体 teslarati 今天报道，特斯拉 Robotaxi App 25.11.5 版已现身互联网，各路消息人士对其进行反编译后发现，特斯拉似乎正准备为 Robotaxi 无人出租车开启车内摄像头数据共享功能，暗示该公司正在为取消 Robotaxi 的安全员做准备。IT之家在此援引 teslarati，这一变化最早由消息人士 Nic Cruz Patane 发现，他指出 25.11.5 版本的 Robotaxi App 里面带有一个新弹窗，可用于请求用户同意“增强型车内数据共享”，涵盖车内摄像头分析和声音检测分析，只要用户点下同意按钮，就能让特斯拉获取 Robotaxi 车内的视频和音频数据。同时消息人士还附上了一张截图，其中显示特斯拉将用车内的摄像头提升某些体验，包括“请求帮助”，虽然官方并没有解释这些功能的具体应用场景，但这可能意味着以后 Robotaxi 不再需要安全员，用户在车内求助时，远程客服可用车内摄像头观察乘客状态。特斯拉还在弹窗中强调，Robotaxi 车内收集的数据都会经过匿名化处理，不会与用户相关联，只有出现安全事件和联系客服时才会被调用。观察人士表示，特斯拉此举或是在为 Robotaxi 取消安全员铺路，如果特斯拉能够实时获取 Robotaxi 的车内音视频画面，那么即便乘客独自乘坐无人驾驶车辆也依然能及时得到远程协助。
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome">
+        <article class="news-item" data-source="ithome" onclick="openModal(12)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/e7c97fa0-51ad-42a3-9a4b-e8af9659f4b8.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -289,16 +420,24 @@
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ithome.com/0/900/519.htm" target="_blank">全球央行大调查：超六成没把 AI 用在核心业务，超九成不碰数字资产</a></h2>
+                <h2 class="item-title">全球央行大调查：超六成没把 AI 用在核心业务，超九成不碰数字资产</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">IT之家</span>
                     <span class="meta-date">11-26 23:22</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 26 日消息，根据国际官方货币与金融机构论坛（OMFIF）于本周三发布的一项调查报告，人工智能（AI）目前尚未成为全球大多数央行运营的核心组成部分，而数字资产则...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-12" style="display:none;" 
+                     data-title="全球央行大调查：超六成没把 AI 用在核心业务，超九成不碰数字资产" 
+                     data-link="https://www.ithome.com/0/900/519.htm"
+                     data-source="IT之家"
+                     data-date="11-26 23:22">
+                     IT之家 11 月 26 日消息，根据国际官方货币与金融机构论坛（OMFIF）于本周三发布的一项调查报告，人工智能（AI）目前尚未成为全球大多数央行运营的核心组成部分，而数字资产则基本被排除在投资组合之外。调查由来自欧洲、非洲、拉丁美洲及亚洲的 10 家央行组成的工作组开展，这些央行合计管理资产规模约 6.5 万亿美元（IT之家注：现汇率约合 46.09 万亿元人民币）。调查发现，迄今为止对人工智能探索最为深入的央行，反而在风险认知上表现出最高程度的审慎。报告指出，央行最主要的担忧在于：人工智能驱动的行为可能“加剧未来危机的爆发速度”。一位受访央行代表在报告中强调：“AI 能帮助我们看到更多，但决策权必须始终掌握在人类手中。”超过 60% 的受访央行表示，尽管 AI 工具已在科技公司及零售与投行领域引发裁员潮，但其尚未被用于支持央行核心业务运营。报告分析称：“目前多数早期应用主要集中于常规性分析任务，而非风险管理或投资组合构建等关键职能。”相较之下，大多数央行仅将 AI 用于基础性工作，例如数据摘要整理或市场动态扫描。此外，调查显示高达 93% 的央行目前未投资任何数字资产。尽管部分机构对“资产代币化”（tokenisation）持积极关注态度，但对比特币等加密货币仍保持高度谨慎。参与此次调查的工作组成员包括 6 家二十国集团（G20）成员国央行及 2 家七国集团（G7）成员国央行。IT之家注意到，调查还揭示，全球央行普遍认为世界正加速迈向多极化格局，这一趋势既激发了储备资产多元化的意愿，也促使央行更聚焦于体系韧性与流动性保障，从而进一步收窄其可接受的储备资产范围。尽管近 60% 的受访央行表达了降低对美元依赖的意愿，但美国国债无与伦比的流动性仍支撑美元稳居主导地位。一位工作组成员在报告中指出：“我们正从两极储备体系转向多极储备体系，但欧元目前尚不具备领导能力。”今年以来，随着美国总统唐纳德・特朗普推行关税政策，以及市场对美联储独立性的担忧加剧，美元作为全球首要储备货币的地位受到质疑。虽然欧元与中国人民币有望因此获益，但美元预计仍将长期维持其在外汇储备中的主导地位。
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome">
+        <article class="news-item" data-source="ithome" onclick="openModal(13)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/1fbf073d-e174-4dc3-b536-b8ca5729fa29.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -306,16 +445,24 @@
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ithome.com/0/900/518.htm" target="_blank">华为 Mate X7 折叠屏旗舰手机定档 2025 年 12 月 11 日在迪拜发布</a></h2>
+                <h2 class="item-title">华为 Mate X7 折叠屏旗舰手机定档 2025 年 12 月 11 日在迪拜发布</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">IT之家</span>
                     <span class="meta-date">11-26 23:17</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 26 日消息，华为官方今日宣布，Mate X7 折叠屏旗舰手机将于 2025 年 12 月 11 日在迪拜发布，号称开启全新篇章。华为 Mate X7 折叠屏手...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-13" style="display:none;" 
+                     data-title="华为 Mate X7 折叠屏旗舰手机定档 2025 年 12 月 11 日在迪拜发布" 
+                     data-link="https://www.ithome.com/0/900/518.htm"
+                     data-source="IT之家"
+                     data-date="11-26 23:17">
+                     IT之家 11 月 26 日消息，华为官方今日宣布，Mate X7 折叠屏旗舰手机将于 2025 年 12 月 11 日在迪拜发布，号称开启全新篇章。华为 Mate X7 折叠屏手机已于昨日在国内发布，售价 12999 元起。IT之家整理新机主要信息如下：12GB + 256GB 售价 12999 元12GB + 512GB 售价 13999 元16GB + 512GB 典藏版售价 14999 元16GB + 1TB 典藏版售价 15999 元20GB + 1TB 典藏版手写笔套装售价 17599 元华为 Mate X7 可选五个配色，分别为曜石黑、云锦蓝、云锦白、寰宇红、幻影紫，首次将非遗云锦工艺融入手机，整机重量 235g，展开厚度 4.5mm，折叠厚度 9.5mm。新机升级了“全新超可靠折叠玄武架构”，典藏版外屏采用第二代玄武钢化昆仑玻璃，其他版本外屏采用第二代昆仑玻璃。新机在 GB/T 4208-2017（国内）标准下支持 IP58 和 IP59 级别防溅、抗水、防尘。华为 Mate X7 搭载 6.49 英寸 1080p 外屏，支持 3000nits 峰值亮度、1~120Hz LTPO 2.0 显示；内部折叠屏为 8 英寸 2416*2210，支持 2500nits 峰值亮度、1~120Hz LTPO 2.0 显示。新机搭载 5600mAh 电池，支持 66W 有线快充 + 50W 无线快充；整机性能提升 42% 以上；搭载第二代红枫影像，后置 50MP 可变光圈主摄 + 50MP 长焦微距镜头 + 40MP 超广角镜头，宣称“实现直板旗舰影像能力”。相关阅读：《华为 Mate X7 折叠屏手机发布：12999 元起，全新玄武架构、首次比肩直板旗舰影像》
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome">
+        <article class="news-item" data-source="ithome" onclick="openModal(14)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/a5325b82-e43c-4240-8c92-e3e50bf4efb3.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -323,16 +470,24 @@
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ithome.com/0/900/517.htm" target="_blank">影石向攻克渐冻症慈善信托捐赠 300 万元，蔡磊致谢</a></h2>
+                <h2 class="item-title">影石向攻克渐冻症慈善信托捐赠 300 万元，蔡磊致谢</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">IT之家</span>
                     <span class="meta-date">11-26 23:04</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 26 日消息，影石创新科技股份有限公司今日向攻克渐冻症慈善信托捐赠了 300 万元，渐冻症抗争者、京东前副总裁蔡磊发文致谢：“感谢你们对科研进展的关注与支持。相...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-14" style="display:none;" 
+                     data-title="影石向攻克渐冻症慈善信托捐赠 300 万元，蔡磊致谢" 
+                     data-link="https://www.ithome.com/0/900/517.htm"
+                     data-source="IT之家"
+                     data-date="11-26 23:04">
+                     IT之家 11 月 26 日消息，影石创新科技股份有限公司今日向攻克渐冻症慈善信托捐赠了 300 万元，渐冻症抗争者、京东前副总裁蔡磊发文致谢：“感谢你们对科研进展的关注与支持。相信科技的力量，众志成城，我们定能战胜一切困难。”蔡磊还表示：“攻克渐冻症，靠的不是一个人的孤勇，而是科学家、医生、患者群体的合力，以及社会各界的爱心托举。”据IT之家此前报道，自 2019 年确诊以来，蔡磊带领团队搭建“渐愈互助之家”大数据平台，链接患者逾万名；推动建立中国首个渐冻症病理与基因样本库；设立公益基金、慈善信托及“生命科学破冰奖”，累计投入数千万元。今年 10 月，蔡磊的最新病情曝光，现年 47 岁的他已丧失语言、吞咽及肢体活动能力，进入渐冻症晚期，日常起卧需三人协同完成，每日五度服药，饮水须以增稠剂调和后针管缓慢注入，一口痰即可引发窒息风险。唯一尚能自主控制的，只剩那双操控电脑的眼球。相关阅读：《蔡磊进入渐冻症晚期，研发的药物对病友起效对自己没用》
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome">
+        <article class="news-item" data-source="ithome" onclick="openModal(15)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/3c58e5ad-b2ef-483c-a7ab-af0eff268fdc.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -340,16 +495,24 @@
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ithome.com/0/900/516.htm" target="_blank">曝三星正研发新一代 Odyssey OLED G6 显示器：27 英寸 2K 面板，有望明年上市</a></h2>
+                <h2 class="item-title">曝三星正研发新一代 Odyssey OLED G6 显示器：27 英寸 2K 面板，有望明年上市</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">IT之家</span>
                     <span class="meta-date">11-26 23:01</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 26 日消息，据科技媒体 Sammobile 今天报道，三星正在研发新一代 Odyssey OLED G6 显示器，预计将在 CES 2026（2026 年 1...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-15" style="display:none;" 
+                     data-title="曝三星正研发新一代 Odyssey OLED G6 显示器：27 英寸 2K 面板，有望明年上市" 
+                     data-link="https://www.ithome.com/0/900/516.htm"
+                     data-source="IT之家"
+                     data-date="11-26 23:01">
+                     IT之家 11 月 26 日消息，据科技媒体 Sammobile 今天报道，三星正在研发新一代 Odyssey OLED G6 显示器，预计将在 CES 2026（2026 年 1 月 6 日-1 月 9 日间）上市，有望成为该品牌最便宜的 OLED 游戏显示器。据报道，这款显示器已经获得 NRRA（韩国无线电研究所）认证，其型号为 S27HG61，从型号名来看这款显示器就是现款 OLED G6（S27FG60）的继任者，有望配备 27 英寸 2K（QHD）QD-OLED 面板。不过目前网络上还没有这款显示器的详细升级要点，不过预计三星会在峰值亮度和持续亮度、更高级的 DisplayHDR 认证方面做常规升级。作为参考，现款 Odyssey OLED G6 配备一块 27 英寸 QD-OLED 面板，分辨率为 2K，刷新率最高可达 360Hz，GtG 响应时间可达 0.03ms，是全球首款配备脉冲式热管的显示器，可降低机身温度，背部还拥有圆形 RGB 灯带，售价 24900 新台币（IT之家注：现汇率约合 5630 元人民币）。
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome">
+        <article class="news-item" data-source="ithome" onclick="openModal(16)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/31933e50-cf91-4e71-b650-6eac54b65215.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -357,16 +520,24 @@
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ithome.com/0/900/515.htm" target="_blank">荣耀手机上线「游戏预更新」功能：系统可在夜间闲时自动检测、下载资源包</a></h2>
+                <h2 class="item-title">荣耀手机上线「游戏预更新」功能：系统可在夜间闲时自动检测、下载资源包</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">IT之家</span>
                     <span class="meta-date">11-26 22:54</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 26 日消息，据荣耀游戏研发工程师 @荣耀冯同学 今日分享，荣耀手机上线了「游戏预更新」功能。功能开启后，系统会在夜间闲时自动检测、下载更新的游戏资源包。路径如...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-16" style="display:none;" 
+                     data-title="荣耀手机上线「游戏预更新」功能：系统可在夜间闲时自动检测、下载资源包" 
+                     data-link="https://www.ithome.com/0/900/515.htm"
+                     data-source="IT之家"
+                     data-date="11-26 22:54">
+                     IT之家 11 月 26 日消息，据荣耀游戏研发工程师 @荣耀冯同学 今日分享，荣耀手机上线了「游戏预更新」功能。功能开启后，系统会在夜间闲时自动检测、下载更新的游戏资源包。路径如下：应用市场 → 游戏中心 → 我的 → 设置 → 自动更新（下载并安装应用）→ 仅 WLAN荣耀手机目前正加速推进自己的游戏辅助功能。参考IT之家此前报道，本月早些时候，荣耀 MagicOS 官方微博宣布游戏管家工具上新，带来了弹幕通知、熄屏挂机两大功能。此外，《王者荣耀》144Hz 模式已开始填申请，荣耀游戏研发工程师 @荣耀冯同学 表示很快就能更新到用户手里。
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome">
+        <article class="news-item" data-source="ithome" onclick="openModal(17)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/b1f76d7a-9fb8-419f-8b54-90dd1e90b8b9.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -374,16 +545,24 @@
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ithome.com/0/900/514.htm" target="_blank">经典指纹滑动功能回归：华为 Mate 80 系列手机支持智控键下滑打开通知中心</a></h2>
+                <h2 class="item-title">经典指纹滑动功能回归：华为 Mate 80 系列手机支持智控键下滑打开通知中心</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">IT之家</span>
                     <span class="meta-date">11-26 22:46</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 26 日消息，华为此前为后置指纹的机型开发过系列功能，包括控制相机拍摄、接听来电、打开通知面板等。遗憾的是，随着华为后续机型取消后置指纹设计，系列功能也逐渐消失...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-17" style="display:none;" 
+                     data-title="经典指纹滑动功能回归：华为 Mate 80 系列手机支持智控键下滑打开通知中心" 
+                     data-link="https://www.ithome.com/0/900/514.htm"
+                     data-source="IT之家"
+                     data-date="11-26 22:46">
+                     IT之家 11 月 26 日消息，华为此前为后置指纹的机型开发过系列功能，包括控制相机拍摄、接听来电、打开通知面板等。遗憾的是，随着华为后续机型取消后置指纹设计，系列功能也逐渐消失。IT之家注意到，华为在 Mate 80 系列手机上，针对侧边指纹进行了相关功能开发，除了在 Pura 80 系列手机上带来的相机控制功能外，经典的指纹滑动打开通知中心功能也得以回归。目前，华为将集成在侧边指纹键的功能统一命名为「智控键」，其有望随着后续的系统升级带来更多功能。支持智控键的机型包括华为 Mate 70 系列、Mate X6 系列、Pura 80 系列、nova 14 系列、Mate 80 系列、Mate X7 系列等。
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome">
+        <article class="news-item" data-source="ithome" onclick="openModal(18)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/b3428ada-8eb4-4053-83e1-deaa7e1358c5.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto/auto-orient%2Co_1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -391,33 +570,24 @@
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ithome.com/0/900/513.htm" target="_blank">铁路 12306 客服回应网络平台兜售积分：积分不能转让</a></h2>
+                <h2 class="item-title">铁路 12306 客服回应网络平台兜售积分：积分不能转让</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">IT之家</span>
                     <span class="meta-date">11-26 22:43</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 26 日消息，据央视新闻报道，近日有网友反映有二手电商平台兜售铁路 12306 会员积分，对此铁路 12306 客服人员表示，火车票积分不能转让。据IT之家了解...</p>
-            </div>
-        </article>
-        
-        <article class="news-item" data-source="ithome">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/2d6c4de9-2fbb-45f5-ba88-aaef72cfe228.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ithome.com/0/900/512.htm" target="_blank">索尼 α 新品发布会定档 12 月 2 日，有望推出 Alpha 7 V 全画幅无反相机</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">IT之家</span>
-                    <span class="meta-date">11-26 22:38</span>
+                <!-- 隐藏数据域 -->
+                <div id="data-18" style="display:none;" 
+                     data-title="铁路 12306 客服回应网络平台兜售积分：积分不能转让" 
+                     data-link="https://www.ithome.com/0/900/513.htm"
+                     data-source="IT之家"
+                     data-date="11-26 22:43">
+                     IT之家 11 月 26 日消息，据央视新闻报道，近日有网友反映有二手电商平台兜售铁路 12306 会员积分，对此铁路 12306 客服人员表示，火车票积分不能转让。据IT之家了解，用户在铁路 12306 注册会员后，购票乘车可累积相应积分，并可在兑换车票时添加 8 位受让人，但通常为亲友间的无偿使用。然而，部分不法分子却利用这一规则，在二手平台贩卖积分兑换的车票，谋取私利。针对此行为，北京市京师律师事务所律师王杰指出，使用积分贩卖车票的行为违反了 12306 平台规定及法律法规。12306 平台明确会员积分仅限本人及亲友使用，且不得转让。若长期以营利为目的代买车票，还可能涉嫌构成倒卖车票罪。建议购票人不要通过这种途径购买火车票，非官方途径购买车票除了有违约，甚至被诈骗的风险，更存在信息泄露的风险。
                 </div>
-                <p class="item-summary">IT之家 11 月 26 日消息，索尼中国今天在B站宣布 α 新品发布会定档 12 月 2 日晚上 22 点整，有望推出 Alpha 7 V 全画幅无反相机等新品。结合IT之家此前...</p>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr">
+        <article class="news-item" data-source="ifanr" onclick="openModal(19)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/1-21.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -425,17 +595,68 @@
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ifanr.com/1646166?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">双座敞篷传奇落幕，宝马 Z4 即将停产</a></h2>
+                <h2 class="item-title">双座敞篷传奇落幕，宝马 Z4 即将停产</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">爱范儿</span>
                     <span class="meta-date">11-26 22:00</span>
                 </div>
                 <p class="item-summary">继丰田宣布 GR Supra 停产之后，其「孪生兄弟」宝马 Z4 也迎来了终章。
 近日，宝马确认将在 2026 年春季正式结束 Z4（G29 世代）的生产。自 1995 年 Z3 ...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-19" style="display:none;" 
+                     data-title="双座敞篷传奇落幕，宝马 Z4 即将停产" 
+                     data-link="https://www.ifanr.com/1646166?utm_source=rss&utm_medium=rss&utm_campaign="
+                     data-source="爱范儿"
+                     data-date="11-26 22:00">
+                     继丰田宣布 GR Supra 停产之后，其「孪生兄弟」宝马 Z4 也迎来了终章。
+近日，宝马确认将在 2026 年春季正式结束 Z4（G29 世代）的生产。自 1995 年 Z3 问世以来，宝马持续近三十年的双座敞篷跑车产品线，或将就此画上句号。
+
+回顾 Z 系列的历史，几乎就是一部宝马对驾驶乐趣的执着书写。
+1995 年，Z3 凭借圆润线条和詹姆斯·邦德电影《黄金眼》一炮而红；2002 年推出的 Z4（E85 ） 则转向锋利设计，并诞生了搭载 3.2 升直六引擎、输出 336 马力的 Z4 M Roadster——至今仍被不少车迷奉为经典。
+
+
+▲ 2007 BMW Z4 M Roadster
+
+2009 年的第二代 Z4（E89）首次采用折叠硬顶，试图兼顾日常实用性；而 2018 年回归的第三代 Z4（G29），则重新拥抱轻量化的织物软顶，并与丰田联合开发，共享平台与动力总成，催生出如今广为人知的 GR Supra。
+
+
+▲ 采用折叠硬顶的 BMW Z4 E89
+
+事实上，早在 2022 年，坊间便有传闻称 Z4 将在当前一代生命周期结束后停产。尽管宝马决定让这款车多延续一个年款，但始终未公布任何换代计划。
+Z4 之所以能「续命」至今，很大程度上要归功于手动挡的坚持。宝马原本认为这种传统配置在当今市场已无多少受众，但美国用户的实际选择给出了截然不同的答案：只要有手动挡，就仍有人愿意为它买单。
+作为告别之作，宝马最后为 Z4 打造了一款名为「Final Edition」的限量特别版，将将高配选项整合为出厂即满配的状态，让最后一台 Z4 拥有最完整的姿态。
+Z4 Final Edition 将全系标配宝马 Individual 部门调制的 Frozen Black 哑光黑车漆，搭配 M Shadowline 高光黑套件和红色 M Sport 刹车卡钳，以及熏黑格栅、外后视镜、进气口及排气尾喉，软顶则采用 Moonlight Black 深灰黑色，试图营造一种低调而凌厉的告别氛围。
+
+车辆内饰则以黑色 Vernasca 真皮与 Alcantara 材质为主调，辅以贯穿仪表台、中控、门板、座椅乃至脚垫的红色缝线，专属门槛饰板刻有「Final Edition」字样。
+
+配置方面，Harman Kardon 音响、抬头显示、环境氛围灯、驾驶辅助系统等此前需额外选装的高端功能，全部作为标准装备提供。
+
+不过，这款特别版仅基于顶配 M40i 打造，将由奥地利麦格纳斯太尔工厂在 2026 年 2 月至 4 月间小批量生产，主要在欧洲和北美市场提供。
+Z4 Final Edition 将继续搭载 3.0 升涡轮增压直列六缸发动机，最大输出 382 马力、500 牛·米扭矩，用户可在八速 Steptronic 自动变速箱与六速手动变速箱之间选择。
+
+选择手动挡的用户将获得「Edition Handschalter」专属套件，包含重新调校的减震器阻尼、转向逻辑、牵引力控制系统，以及强化型防倾杆支架，这些细节虽不提升账面性能，却能显著增强人车沟通感，满足纯粹驾驶爱好者的需求。
+自动挡车型虽无缘这套底盘优化，却可以获得前后轮尺寸不同的「Staggered」轮圈设定（前 19 英寸/后 20 英寸），此前这一设定在普通 M40i 上仅限手动挡可选。
+性能表现上，Z4 Final Edition 自动挡零百加速为 3.9 秒，手动挡为 4.2 秒。
+
+在北美市场，Z4 Final Edition 起售价为 78,675 美元，相比普通版 M40i 的 69,575 美元高出约 9,100 美元。
+但若将 Final Edition 所含的 Individual 哑光漆、Shadowline 套件、手动挡专属底盘调校、Premium 包、驾驶辅助包等逐一加到普通 M40i 上，最终价格将与 Final Edition 相差无几。
+目前，宝马中国官网的 Z4 车型并未下架，sDrive 25i M 运动曜夜套装的指导价为 52.39 万元，有 197 马力和 340 马力两种动力版本可选，不过仅提供仅 8 速运动型手自一体变速箱。
+
+Z4 的停产，标志着一个时代的落幕。过去三十年，它承载了无数人对敞篷、后驱、直六引擎的浪漫想象。但在当下，这类小众跑车在全球市场的销量始终有限，Z4 与 Supra 的联合项目，也从未真正「卖爆」。
+不过，宝马并未彻底关闭跑车的大门。一位高管近期向媒体透露，基于全新「Neue Klasse」（新世代）纯电平台开发一款全新运动车型「是可行的」。
+
+
+▲ 网友渲染的 「Neue Klasse」版 Z4
+
+这意味着，Z4 的精神或许将以纯电身份延续，只是不再与丰田共享，也不再是那台熟悉的燃油敞篷。
+
+
+#欢迎关注爱范儿官方微信公众号：
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr">
+        <article class="news-item" data-source="ifanr" onclick="openModal(20)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/GT-T.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -443,50 +664,54 @@
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ifanr.com/1646219?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">高通发布了第五代骁龙 8，它和第五代骁龙 8 至尊版有什么不一样？</a></h2>
+                <h2 class="item-title">高通发布了第五代骁龙 8，它和第五代骁龙 8 至尊版有什么不一样？</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">爱范儿</span>
                     <span class="meta-date">11-26 18:40</span>
                 </div>
                 <p class="item-summary">对于高通来说，骁龙 8 至尊版的能力已经被各家 Android 阵营的品牌所认可，它已经是旗舰手机的第一选择。关于次旗舰的选择，倒是历来并不统一，有的品牌会选择上一代的骁龙 8 至...</p>
-            </div>
-        </article>
-        
-        <article class="news-item" data-source="huxiu">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/26/182754201638.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title"><a href="http://www.huxiu.com/article/4810062.html?f=wangzhan" target="_blank">超70亿独角兽“原地解散”，无人车赛道却将爆发？</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">虎嗅</span>
-                    <span class="meta-date">11-26 18:32</span>
+                <!-- 隐藏数据域 -->
+                <div id="data-20" style="display:none;" 
+                     data-title="高通发布了第五代骁龙 8，它和第五代骁龙 8 至尊版有什么不一样？" 
+                     data-link="https://www.ifanr.com/1646219?utm_source=rss&utm_medium=rss&utm_campaign="
+                     data-source="爱范儿"
+                     data-date="11-26 18:40">
+                     对于高通来说，骁龙 8 至尊版的能力已经被各家 Android 阵营的品牌所认可，它已经是旗舰手机的第一选择。关于次旗舰的选择，倒是历来并不统一，有的品牌会选择上一代的骁龙 8 至尊版，比如刚刚发布的荣耀 500 Pro，用到的就是去年发布的第四代骁龙 8 至尊版。有的也会选择定位更低的第四代骁龙 8s 芯片。
+今天，高通发布的第五代骁龙 8 芯片，成为了各大品牌次旗舰手机的新选择。
+
+至此，高通也完成了从 4 系到 8 系的全系列布局，每个系列都有高中低三档选择，高通骁龙 8 芯片的定位，在高通的图谱里，就是高于同代的骁龙 8s，低于同代的骁龙 8 至尊版。
+
+CPU 架构上，第五代骁龙 8 和第五代骁龙 8 至尊版类似，采用了 3 nm 制程工艺和 2+6 的架构，即 2 Prime 超级内核+6 Performance 性能内核的全大核架构，有所不同的是，第五代骁龙 8 的核心频率均有所下降。Prime 超级内核的频率为 3.8GHz，性能内核的频率为 3.32GHz。
+作为对比，第五代骁龙 8 至尊版的频率组合为 4.6GHz+3.63GHz。
+
+因为去年没有骁龙 8 芯片发布，只有第四代骁龙 8s 和第四代骁龙 8 至尊版，所以高通拿出来跟第五代骁龙 8 芯片进行对比的是在 2023 年发布的第三代骁龙 8，高通表示，相比于第三代骁龙 8 芯片，第五代骁龙 8 的提升幅度为36% 的 CPU 整体性能提升，GPU 提升 11%，AI 任务提升 46%，以及整体 SoC 功耗节省 13%。
+在游戏性能上，第五代骁龙 8 的 Adreno GPU 采用与第五代骁龙 8 至尊版相同的切片架构，基于独立着色处理器的核心，可以增强工作分配和并行处理能力，从而提升整体性能。在渲染复杂场景时，数据可以直接存储在 GPU 上，有效减少传输至 DDR 内存的图形数据量，从而简化了处理流程降低了时延。
+高通表示，搭载了第五代骁龙 8 移动平台的移动设备，让三角洲行动等战术射击游戏能在 165fps 帧率下持久流畅运行。
+
+相比于 2023 年的产品，第五代骁龙 8 整体 AI 性能提升是最显著的，提升幅度高达46%，从图像分类、物体检测到语言理解，各项任务的性能提升幅度高达 22-52%。这意味着第五代骁龙 8 可以更好地胜任 AI 时代的需求，比如多模态生成式 AI 能力以及手机内置智能助手，或者 AI 智能体的智能程度也会大大增强。
+
+连接性能上，第五代骁龙 8 和第五代骁龙 8 至尊版用到了同款的 X80 5G 调制解调器，峰值下行速度可达 10Gbps，上行速度为 3.5Gbps，X80 5G 调制解调器支持 6 信道，提供更快更稳定的连接，同时这款调制解调器也集成 NB-NTN（窄带物联网非地面网络）功能，这意味着它天然就为卫星通信做好了准备。
+
+相比于数据能够说明的性能，其实大家比较疑惑的还是骁龙 8 家族的定位情况，尤其是第三代骁龙 8 之后其实没有第四代骁龙 8 ，取而代之的是第四代骁龙 8 至尊版。
+发布会会后，高通技术公司产品市场高级总监马晓民也接受了爱范儿等媒体的采访，详细回答了这些芯片之间的区别。
+马晓民说：
+我们现在有两个旗舰，一个标准 8，一个至尊版，至尊版是针对那些对极致性能，极致能效和最新特性有特别需求的消费者，8s 的定位比前两者要更低一些，在标准 8 之下，在 7 系之上，我们会选择性地从上一代的 8 系里提取一些大家认为有价值的特性下放到 8s 上去。
+同时，马晓民也否认了第五代骁龙 8 是第五代骁龙 8 至尊版「青春版」的说法，他说：
+我觉得很难把第五代骁龙 8 当做一个青春版来区别看待，因为骁龙 8 系旗舰不是刚刚才发布的，骁龙 8 作为高通的旗舰平台，它已经存在了非常长的时间。我们从来不会把我们的 8 当做一个「青春版」来看，只是说在去年的时候，因为整个市场的变化，包括我们厂商对我们芯片要求的变得更高了，包括我们自己 IP 的一些改变，比如说我们第一次引入了我们自己的定制 CPU。所以我们觉得我们可以打造出更强的旗舰，也就是我们的至尊版，它在各个维度，无论是从性能、功耗，包括最新的特性，包括跟厂商的合作度来说，它都是当代最顶的一个旗舰，但是不代表我们的标准版就不是一个旗舰芯片，它还是一个旗舰芯片。
+ 
+我们把骁龙 8 系列还是党组旗舰，至尊版比旗舰更顶，是顶级旗舰。
+ 
+双旗舰发布的目的是因为大家对旗舰本身的定义变得更宽泛了，需求也更宽泛了。
+虽然只看文字还是有点难以理解高通骁龙 8 家族的话，那么捋一捋年份就能知道高通是怎么给这个旗舰家族括员并命名的：
+
+2020 年 12 月：骁龙 888，最后的三位数骁龙 8 系命名法
+2021 年 12 月：第一代骁龙 8
+2022 年 11 月：第二
                 </div>
-                <p class="item-summary">本文来自微信公众号：物流进化TransLog，作者：晓璐，原文标题：《超70亿独角兽“原地解散”！无人车赛道下一个出局者，会是谁？》，题图来自：视觉中国（毫末智行的“小魔驼”在四川...</p>
             </div>
         </article>
         
-        <article class="news-item" data-source="huxiu">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/23/141958939817.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title"><a href="http://www.huxiu.com/article/4808755.html?f=wangzhan" target="_blank">智驾下一个关键挑战，是不被别人摘“桃子”？</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">虎嗅</span>
-                    <span class="meta-date">11-26 18:17</span>
-                </div>
-                <p class="item-summary">出品丨虎嗅汽车组作者丨李赓 头图提供丨元戎启行时间来到2025年末，自动驾驶竟然再次“热”了起来。2025年10月至11月，中国广义自动驾驶领域（含Robotaxi、智驾厂商、Ro...</p>
-            </div>
-        </article>
-        
-        <article class="news-item" data-source="36kr">
+        <article class="news-item" data-source="36kr" onclick="openModal(21)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.36krcdn.com/hsossms/20251126/v2_ba6e96cc068d4a34ac15a17b75799eec%401934172915_oswg3907006oswg3200oswg2133_img_jpg%3Fx-oss-process%3Dimage/quality%2Cq_80/format%2Cjpg/interlace%2C1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -494,17 +719,42 @@
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://36kr.com/p/3548417282732163?f=rss" target="_blank">美国电吉他品牌「Fender」中国首开体验空间，营收增速已超两位数丨早期项目</a></h2>
+                <h2 class="item-title">美国电吉他品牌「Fender」中国首开体验空间，营收增速已超两位数丨早期项目</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">36Kr</span>
                     <span class="meta-date">11-26 17:46</span>
                 </div>
                 <p class="item-summary">摇滚乐史的传奇品牌，进入中国13年后，终于走向线下了。
 Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小作坊里萌芽，Leo 在这里发明出第一款量产电吉...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-21" style="display:none;" 
+                     data-title="美国电吉他品牌「Fender」中国首开体验空间，营收增速已超两位数丨早期项目" 
+                     data-link="https://36kr.com/p/3548417282732163?f=rss"
+                     data-source="36Kr"
+                     data-date="11-26 17:46">
+                     摇滚乐史的传奇品牌，进入中国13年后，终于走向线下了。
+Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小作坊里萌芽，Leo 在这里发明出第一款量产电吉他 Telecaster。1951年推出的 Precision Bass 贝斯和1954年 Stratocaster电吉他等产品，奠定 Fender 的行业地位。品牌后续打造的 Custom Shop定制工坊更代表顶级工艺水准。
+最初进入中国，Fender 是通过经销商代理品牌的方式，在各类琴行售卖旗下产品，这也是外资乐器品牌进入中国的惯常做法。
+近期，Fender 在上海徐汇区的石库门建筑群里开出体验空间，这是继东京、伦敦、纳什维尔后，品牌在全球的第四家 Artist Showroom，也是 Fender 加大投资中国市场的信号。
+看好中国市场是基于亮眼的增速。据 Fender 中国区总经理戴筠杰透露，目前品牌保持两位数增长，电商渠道增速也超过行业平均水平。这符合 Fender 全球 CEO Andy Mooney 两年前的判断：“亚洲是未来十年最大的增长机会。”
+Fender 的体验店投入可谓大手笔，是上海中心区域的一栋小楼。至于为什么一定要以较高投入开出体验空间，戴筠杰的答案很明确：“吉他是与身体接触面最大的乐器，共鸣是线上参数试不出来的。” 无论是专业音乐人还是普通玩家，第一次触摸乐器，必须要有真实的触感与声场反馈，乐器的这种现场体验感至今无法取代。
+
+Fender上海体验空间，图片来自官方
+不同于东京、伦敦的体验空间仅对专业音乐人开放，上海体验空间定期会有面向普通用户的开放日。戴筠杰称希望在中国的线下体验空间强调“社区感”。这基于中国用户对音乐社交的强需求，事实上，在小红书、豆瓣等平台上，有不少电吉他社交兴趣小组存在。
+为了在中国市场以更快的速度发展，Fender 未来整体会以更接地气的形象存在，在调性和商业中找到更好的平衡。在接受媒体采访时，戴筠杰认为，在中国，从长远来看，Fender 的一个目标是希望推出自己的直营店，把传统琴行的“体验感”带回来。同时，Fender 会从“乐器品牌”慢慢转型，成为真正的“生活方式品牌”，希望传达一种“随时可以拿起吉他做音乐表达”的生活态度。
+翻开 Fender 官网，你已经能看到，品牌正尝试乐器品类之外的很多单品，如服装、各类衍生品等。品牌在国外正积极开发动漫 IP、时尚品牌的联名，未来在中国也会做更多类似的尝试。
+尽管已有天猫京东店、经销渠道和体验空间，若要真正打造用户心智，Fender 还缺最重要一块的拼图——旗舰店。按照戴筠杰的说法，Fender 未来会在上海落地首家旗舰店，这是其全球第二家旗舰店。
+戴筠杰透露，按照过往在其他市场的经验，旗舰店并没有带走 Fender 经销商的生意。许多旗舰店开出后，反而给了经销商新的渠道，令其生意增加了20%。
+Fender 希望中国能成为其标杆的增量市场。品牌深耕多年的欧美、日本已是很成熟的市场，而进入时间较短的中国仍有很大发展空间，近年来，得益于智能吉他技术革新、复古设计回归、年轻群体数字素养高等多重因素推动——他们对电声乐器的接受程度非常高。此外，基于线下演出市场的火爆，从 live house 到音乐节，近年来演出市场的爆发则提供了催化剂，主流音乐场景对吉他的需求也在激增。
+作为现代音乐的大品类，电吉他行业跑出几个头部品牌： Fender 、Gibson、Yamaha 和Ibanez，四家厂商合计占据行业总收入的65%，年销售额约10亿美元左右。其中 Fender、Gibson 主打中高端市场，旗下也分别有平价子牌 Squier 和 ‌Epiphone‌。行业里也有 Cort、Tagima更适合成人初学者的平价品牌，还有主打细分场景的 Schecter。
+吉他最早是美国乡村音乐的伴奏乐器，后在流行音乐、摇滚音乐、蓝调、民歌中被视为常用乐器。它也一直是现代乐器中性价比更高、更易习得、使用范围较广的品类。在整个电声音乐市场，电吉他的占比在15-20%，这个数字如今还在上涨。相比于原木吉他，电吉他的学习门槛更低、效果更好、社交属性更强，给忙碌的人提供一个长期、低成本的情绪庇护所。
+随着学习人数的不断上升，中国的电吉他用户分层也较为明显。数据显示，据魔镜数据，无弦吉他2024年在主流电商平台销售额近10亿元，电商平台销售均价达到2234元，用户为18-30岁的年轻人群。这类性价比高、门槛较低的电吉他产品也帮助该品类在中国初步建立心智。
+不过，乐器有很强的教育属性，无弦吉他更适合那些“只想玩玩看”的用户，随着学习的不断深入，用户往往有很强的产品进阶需求。戴筠杰也认为，如今年轻用户对吉他的外观、手感、价位认知都有了显著提升，对更高品质的产品和更丰富的产品线有较为强烈
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr">
+        <article class="news-item" data-source="ifanr" onclick="openModal(22)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/VS-DwarkeshPateldwarkeshspX-0124.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -512,17 +762,60 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ifanr.com/1646168?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">Ilya 罕见发声：Scaling 时代已结束，我们对 AGI 的定义可能全错了</a></h2>
+                <h2 class="item-title">Ilya 罕见发声：Scaling 时代已结束，我们对 AGI 的定义可能全错了</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">爱范儿</span>
                     <span class="meta-date">11-26 17:46</span>
                 </div>
                 <p class="item-summary">修个 bug 可以来回把同一个错误引回来，写代码能绕一圈又走回原地。
 但几乎所有 AI 公司都坚信，只要把模型做大、把数据堆满、把算力扔进去，智能就会自动涌现。这套规模定律（Sca...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-22" style="display:none;" 
+                     data-title="Ilya 罕见发声：Scaling 时代已结束，我们对 AGI 的定义可能全错了" 
+                     data-link="https://www.ifanr.com/1646168?utm_source=rss&utm_medium=rss&utm_campaign="
+                     data-source="爱范儿"
+                     data-date="11-26 17:46">
+                     修个 bug 可以来回把同一个错误引回来，写代码能绕一圈又走回原地。
+但几乎所有 AI 公司都坚信，只要把模型做大、把数据堆满、把算力扔进去，智能就会自动涌现。这套规模定律（Scaling Law）曾经是硅谷最坚定的信仰。
+
+在隐退许久并创立新公司 SSI（Safe Superintelligence）后，前 OpenAI 首席科学家 Ilya Sutskever 用一种极其冷静的语调，宣告「Scaling 的时代结束了，我们重新回到了研究时代。」
+最近一场 Ilya 与 Dwarkesh Patel 的深度对话中，他不仅给出了，对于 AI 未来的技术路线图，更重要的是，他深刻地回答了，为什么现在的 AI 即使再强，也依然不像人。
+ 播客链接：https://x.com/dwarkesh_sp/status/1993371363026125147
+为什么 AI 是个高分低能的优等生
+我们总觉得现在的 AI 很强，它们能在编程竞赛、数学竞赛、各种榜单上拿金牌，每次有新的模型发布，也是一次次刷新着各种 benchmark。但 Ilya 指出了一个让他感到困惑的现象。
+
+
+▲ 最新发布的 Claude 4.5 Opus 模型，在编程相关的榜单，已经拿到了 80.9 分
+
+他说我们在用 vibe coding，要 AI 写代码时，AI 可能写到某个地方，出现了一个 Bug。我们直接告诉它：「这儿有个错误。」AI 会说：「天呐你是对的，我马上改。」 然后它解决了这个 Bug，又引入了另一个 Bug。 你再指出，它又改回了第一个 Bug。 它就在这两个 Bug 之间无限循环，显得极其笨拙。
+他的解释提到了这说明 AI 的「泛化能力（Generalization）」出了问题。为了解释这个词，Ilya 用不同的学生打了一个比方。
+
+想象两个学生都在学编程，学生 A 代表 AI， 极其刻苦，练了 10000 个小时。他背下了所有的题库，记住了所有的解题套路。考试时，只要见过类似的题，他就能拿满分。
+学生 B 代表人类，他只是觉得编程竞赛很酷，花了 100 个小时联系，但他真正理解了编程的逻辑，拥有了某种直觉，也能做得很好。长期来看，谁会在职业生涯中走得更远？他说一定是学生 B。
+而现在的 AI 就像学生 A。所谓的智能，很大程度上是靠海量数据强行记忆出来的；它们在特定问题的庞大、增强数据集上过度训练，使它们在任务上表现出色，但不一定擅长泛化到其他领域。
+一旦遇到训练数据之外的微小变动，比如修复一个重复出现的 Bug，它缺乏那种举一反三的泛化能力。
+从堆算力回归拼创意
+但这种海量数据的训练方式也不是完全没有用。在过去五年里，AI 行业的发展基本上都是遵循着所谓的「规模定律 Scaling Law」，从一开始的还是以百万参数来衡量的大模型，现在都来到了万亿参数。GPU 显卡算力的消耗，规模更是未雨绸缪，要卷上天际。
+
+这种把一定量的算力，和一定量的数据混合进一个神经网络里的方案，也成了所有大模型开发的必备流程，即预训练。在预训练阶段，不需要思考用什么数据，因为答案是所有数据，它是人类投射到文本上的整个世界。
+而 Ilya 认为，「Scaling」这个词，本身就固定了我们的思维。它暗示着我们只需要做一件事：加算力，加数据，保持配方不变，把锅搞大一点，就能做出好菜。
+他说这样的法则，让大公司很舒服，因为这是一种「低风险」的投资。相比于需要灵感和运气的研究，大公司不需要雇佣科学家去苦思冥想，只需要「加数据、加算力」，而模型变强的结果是可预测的。
+但现在，瓶颈来了。数据不够了，预训练数据，我们的互联网文本语料是有限的，而且已经快被用光了；有专门的研究结构统计过，现在互联网上 AI 内容的比例，已经是超过我们人类输出的内容。
+
+其次是边际效应，把模型再做大 100 倍，也许会有提升，但不会带来质变。
+Ilya 也提到了最近在 X 上，有人说 Gemini 3 似乎解决了预训练的一些问题。而此前 The Information 也曾报道奥特曼担心 Google 的发展会影响 OpenAI，甚至已经让他感受到压力。
+其中一部分的原因，正是 GPT-5 的推出，遇到了预训练上的问题，即随着预训练数据的增加，模型并没有像之前一样表现出智能的提升。反而 Gemini 确找到了突破的方法，奥特曼在内部备忘录里说，OpenAI 也必须解决预训练的问题，或许才能再次超过 Google。
+
+
+▲ Google DeepMind 研究副总裁 Oriol Vinyals 提到 Gemini 3 的秘密，是解决了预训练的问题
+
+我们回到了研究时代。只不过这一次，我们有了更大的计算机。
+Ilya 把过去这段时间的研究，分成了两个阶段。2012 年到 2020 年是研究时代，大家都在试
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="36kr">
+        <article class="news-item" data-source="36kr" onclick="openModal(23)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.36krcdn.com/hsossms/20251126/v2_3b5b58fe1aeb4dd291f99dda7df3f383%406208701_oswg10374367oswg3024oswg4032_img_png%3Fx-oss-process%3Dimage/quality%2Cq_80/format%2Cjpg/interlace%2C1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -530,34 +823,48 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://36kr.com/p/3568209254562693?f=rss" target="_blank">反社交媒体时代，在「盲盒饭局」中重建关系的年轻人 | 早期项目</a></h2>
+                <h2 class="item-title">反社交媒体时代，在「盲盒饭局」中重建关系的年轻人 | 早期项目</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">36Kr</span>
                     <span class="meta-date">11-26 17:46</span>
                 </div>
                 <p class="item-summary">反社交媒体时代已经到来。
 上述结论，出自美国知名杂志《大西洋月刊》11月初发布的文章。过去十余年，Facebook、Instagram等以“促进人际关系”为目的的社交产品不断扩张。...</p>
-            </div>
-        </article>
-        
-        <article class="news-item" data-source="huxiu">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/25/114503820025.png&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title"><a href="http://www.huxiu.com/article/4809394.html?f=wangzhan" target="_blank">10个月狂开5000家门店，又一餐饮万店品牌诞生</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">虎嗅</span>
-                    <span class="meta-date">11-26 15:49</span>
+                <!-- 隐藏数据域 -->
+                <div id="data-23" style="display:none;" 
+                     data-title="反社交媒体时代，在「盲盒饭局」中重建关系的年轻人 | 早期项目" 
+                     data-link="https://36kr.com/p/3568209254562693?f=rss"
+                     data-source="36Kr"
+                     data-date="11-26 17:46">
+                     反社交媒体时代已经到来。
+上述结论，出自美国知名杂志《大西洋月刊》11月初发布的文章。过去十余年，Facebook、Instagram等以“促进人际关系”为目的的社交产品不断扩张。如今，全球已有超过60%的人类在使用这类软件。
+然而，更深刻的人际连接并未随之出现。相反，作者在文章中指出：在过去15年里，美国的面对面社交急剧减少，焦虑和绝望感却持续攀升。调查显示，大约八分之一的美国人表示自己没有朋友。他们与世隔绝、性生活匮乏、厌倦了网络约会，但依然整天窝在沙发上，手机不离手，长时间保持沉默。美国卫生局局长甚至将美国的孤独感定性为一个“亟待解决的公共卫生问题”。
+而这并非美国独有的社会现象。日本社会学者三浦展将正在到来的“第五消费时代”称为“孤独社会”。这意味着，孤独不再是个体经验，而是现代人的集体处境。
+在过度数字化的社会中，人们并未从中收获更多的幸福。相反，对真实生活的渴望与日俱增：全球消费者洞察机构 GWI 的数据显示，七成互联网用户尝试减少数字消费，其中 25—34 岁人群“彻底戒断电子设备”的比例最高。驱动他们离线的主要原因，是渴望把时间留给家人与参加线下互动。
+换言之，现实生活中的人际关系，已成为当下年轻人们试图远离社交媒体、建立质量更高的具身社交的重要动因。
+“如果把现在的人比作一个蒙上了灰尘的玻璃球，那么社会需要一个重新擦亮彼此的解决方案。”在90后连续创业者、互联网产品经理出身的卢铭看来，最直接、也最高效的办法，就是制造人与人见面的契机，让人在具体的生活中相遇。这成了他创办社交平台「薯岛」的初衷。
+“我希望人和人能更多地见面。”他说。
+算法与偶然性
+盲盒饭局，顾名思义，是由6位互不相识的“饭搭子”随机组成的一场线下相遇。
+但它又并非全然的随机。
+与市面上传统的社交活动不同，「薯岛」更强调算法在背后的参与和引导：报名饭局后，参与者需要填写一份个人问卷。问题会涉及：城市方位、性格倾向、兴趣偏好，以及对世界的基本看法等。这些看似细微的信息，会被整理成一个关于个人的小小画像，先由后台算法进行初步匹配，再由工作人员进行手动匹配，帮助每个参与者尽可能找到同频的伙伴。
+事实上，互联网找线下搭子这件事并不新鲜。既然如此，「薯岛」承担的到底是什么角色？换句话说，人们为什么需要一个专门的平台来促成线下相遇？
+一个首要的原因，是为了降低不确定性。在传统的找搭子活动中，你很难判断对方是谁 —— 性格、边界感、是否值得信任，完全无从得知。这种情况下的“盲盒式社交”带来的不是惊喜，反而是心理负担。但通过问卷、算法匹配和人工筛选，「薯岛」能先把最低限度的安全感和匹配度处理掉，让见面不至于落入完全的随机。
+其次，是为了节省巨大的沟通与选择成本。卢铭在测试产品时，也曾自己在网上发帖找过搭子。结果往往有两个：要么需求太细，特定时间、特定地点、特定活动，组织难度过高，最后不了了之；要么帖子突然火了，一下涌入十几个人报名，当一个人无法拥有同时应对众多人数的心力，社交反而变得更敷衍，失去了真诚。“原本我只想要1个人，但你给了我10个人后，我反而更迷惑了。”卢铭解释道，“这时选择成了额外的麻烦。”
+在既有的社交语境里，“找到人”其实是一件隐性成本极高的事情。「薯岛」想做的，不只是把一群人简单地凑在一张餐桌上，而是试图把“偶遇的惊喜”与“相处的可能性”放在同一个桌面上。
+基于算法匹配的优势，「薯岛」能基于参与者的地理空间、价格预期和基本的性格与兴趣迅速完成匹配，替用户承担了筛选、判断、确认这部分繁琐、又消耗心力的前置工作。不过，卢铭坦言，纯粹的算法匹配，无法触及和理解人与人相处中那些更深层、更微妙的部分。相处的温度、交流的节奏、灵魂的碰撞……这些无法被量化的维度，依然需要真实的人以来社会经验和生命直觉来进行判断。
+卢铭提到一个让团队印象很深的例子：曾有某位参与者，在问卷中明确提及自己喜欢弹贝斯，希望遇见音乐同好。于是，团队便把他和几位喜欢吉他、livehouse、看演出的参与者安排在同一桌。没想到饭局结束后，这几个人不仅没散，反而原地组了个乐队，甚至把原本饭局的微信群名，改成了乐队的名字。
+这便是「薯岛」的做法：先用一套轻量的规则匹配系统兜底，再结合团队经验，帮助每个参与者找到相处更舒服的同桌伙伴。这样在效率和准确基础上，依然能保有人与人之间相处的火花与偶然。
+
+「薯岛」的盲盒饭局
+真诚的关系，需要在线下创造
+「薯岛」并不是唯一扎根线下社交的平台。以旅行内容社区马蜂窝为例，其推出的小程序“好玩星球”自 2022 年上线以来，仅在北京就组织了超过 1 万场线下活动，成为当下城市社交的重要入口之一。
+但在卢铭看来，大多数市面上的线下社交平台仍主要围绕“活动”展开，本质上强调的是“人和事”之间的关系。被吸引的参与者感兴趣的是某项主题。而「薯岛」更在意“人和人之间”
                 </div>
-                <p class="item-summary">幸运咖门店数量从5000家暴涨到1万家，成为继蜜雪冰城后又一万店咖啡品牌，速度惊人。那么瑞幸、幸运咖的万店奇迹证明了什么？下载虎嗅APP，第一时间获取深度独到的商业科技资讯，连接更...</p>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr">
+        <article class="news-item" data-source="ifanr" onclick="openModal(24)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/d6274656c3229f2ce016a5a0a3735b74.jpeg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -565,34 +872,75 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ifanr.com/1646048?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">夸克 AI 浏览器全面升级，可随时唤起千问</a></h2>
+                <h2 class="item-title">夸克 AI 浏览器全面升级，可随时唤起千问</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">爱范儿</span>
                     <span class="meta-date">11-26 14:55</span>
                 </div>
                 <p class="item-summary">现在的浏览器，越来越「重」了。
 写方案要开着 Word，查资料要切回浏览器，回消息又得跳到微信。屏幕被切得支离破碎，注意力也跟着碎掉。每次想让 AI 帮忙，都要先经历一番「寻找 A...</p>
-            </div>
-        </article>
-        
-        <article class="news-item" data-source="huxiu">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/25/230310937200.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title"><a href="http://www.huxiu.com/article/4809737.html?f=wangzhan" target="_blank">机器人学会“思考”后，以后真能在家帮我们干活了吗？</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">虎嗅</span>
-                    <span class="meta-date">11-26 14:40</span>
+                <!-- 隐藏数据域 -->
+                <div id="data-24" style="display:none;" 
+                     data-title="夸克 AI 浏览器全面升级，可随时唤起千问" 
+                     data-link="https://www.ifanr.com/1646048?utm_source=rss&utm_medium=rss&utm_campaign="
+                     data-source="爱范儿"
+                     data-date="11-26 14:55">
+                     现在的浏览器，越来越「重」了。
+写方案要开着 Word，查资料要切回浏览器，回消息又得跳到微信。屏幕被切得支离破碎，注意力也跟着碎掉。每次想让 AI 帮忙，都要先经历一番「寻找 AI 在哪里」的折腾。
+这周，我试着把主力浏览器换成了全面升级的夸克 AI 浏览器。
+
+体验下来，背靠阿里 Qwen 全球大模型，全面融合千问 AI 助手的夸克，发布六大千问 AI 套件，实现系统级「全局 AI」的创新产品形态，随时唤起千问，一句话帮你干活，效率拉满。
+用户无需切换标签或应用，就能唤起千问读屏、快捷框、侧边栏、悬浮球、划词、截屏进行提问、协作……主打一个条条大路通千问。
+它给我的第一感觉，就是在对标 Chrome 的基础上走得更远，想让 AI 成为你的「最强外脑」和「随身助理」。
+体验随时桌面唤起千问方式后，让我彻底告别传统浏览器
+先说最核心的，随时桌面唤起千问，这也是夸克和 OpenAI 前不久发布的浏览器 Atlas 最大的差异点。
+Atlas 的理念是让 AI 成为操作系统的一部分，但它的实现方式相对保守，更多是在应用间调度。
+而夸克则更激进，从底层架构彻底让 AI 融入浏览行为、以全新 AI 交互形态的出现，手撕传统浏览器，随时随地唤起千问 AI 助手，实现「边浏览边对话、边看边总结、即问即答」的丝滑体验。
+举个实际场景，只需随手按下快捷键，就能让千问帮我列一个关于「社交媒体对青少年心理健康影响」的论文大纲，从而构建起连贯的学习工作流。
+
+这种「无感接入」的设计，才是系统级 AI 浏览器的真正价值。
+一个侧边栏，干掉你一半桌面操作
+如果你的日常就是跟一摞摞 AI 技术论文打交道，英文不是很好，我们可以让「千问侧边栏」直接翻译、并总结核心观点。甚至让千问基于文档内容继续深挖准问，完全不用复制-粘贴-复制，也不用离开当前的标签页。
+
+同理，阅读各种新闻资讯时，看到某辆新车发布，我们可以直接问千问侧边栏的「这款车适合哪些人使用？」。千问不仅分析当前页面，还能结合背景知识给出对比，省去了开新标签搜索的麻烦。
+
+刷各种网页自然也是刚需，但信息量一多，自己逐条看、逐个理解既耗时间又费精力。这时候就可以果断交给千问来处理，它也能提炼重点。
+
+千问侧边栏最妙的地方是边浏览边对话、边看边总结。传统浏览器要么让你切标签， 要么跳转新页面， 而夸克 AI 浏览器的设计让交互足够丝滑， 你几乎感觉不到在「使用 AI」。
+截图即答案，划词即解释
+遇到图表，截个屏，框选区域，千问直接解读数据趋势、图表含义。看到一些复杂的 AI 图片，也可以让它帮忙「整理图片中的动物职业，并翻译成中文」，千问立刻给出结构化总结。
+ 
+截图提取图片文字也很顺手。
+我随手截了一张三宅一生曾经客串出现在苹果「Think Different」广告宣传活动的广告语，它就能准确识别这是苹果的广告词，并给出解释。
+
+在逛知乎时，看到一些不懂的词汇也能直接划词， 千问自会弹出解释。想追问也行，这体验四舍五入等于冲浪时随身带着一个「AI 辟谣器」。
+
+此外，更进阶的场景是「千问读屏」功能。
+这个功能的意思是，千问可以「看到」你电脑屏幕上的任何内容，它不仅能与 Microsoft Word 和 WPS 等应用深度联动，还支持快捷划词提问、截屏提问等操作。
+简言之，你在用 Word 写文档、在 Excel 做表格、千问都能理解你正在做什么，并基于屏幕内容给出建议。诶，用着用着，真有种生活工作搭子的感觉。
+
+比如我在 Word 写东西，让千问把屏幕上的《蜀道难》改写成剧本，它立马开写。这套联动还能把截屏、划词、共享的内容自动同步到侧边栏，让你能无缝追问。
+
+让 AI 替你干活，一句话的事
+除了侧边栏等方式，唤起千问的方式也灵活多样。
+比如按下「Alt + 空格」（Mac：option+空格），然后在搜索框里直接说人话就行。
+「帮我写一份 iPhone 18 Pro 产品发布会邀请函」「把这段翻译成英文」。这种一句话叫 AI 干活的模式，直接取代传统搜索那堆蓝色链接，从查资料到写文案、从总结到翻译，全程闭眼托管。
+
+它甚至能一句话做表格、一句话生成 PPT，或者直接转换格式，比如把黑板照片里的字直接提取成 Word 文档。
+
+要做到这样其实并不容易，离不开千问对浏览器场景的深度定制。
+它能理解你的意图、网页结构、上下文关系， 真正做到即问即答。
+除了 AI 能力，浏览体验也没落下。
+夸克的标签管理做得很聪明。自动分组、按域名排序，还能识别高内存标签自动优化。实测开 30+ 标签，主打一个纵享丝滑。
+
+还有一个让人特别惊喜的地方，就是连文档的编辑也下了不少功夫。试着直接把 PDF 拖进夸克 AI 浏览器， 直接打开、标注、编辑、转格式，无需下载。
+
+查资料时直接批注，外文 PDF 还能直接对照翻译，省
                 </div>
-                <p class="item-summary">黑芝麻智能推出的“全脑智能”体系，为什么能帮助整个机器人行业实现从“蚯蚓”到“大猩猩”的进化，从而让机器人们变得更智能？下载虎嗅APP，第一时间获取深度独到的商业科技资讯，连接更多...</p>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr">
+        <article class="news-item" data-source="ifanr" onclick="openModal(25)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/header-ver-c.jpeg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -600,50 +948,67 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ifanr.com/1646112?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">定义国产高端新十年，华为 Mate 和鸿蒙 6 给出回答</a></h2>
+                <h2 class="item-title">定义国产高端新十年，华为 Mate 和鸿蒙 6 给出回答</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">爱范儿</span>
                     <span class="meta-date">11-26 11:00</span>
                 </div>
                 <p class="item-summary">通常，提到一部手机的名字，我们总会联想到其背后的特质——比如 nova 总让人想到「年轻」，而 Pura 系列显然就是「时尚」，至于 Mate ——能让人联想到的词很多，但没有一个...</p>
-            </div>
-        </article>
-        
-        <article class="news-item" data-source="huxiu">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/21/225055451482.png&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title"><a href="http://www.huxiu.com/article/4808283.html?f=wangzhan" target="_blank">如果开战它能撑多久？乌克兰能撑三年，日本未必能撑得过三周</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">虎嗅</span>
-                    <span class="meta-date">11-26 11:00</span>
+                <!-- 隐藏数据域 -->
+                <div id="data-25" style="display:none;" 
+                     data-title="定义国产高端新十年，华为 Mate 和鸿蒙 6 给出回答" 
+                     data-link="https://www.ifanr.com/1646112?utm_source=rss&utm_medium=rss&utm_campaign="
+                     data-source="爱范儿"
+                     data-date="11-26 11:00">
+                     通常，提到一部手机的名字，我们总会联想到其背后的特质——比如 nova 总让人想到「年轻」，而 Pura 系列显然就是「时尚」，至于 Mate ——能让人联想到的词很多，但没有一个比这个词更合适：「高端」。
+虽说手机高端化的路径不止一条，在过去几年里我们也见到了各种影像、性能、性价比旗舰轮番冲刺高端，但能不加任何前缀的国产「高端」旗舰，至今也只有华为 Mate 系列一支。
+
+11 月 25 日，华为带来了最新 Mate 系列旗舰产品——华为Mate 80系列以及折叠屏 Mate X7，并全系搭载了最新的鸿蒙 6 系统。
+这一次，Mate 高端的定义不再限于软硬件，而是立足整个鸿蒙生态。
+
+同时，这也意味着，国产高端手机的「参数战争」总算迎来了终结。
+高端手机的前十年，是定义硬件的战争
+回望 Mate 系列十余年，其实就是华为在不断回答「国产高端手机应该怎么做」的过程。
+2013 年，在那个「大就是好」的野蛮生长年代，为了回应余承东那个「要做比 iPhone 5 强大很多的旗舰手机」的承诺，华为在 Ascend 系列下面开辟了一条新的产品线 ：Mate。
+
+Ascend Mate
+Ascend Mate 不仅是 Mate 系列从无到有的开端，也可以视作国产品牌开始向国际品牌定义的「高端」发起冲锋。
+随后 2014 年，拥有 1080P 大屏、按压式指纹识别、全金属机身的 Mate 7，几乎就是无可争议的「国产唯一高端手机」，哪怕起售价达到 3000 元档也一机难求——「爵士人生」成为了「高端」手机的代名词。
+
+Ascend Mate 7
+可以说，Mate 7 既是华为定义「高端」的成果，也是华为 Mate 系列冲击高端化的起点。
+伴随着「中华酷联」逐渐变成「华米OV」，大家都有了超大屏、大电池和金属机身，仅靠「人无我有」已经不足以应对市场竞争了。
+Mate 系列下一步要做的，就是重新找到定义高端旗舰的基准。华为这一阶段的回答是——工艺。
+在结束与徕卡的「蜜月」之后，华为并没有安逸地停在联名这条路上，而是趁这个机会，把「联名的」元素变成「华为的」元素。
+其成果就是华为Mate 9 保时捷设计版，「超高端工艺」第一次成为华为产品的高端基因——那是在 2016 年就标价 8999 元、甚至一度被炒到两万元天价的现象级产品。
+这代表着 Mate 系列正在跳出「先把参数拉满」的固定范式，开始在品牌层面塑造「高端」的印象。
+
+图｜微博 @余承东
+从那时候开始，华为 Mate 系列总有着让人惊叹的工艺追求。
+从 Mate 20 的多曲面玻璃机身，到 Mate 30 的超曲环幕屏，再到 Mate 40 的一体陶瓷后盖等——对工艺的极致追求，实际上已经超越了功能需求，「看得见、摸得着」的质感，成为高端的象征。
+可以说，Mate 代表国产高端手机的前十年，是定义硬件的十年——是纸面上的功能参数、性能跑分，是精湛工艺、是旗舰影像。
+
+Mate 70 Pro+
+但历史的经验告诉我们，只靠「功能全」和「工艺美」虽然能够在手机市场内部占据高端份额，但在面对一些「盘外招」的时候是无能为力的。
+而当产品硬件已经不是唯一的要素之后，什么才能算是高端手机真正的「护城河」？
+高端手机的新十年：从定义硬件到生态共荣
+当所有旗舰手机都用上顶级芯片、屏幕、影像模组等无差别配置时，真正拉开差距的，就不再是硬件性能，而是生态体验。
+换言之，「高端手机早已不止于硬件的高端」，还在于手机生态体验的高端，而这恰恰是鸿蒙生态构建的主场。
+
+自鸿蒙 5 发布以来，应用的适配不仅创造了「鸿蒙速度」，在不同形态下也通过软硬件协同，为用户带来着大有不同的使用体验，这也成为用户选择华为的理由——华为Pura X 的热卖就是例证。
+自鸿蒙 5 发布一年多来，几乎所有头部应用都为鸿蒙做出适配、重新设计交互逻辑，以实现体验的跃迁。比如，WPS、东方财富等之前就为华为Mate XTs 三折叠手机适配了 PC 布局，这是别的大屏手机没有的独特体验。
+据统计，运行鸿蒙 5 和鸿蒙 6 的终端数量已经突破了 2700 万台，涵盖了从手机、电脑到平板、手表、智慧屏在内的全部华为产品线。
+我们已经见到非常多主流应用参与到适配碰一碰、实况窗等近百种专属功能。华为应用商店里，应用们日均更新超过 2000 项新增功能、23000 余个应用参与了超过 70 项创新体验，鸿蒙系统功能新增超过 300 个……
+可以说，生态共荣的鸿蒙，终于走过了「从 0 到 1」的艰难阶段，解决了「有没有」的问题，正在向「好用」全速进阶。
+
+而这一次，以华为Mate 80系列和 Mate X7 这两款高端手机为契机，华为正式对「国产高端应该怎么做」作出第二次回答：
+高端不止于硬件，更在于生态体验。
+做高端就必须跳出以往「做得比苹果安卓更好」
                 </div>
-                <p class="item-summary">如果日本爆发了战争，他们能撑多久？今天咱们就从电网、能源、工业、国土、人口、补给这6个国家骨架出发，详细地聊聊这个问题。下载虎嗅APP，第一时间获取深度独到的商业科技资讯，连接更多...</p>
             </div>
         </article>
         
-        <article class="news-item" data-source="huxiu">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/25/114323970627.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title"><a href="http://www.huxiu.com/article/4809392.html?f=wangzhan" target="_blank">开到美国的费大厨，“抛弃”辣椒炒肉了？</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">虎嗅</span>
-                    <span class="meta-date">11-26 10:30</span>
-                </div>
-                <p class="item-summary">开到美国的费大厨，居然把辣椒炒肉撤了！圣地亚哥首店的广告一曝光，网友立马发现主菜竟然变成了西兰花炒牛肉，连品牌名也精简了。下载虎嗅APP，第一时间获取深度独到的商业科技资讯，连接更...</p>
-            </div>
-        </article>
-        
-        <article class="news-item" data-source="ifanr">
+        <article class="news-item" data-source="ifanr" onclick="openModal(26)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/images/ep/cover-images/chun_bai_wu_shi_li_de_niu_zi_xi_ha_ge_cover.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -651,7 +1016,7 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ifanr.com/1646106?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">早报｜折叠屏 iPhone 或命名 Ultra/4699 元起，华为 Mate80 系列发布/「史上最严」充电宝新规将实施，3C认证全面失效</a></h2>
+                <h2 class="item-title">早报｜折叠屏 iPhone 或命名 Ultra/4699 元起，华为 Mate80 系列发布/「史上最严」充电宝新规将实施，3C认证全面失效</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">爱范儿</span>
                     <span class="meta-date">11-26 08:52</span>
@@ -669,10 +1034,124 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
 
 
 「史上最严」充电宝新规明年实施...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-26" style="display:none;" 
+                     data-title="早报｜折叠屏 iPhone 或命名 Ultra/4699 元起，华为 Mate80 系列发布/「史上最严」充电宝新规将实施，3C认证全面失效" 
+                     data-link="https://www.ifanr.com/1646106?utm_source=rss&utm_medium=rss&utm_campaign="
+                     data-source="爱范儿"
+                     data-date="11-26 08:52">
+                     苹果折叠屏 iPhone 或命名「Ultra」，售价突破 1.7 万元
+
+
+
+
+
+亚马逊「算力帝国」浮出水面，数据中心规模突破 900 座
+
+
+
+
+
+「史上最严」充电宝新规明年实施，七成产能或遭淘汰
+
+
+
+
+
+Google 推动 AI 芯片销售，英伟达正面回应
+
+
+
+
+
+Spotify 计划 2026 年再涨美国订阅价格
+
+
+
+
+
+阿里巴巴 CEO：至少三年内，AI 泡沫是不太存在的
+
+
+
+
+
+蔚来发三季度财报：营收突破 217.9 亿元，交付量创新高
+
+
+
+
+
+马斯克：其他车企都不想要 FSD 授权
+
+
+
+
+
+调查显示 72% 大学生依赖社交平台获取新闻
+
+
+
+
+
+亚马逊禁止员工使用第三方 AI 编程工具
+
+
+
+
+
+Vibe coding 工具被指护城河不足，「被抄袭」风险突出
+
+
+
+
+
+AI 教育公司创始人：未来一对一 AI 教学将成主流
+
+
+
+
+
+4699 元起，华为 Mate 80 系列正式发布
+
+
+
+
+
+iPad mini 8 将升级 OLED，高刷仍旧缺席
+
+
+
+
+苹果折叠屏 iPhone 或命名「Ultra」，售价突破 1.7 万元
+
+据 9to5Mac 报道，苹果首款折叠屏 iPhone 预计明年推出，市场定位为高端机型。
+分析机构 Fubon Research 指出，该机型售价或高达 2399 美元（约合 17000 元人民币），远高于此前传闻的约 2000 美元（约 14000 元）。这一价格几乎是当前 iPhone 17 Pro Max 的两倍。
+消息称，苹果可能将该机型命名为「iPhone Ultra」，而非「iPhone Fold」。这一命名策略与其定价逻辑相呼应，强调超高端定位。
+相比之下，三星 Galaxy Z Fold7 定价为 13999 元起，Google Pixel 10 Pro Fold 定价为 1799 美元（约 12700 元），均低于苹果的预计售价。
+业内人士认为，折叠屏智能手机已逐渐进入主流市场。三星移动美国高级副总裁 Drew Blackard 表示，经过多代迭代，折叠屏产品已能提供独特体验。苹果选择此时入局，显示其对技术成熟度和市场接受度的判断。
+目前，外界关注的焦点集中在定价与命名。若苹果最终采用「Ultra」命名并维持高价策略，其折叠屏 iPhone 将成为市场上最昂贵的主流折叠机型之一。
+
+亚马逊「算力帝国」浮出水面，数据中心规模突破 900 座
+
+据彭博社报道，亚马逊云计算部门 AWS 的数据中心规模已突破 900 座，分布在全球超过 50 个国家和地区。这一数字远超外界此前认知。
+内部文件显示，除了弗吉尼亚州和俄勒冈州等传统大型枢纽，AWS 还在数百个「托管机房」中部署服务器机架，这些租赁空间贡献了约五分之一的算力资源。
+文件指出，AWS 与至少 180 家合作方建立托管关系，涵盖 Equinix、NTT 以及波士顿本地运营商 Markley 等。其在法兰克福、东京、首尔、新加坡等地的托管规模尤为显著。与此同时，AWS 还运营超过 220 个「边缘」站点，为大都市区用户提供快速接入点。
+分析人士认为，亚马逊倾向于自有或长期租赁设施，尤其在美国核心市场，以确保高效管理。但在新市场拓展或需求快速增长时，公司也会依赖第三方设施。AWS 在 2024 年初已使用超过 440 个托管数据中心，总建筑面积约 223 万平方米，租赁面积大致相当。
+在竞争格局方面，微软与 Google 也在加速扩张 AI 服务，推动云业务营收增长。尽管如此，AWS 在今年第三季度仍实现 330 亿美元营收和 114 亿美元运营利润，继续保持亚马逊最盈利的业务板块地位。
+「史上最严」充电宝新规明年实施，七成产能或遭淘汰
+
+据蓝鲸科技报道，「史上最严」充电宝安全标准已进入落地倒计时。
+工信部在 10 月与 11 月多次召开《移动电源安全技术规范》研讨会，目前标准已基本定稿，预计将在 12 月公示，并于 2026 年 2 月正式发布，同年 6 月起实施。新规生效后，现有 3C 认证规定将全面失效。
+新标准在整机、线路板、电芯三大领域提出数十项改进措施。整机层面要求外壳必须标注「建议使用寿命」与代工厂全称，以强化溯源能力。
+线路板方面强制配备 LCD 屏幕或联网 App，实时显示电池健康度与使用次数。电芯部分则引入更严苛的安全测试，包括针刺测试、热滥用测试条件提升至 135℃ 60 分钟，以及过充电测试电压提高至规定电压的 1.4 倍。
+业内人士指出，新规实施后，约七成现有产能因无法满足技术要求将被淘汰，行业集中度将显著提升。部分企业已提前布局，安克创新与宁德时代合作研发符合新国标的电芯，ATL、比亚迪、欣旺达等厂商已有产品通过新版安规测试。
+成本方面，满足新标准预计将导致制造成本上涨约 30%，但业内认
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="36kr">
+        <article class="news-item" data-source="36kr" onclick="openModal(27)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.36krcdn.com/hsossms/20240409/v2_33a934852edf4d5ba8e485cbde5f48e3%406022551_oswg1937048oswg1280oswg853_img_jpg%3Fx-oss-process%3Dimage/quality%2Cq_90/format%2Cjpg/interlace%2C1/format%2Cjpg/interlace%2C1/format%2Cjpg/interlace%2C1/format%2Cjpg/interlace%2C1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -680,7 +1159,7 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://36kr.com/p/3552360997141633?f=rss" target="_blank">特斯联半年报：营收增长77%，迈入空间智能时代</a></h2>
+                <h2 class="item-title">特斯联半年报：营收增长77%，迈入空间智能时代</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">36Kr</span>
                     <span class="meta-date">11-26 08:30</span>
@@ -689,10 +1168,41 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
 编辑｜袁斯来
 冲刺“国内AIoT第一股”的人工智能物联网企业特斯联完成财务数据更新，发布2025年上半年营收情况及业务进展。
 最新财务数据显示，截至2025年6月30日...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-27" style="display:none;" 
+                     data-title="特斯联半年报：营收增长77%，迈入空间智能时代" 
+                     data-link="https://36kr.com/p/3552360997141633?f=rss"
+                     data-source="36Kr"
+                     data-date="11-26 08:30">
+                     作者｜黄楠
+编辑｜袁斯来
+冲刺“国内AIoT第一股”的人工智能物联网企业特斯联完成财务数据更新，发布2025年上半年营收情况及业务进展。
+最新财务数据显示，截至2025年6月30日，特斯联上半年收入6.32亿，较去年同期大幅增长77%。智算等AI产业数智化板块作为其核心业务表现亮眼，收入达5.77亿元、同比提升191.1%。
+营收规模快速扩张的同时，公司盈利质量提升。上半年毛利达1.44亿元、同比增长64%，毛利率由2024年的15.3%回升至22.7%，成本管控与业务结构优化成效良好，三费费用率（销售及营销费用率、行政费用率、研发费用率）由2024年同期的104.6%下降至58.1%。
+目前公司期末现金及现金等价物较2024年末增长316%，达到6.57亿元，现金储备充裕。
+随着具身智能加速落地，特斯联以“空间智能”为核心方向，围绕AIoT算力与AIoT智能体两大核心场景，构建了完整的AIoT技术体系。从底层硬件到上层应用的端到端工具链，打通机器在物理空间中“感知-推理-决策-执行”的完整闭环，致力于推动AI技术实现从二维信息理解向三维空间交互的关键跨越，加速空间智能的规模化落地。
+
+特斯联重庆AI Park
+强大的算力支撑是制约技术规模化应用的关键瓶颈。面对物理环境复杂性高、实时响应要求严苛等具身智能落地痛点，传统算力架构在支持大规模、低延迟的空间计算时面临严峻挑战。
+同时，由于全球算力供应链面临不确定性趋势加强，构建自主可控的算力体系也成为了中国AI产业发展的重要任务。
+在算力格局重构的背景下，特斯联聚焦异构计算与信创适配，提供了一套完整的AIoT算力解决方案。硬件层面，特斯联推出了T-Nexus系列智算服务器、T-Infer系列场景化多模态一体机及T-Cluster异构芯片超节点等产品。
+其中，T-Nexus系列智算服务器可支持从16到512台的灵活组网，最高可配置4000多张GPU卡，整体算力突破千P级别，满足大规模AI训练与推理需求；T-Cluster 512异构芯片超节点产品也完成了对十余种国产芯片的统一兼容，不同架构的芯片能够协同工作，解决国产算力碎片化难题。
+软件层面，特斯联自主研发的混合推理引擎HICE，能够在不同芯片和算法之间建立通用接口，让AI模型无需修改就能在各种国产芯片上高效运行。实测数据显示，这一方案可让异构国产芯片的混推效率提升两倍以上。
+进入应用落地环节，无论是家庭服务机器人对复杂家居环境的理解，还是工业机械臂对不规则工件的精准操作，都需要大量、多样且真实的3D场景数据作为支撑。针对3D训练数据匮乏的普遍痛点，特斯联提出了空间智能基座TacOS，通过创新算法将单视角图像升维为逼真3D表征，以降低空间智能应用的数据获取门槛。
+具身智能从虚拟认知走向物理交互的一大跨越，在于构建在真实环境中"感知-推理-行动"的完整能力闭环。
+特斯联在提供算力基础的同时，将AIoT智能体作为连接数字世界与物理空间的关键载体，其自主研发的HALI智能体已在机器人、可穿戴设备等终端实现四大突破。
+在认知层面，系统通过端到端强化学习让智能体获得类人思考能力；感知方面，创新的空间偏好奖励框架显著提升了环境理解与交互精度；记忆机制采用知识图谱压缩技术，兼顾长时记忆与高效检索；协同层面通过并行多模型架构，实现响应速度与执行准确性的最佳平衡。
+目前，HALI系统已在BUTTONS品牌旗下耳夹式耳机、超级影音机器人等产品中落地应用，未来还将拓展至轻量级AR眼镜、随身智能体等新形态，持续完善智能体产品生态。
+
+通用智能体HALI和BUTTONS SOLEMATE智能体超级影音机器人
+随着AI与物理空间的连接愈发紧密，可以看到，基于全栈技术布局，特斯联已经走出了一条清晰的演进路径：从底层算力的自主可控，到智能体的感知决策能力构建，最终实现机器与物理空间的深度融合。
+36氪了解到，截至9月末，特斯联在手订单金额已达26亿元。上半年企业客户总量增长迅猛，由去年同期的150个提升至212个；其中，AI产业数智化业务客户数量增至约171个，较去年同期新增81个。
+特斯联也在持续推进国际化战略布局。公司产品现已落地全球172个城市，市场覆盖中国、阿联酋、新加坡、澳大利亚等多个国家和地区，服务近千家客户。
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="36kr">
+        <article class="news-item" data-source="36kr" onclick="openModal(28)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.36krcdn.com/hsossms/20251126/v2_018b7b3604c84c7cb56c581c09f5ed4e%406100851_oswg106672oswg700oswg398_img_000%3Fx-oss-process%3Dimage/format%2Cjpg/interlace%2C1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -700,7 +1210,7 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://36kr.com/p/3569142279224197?f=rss" target="_blank">8点1氪｜充电宝新规将落地，原3C认证将全面失效；上海地铁试点“站票车厢” ；超级猩猩客服回应“闭店潮”</a></h2>
+                <h2 class="item-title">8点1氪｜充电宝新规将落地，原3C认证将全面失效；上海地铁试点“站票车厢” ；超级猩猩客服回应“闭店潮”</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">36Kr</span>
                     <span class="meta-date">11-26 08:02</span>
@@ -711,27 +1221,45 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
 消息称苹果iPhone Fold折叠屏手机已实现无折痕设计
 奥司他韦近7天销量暴涨237%
 非洲猪瘟疫情爆发，韩国发布“严重”级危机警...</p>
-            </div>
-        </article>
-        
-        <article class="news-item" data-source="huxiu">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/26/055018927274.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title"><a href="http://www.huxiu.com/article/4809050.html?f=wangzhan" target="_blank">梁建章有底气</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">虎嗅</span>
-                    <span class="meta-date">11-26 07:24</span>
+                <!-- 隐藏数据域 -->
+                <div id="data-28" style="display:none;" 
+                     data-title="8点1氪｜充电宝新规将落地，原3C认证将全面失效；上海地铁试点“站票车厢” ；超级猩猩客服回应“闭店潮”" 
+                     data-link="https://36kr.com/p/3569142279224197?f=rss"
+                     data-source="36Kr"
+                     data-date="11-26 08:02">
+                     今日热点导览
+
+香港小学生人数跌至30年新低
+消息称苹果iPhone Fold折叠屏手机已实现无折痕设计
+奥司他韦近7天销量暴涨237%
+非洲猪瘟疫情爆发，韩国发布“严重”级危机警报
+格力股东会召开，董明珠称累计分红超1700亿
+
+TOP3大新闻
+“史上最严”充电宝新规将落地，充电宝3C认证将全面失效
+2025年11月25日消息，“史上最严”充电宝新国标《移动电源安全技术规范》即将落地，预计12月公示、2026年2月发布，6月正式实施，原有3C认证届时失效。
+对于新的标准，相关参与意见稿研讨会的企业负责人表示，“这次制定的标准非常严格，许多工厂难以达到。工信部的态度很明确：达不到标准就不要继续生产，因为总有一些企业能够达标。”
+上述参会企业负责人称：“目前标准已基本定稿，预计12月公示，2026年2月正式发布，同年6月起实施。新规落地后，原有3C认证规定将全面失效。”
+据了解，新规实施后，预计将有近七成现有产能，因无法满足新标技术要求，将被迫退出移动电源市场。已获3C认证的流通产品设半年缓冲期清理库存，消费者手中旧标产品可继续使用，合规产品仍可携带登机。（新浪科技）
+上海地铁试点“站票车厢”
+近日，有网友发文称，在上海地铁9号线乘坐到部分无座车厢，并调侃“累了一天坐地铁站票回家”，引发热议。有网友认为“这样设计可以多站人，避免抢座纠纷”，也有人质疑其合理性，建议“应增加发车频次而非取消座位”。
+11月23日，记者致电上海地铁服务监督热线。工作人员回应称，这是基于9号线大客流现状所进行的试点，“目前仅在9号线其中一列地铁的一节车厢试点，并未推广至其他线路或车厢”。至于未来是否推行，该人员表示尚未确定，“只是试点，下一步会不会推行不太清楚”。对于部分乘客提出“取消座位不便，应增加发车频次”的意见，工作人员表示将把相关反馈转达公司。（羊城晚报）
+超级猩猩客服回应“闭店潮”
+最近，有消费者注意到，在北京、上海、深圳、成都等一线城市，健身品牌超级猩猩有新增门店开始运营，但也在陆续调整和关闭一些门店。2024年6月，超级猩猩宣布同时进驻福州、厦门。但据界面新闻查询，福州、厦门的8家门店在开业一年后就便悄然闭店。
+界面新闻就频繁闭店一事向超级猩猩求证。客服人员解释闭店主要源于租赁合同到期后未续约，并同时强调在关店的同时也有新店落地，例如本月开张的成都仁和新城全能店、三里屯盈科中心全能店。
+据了解，超级猩猩最初以无人值守健身舱切入市场，而后在2015年转型增加团课板块，提出“按次付费、不办年卡、专业教练、没有推销”的差异化运营方针，打破了传统健身行业的固有逻辑，迅速赢得市场关注并成长为资本青睐的对象。（界面新闻）
+大公司/大事件
+香港小学生人数跌至30年新低
+11月24日，中国香港特区小一新生自行分配学位结果公布。随着相关结果公开，当地提出申请的适龄儿童人数已跌破4万，反映出的学龄人口结构性下跌现象。本轮录取结果涉及到的是将于2026年9月入学的小一新生。按照中国香港特区教育局于11月21日公布的最新数据显示，今年共有37581人申请自行分配学位，按年同比减少了4200人，跌幅约一成。另据该局推算，当地6岁适龄读小一的人口也将由今年的4.86万继续下跌，到2030年时仅为3.41万，整体下跌近三成。如按分区计算，香港的湾仔、油尖旺、东区、荃湾和中西区的跌幅相对较大，幅度介于42.8%到55.6%。不足3.8万名申请相关学位的小学生，是中国香港近30年来首次跌穿4万人的界线。（财经杂志）
+苹果销售部门裁员，iPhone Air产量大幅削减
+苹果销售部门正式宣布裁员。这家科技公司正在积极应对iPhone销售低迷。随着节假日临近，苹果公司也将迎来年度销售旺季。当地时间11月24日，苹果公司证实，将裁撤部分销售团队。公司称，此举是为了“加强客户参与度”，并强调只有少数职位会受到裁员的影响。苹果公司没有具体说明哪些销售岗位受影响，但表示，公司将继续招聘新岗位，受裁员影响的员工也能在公司内部申请新职位。每年的最后一个季度通常都是苹果的销售旺季。目前尚不确定裁员是否会对苹果今年销售季产生任何影响。不过，据此前多家券商机构分析报告，苹果iPhone新系列产品的销售仍面临挑战，尤其是最新推出的iPhone Air机型遇冷。苹果iPhone Air是该公司近年来对智能手机设计最大的一次调整，但从机构追踪的早期数据来看，销量低于预期。（第一财经）
+百亿私募创始人梁宏发文致歉
+2025年以来，A股走出震荡慢牛格局，私募基金整体业绩亮眼。其中，股票策略以29.52%的平均收益率领跑五大策略，92.73%的相关产品盈利。而市场近期的回调却让部分私募产品净值出现大幅回撤。百亿私募希瓦投资董事长梁宏就因旗下基金大幅回撤而受到市场关注。希瓦旗下最新周报显示，部分基金预估净值单
                 </div>
-                <p class="item-summary">作者｜Eastland头图｜视觉中国2025年11月18日，携程集团（NASDAQ：TCOM；HK：09961）发布《2025年第三季度业绩公告》。2025年前三季，携程营收471...</p>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr">
+        <article class="news-item" data-source="ifanr" onclick="openModal(29)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/00-2.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -739,7 +1267,7 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ifanr.com/1646013?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">今年广州车展，主角不是车企</a></h2>
+                <h2 class="item-title">今年广州车展，主角不是车企</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">爱范儿</span>
                     <span class="meta-date">11-25 23:00</span>
@@ -748,10 +1276,69 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
 一位当天在展台担任接待的女孩发问：「做『小蜜蜂』是不是比站展台轻松一点？」
 
 我一时间没明白「小蜜蜂」是什么，搜索了...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-29" style="display:none;" 
+                     data-title="今年广州车展，主角不是车企" 
+                     data-link="https://www.ifanr.com/1646013?utm_source=rss&utm_medium=rss&utm_campaign="
+                     data-source="爱范儿"
+                     data-date="11-25 23:00">
+                     上周五广州车展媒体日结束后的回家路上，我刷到了一条小红书帖子。
+一位当天在展台担任接待的女孩发问：「做『小蜜蜂』是不是比站展台轻松一点？」
+
+我一时间没明白「小蜜蜂」是什么，搜索了一圈才明白，「小蜜蜂」指的是那些在展馆里举着牌子、派发礼品，为自家品牌展台引流的兼职人员。
+我把帖子转给朋友，他回了一句：「这么说，去年雷军、余承东这些车企老总，才是最大的『小蜜蜂』。」
+确实如此。去年广州车展首日，以雷军、余承东为代表的车圈大佬，四处串场，所到之处被围的水泄不通。
+
+
+▲ 24 年广州车展，雷军和苏炳添在乐道展台
+
+而今年，场面明显安静许多。蔚来李斌、小鹏何小鹏、长城魏建军等少数几位高管现身，也未带来重磅新车发布。
+「但更好逛了，追星和领礼品的人少了，大家的关注点回到了车本身，浮躁感减轻了不少。」一位车圈同行评价道。
+
+
+▲ 观众们在等待比亚迪发布会开始
+
+车展的热度正在悄然退潮。
+这不仅是观众流量或布展规模的变化，更是汽车行业从高增长迈入存量竞争的缩影。
+超豪华品牌销量跌至两位数已不再引发关注；曾经热衷造势的新能源车企，在同质化加剧与监管趋严的双重压力下，也开始将重心重新放回产品与销量。
+但产品力的定义权，很大一部分却早已不再掌握在整车厂自己手中。
+主角变了
+如果要用一个展台看懂本届广州车展的变化，那一定是华为乾崑智驾。
+这里聚集了奥迪、长安、方程豹、传祺等近 20 款合作车型，密密匝匝环绕两圈，几乎撑满整个展位。据统计，本届车展 13 个乘用车展馆中，有 10 个出现了搭载乾崑智驾的车型——无论走到哪个馆，都很难错过。
+
+若再留意其他展台和发布会，则会发现，无论是日产、丰田、宝马、奔驰等合资品牌，还是奇瑞、昊铂等自主品牌，发布会和销售话术中都在反复出现几个关键词，「华为」「宁德时代」「Momenta」。
+这就是在本届广州车展上正在发生的变化——
+主机厂的名字正悄然退居幕后，而这些技术供应商的名字，却成为产品力的核心背书，频繁出现在主屏幕、宣传材料乃至用户口碑中。
+
+
+▲ 东风日产和宁德时代展台
+
+甚至更进一步，一场发布会的主角不再是整车，而是一款大模型。
+在广州车展首日，上汽荣威便以「豆包深度思考大模型及场景」为主题召开专场活动，宣布该技术将首发搭载于旗下中大型长续航轿车荣威 M7 DMH。
+当一项能力足够差异化，它本身就成了值得单独亮相的产品。因此技术供应商的名字，正前所未有地闪耀在聚光灯下。
+
+回望燃油车时代，汽车产业的话语权长期被博世、大陆、电装等传统 Tier 1 巨头牢牢掌控。整车厂纵然拥有品牌号召力与制造体系，却不得不依赖这些供应商提供的封闭式「黑盒」方案，在关键技术上缺乏自主空间。
+当电动化浪潮初起，人们曾期待，软件定义汽车、芯片直采、垂直整合似乎预示着一个去中心化的未来，整车厂将重掌技术主权，产业链权力结构或将彻底重构。
+然而现实走向了另一种路径。新能源汽车并未终结 Tier 1 主导的局面，旧的巨头逐渐淡出，但新的主导者接续登场。
+以华为、宁德时代、Momenta 为代表的科技型 Tier 1，凭借在智能驾驶、三电系统、智能座舱等关键领域的全栈能力与生态整合力，迅速建立起堪比甚至超越传统 Tier 1 的产业影响力。
+它们不再只是零部件供应商，而是体验的定义者、标准的制定者和生态的绑定者。
+典型如华为，其「不造车」战略反而加速了技术平台的开放与复用。
+截至 2025 年 10 月底，华为乾崑智驾已与 14 家车企达成合作，覆盖 33 款量产车型，价格带横跨 15 万元至百万元级；国内 TOP10 车企集团中，仅剩吉利、长城尚未加入。在广州车展前夕的乾崑生态大会上，华为与东风、广汽联合打造的「奕境」「启境」正式亮相，加上此前与上汽通用五菱合作的「华境」，其「五界三境」双线布局已初具规模。
+
+同样，Momenta 凭借可扩展的自动驾驶方案，成为跨国车企智能化转型的关键支点。
+从德系 BBA、日系丰田/日产/本田，到美系别克、凯迪拉克，多家百年车企选择其作为智能驾驶合作伙伴，一度被业内称为「合资车救星」。
+这种广泛采纳的背后，是 Momenta 将复杂感知-决策-控制链路封装为标准化、模块化的软件栈，使不同开发节奏与技术储备的主机厂都能快速集成前沿能力。
+
+地平线则凭借征程系列车载计算平台和 HSD 城区辅助驾驶系统，构建了一套覆盖低、中、高全阶智能辅助驾驶的量产解决方案，目前，征程芯片累计出货量已突破 1000 万套，成为国内首家实现千万级交付的智驾科技企业。
+ 
+新能源不再拥有特权
+而这种由新 Tier 1 主导的技术供给模式，推动了智能化能力的快速下放。
+通过规模化部署与标准化接口，它们大幅降低了技术集成的门槛与成本，将原本高不可攀的技术功能转化为「即插即用」的解决方案。使得不同定位、不同规模乃至不同动力形式的
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="36kr">
+        <article class="news-item" data-source="36kr" onclick="openModal(30)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.36krcdn.com/hsossms/20251125/v2_295c77e64a774796919b061feee3ea0f%406227116_oswg186670oswg1920oswg1280_img_jpg%3Fx-oss-process%3Dimage/quality%2Cq_100/format%2Cjpg/interlace%2C1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -759,7 +1346,7 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://36kr.com/p/3568484680219781?f=rss" target="_blank">黑芝麻智能发布SesameX平台，给各种机器人装上“通用大脑”丨最前线</a></h2>
+                <h2 class="item-title">黑芝麻智能发布SesameX平台，给各种机器人装上“通用大脑”丨最前线</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">36Kr</span>
                     <span class="meta-date">11-25 21:52</span>
@@ -768,10 +1355,33 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
 编辑｜苏建勋
 36氪获悉，近日，黑芝麻智能正式推出面向机器人产业的SesameX多维智能计算平台，这是业界首个机器人商业化专属部署平台。
 目前，SesameX平台已率先与...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-30" style="display:none;" 
+                     data-title="黑芝麻智能发布SesameX平台，给各种机器人装上“通用大脑”丨最前线" 
+                     data-link="https://36kr.com/p/3568484680219781?f=rss"
+                     data-source="36Kr"
+                     data-date="11-25 21:52">
+                     文｜富充
+编辑｜苏建勋
+36氪获悉，近日，黑芝麻智能正式推出面向机器人产业的SesameX多维智能计算平台，这是业界首个机器人商业化专属部署平台。
+目前，SesameX平台已率先与星程智能、深庭记、云深处、灵御智能等伙伴展开合作，实现商业化部署，相关成果已应用于物流车、四足机器人、轮式机器人等多款产品中。
+回顾历史，黑芝麻智能的业务始于智能汽车芯片领域，2020年以来，该公司参与了多款智能驾驶芯片从设计到量产的全过程。
+黑芝麻智能创始人兼CEO单记章表示：“我们在智能汽车产业积累的研发和量产经验将直接支持在机器人领域的新应用，为具身智能的进化提供动力，打造机器人的‘多维智能引擎’。”
+
+黑芝麻智能创始人兼CEO单记章在发布会演讲现场，图片：企业供图
+根据介绍，黑芝麻智能的SesameX平台采取多层架构。底层为计算平台，包含Kalos、Aura、Liora三款自研模组；中间件层负责调度与协同；第三层原子应用层，分为任务模型和原子模型，让机器人从“程序执行器”升级为“技能学习者”。
+三款核心模组对应不同智能层级：
+Kalos：面向送餐、巡检等轮式机器人，是实现基础视觉与运动控制的“性价比”款；
+Aura：适用于机械臂、多足机器人等，具备更强算力与多模态感知能力；
+Liora：适用于人形机器人设计，支持端到端决策与多任务处理，算力最高。
+该架构通过分层协同，为各种机器人场景提供从基础控制到高级认知的全栈解决方案。
+目前，黑芝麻智能与均胜电子达成战略合作，双方将聚焦机器人领域，计划未来推出基于SesameX计算平台的具身机器人头部总成和域控制器。
+同时，黑芝麻智能还与湖北华中电力科技开发有限责任公司达成战略合作，共同探索具身机器人在电力行业的落地应用。
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr">
+        <article class="news-item" data-source="ifanr" onclick="openModal(31)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/IMG_0002-1.jpeg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -779,17 +1389,67 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ifanr.com/1646033?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">华为 Mate 旗舰新机上手：我们用 20 倍长焦微距，找到了一个小彩蛋</a></h2>
+                <h2 class="item-title">华为 Mate 旗舰新机上手：我们用 20 倍长焦微距，找到了一个小彩蛋</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">爱范儿</span>
                     <span class="meta-date">11-25 20:14</span>
                 </div>
                 <p class="item-summary">刚刚新鲜发布的华为 Mate 80 手机和一系列新品，爱范儿已经第一时间开箱上手体验。来看看今年最强华为手机，有什么亮点？
 首先看华为 Mate 80 Pro Max，我们拿到的是...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-31" style="display:none;" 
+                     data-title="华为 Mate 旗舰新机上手：我们用 20 倍长焦微距，找到了一个小彩蛋" 
+                     data-link="https://www.ifanr.com/1646033?utm_source=rss&utm_medium=rss&utm_campaign="
+                     data-source="爱范儿"
+                     data-date="11-25 20:14">
+                     刚刚新鲜发布的华为 Mate 80 手机和一系列新品，爱范儿已经第一时间开箱上手体验。来看看今年最强华为手机，有什么亮点？
+首先看华为 Mate 80 Pro Max，我们拿到的是「极昼金」配色。这次采用了全金属材质的机身，背面采用全新的双环设计。
+
+不过下面的圆环并没有我们预想中的磁吸功能，主要还是起到一个造型上的作用。华为官方则推出了一个磁吸手机壳配件，佩戴上就能解锁磁吸能力。
+
+机身上用金属光绘，在金属表面刻出了致密的纹路，用指甲刮一下是能听到声音的，我们用长焦微距放大 20 倍，甚至还能看到表面的纹理细节，华为藏的小彩蛋，也被我们找到了。
+
+接着是这部华为 Mate 80 RS 非凡大师，新增的紫色相比黑白红来说，会更有个性一些。
+
+Mate 80 全系列都改直屏设计，整机线条看上去更加硬朗，但边框过渡做得很顺滑，一点也不硌手。
+
+Mate 80 Pro Max 和 Mate 80 RS 非凡大师搭载的的双层 OLED 屏幕有点东西，在 1% APL 能做到业界最亮的 8000nits，堪称闪光弹。
+
+Mate 80 RS 非凡大师还支持全链路的 BT.2020 广域色彩管理，SDR 的图片和视频都能实时提升至 HDR 播放，肉眼提升很明显。
+最后看新的大折叠华为 Mate X7 典藏版，我们手上这台同样是很有韵味的紫色，依旧是素皮材质，不仅耐用，外观也很典雅。
+
+影像方面，这次发布的新机都搭载了第二代华为红枫影像，无论是 Mate X7 的四摄，还是 Mate 80 Pro Max 的双潜望五摄，都能实现超广角到超长焦的全焦段色彩一致，至于具体表现有多强，爱范儿后续也会为大家带来详细的影像评测。
+
+形态有点意思的二合一平板电脑 MatePad Edge，爱范儿已经提前拿到手体验了好几天。
+
+MatePad Edge 配备了一块 14.2 英寸的 OLED 屏幕，窄至 4.1mm 的窄边框、94% 的高屏占比，配上 6 扬声器，娱乐体验还是很沉浸的。
+
+更重要的是，MatePad Edge 并非只有一面，只要在屏幕上四指滑动一下，我们就能看到它的界面顺滑的从平板模式切换到了 HarmonyOS PC 一模一样的电脑模式。
+这时，只需要把 MatePad Edge 吸附到新款的「星跃悬浮键盘」上，你的 MatePad 就可以秒变笔记本了——一个运行 PC 版系统的「真 · 笔记本」。
+
+更重要的是，两套模式共享一个系统基座，让 MatePad Edge 能够兼容平板和 PC 两种应用生态，比如这个过往由 Pad 独占的「天生会画」app，这次在电脑模式下也能使用了。
+两种模式共享同一套文件管理系统——电脑模式下有什么文件，平板模式下都能访问；平板模式下画好的图纸，切换到电脑模式就能直接读取，创意和效率都能兼顾。
+可以说，华为的鸿蒙二合一平板电脑，终于跳出了传统「二合一」电脑的框架，无论是平板模式还是电脑模式，都能提供 100% 的体验。
+
+最后一个新品，我先不说是什么产品，看看大家能不能猜出来它的功能：
+
+这，就是华为最新的路由器 X3 Pro，它打破了路由器要么很大要么很丑的常态，做出一个你会很愿意将它摆在眼前的造型，把自然景观带到你的桌面。
+独特的雪山造型，搭配冷暖氛围灯光，能根据时间和天气自动变换光效——晴天是耀眼的阳光，夜晚是温馨的暖光，阴天雪天则是清冷的白光。
+
+华为路由 X3 Pro 可不是一个中看不中用的花瓶，它支持PLC 电力组网，安装使用超方便。主路由插上电源和网线后，就能把网络传输到电路上，房子里只要有电的地方就有网，插上子路由就能拓展网络覆盖，没有预留网口的地方也能信号满格。
+传统的路由器，我们在家装时总是费尽心思把它藏好，但华为路由 X3 Pro 却让我们想找个好位置摆出来，它既是设备，也是装饰。希望以后，这种用心做设计的产品能再多一点。
+
+以上就是这波华为新品的开箱，对于 Mate 80 和 Mate X7 系列手机，以及 MatePad Edge，你还有什么想要了解的吗？欢迎在评论区留言，详细评测马上就来。
+#欢迎关注爱范儿官方微信公众号：爱范儿（微信号：ifanr），更多精彩内容第一时间为您奉上。
+爱范儿 |
+原文链接 ·
+查看评论 ·
+新浪微博
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr">
+        <article class="news-item" data-source="ifanr" onclick="openModal(32)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/7M304957.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -797,7 +1457,7 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ifanr.com/1646049?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">荣耀 500 Pro 体验：Live 图也支持路人消除，从影像到性能全覆盖的 AI 手机</a></h2>
+                <h2 class="item-title">荣耀 500 Pro 体验：Live 图也支持路人消除，从影像到性能全覆盖的 AI 手机</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">爱范儿</span>
                     <span class="meta-date">11-25 18:45</span>
@@ -805,27 +1465,74 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
                 <p class="item-summary">近日，荣耀推出了数字系列新品，新品有荣耀 500 标准版和荣耀 500 Pro 两款，标准版定价 2699 元起，500 Pro 定价 3599 元起售。
 
 设计部分，荣耀 500...</p>
-            </div>
-        </article>
-        
-        <article class="news-item" data-source="huxiu">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/25/154026957345.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title"><a href="http://www.huxiu.com/article/4809011.html?f=wangzhan" target="_blank">西贝之后，“带孩子去哪儿吃饭”造就了新商机</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">虎嗅</span>
-                    <span class="meta-date">11-25 18:00</span>
+                <!-- 隐藏数据域 -->
+                <div id="data-32" style="display:none;" 
+                     data-title="荣耀 500 Pro 体验：Live 图也支持路人消除，从影像到性能全覆盖的 AI 手机" 
+                     data-link="https://www.ifanr.com/1646049?utm_source=rss&utm_medium=rss&utm_campaign="
+                     data-source="爱范儿"
+                     data-date="11-25 18:45">
+                     近日，荣耀推出了数字系列新品，新品有荣耀 500 标准版和荣耀 500 Pro 两款，标准版定价 2699 元起，500 Pro 定价 3599 元起售。
+
+设计部分，荣耀 500 系列的后盖采用了一体冷雕工艺，用高精度 CNC 雕刻处理成一体化的玻璃后盖。后盖表面经过细腻的哑光磨砂处理，触感光滑细腻。
+DECO 部分突出的玻璃面模到后盖有顺滑的视觉过渡，一体性极强。整机支持 IP68 & IP69 & IP69K 防尘防水，保证了机身在日常环境下的耐用度。
+
+后摄模组以横向排列为主，横向排列的好处是尽可能压缩 DECO 结构占用空间，纵向握持拍摄时不会被手挡到。
+
+模组从左到右排列的分别是 1/1.4 英寸 2 亿像素三星传感器的超清 AI 主摄，中间是超广角镜头，右侧下方的是 3x 长焦镜头。
+相机支持全档位 Live 图拍摄，用户可以在 Live 图中开启美颜功能和人像虚化，透过机身内置的多帧识别跟踪功能在 Live 图里面实现路人去除功能。
+
+手机内置的六种胶片色彩算法能够在 Live 图拍摄中开启，荣耀还提供了一个全新的「破框而出」Live 特效。透过 2-9 张 Live 图或静态图组合，手机会将当中的人物、宠物主体放大，做出类似破框的效果。就是在 Live 图的玩法上，荣耀 500 系列已经很丰富了。
+拍摄稳定性的部分，荣耀 500 Pro 支持荣耀最新的防抖方案，透过自身光学防抖结构和 AI 自适应防抖模型结合，主摄可实现 CIPA 5.0 级防抖，在弱光环境下增加快门曝光时长的同时提升稳定性，从而提升弱光成片率。
+
+续航部分，荣耀 500 Pro 搭载了 8000mAh 青海湖电池，配上机身自身的 AI 电源管理和算法，进一步提升续航，日常使用坚持 2-2.5 天，接入网络的状态下来到 4 天后还有 43% 电量的表现算是很稳定了。
+
+充电组合的部分，荣耀 500 全线支持 80W 有线快充，500 Pro 增加了 50W 无线快充，实测通用快充也能够达到 55W PPS，最高能够录得 71W，充电支持比较全面。
+
+作为一台大电池手机，荣耀 500 系列支持最高 27W 反向充电，这最高瓦数会比之前 REDMI Turbo 系列提供的还要再高一点。
+不只是 iPhone，这功率基本能满足大部分手机的通用快充功率启动的功率，日常作为备用机使用的时候能够给主力机快速补电还是很实用的。
+
+性能部分，荣耀 500 Pro 搭载高通骁龙 8 至尊版移动平台，支持 OS Turbo X 技术和 Vulcan 图形引擎，提升 app 启动速度和图像活动的流畅性。
+
+游戏部分，荣耀 500 系列加入了荣耀幻影引擎 3.0 技术并提供「幻影稳帧」功能，在游戏管家中开启后能支持《王者荣耀》、《和平精英》、《原神》、《崩坏：星穹铁道》、《绝区零》和《鸣潮》中实现更稳定的高帧率表现。
+
+此外，除了《王者荣耀》、《英雄联盟手游》、《穿越火线》、《使命召唤手游》、《三角洲行动》和《暗区突围》等游戏，荣耀 500 Pro 都能在这些游戏中开启 120fps 模式，玩射击游戏的体验就更加流畅。
+屏幕部分，荣耀 500 Pro 搭载了一块 6.55 英寸 2736×1264  120Hz 绿洲护眼屏，最高支持 6000nits 的局部峰值亮度和 3840Hz PWM 调光和照明闪烁检测，还有通过内在的 AI 功能调节亮度和对用户用眼做建议，以及根据用户需求调整显示功能。
+
+显示技术部分，荣耀 500 系列支持 AI 臻彩显示和 AI HDR 技术，AI HDR 技术可在观看 1080P、720P SDR 画面时提升显示的动态，达到类似 HDR 的效果，优化显示表现。
+
+最后来看看定价，荣耀 500 Pro 有海宝蓝、耀石黑、月光银和我们手上这款星光粉四种配色，提供四个储存版本：
+·12GB+256GB 3599
+·12GB+512GB 3899
+·16GB+512GB 4199
+·16GB+1TB 4799
+
+
+
+
+梁梦麟 (komoleung)
+
+「买吧，不贵。」
+
+
+
+
+
+邮箱
+新浪微博
+2
+
+
+
+#欢迎关注爱范儿官方微信公众号：爱范儿（微信号：ifanr），更多精彩内容第一时间为您奉上。
+爱范儿 |
+原文链接 ·
+查看评论 ·
+新浪微博
                 </div>
-                <p class="item-summary">餐饮巨头抢着给孩子做儿童餐，目的可不只是想让家长多花钱这么简单，儿童餐的4500亿生意，是收割父母还是模仿麦门？下载虎嗅APP，第一时间获取深度独到的商业科技资讯，连接更多创新人群...</p>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr">
+        <article class="news-item" data-source="ifanr" onclick="openModal(33)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/coverifanr-1.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -833,17 +1540,75 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ifanr.com/1645965?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">4699 元起！华为发布 Mate 80 系列：全能、直屏，还有性价比</a></h2>
+                <h2 class="item-title">4699 元起！华为发布 Mate 80 系列：全能、直屏，还有性价比</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">爱范儿</span>
                     <span class="meta-date">11-25 17:21</span>
                 </div>
                 <p class="item-summary">今年华为开了很多发布会，推出了不少「又新又怪」的产品——「阔折叠」Pura X、「折叠电脑」MateBook Fold、「一目双镜」Pura 80 Ultra 等等……
 但今天发布...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-33" style="display:none;" 
+                     data-title="4699 元起！华为发布 Mate 80 系列：全能、直屏，还有性价比" 
+                     data-link="https://www.ifanr.com/1645965?utm_source=rss&utm_medium=rss&utm_campaign="
+                     data-source="爱范儿"
+                     data-date="11-25 17:21">
+                     今年华为开了很多发布会，推出了不少「又新又怪」的产品——「阔折叠」Pura X、「折叠电脑」MateBook Fold、「一目双镜」Pura 80 Ultra 等等……
+但今天发布的华为 Mate 80 系列，却是一台相当「板正」的手机，少了几分探索，但分量十足，无论从外观做工还是硬件配置，都称得上今年手机行业的压轴。
+除了华为 Mate 80 系列，这场发布会还带来了双折叠手机华为 Mate X7、二合一电脑华为 MatePad Edge 等，这一系列旗舰级新品，构成了华为年末冲刺高端市场的前线。
+
+华为 Mate 80 系列：堆料到极致
+华为 Mate 80 系列一共包含四款手机：
+
+华为 Mate 80
+华为 Mate 80 Pro
+华为 Mate 80 Pro Max
+华为 Mate 80 RS 非凡大师
+
+这次把以往超大杯「Pro+」后缀改成「Pro Max」，虽然引起了一些舆论，但说实话，看起来直观不少，消费者一眼就知道是顶配型号。
+今年 Mate 80 的标准版和几个 Pro 版本之间的差距，比以往要更少：标准版终于用上了 3D 结构光人脸识别，可以用于支付等场景；往年只有标准版独享的直角中框设计，今年全系标配。
+
+爱范儿也提前上手 Mate 80 Pro Max，我们发现这次的中框到背板做了很精致的圆滑过渡，丝毫没有割手的感觉。
+背面的双环设计，不仅是为了契合「8」这个意象，也是为了解决全金属机身的无线充电问题，好不好看就见仁见智了。
+华为 Mate 80 Pro 的后盖采用一种名为「光绘微纹」的新工艺，全金属背面进行微米级雕刻，精细度是腕表级微纹的十倍。
+
+余承东还提到了一个小彩蛋：Pro Max 版本手机上雕刻了「MATE」字样，大家拿到手机后可以用放大镜找找。
+
+另一个重点，则是华为 Mate 80 Pro Max 的屏幕——这是一块双层 OLED 显示屏，华为将其命名为「灵珑屏」。
+
+由于成本高、良品率低，双层 OLED 以往是最贵的「非凡大师」专属，但今年开始也下放到 Pro Max 型号，意味着相关供应链技术更加成熟。
+双层 OLED 最「亮眼」的优势就是超高屏幕亮度，特别是在户外环境，比其他常规 OLED 手机屏幕要明显更透亮，1% APL 峰值亮度达到夸张的 8000nits。
+
+除此之外，双层 OLED 屏幕还具有透亮、功耗低、寿命更长的优点。华为 Mate 80 RS 非凡大师支持业界首发 BT.2020 广色域拓展技术，适配拍照、录像、现实、设计、投屏等等场景，未来将支持第三方头部应用。
+和这两年的华为手机发布会不同，华为这次强调了 Mate 80 系列的性能表现，Pro 版本对比 Mate 70 Pro+ 提升 42%，还支持硬件级别光追，每秒光线渲染 2000 万条，支持《三角洲行动》等游戏。
+
+影像能力无疑是华为 Mate 系列的重头戏，华为 Mate Pro Max 搭载了五颗摄像头，主打高动态主摄 + 双长焦配置，除了红枫摄像头皆是 RYYB ：
+
+主摄：17.5EV 超高动态，5000 万像素，F1.4-F4.0 十档可变光圈
+中长焦：4x 光学微距长焦，5000 万像素，F2.1 光圈
+超长焦：6.2x 光学超长焦，5000 万像素，F3.2 光圈
+超广角：4000 万像素，F2.2 光圈
+第二代红枫摄像头
+
+
+Mate 70 首发的红枫原色摄像头广受好评，Mate 80 搭载的第二代色彩准确度提升 43%，动态范围提升了 300%。
+硬件实力够强，Mate 80 系列在影像功能上也没有落下——全新的「动感摇拍」能很好抓拍动态照片，拍摄主体保持清晰，背景动态模糊。
+
+原生色卡有了更多的选择，色彩模式新增仕女图淡雅的「明快」和野兽派强烈的「鲜艳」风格，AI 构图对比 P80 系列在效率和构图丰富度上都有所提升。
+
+华为 Mate 80 系列出厂搭载 HarmonyOS 6 系统，AI 能力更上一层楼，支持 AI 语音修图、小艺再买一单、拍攻略自动识别等等功能。
+
+华为一直都是手机通讯领域的探索者，除了卫星通讯，华为 Mate 80 系列也首次支持「无网应急通讯」。
+行业已经有不少手机厂商在做类似的功能，而 Mate 80 系支持最远 13 公里通讯。在救援场景，Mate 80 不只能和手机交流，可作为被救端和搜救端定位，野外失联场景，可以被无人机扫描搜救。
+
+华为 Mate 80 RS 非凡大师延续八边形「星钻设计」，影像配置与 Mate 80 Pro Max 一致，双层 OLED 屏幕支持 BT.2020 广色域拓展技术。
+
+对比 Mate 70 系列，华为 Mate 80 标准版到 Pro Max 的价格都有所下调，和升级的配置一合计，会发现居然在 Mate 80 系列上也
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr">
+        <article class="news-item" data-source="ifanr" onclick="openModal(34)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/BhkHHxz2.jpeg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -851,53 +1616,64 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ifanr.com/1645943?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">ChatGPT 这个新功能，想把淘宝小红书 B 站的活全干了</a></h2>
+                <h2 class="item-title">ChatGPT 这个新功能，想把淘宝小红书 B 站的活全干了</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">爱范儿</span>
                     <span class="meta-date">11-25 14:35</span>
                 </div>
                 <p class="item-summary">你有没有过这种体验，想买个东西，先去小红书找了二三十篇笔记，B 站看了十几个测评，然后上什么值得买看了下优惠的渠道，最后，人已经麻到不想买了。
 今天，OpenAI 给了一个新的统一...</p>
-            </div>
-        </article>
-        
-        <article class="news-item" data-source="huxiu">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/22/210600524831.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title"><a href="http://www.huxiu.com/article/4808514.html?f=wangzhan" target="_blank">华为又开始放大招了，再次改变了AI算力的发展模式？</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">虎嗅</span>
-                    <span class="meta-date">11-25 13:30</span>
-                </div>
-                <p class="item-summary">华为又开始放大招了，再次改变了AI算力的发展模式。21号华为发布了一款叫Flex：ai的AI容器软件，把AI竞争从拼硬件性能强不强推到了拼系统效率高不高的新阶段，那么这个Flex：...</p>
-            </div>
-        </article>
-        
-        <article class="news-item" data-source="huxiu">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/24/102258260986.jpeg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title"><a href="http://www.huxiu.com/article/4808845.html?f=wangzhan" target="_blank">北京VS杭州，谁是AI第一城？</a></h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">虎嗅</span>
-                    <span class="meta-date">11-25 11:15</span>
-                </div>
-                <p class="item-summary">2025年之前，北京是毫无疑问的王者。百度率先发布文心大模型，很快kimi、智谱崭露头角，那时候的杭州还是“电商”之城、“网红“之城，跟AI好像没什么关系。
+                <!-- 隐藏数据域 -->
+                <div id="data-34" style="display:none;" 
+                     data-title="ChatGPT 这个新功能，想把淘宝小红书 B 站的活全干了" 
+                     data-link="https://www.ifanr.com/1645943?utm_source=rss&utm_medium=rss&utm_campaign="
+                     data-source="爱范儿"
+                     data-date="11-25 14:35">
+                     你有没有过这种体验，想买个东西，先去小红书找了二三十篇笔记，B 站看了十几个测评，然后上什么值得买看了下优惠的渠道，最后，人已经麻到不想买了。
+今天，OpenAI 给了一个新的统一入口，让 ChatGPT 直接替我们做「购物研究」。
 
-今年初，DeepSe...</p>
+在 ChatGPT 的聊天页面，点击菜单（+）选择 Shopping reseach 购物研究，告诉它要买什么，它会去全网查资料、比较参数、问我们预算偏好，然后给出一份量身定制的购买指南。
+这听起来很简单，实际上是个非常深的产品变化，也是 ChatGPT 一直以来想要引入广告，又一次的小试牛刀。
+和我们现在所熟悉的电商推荐、搜索引擎、比价工具都不太一样。传统工具的逻辑是，我们搜什么，它就给我们看什么。而 ChatGPT 购物研究的逻辑是，我们告诉它需求，它会利用我们在 ChatGPT 内的聊天记录，帮我们找到最适合的那个。
+为了迎接黑五、感恩节等假期，ChatGPT 购物研究功能，已经向 Free, Plus, Team 和 Pro 等所有登录用户开放。而 Pro 用户的 Pulse 功能，也会个性化地使用购物研究，来推荐一些相关的产品。
+不只是搜索，更是在做功课
+国内的多个电商平台，淘宝天猫和京东，都上线了 AI 购物的功能，对话框里输入「我想买」，淘宝就能根据我们过往的购物历史，生成一份详细的购物清单。
+
+
+▲淘宝 AI 购物功能截图
+
+但是在通用聊天助手里，ChatGPT 是第一个把 AI 购物也加进来的应用。之前用通用助手 ChatGPT、DeepSeek 这些也能询问购物建议，除了推荐的质量，最大的痛点绝对是，给出的链接要么打不开，要么是瞎编的。
+新的购物研究功能彻底解决了这个问题，更重要的是把推荐的质量也提上了一个台阶。
+进入购物研究模式后，我们可以直接在对话框里输入，「帮我找一款适合小公寓的，静音无线吸尘器」、「我想要找一条看起来，像这个（上传图片）的连衣裙」诸如此类的问题，ChatGPT 就会开始它的调查研究。
+和一般的 AI 对话不同，购物研究的体验是 ChatGPT 重新设计的。它会像真人导购一样追问，不会一上来就生成一份报告，而是先要我们做一些选择题，这一点也是和淘宝 AI 购物的区别。
+
+
+▲我向他提问买相机，它首先问我的预算、接着是买相机的目的、还有一些期待的功能；如果不选择，大概在 15s 之后，ChatGPT 会自动跳过这些问题
+
+它会弹出多个问题选择框，大致的问题是，「预算大概多少？」ChatGPT 会率先研究，关于要研究的产品，主要的价格分布区间，我们可以单选或多选。还有一些问题，根据不同的购物需求，有具体的了解，像是消费电子类会问「主要看重什么功能？」，很明显是礼物常用商品，它会问「是送人还是自用？」……
+更厉害的是，如果开启了 Memory（记忆）功能，它甚至会调取以前的对话细节。比如它的记忆里面，保存了平时爱玩游戏的关键词，在推荐笔记本电脑时，就会自动把显卡性能作为重点考量，而不需要我们重复废话。
+初步选择了这些属性之后，ChatGPT 会给我们提供一个可视化的挑选界面。不再是纯文字对话，我们会看到一个包含商品图片、价格和参数的可视化界面。
+
+
+▲ 选择不感兴趣之后，还可以反馈是对品牌不感兴趣，还是价格、功能、款式等具体方面
+
+如果不喜欢某个推荐，可以直接标记 Not interested（不感兴趣）；如果觉得某款不错，可以点 More like this（找相似的）；左滑不喜欢，右滑喜欢，很有交友软件的味道了。
+它会根据我们的每一次点击，实时调整购物调研的方向。在最后生成报告的过程中，为了减少等待的「痛苦」，ChatGPT 还会提供很多小 Tips，来解释关于某个产品背后的内容。就像这里研究相机，它会说「像素不是决定照片质量的唯一标准」等。
+等了一会儿，最后就是 ChatGPT 生成的这份深度「买家指南」。这是一份完整的调研报告，里面不仅有热门产品推荐，还有关键差异对比、优缺点权衡、以及来自可靠零售商的最新信息（主要是美国常用购物网站）。
+
+它把原本需要我们花几个小时，去搜索、阅读、拉一个 Excel 汇总的过程，压缩成了几分钟的对话和选择。
+除了这种直接的询问有什么新的产品，我们还可以在购物研究里面，发送图片，要求 ChatGPT 找到类似的商品，或者要求它帮我们找到相关的优惠，以及多个同类产品的横向比较。
+我们直接问他，「我是学生，这个自行车可以送给我吗」？他很认真的帮我找到了学生专属折扣或补贴、还有一些学校提供的相关支持计划。
+
+什么样的东西适合用它买？
+OpenAI 在他们官方博客里面提到，对于查个价格这种简单问题，普通对话就够了。Shopping Research 真正大显身手的地方，是那些决策成本高、参数复杂的品类。
+
+电子产品： 手机、电脑
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr">
+        <article class="news-item" data-source="ifanr" onclick="openModal(35)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/images/ep/cover-images/xia_tian_chong_lang_cover.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -905,7 +1681,7 @@ Fender 由 Leo Fender 利奥·芬德创立，品牌最初在加州的一个小�
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ifanr.com/1645932?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">早报｜ChatGPT推出购物研究功能/豆包输入法官宣上线/Google苹果互传功能或登陆更多安卓手机</a></h2>
+                <h2 class="item-title">早报｜ChatGPT推出购物研究功能/豆包输入法官宣上线/Google苹果互传功能或登陆更多安卓手机</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">爱范儿</span>
                     <span class="meta-date">11-25 09:17</span>
@@ -927,10 +1703,126 @@ Claude Opus 4.5 正式推出
 
 
 ...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-35" style="display:none;" 
+                     data-title="早报｜ChatGPT推出购物研究功能/豆包输入法官宣上线/Google苹果互传功能或登陆更多安卓手机" 
+                     data-link="https://www.ifanr.com/1645932?utm_source=rss&utm_medium=rss&utm_campaign="
+                     data-source="爱范儿"
+                     data-date="11-25 09:17">
+                     OpenAI 推出 ChatGPT「购物研究」功能
+
+
+
+
+
+高通确认与苹果互传文件功能将登陆更多 Android 机型
+
+
+
+
+
+Claude Opus 4.5 正式推出
+
+
+
+
+
+豆包输入法官宣上线，主打 AI 语音识别
+
+
+
+
+
+联想 CFO：正囤积 PC 内存，避免转嫁成本到消费者
+
+
+
+
+
+腾讯或参投，拓竹融资估值或达 100 亿美金
+
+
+
+
+
+美的与比亚迪携手打造「人车家」智慧生态
+
+
+
+
+
+V 社：Steam Machine 不会「亏本换市场」
+
+
+
+
+
+智元机器人上线「灵心平台」
+
+
+
+
+
+上线仅 6 天，蚂蚁灵光下载量突破 200 万
+
+
+
+
+
+专家警告：ChatGPT 对话模式类似邪教操控
+
+
+
+
+
+经济学家：AI 投资是「数字生菜」难逃腐坏
+
+
+
+
+
+华为 Mate 80 系列今天发布，发货已排到明年
+
+
+
+
+
+西贝全国门店统一降价，核心菜品下调近两成
+
+
+
+
+OpenAI 推出 ChatGPT「购物研究」功能
+
+OpenAI 今天凌晨正式推出「购物研究」（Shopping Research）功能，为 ChatGPT 用户提供全新的产品搜索与决策体验。
+该功能基于 GPT‑5 mini 的专用版本，结合强化学习进行优化，旨在帮助用户在复杂的购物场景中快速生成个性化的购买指南。用户只需描述需求，系统即可自动检索互联网高质量信息，并在几分钟内生成详细的产品对比与推荐。
+OpenAI 表示，购物研究不仅能处理价格、规格、库存等细节，还能根据用户的实时反馈进行动态调整。例如，用户可标记「不感兴趣」或「更多类似」来优化结果。若开启 ChatGPT 的记忆功能，系统还会结合用户过往偏好进行更精准的推荐。
+目前，该功能已在移动端与网页端上线，覆盖 Free、Go、Plus 与 Pro 用户计划。为配合假日购物季，OpenAI 宣布在节日期间为所有用户提供几乎无限的使用次数。未来，购物研究还将支持「即时结账」（Instant Checkout），允许用户直接在 ChatGPT 内完成购买。
+OpenAI 强调，该功能不会与零售商共享用户对话，所有结果均来自公开零售网站，且引用可靠来源以确保透明度与可信度。此外，该功能提供的价格或库存等细节可能出现误差，用户需以商家页面为准。
+高通确认与苹果互传文件功能将登陆更多 Android 机型
+
+据 NotebookCheck 报道，高通确认，支持与苹果隔空投送 AirDrop 互通的 Google「快速分享」（Quick Share）功能将在未来扩展至搭载骁龙芯片的设备。
+高通在 X 上表示「迫不及待地希望用户能在骁龙设备上体验这一功能」，但尚未公布具体上线时间。
+此前，Google 已透露，该功能不会局限于自家 Tensor 芯片设备，未来可能覆盖三星、一加以及 Nothing 等品牌机型。
+报道指出，除手机外，平板与 Chromebook 等设备也有望获得支持。
+不过，彭博社记者 Mark Gurman 认为，苹果或将尽快采取措施以封堵这一功能，但可能受制于欧盟《数字市场法案》等因素。
+
+Claude Opus 4.5 正式推出
+
+Anthropic 于今天凌晨正式推出新一代大模型 Claude Opus 4.5，在深度研究、幻灯片与表格处理等日常任务中展现出显著提升。
+Claude Opus 4.5 在软件工程测试中表现达到业界最先进水平，支持开发者通过 API 使用「claude-opus-4-5-20251101」版本，定价为每百万 tokens 5 美元或 25 美元。
+Anthropic 同时更新了 Claude Developer Platform、Claude Code 以及消费者应用，新增支持 Excel、Chrome 与桌面端的长时任务处理。
+多位业内人士在测试中指出，Claude Opus 4.5 能够在复杂多系统错误修复、代码迁移与重构等任务中展现更高效率，使用更少 token 完成同样的工作。与前代 Sonnet 4.5 相比，Opus 4.5 在多项基准测试中实现 15% 至 20% 的性能提升，并在长时间自主编码任务中保持稳定表现。
+此外，Opus 4.5 在安全性方面也取得进展，尤其在抵御提示注入攻击上表现更为稳健。Anthropic 表示，该模型在多项评估中展现出更高的健壮性，能够在关键任务中避免被恶意利用。
+此次更新还带来「effort 参数」等新功能，允许开发者在效率与能力之间进行灵活调节。结合上下文压缩与高级工具调用，Opus 4.5 在深度研究评估中提升近 15 个百分点，进一步巩固其在前沿 AI 模型中的地位。
+豆包输入法官宣上线，主打 AI 语音识别
+
+昨天，豆包官方微信公众号发文，官宣豆包输入法正式推出。该产品由字节旗下团队研发，
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr">
+        <article class="news-item" data-source="ifanr" onclick="openModal(36)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/33.jpeg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -938,17 +1830,62 @@ Claude Opus 4.5 正式推出
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ifanr.com/1645911?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">编程测试碾压人类！Claude Opus 4.5 深夜突袭，AI 编程进入「超人时代」</a></h2>
+                <h2 class="item-title">编程测试碾压人类！Claude Opus 4.5 深夜突袭，AI 编程进入「超人时代」</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">爱范儿</span>
                     <span class="meta-date">11-25 07:13</span>
                 </div>
                 <p class="item-summary">最近这段时间，大模型发布就跟下饺子似的，一个接一个往外冒。
 前脚 Gemini 3 Pro 刚抢了两周风头，后脚 Claude Opus 4.5 刚刚就正式发布，还是主打编程，还是...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-36" style="display:none;" 
+                     data-title="编程测试碾压人类！Claude Opus 4.5 深夜突袭，AI 编程进入「超人时代」" 
+                     data-link="https://www.ifanr.com/1645911?utm_source=rss&utm_medium=rss&utm_campaign="
+                     data-source="爱范儿"
+                     data-date="11-25 07:13">
+                     最近这段时间，大模型发布就跟下饺子似的，一个接一个往外冒。
+前脚 Gemini 3 Pro 刚抢了两周风头，后脚 Claude Opus 4.5 刚刚就正式发布，还是主打编程，还是那个熟悉的味道。
+
+Anthropic 官方宣称 Opus 4.5 整体更聪明、更省心。遇到编程、搭 agents、操控电脑这些「系统级任务」依然是全球数一数二的水平。日常的研究、做 PPT、处理表格这些案头活，也都明显变强了。
+今天起，Opus 4.5 已经全面开放，可以通过应用、API，还有三大主流云平台用起来。开发者只要在 Claude API 里调用 claude-opus-4-5-20251101 就行。
+随发布而来的，是一整个工具链升级。开发者平台、Claude Code、Chrome 插件、Excel、桌面端改造，还有「长对话不卡顿」。从应用到 API，再到云平台，这次是真的全线铺开。
+Anthropic’s New Claude Opus 4.5 Reclaims the Coding Crown – The New Stack
+大模型集体「上新季」，Opus 4.5 强势压轴
+从官方和测试者的反馈看，Claude Opus 4.5 对「模糊需求」的理解力得到了明显提升，复杂 bug 自行定位也更稳，不少提前试用的客户觉得 Opus 4.5 是真的能「理解」他们想要啥。
+
+在真实场景的软件工程测试 SWE-Bench Verified 里，它是头一个拿到 80% 以上分数的模型。
+
+Opus 4.5 的代码质量全面升级，在 SWE-bench Multilingual 涵盖的八种编程语言里，它在其中七种都拔得头筹，表现相当亮眼。
+
+而举例而言，Anthropic 团队把 Opus 4.5 扔进了公司招性能工程师时用的高难度测试题里，结果在规定的两小时内，Claude Opus 4.5 的得分超过了所有人类候选人。
+虽然编程测试只能衡量技术能力和时间压力下的判断力，那些多年经验积累出来的直觉、沟通协作能力，这些同样重要的素质并不在考察范围内。
+除却软件工程，Claude Opus 4.5 的整体能力也迎来了全面开花，在视觉、推理和数学方面都比前代模型强，并且在多个重要领域都达到了业界领先水平：
+
+更关键的是，模型的能力甚至开始超越现有的一些评测标准了。
+在智能体能力测试 τ²-bench 里就出现了这么个场景：测试设定模型扮演航空公司客服，帮一位焦虑的乘客。
+按照规则，基础经济舱机票是不能改的，所以测试预期模型会拒绝乘客的请求。结果 Opus 4.5 想出了一个巧妙方案：先把舱位从基础经济舱升级到普通经济舱，然后再改航班。
+这办法完全符合航空公司政策，却不在测试的预期答案范围内。从技术角度说，这算是测试失败了，但这种创造性解决问题的方式，恰恰展现了 Opus 4.5 的独特之处。
+
+当然了，在另一些场景下，这种「钻规则空子」的行为可能就不那么受欢迎了。如何防止模型以非预期方式偏离目标，这是 Anthropic 安全测试重点关注的方向。
+Claude 无处不在，桌面、浏览器、Excel 全接入
+随着 Opus 4.5 的推出，Claude Code 获得了两项重大更新。
+计划模式（Plan Mode）现在能生成更精确的执行计划了，Claude 会在操作前主动提澄清性问题，然后生成一个用户可编辑的 plan.md 文件，再根据这计划执行任务。
+此外，Claude Code 现在已经登陆桌面应用了。你可以同时跑多个本地或远程会话，比如一个智能体负责修代码错误，另一个负责在 GitHub 上检索资料，第三个就更新项目文档。
+
+对于 Claude 应用用户来说，长对话不会再被打断了。Claude 会在需要的时候自动总结早期上下文，让对话持续下去。
+Anthropic 研究产品管理负责人 Dianne Na Penn 在接受采访时表示：
+「我们在 Opus 4.5 的训练过程中提升了对长上下文的整体处理能力，但光有更长的上下文窗口是不够的。知道哪些信息值得记住，同样非常关键。」
+这些改进也实现了 Claude 用户长期呼吁的一项功能：「无尽对话」。这功能能够让付费用户在对话超过上下文窗口限制时也不会中断，模型会自动压缩上下文记忆，而不用提醒用户。
+Claude for Chrome 也已经向所有 Max 用户开放了，可以让 Claude 直接在浏览器多个标签页之间执行任务。
+
+Claude for Excel 的 Beta 测试范围已经扩展到 Max、Team 和 Enterprise 用户了。
+对于能使用 Opus 4.5 的 Claude 和 Claude Code 用户，Anthropic 已经取消了和 Opus 相关的使用上限。
+对于 Ma
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr">
+        <article class="news-item" data-source="ifanr" onclick="openModal(37)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/Weixin-Image_20251124175632_2865_68.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -956,17 +1893,77 @@ Claude Opus 4.5 正式推出
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ifanr.com/1645857?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">元宝上线一句话生成视频，这会是评论区的整活小能手</a></h2>
+                <h2 class="item-title">元宝上线一句话生成视频，这会是评论区的整活小能手</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">爱范儿</span>
                     <span class="meta-date">11-24 18:32</span>
                 </div>
                 <p class="item-summary">「@元宝，总结一下这篇文章」，自从在微信公众号留言区能@元宝之后，让元宝来总结文章内容成了最热门的玩法。
 但元宝能做的远不止是总结一篇文章，就在 Nano Banana Pro 发...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-37" style="display:none;" 
+                     data-title="元宝上线一句话生成视频，这会是评论区的整活小能手" 
+                     data-link="https://www.ifanr.com/1645857?utm_source=rss&utm_medium=rss&utm_campaign="
+                     data-source="爱范儿"
+                     data-date="11-24 18:32">
+                     「@元宝，总结一下这篇文章」，自从在微信公众号留言区能@元宝之后，让元宝来总结文章内容成了最热门的玩法。
+但元宝能做的远不止是总结一篇文章，就在 Nano Banana Pro 发布的那天，元宝上线 AI 视频，在网页端和 App 里面，一句话就能生成视频。
+
+热度都被 Nano Banana Pro 抢走了，元宝表示实惨。我们第一时间更新了元宝 App，替大家体验了一波这回新上线的视频生成，发现这就是一个新的整活功能。
+目前 AI 视频功能已在元宝 App 全量上线，只要更新到最新版本就能在对话框里体验，网页版和电脑版也可以直接生成，并且完全免费不限量。
+一句话生成视频，什么脑洞都可以
+元宝这次把视频生成的门槛，降到了地板级。
+和大多数 AI 视频生成工具不同，元宝甚至不用在工具里面选择视频生成，而是直接对话框里面输入提示词，就能生成视频。
+最近我用小猫打中国功夫，还有小猫思考的那几个表情包比较多，我直接输入「生成视频，小猫在思考冒出一大堆数学公式的Meme」，等待的时间大概是 1-3 分钟，就可以得到一个正在思考的猫猫博士。
+
+或者玩一些老梗，「生成视频，多邻国的吉祥物和蜜雪冰城的雪王一起步入婚姻殿堂。」
+
+但这个雪王和多儿，有点难绷，虽然能认出来是猫头鹰，但……这有可能是「为了规避版权风险的一种方式」。还有，倒着走进婚姻殿堂真的很好笑。
+元宝这次上线的视频生成，采用的模型，是混元在前几天，正式发布并且开源的 HunyuanVideo 1.5，模型大小只有 8.3B，甚至可以放在 14GB 显存的消费级显卡上运行。
+
+对比 Google Veo 3.1 和 Sora 2，在一致性和电影画质上的表现，自然是有较大的差距；但是在开源模型里，HunyuanVideo 1.5 的效果算得上 Top 级别。
+   
+
+▲ HunyuanVideo 1.5 和阿里 Wan2.2、快手 Kling2.1、字节 Seedance Pro 以及 Google Veo 3 对比，从文生视频到图生视频，HunyuanVideo 1.5 的表现在多个榜单仅次于 Veo3 之后。
+
+HunyuanVideo 1.5 主打是轻量化和开源，但在画面色调和细节一致性上，表现也很稳定，同样能听懂复杂的运镜指令等。
+当我们把前面「倒着」走进婚姻殿堂的雪王和多儿，增加一些提示词的控制，告诉元宝从远景慢慢拉到近景，就不会再出现明显的 Bug 了。
+
+拿它来随手生成一个梗图，脑洞大开的 GIF，是再合适不过了。
+例如，我们输入「生成视频，一个土豆穿着西装在写代码，电脑屏幕冒烟了，土豆流下了番茄酱眼泪。」
+
+或者让一只加菲猫摇头说「No」。输入提示词，「生成视频，一只肥胖的加菲猫，穿着睡衣，手里举着一个白色的牌子，牌子上写着黑色的 NO，它在疯狂摇头，皮克斯动画风格。」
+
+当我们想表达今天发的工资，立刻就花掉了的时候，能生成一个钱包长了翅膀，飞走了的 Meme 梗图。
+
+
+▲ 提示词：生成视频，一个长着翅膀的钱包，从裤兜里飞出来，越飞越高，下面有一个小人在哭着追赶，手伸得很长，复古美漫风格，线条粗犷。
+
+或者想说周一早上的你，一点也不想起床上班时，长出了手脚的闹钟疯狂地在拍打着我们的枕头。
+
+
+▲ 提示词：生成视频，1930 年代黑白橡胶管动画风格（Rubber Hose Animation），一个长着手脚的闹钟正在疯狂殴打一个枕头，枕头在尖叫，画面有胶片噪点。
+
+我们的体验发现在文生视频里，没有足够明确的提示词，很容易就得到 AI 味特别重的视频，尤其是在处理一些现实世界风格的内容。
+为了避免 AI 生成这些写实视频，经常存在的恐怖谷效应，用元宝来生成一些 3D 卡通、像素和定格动画风格，可以明显减少抽卡的次数。同时，这些风格也是表情包常见的类别；而为了让表情包更有灵魂，我们也能让 AI 把文字也带上。
+让照片动起来
+相比于凭空生成，图生视频可能是这次 AI 视频生成里，大家更爱玩的功能。
+上传一张手机里的静态照片，配合简单的指令，就能让画面动起来。尤其是相册里的一些废片，或者适合用来制作搞怪表情包的图片，这个功能就是为这些照片量身定做的。
+例如这张静态的表情包，「这像话吗」，让这个阴阳怪气的 emoji 笑的更危险一点，我们输入的提示词只是「让照片动起来」。
+
+元宝处理后的表情包，甚至比我发给他的原图，还要更清晰。
+
+除了让一些已经是表情包的图片动起来，我们还可以用图片生视频的功能，自己做一个 GIF 的表情包。
+我们找了一张经典的咸鱼手绘图。 在元宝 App 里面点击加号，上传图片，输入指令 「这条咸鱼试图翻身，但失败了，滑稽的动作，美漫风格」。
+
+一些日常的照片，也可以一键发送给元宝，全部都能变成 5s 的动图。
+
+这是我们昨天在未来社的活动照片，奖品展示区
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr">
+        <article class="news-item" data-source="ifanr" onclick="openModal(38)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/42.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -974,17 +1971,65 @@ Claude Opus 4.5 正式推出
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ifanr.com/1645817?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">理想 VLA 再更新，不但自主充电还能躲「鱼雷」</a></h2>
+                <h2 class="item-title">理想 VLA 再更新，不但自主充电还能躲「鱼雷」</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">爱范儿</span>
                     <span class="meta-date">11-24 17:43</span>
                 </div>
                 <p class="item-summary">每当苹果在 WWDC 发布新版 iOS，相关热搜总是会出现类似这样的话题：究竟哪款老 iPhone 首次被排除在升级名单之外，不幸「掉队」？
 新能源汽车也是如此——引入智能化后，「...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-38" style="display:none;" 
+                     data-title="理想 VLA 再更新，不但自主充电还能躲「鱼雷」" 
+                     data-link="https://www.ifanr.com/1645817?utm_source=rss&utm_medium=rss&utm_campaign="
+                     data-source="爱范儿"
+                     data-date="11-24 17:43">
+                     每当苹果在 WWDC 发布新版 iOS，相关热搜总是会出现类似这样的话题：究竟哪款老 iPhone 首次被排除在升级名单之外，不幸「掉队」？
+新能源汽车也是如此——引入智能化后，「常用常新」总是厂商会打出的卖点之一。
+如今，用户不只看马力和续航，更在意智能化更新的可持续性：OTA 的频率与内容、核心功能的长期可用性（导航/智驾/座舱）、硬件冗余是否支撑未来升级，以及付费订阅与保值率的平衡。
+换句话说，一台优秀的智能车，不止是当下的配置清单，更是持续进化的能力与承诺。
+ 
+在 2025 年广州车展上，理想汽车公布了辅助驾驶板块最新的进展与规划，带来了创新的 VLA 充电和防御性 AES 自动紧急转向功能，并且计划向 AD Max 车型全量推送。
+我看了看已经陪伴了我 975 天的 2023 款理想 L7 Max，具备 AD Max 的它，仍在更新名单之列。
+VLA 充电，打通充电的最后 100 米
+基于 9 月份理想为所有 AD Max 车型推送的「VLA司机大模型」，进一步带来了「VLA 充电」这项全新能力。
+从体验上来说，它看起来也很符合用户直觉。
+
+行进途中，用户只要对「理想同学」说出「直接帮我导航到附近的超充站」，系统就会自动搜寻附近的「理想超充站」位置并添加到途径点。
+开启 NOA 智能领航辅助后，车辆将按照导航自主驶向超充站；临近站区时，系统会主动推荐空闲充电桩车位，并由 NOA 自动驶入站内并漫游泊至对应车位，全程几乎无需手动介入。
+
+目前看起来唯一还需要「手动」操作的，就只有车主下车，手动拔插充电枪这一步骤了。
+不过此前理想已经公布了「龙门架」形式的自动充电机器人，单个机器手就能覆盖站点的多个充电桩位，能自动识别车型充电口与枪头，实现「人不下车，自动插枪」。
+
+理论上理想可以在现有的这些超充站内，直接进行改造，这也就意味着现在发布会上唯一没有被点亮的「手动充电」，很可能在后续被打通为「自动充电」。
+要实现体验上的无感且自然，「VLA 充电」这项能力，在技术上也做出了相当多的努力和协同。
+按照理想的介绍，这是 VLA 司机大模型与车终端、超充站、充电桩之间完成端云协同的显著成果，在超充站充电这个关键的常用场景，验证了 VLA 具备「理解空间、自动完成任务」的能力。让 VLA 司机大模型，自主地与超充站实现通讯协同。
+
+在车端，由 VLA 司机大模型完成空间理解，实现自主驶入场站并泊入充电车位的同时，还会向云端请求空闲充电桩情况，并协同降下地锁以便完成自主泊入车位；在云端，涉及了辅助驾驶云、理想超充调度云、场站云的高效协同，实时下发空闲充电桩信息，并按 VLA 规划降下地锁。
+车辆充电完成之后，车辆可以自主驶离超充站，并通过免密支付完成充电缴费。
+
+可见，理想的超充站与 AD Max 硬件，是提前预埋的「硬底盘」；VLA 模型，是可以周更精进的「软引擎」；充电补能，则是用户高频且刚性的体验场景。
+VLA 充电正是立足这套软硬一体的底座，而给出的系统级解法——把「空间理解＋行为策略」从道路延伸到自营超充站区，把「找桩充电」升级为「自主充电」。
+这本质上是 VLA 路线的厚积薄发：先把基础设施、传感器与算力打牢，再用模型把整段体验打通。
+于是，VLA 能力自然而然地，就从「会开」外溢到「会充」，从路网延伸到站内。随着超充站点覆盖继续扩大、VLA 强化学习迭代，以及自动充电等配套落地，补能体验将持续从可用走向好用，并在实战中自我进化。
+防御性 AES：自动「躲鱼雷」
+今年 8 月份发布的 VLA 司机大模型也在不停地迭代，理想宣布将在下一个版本中，优化 NOA 领航辅助驾驶在行车中的结合复杂场景。
+
+面对相邻的红绿灯，VLA 会更加精准地完成识别；面对极窄路段的会车场景，也会向右借极窄空间绕行。在面对施工路段、临时改道的场景，VLA 也能像真实司机一样从容应对。
+
+与此同时，无论城市通勤还是高速巡航，VLA 在轨迹平滑与制动/转向的柔和度上都在持续进化，行车更稳更舒适，行为操作也更加类人。
+当然，理想汽车的辅助驾驶不仅在行车、泊车等场景持续进化，也在主动安全上不断拓展能力边界、抬升上限。
+
+此前在理想 i8 发布会上，理想防御性 AES 就已经覆盖了三大场景，包括式截停、慢车加塞、恶意别车等高风险场景，车辆可以主动地识别此类风险并自主地完成相应的主动防御避让策略。
+ 
+现在，理想还新增了两个防御性 AES 能力，在后车逼近或存在二次碰撞风险时，车辆自主就能联动「加速＋转向」策略，通过「前向加速」或「安全变道」主动规避后方「鱼雷」，避免被追尾的碰撞风险。
+至此，理想的防御性 AES 可以有效避免来自车辆前方、后方、侧前、侧后的碰撞风险，升级至全方位的保护能力。
+按照规划，理想将在后续的 OTA 中，把防御性 AES 能力推送
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr">
+        <article class="news-item" data-source="ifanr" onclick="openModal(39)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/cover-1-1024x436.png&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -992,7 +2037,7 @@ Claude Opus 4.5 正式推出
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ifanr.com/1645848?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">iOS 27 首曝：缝缝补补又一年，苹果 AI 明年见？</a></h2>
+                <h2 class="item-title">iOS 27 首曝：缝缝补补又一年，苹果 AI 明年见？</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">爱范儿</span>
                     <span class="meta-date">11-24 17:15</span>
@@ -1000,10 +2045,64 @@ Claude Opus 4.5 正式推出
                 <p class="item-summary">iOS 26 的液态玻璃还没捂热，长达一年的 iOS 27 「爆料发布会」就开始了。
 在最新的报道中，彭博社首次公开了 iOS 27 的一些总体信息，简单概括就是八个字：
 优化为主...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-39" style="display:none;" 
+                     data-title="iOS 27 首曝：缝缝补补又一年，苹果 AI 明年见？" 
+                     data-link="https://www.ifanr.com/1645848?utm_source=rss&utm_medium=rss&utm_campaign="
+                     data-source="爱范儿"
+                     data-date="11-24 17:15">
+                     iOS 26 的液态玻璃还没捂热，长达一年的 iOS 27 「爆料发布会」就开始了。
+在最新的报道中，彭博社首次公开了 iOS 27 的一些总体信息，简单概括就是八个字：
+优化为主，AI 为辅。
+
+求稳的 iOS 27
+按照苹果的规律，大更新后的下一个版本，都会以小修小补为主。
+因此，iOS 27 以及其他系统的更新，苹果也将专注于提升系统的稳定性和性能，而不会引入太多新功能和新变化。
+iOS 26 的液态玻璃风格好不好看属于各花入各眼，但网上随处可见对这个系统发热强、续航差、Bug 多、掉帧崩溃频繁的吐槽，和 iPhone 17 高产品力形成鲜明对比：
+近年来最好的一代 iPhone，碰上了最差的一版 iOS。
+
+这也不由得让人想起来 8 年前的 iOS 11——为全面屏 iPhone 做出不少调整，结果总体的使用体验，特别是对老设备来说却相当糟糕。
+于是第二年苹果选择「求稳」， iOS 12 新功能屈指可数，主要是以底层优化为主，也成功挽回了 iOS 的口碑。
+
+
+▲ 发布会上，苹果使用老设备演示 iOS 12
+
+iOS 26 的口碑还不至于到 iOS 11 的程度，但液态玻璃是覆盖苹果全平台的改变，这套需要更多算力的新 UI，让不少老苹果设备都力不从心，iOS 27 预计能成为很好的「养老版本」。
+除此之外，苹果还会继续对液态玻璃的视觉效果进行持续微调——实际上 iOS 26 目前的两个大版本更新，都在微调液态玻璃的效果，并提供更多自定义的选项。
+
+
+▲ iOS 26.1 允许用户调整液态玻璃的可读性
+
+根据彭博社，苹果的工程团队正在仔细检查苹果各个平台的操作系统，寻找可以精简的冗余功能和需要修复的漏洞，不放过任何能显著提升设备性能的机会。
+我们也别忘了，以折叠 iPhone 为首，包括带屏幕 HomePod 在内不少形态各异的苹果产品将在明年推出，它们很可能都将运行基于 iOS 27 的系统——特别是折叠 iPhone，苹果会如何设计这台设备的系统交互，十分值得期待。
+
+至于 iOS 27 的重要功能会是什么，彭博社给出爆料是——AI。
+2026，苹果 AI 重振旗鼓
+今年一整年，苹果都没怎么谈到 AI，iOS 26 更是用液态玻璃的大更新，转移了外界对苹果 AI 残局的注意力。蛰伏一整年，苹果将在明年推出更多 Apple 智能新功能。
+首先是跳票一年半的 AI Siri，苹果目前计划在明年春季的 iOS 26.4 正式推出。
+
+为了追赶差距，苹果正在与谷歌达成一项为期多年的协议——每年支付约 10 亿美元，换取 Google Gemini 模型为新版 Siri 提供核心 AI 能力，周边功能则仍由苹果自家的小模型处理。
+协议的关键条款是：Gemini 将运行在苹果的「私有云计算」服务器上， 用户数据不会接触谷歌的系统。
+此前爱范儿曾经报道过苹果内部测试的聊天机器人应用「Veritas」，一个基于文本的 Siri 重构的测试平台。
+即使苹果目前还没有推出聊天机器人的计划，Veritas 只是给 Siri 陪练的开发平台，不过有了相关技术积累，苹果日后进军这个领域也会更加顺利。
+而且苹果也已经改变了对这种对话式 AI 机器人的负面态度，内部正在酝酿一个类似 Perplexity 的 AI 搜索引擎。
+彭博社爆料了苹果内部已经组建了一个新的团队，名为「答案（Answers）、知识（Knowledge）和信息（Information）」，简称 AKI 团队，将打造一个 AI 检索答案的「答案引擎」 ，类似 Perplexity 和 ChatGPT 的搜索功能，并将集成到 Siri 之中。
+
+比起更为强大的聊天机器人，单纯做 AI 搜索引擎能帮助苹果规避很多风险：更多只是网络现存资源的智能聚合，AI 自由创作的空间不多，能够一定程度规避幻觉的影响。
+这个 AI 答案引擎和 AI Siri 正在协同开发，预计也是明年春季，或者随着 iOS 27 一同推出。
+除此之外，苹果还在开发一个专注于健康的 AI Agent，能够针对每个用户的健康数据，AI 会给出个性化的分析和建议——新的「睡眠评分」，其实已经用到了 AI 来生成个性化分析。
+
+这个功能将包括在全新的「健康+」服务，作为 iOS 27 新功能。
+比起其他先一步探索 AI 健康的企业，苹果可能在 AI 技术上不够突出，却能凭借自己在医疗健康积累十余年的技术和海量数据，取得领先的地位。
+对苹果来说，AI 已经成为了重中之重，公司各工程团队都在积极开发，不仅要填上 AI Siri 挖的大坑，还要同时开发新功能加强竞争力。
+
+苹果自己也清楚，如果 iPhone 跟不上这一波 AI 浪潮，iPhone 很可能会在十年内过气，成为下一个 iPod。
+和 iOS 27 一起曝光的，还有
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr">
+        <article class="news-item" data-source="ifanr" onclick="openModal(40)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/bc12tm.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1011,17 +2110,57 @@ Claude Opus 4.5 正式推出
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ifanr.com/1645791?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">对话奔驰大中华区负责人佟欧福：跑得快并不重要，重要的是又快又久</a></h2>
+                <h2 class="item-title">对话奔驰大中华区负责人佟欧福：跑得快并不重要，重要的是又快又久</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">爱范儿</span>
                     <span class="meta-date">11-24 14:36</span>
                 </div>
                 <p class="item-summary">奔驰是一家可以定义什么是「车」的公司。
 这当然是因为一百多年前，奔驰创始人卡尔·奔驰发明了现代意义上的汽车，当然也是因为如今 AMG 定义了什么是性能车的典范，或者迈巴赫定义了什么...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-40" style="display:none;" 
+                     data-title="对话奔驰大中华区负责人佟欧福：跑得快并不重要，重要的是又快又久" 
+                     data-link="https://www.ifanr.com/1645791?utm_source=rss&utm_medium=rss&utm_campaign="
+                     data-source="爱范儿"
+                     data-date="11-24 14:36">
+                     奔驰是一家可以定义什么是「车」的公司。
+这当然是因为一百多年前，奔驰创始人卡尔·奔驰发明了现代意义上的汽车，当然也是因为如今 AMG 定义了什么是性能车的典范，或者迈巴赫定义了什么是豪华车的标准，不信就看看现在有多少国产品牌在高端化的时候，有意无意地模仿迈巴赫。
+定义什么是新时代的电车？看起来对于奔驰有点难，但，奔驰并不是没有准备答案。
+梅赛德斯-AMG GT XX 概念车，就是奔驰回答什么是这个时代极致电车的答案。
+
+前不久在意大利传奇赛道—纳多（Nardò）赛道上，梅赛德斯-AMG GT XX 概念车在三电性能和耐久可靠性的极致试炼中验证其成果：以平均 300 公里/小时的行驶速度、超 850 千瓦的平均充电功率和纯电领域前所未有的持续性能输出能力，在 7 天 13 时 24 分的时间内行驶40075km（≈赤道周长），并以 5479km 的成绩打破电动车 24 小时行驶里程世界纪录。
+这辆还带着纳多赛道尘土的汽车，在广州车展前夕的 2025 梅赛德斯-奔驰 XX 科技创新日进行了中国首秀，在首秀后，爱范儿和董车会与梅赛德斯-奔驰集团股份公司董事会成员，负责大中华区业务的佟欧福（Oliver Thöne），以及梅赛德斯-奔驰（中国）投资有限公司高级执行副总裁，梅赛德斯-奔驰中国研发和采购负责人庄睦德（Drummond Jacoy）进行了采访，聊了聊什么才是奔驰定义里的极致电动车。
+
+
+▲从左到右分别是庄睦德（Drummond Jacoy），佟欧福（Oliver Thöne）和北京梅赛德斯-奔驰销售服务有限公司总裁兼首席执行官段建军
+
+很明显，梅赛德斯-AMG GT XX 概念车并没有去比拼极速或者零百加速这样大家最喜闻乐道的参数，因为类似的纪录奔驰创造了无数次，毕竟在 1938 年的时候，奔驰的 W 125 Rekordwagen 就创造了 432.7 公里/小时的汽车极速纪录，这个纪录保持了 80 年之久。
+梅赛德斯-AMG GT XX 概念车想要证明的是一辆车能够以怎样快的速度跑怎样久，换言之，就是奔驰从百米赛道下来，又站在了马拉松赛道了，然后，又，夺冠了。
+佟欧福告诉爱范儿和董车会：
+对奔驰来说，真正重要的不是某一次的冲刺，而是能不能在长时间、连续的高强度驾驶中依然保持高性能表现。
+他说：
+性能车爱好者会知道，在燃油车时代，一辆真正的性能车之所以迷人，是因为它不仅能跑得快，更能在长时间、高负载的情况下保持稳定的输出。当然，即使是燃油车，在极限状态下也同样会遇到热衰减或其他性能限制。
+ 
+进入电动车时代，如果我们希望打造一款能够达到甚至超越以往性能标准的车型，那就必须重新思考整套系统。所以我们从零开始为梅赛德斯-AMG GT XX 概念车开发了电驱系统、电池、轴向磁通电机和充电系统。
+ 
+我们与 F1 工程团队一起打造了高性能方案。对我们来说，这正是梅赛德斯-奔驰一贯坚持的理念：我们不是为了噱头、不是为了高端价格、也不是为了抢头条，而是从客户的需求出发，反推应该采用怎样的技术，再按照奔驰准把它做到最好。最后呈现在大家面前的，就是今天的这款概念车，而这些技术也将随 AMG.EA 平台陆续进入量产。
+如前面所说，对于极致的时速或者极致的零百加速这些数据纪录，奔驰已经相对淡然了，毕竟奔驰曾经创造过一骑绝尘的成绩。
+
+
+▲梅赛德斯-AMG GT XX 概念车团队在意大利纳多赛道
+
+但奔驰在电动车时代考虑的是，自己已然成为过博尔特，能不能再成为基普乔格（马拉松世界纪录保持者，第一位马拉松跑进 2 小时以内的人类选手）。
+庄睦德曾经在 AMG 部门工作，对什么是性能车有深刻的感受，他告诉爱范儿和董车会：
+我在 AMG 工作时，我们一直在讨论一个关键问题：一辆高性能电动车的本质是什么？答案很明确——必须具备可持续的高性能输出。过去我们打造过梅赛德斯-AMG GT 63 S E PERFORMANCE 这样的车型，超 600 马力的输出，再加上在赛道上连续多圈保持稳定圈速的能力，这是货真价实、可重复的性能。客户在实际使用中也能感受到这种稳定性。而这种「持续高性能」的能力，也是我们希望能够在电动时代呈现的。
+他更具体地解释了，为了实现持续高性能的能力，奔驰具体做了什么：
+要让电动车做到这一点，我们必须重新审视整个技术体系。首先是轻量化，这就需要足够高能量密度的解决方案，比如轴向磁通电机带来的高性能表现。其次是布局，例如后轴双电机，它让我们能够实现精准的扭矩矢量控制，进一步提升车辆在高性能场景下的操控与稳定性。
+ 
+真正的挑战来自热管理。电动车在持续高性能输出时会产生大量热量，而车辆抵达充电站时，电池往往处于高温状态，这时是无法进行高功率快充的。所以一辆高性能电动车必须同时解决两个问题：激烈驾驶时如何稳定控温，以及在高热负载下如何依然保持
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr">
+        <article class="news-item" data-source="ifanr" onclick="openModal(41)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/sama-1.png&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1029,16 +2168,67 @@ Claude Opus 4.5 正式推出
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ifanr.com/1645776?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">Nano Banana终于不是文盲了，但我可能会变「傻」</a></h2>
+                <h2 class="item-title">Nano Banana终于不是文盲了，但我可能会变「傻」</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">爱范儿</span>
                     <span class="meta-date">11-24 14:29</span>
                 </div>
                 <p class="item-summary">过去一个周末 Gemini 3 Pro Image 的能力被反复「折磨」，花样越来越多——噢，你问这是什么，它的另一个名字是 Nano Banana 2。这么跟个恶搞一样的名字，居...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-41" style="display:none;" 
+                     data-title="Nano Banana终于不是文盲了，但我可能会变「傻」" 
+                     data-link="https://www.ifanr.com/1645776?utm_source=rss&utm_medium=rss&utm_campaign="
+                     data-source="爱范儿"
+                     data-date="11-24 14:29">
+                     过去一个周末 Gemini 3 Pro Image 的能力被反复「折磨」，花样越来越多——噢，你问这是什么，它的另一个名字是 Nano Banana 2。这么跟个恶搞一样的名字，居然被保留下来了。
+Nano Banana2 各方面能力超群，甚至是「友商」Sam Altman 也要点头的程度。
+
+
+▲ 图片来自：The Information
+
+夸夸只是夸夸，Nano Banana 第二阶段，其实标志着 AI 图像生成领域的一个重要转折点：从基于概率的「以此类推」，转向了基于理解的「逻辑构建」。更承载着一个特殊的意义：AI 不再只是冲着你的眼睛去，还冲着你的智商去。
+大语言模型不再「文盲」
+一直以来 AI 生图都有个绕不过去的问题：才华横溢，信手拈来，但有时候就跟喝高了一样控制不住，这从 Midjourney 时期就开始了，往后走逐渐好转，不过始终存在。
+其中最大的 bug 之一就是文字。这导致在很长一段时间里，鉴别一张图是否由 AI 生成，最简单的办法就是看图里的字。
+
+这是基于扩散模型（Diffusion Model）的先天缺陷：它将文字视为一种纹理，而非符号。
+Nano Banana 2 最直观的突破，就在于它「识字」了。即所谓的 Text Rendering 文字渲染。
+我的随手测试「生成一张复古电影海报，标题是《香蕉的复仇》，副标题用红色衬线体写 2025 年上映。」
+
+如果是在以前尝试这个指令，大概率会得到一张极具艺术感的图「BANANA REVENGE」的某种变体尚且能保持清晰和正常，但小字往往经不住看了，甚至有时候主标题都会拼写成「BANNANA」。但在 Nano Banana 2 里，这些字符被准确、清晰、且符合排版美学地「写」在了画面上。
+
+So what？这仅仅是省去加字的时间吗？
+对普通用户来说可能是，而且还是一种「表情包自由」。你终于可以生成一张精准吐槽老板的图，配上精准的文案，不用再单独拉一个文本框。
+而对于商业世界，这意味着 AI 图像生成从「素材（Material）」阶段，正式跨入了「成品」（Deliverable）阶段。
+
+
+▲ 图片来自 X 用户@chumsdock
+
+当 AI 能够准确地处理符号信息，它能交付的成果就更多样也更实用，包括但不限于电商海报、PPT 配图、甚至是数据图表。以前设计师用 AI 只能生成背景底图，关键信息还得自己贴。现在，AI 可以直接生成原型图，乃至带有数据标注的饼状图，或者一张文字完美贴合透视关系的广告。
+这是商业交付的「最后一公里」，也是生图模型在信息传递层面的巨大进步。
+从「猜概率」到「懂物理」
+字渲染的成功是 Nano Banana 2 底层技术跃迁的一个极具代表性的缩影，更深层的变化在于：这只「香蕉」，长了脑子。
+也就是我们所说的基于「推理」的图像生成。
+大模型本质上是一个概率统计机器。当你要求画一只「坐在玻璃桌上的猫」时，模型通过学习数亿张图片，在生成时，它只是重现像素的统计规律。
+
+Nano Banana 2 的不同之处在于，它引入了 Gemini 3 语言模型的推理能力。在生成图像之前，它似乎先在「大脑」里构建了一个物理模型。它知道「猫」下面通常会有模糊的影子，以及玻璃板上、下的物品有不同的光线关系。
+在我的另一个随手测试中，当要求它生成「一个复杂的化学实验室，桌子上放着装有蓝色液体的烧杯，背景是黑板上的分子式」时，它表现出了惊人的逻辑性：
+
+烧杯里的液体会有正确的弯液面；玻璃器皿对光线的折射符合物理直觉；最重要的是，背景黑板上的分子式不再是乱画的线条，而是看上去像模像样化学结构的式子（虽然还是有瑕疵）。
+当画笔有了「大脑」，交互方式变了
+之所以如此强调文字生成这个本领，是因为 Text Rendering 是外在表现，反映的是 Reasoning 作为内在引擎。合在一起， Nano Banana 2 带给用户的最终体验，就是一块「会思考的画布」（The Thinking Canvas）。
+Google 将这个模型深度整合进了它的生态系统，不仅仅是生成图片，更是「修改」现实，下一步，就是走进更严肃的领域：信息图、教案、讲解素材，等等等等。
+
+整体上，图像生成往往用户给 20% 的指令，剩下 80% 靠 AI 脑补——以前是靠概率脑补（随机填色）。现在则是靠因果脑补，不仅画出了「结果」，还隐含了「过程」，这能够让画面的叙事性和感染力指数级上升。
+
+它不再只是为了取悦你的眼睛，它开始试图取悦你的智商。像上面这种结构图，虽然吧不敢说 100% 符合机械工程标准，但钉是钉，铆是铆。「逻辑上的正确」，是它推理能力的直接体现。
+然而任何事情都是一体两面的，当换一个角度看，这就可能意味着创造力的同质化。
+当 AI 能够完美地生成「符合商业标准」的图表、海报和插画时
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr">
+        <article class="news-item" data-source="ifanr" onclick="openModal(42)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/Gemini_Generated_Image_fyk7xwfyk7xwfyk7.png&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1046,7 +2236,7 @@ Claude Opus 4.5 正式推出
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ifanr.com/1645715?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">豆包输入法上线，用了两天我在微信聊天不想再打字</a></h2>
+                <h2 class="item-title">豆包输入法上线，用了两天我在微信聊天不想再打字</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">爱范儿</span>
                     <span class="meta-date">11-24 10:35</span>
@@ -1054,10 +2244,67 @@ Claude Opus 4.5 正式推出
                 <p class="item-summary">如果你用过一些手机系统自带输入法，一定懂那种它好像没学过中文的无力感。
 正因如此，第三方输入法才得以遍地开花。
 当官方输入法不好用，用户自然会用脚投票。最近字节推出了豆包输入法 1...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-42" style="display:none;" 
+                     data-title="豆包输入法上线，用了两天我在微信聊天不想再打字" 
+                     data-link="https://www.ifanr.com/1645715?utm_source=rss&utm_medium=rss&utm_campaign="
+                     data-source="爱范儿"
+                     data-date="11-24 10:35">
+                     如果你用过一些手机系统自带输入法，一定懂那种它好像没学过中文的无力感。
+正因如此，第三方输入法才得以遍地开花。
+当官方输入法不好用，用户自然会用脚投票。最近字节推出了豆包输入法 1.0 版本，要用 AI 重新定义输入体验。
+趁着热乎劲，我也下载体验了两天，发现了一些让人又爱又无奈的细节。
+
+语音识别断档领先，豆包输入法的「杀手锏」有多强?
+豆包输入法的界面走的是极简风。
+没有那些乱七八糟的推广弹窗和会员广告。不过嘛，安装包体积属实有点大，在 vivo 应用商店显示 139MB。而且这体积大归大，功能却不完整，用「毛坯房」来形容挺贴切的。
+先说说豆包输入法的核心竞争力。
+在我看来，语音打字是豆包输入法的杀手锏，体验感是断档级领先，确实比我用过的其他输入法强上一大截。在我体验的这两天里，我已经深深爱上了语音打字的体验。
+一句话概括，按住说话，松手结束。
+实测下来，中文、英文和粤语识别准确度都高得离谱。我随口说了句「我正在用普通话测试豆包输入法」，一字不差，再来一句英文「Attention Is All You Need」，也准确识别了。
+
+在粤语的体验对话上，「今晚你翻唔翻嚟屋企食饭啊。」，「一蚊一只鸡，一蚊一斤龟，究竟系一蚊一只鸡贵，定系一蚊一斤龟贵？」也是一遍就识别成功。
+
+要知道，这些句子语速快、同音字多，咬字要是稍微不清晰，输入法就容易翻车。实测表现相当能打，说明模型对粤语的声学特征和语言模型都做了针对性训练。
+TVB 剧里那种粤语夹英文的说话方式，豆包也能应付。
+我试了「Sorry 啊，我地已经尽晒力啦」和「赏月喝糖水，那么迟才 call 我们」，「幫我 scan 入電腦做個 copy，再 share 畀大家，记得要 double check 啊」最终结果居然一个都没错。
+它甚至还能语音输入数学公式，如果你是学生、老师或者科研人员，这个功能应该挺实用的。
+技术层面， 网传豆包输入法用的是 Seed-ASR2.0 模型。
+简单说就是把语音转成文字， 让机器「听懂」你在说什么。和之前的大型 ASR 模型比，Seed-ASR 在中英文测试集上的错误率降低了 10%-40%。
+另外， 豆包输入法还支持下载离线语音模型， 大小约 150MB。意思是在地下车库等信号不好的地方，你也能正常使用语音输入。
+
+但离线模型的准确率肯定比在线的差一点，性能有妥协也正常。
+当然了，选择一款新的输入法，很多人会担心隐私问题，豆包输入法提供了一个「基础输入」模式，只是打开之后， 语音转文字、翻译这些功能就全关了。
+
+基础词库方面， 豆包输入法丰富度达到了主流输入法的水平， 没啥特别的， 但也不拖后腿。
+除了语音识别，我试着文字输入「确实型人格」、「城巴佬」等这些网络词汇， 都能识别。生僻字方面，像「饕餮」、「皴裂」「髑髅」这些，也都是从从容容，游刃有余。
+
+至于联想方面，融合 AI 能力的豆包输入法表现出色。
+
+输入「1+1=」，亦或者输入问题「西游记的作者是谁」，输入法会直接在候选栏直接显示结果。作为打工人， 我就挺喜欢直接这个将 AI 融入输入法的形式，主打一个实用。
+
+139MB 的 AI 输入法，除了语音识别还剩什么?
+说完优点，该聊聊槽点了。
+首先，豆包输入法只上线了 Android 版。官网显示，iOS 版即将上线，PC 版则表示敬请期待，这也意味着不支持跨设备复制粘贴。
+对于频繁在多设备间工作的用户来说，缺失这个重要功能可能是一个很大的劝退点，希望后续能尽快上线。
+
+而在默认设置下，打字有点不太跟手，响应速度不够快，但好在可以在设置里调整按键的响应速度到「极快」，调完之后体感会好很多。
+
+有趣的是，设置键盘「震动强度」发现，选「弱」时震感很强，选「强」反而没什么感觉。这可能是个 Bug，希望后续版本能修复。
+
+可能是因为还在早期版本，豆包输入法很多细节功能还没来得及打磨。
+表情包是社交沟通的重要组成部分，很多输入法都内置了表情包搜索和发送功能。虽然豆包输入法自带表情还算丰富，但你想从输入法直接发表情包？ 对不起，目前做不到。
+再比如键盘功能还不够完善，输入方式只有 9 键和 26 键。如果你是双拼用户， 或者需要手写输入、繁体中文， 那豆包暂时不适合你。
+另外，键盘页面有深色模式，但设置页面却没有深色模式。想换个键盘皮肤？ 对不起，目前只有默认样式。后者就见仁见智，有人觉得简洁好，有人觉得太单调。
+而在 AI 翻译功能输入「LLM」，它依旧会默认显示为「法学硕士」。虽然「法学硕士」和「大语言模型」两个翻译都对，但多少让我有种谷歌翻译的感觉。
+那么，豆包输入法值得体验吗？
+我的建议是，仅凭语音识别这个杀手锏，还是值得尝鲜体验的。
+但建议别急着设为默认输入法，先当个备用工具用着，等豆包输入法把 iOS 版、多设备同步、表情包这些基础功能补
+                </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr">
+        <article class="news-item" data-source="ifanr" onclick="openModal(43)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/images/ep/cover-images/pan_yan_de_nv_shi_cover.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1065,7 +2312,7 @@ Claude Opus 4.5 正式推出
         </div>
         
             <div class="item-content">
-                <h2 class="item-title"><a href="https://www.ifanr.com/1645721?utm_source=rss&utm_medium=rss&utm_campaign=" target="_blank">早报｜iOS 27更新方向曝光：继续修修补补/广州首场 AI 嘉年华 AIDONE 收官/俞敏洪再发致歉信：员工与管理层应互相成就</a></h2>
+                <h2 class="item-title">早报｜iOS 27更新方向曝光：继续修修补补/广州首场 AI 嘉年华 AIDONE 收官/俞敏洪再发致歉信：员工与管理层应互相成就</h2>
                 <div class="item-meta">
                     <span class="meta-tag tag-blue">爱范儿</span>
                     <span class="meta-date">11-24 08:59</span>
@@ -1085,6 +2332,131 @@ Claude Opus 4.5 正式推出
 小米回应「汽车工厂内电池产线起火」
 
 ...</p>
+                <!-- 隐藏数据域 -->
+                <div id="data-43" style="display:none;" 
+                     data-title="早报｜iOS 27更新方向曝光：继续修修补补/广州首场 AI 嘉年华 AIDONE 收官/俞敏洪再发致歉信：员工与管理层应互相成就" 
+                     data-link="https://www.ifanr.com/1645721?utm_source=rss&utm_medium=rss&utm_campaign="
+                     data-source="爱范儿"
+                     data-date="11-24 08:59">
+                     消息称 iOS 27 将专注于细节打磨
+
+
+
+
+
+20+AI 品牌齐聚广州，我在 AIDONE 见证了 AI 的100 种打开方式
+
+
+
+
+
+小米回应「汽车工厂内电池产线起火」
+
+
+
+
+
+马斯克：特斯拉已部署超百万颗 AI 芯片
+
+
+
+
+
+俞敏洪再发全员信致歉
+
+
+
+
+
+美团将在全国建设「骑手公寓」
+
+
+
+
+
+Google 否认使用 Gmail 用户的邮件训练 AI 模型
+
+
+
+
+
+视觉中国发布道歉声明：系第三方盗图上传
+
+
+
+
+
+苏妈：我也不担心 AI 泡沫
+
+
+
+
+
+家庭机器人也能很可爱，Memo 亮相
+
+
+
+
+
+三星首款三折叠即将上市
+
+
+
+
+
+法拉利博物馆有望落户北京
+
+
+
+
+
+紫龙游戏回应「实习生出差抽中显卡要上交」
+
+
+
+
+
+《哪吒 2》不参评奥斯卡最佳动画长片
+
+
+
+
+消息称 iOS 27 将专注于细节打磨
+
+
+iOS 26
+
+据彭博社记者 Mark Gurman 报道，苹果在明年推出的新系统将会致敬其于 2009 年发布的 Mac OS X Snow Leopard——不做大的改动，而是专注于细节打磨和质量提升。
+Gurman 指出，明年的 27 系系统（如 iOS 27 等）将以改进现有软件为主。
+据其透露，为提升软件质量，苹果的工程团队现正全面检视旗下的操作系统，致力于削减冗余功能、消除错误，并寻找任何能显著提升性能和整体品质的机会。
+Gurman 还强调，27 系系统将会与 Mac OS X Snow Leopard 一样，为未来的新设备（折叠屏 iPhone 和其他新硬件）奠定基础。
+而 AI 功能也依然是升级的主力军——明年整体升级依然会围绕 AI 展开。
+Gurman 还在报道中提到，其认为苹果 CEO 库克在明年年中离职的可能性不大。而此前，《金融时报》曾报道预计，库克将会在明年 1 月下旬至 6 月之间卸任。
+Gurman 表示，就算库克卸任 CEO 一职，但因为他还很喜欢目前的工作，很大可能会继续担任苹果董事长。
+而这些被挖走的人，主要都是被招揽进 OpenAI 此前收购的人工智能初创硬件公司 io——该公司由苹果前工业设计高级副总裁 Jony Ive 成立，计划明年推出首款 AI 硬件产品。
+据报道称，苹果前工业设计主管埃文斯・汉基（Evans Hankey）与前硬件工程高管 Tang Tan 均已加入该项目。
+20+AI 品牌齐聚广州，我在 AIDONE 见证了 AI 的100 种打开方式
+
+这个周末，APPSO 联合 20 余家 AI 品牌打造的首场「AIDONE 线下体验场」在广州圆满收官。草地音乐会、沉浸式 AI 体验、跨界思想沙龙三大板块贯穿两天，吸引了大批科技爱好者到场。
+在这场科技与生活方式的跨界实验中，各大 AI 品牌展现在真实场景中的应用潜力，用户现场互动热烈，机器狗与真狗的「对峙」等名场面不断，成为社交媒体刷屏素材，20 多个品牌合力将 AI 的「算力」变成了每个人可感知的快乐。
+压轴的跨界沙龙带来了一次关于 AI 的思想碰撞。广美叶淑华、华工刘宇波、公益博主项栋梁、算法专家余欣航及蚂蚁健康顾沐五位嘉宾，分别从艺术创作、城市规划、无障碍公益、智慧交通和医疗健康五个维度，探讨「AI 时代人到底要干嘛」的现实议题。
+
+AIDONE 是 APPSO探索 AI 内容从线上延伸至线下的首次尝试。通过汇聚头部 AI 品牌和产品，我们希望让更多人在真实场景中感受 AI 的实用与乐趣。
+
+小米回应「汽车工厂内电池产线起火」
+
+昨天，小米官方发文就网传「小米汽车工厂内电池产线起火」消息明确辟谣。
+官方账号「小米公司发言人」指出，该事件实为 2024 年工厂电池车间设备调试过程中出现的操作偏差，并非电池设计或制造缺陷。
+小米表示，调试期间操作人员在手动模式下误操作，导致 AGV（自动导引车）托运的电池包与设备发生磕碰，电芯受损后短路引发明火。火情规模极小，车间迅速启动应急预案并扑灭，未波及其他生产区域，也未造成人员伤害。
+小米方面强调，旗下车型电池包均按照超高标准开发，包括小米 SU7 与小米 YU7，均符合国家相关标准。
+同时，小米还澄清，网络流传的所谓「事件墙展示」图片，实为 2024 年初设备最初调试阶段的管理看板，相关问题在量产前已全部解决。
+马斯克：特斯拉已部署超百万颗 AI 芯片
+
+昨天，特斯拉 CEO 埃隆・马斯克在社交平台 X 上发布置顶消息，系统性介绍了公司自研 AI 芯片团队的最新进展与战略目标。
+马斯克表示，外界普遍不了解特斯拉在芯片设计上的投入规模，公司多年来一直拥有「先进的 AI 芯片与电路板工程团队」。
+目前，特斯拉已在车辆与数据中心部署数百万颗自研 AI 芯片，这些芯片为自动驾驶与数据处理提供支持，他强调正是这些芯片「让特斯拉成为现实世界 AI 的领导者」。
+在
+                </div>
             </div>
         </article>
         
@@ -1092,24 +2464,161 @@ Claude Opus 4.5 正式推出
         </div>
 
         <footer class="main-footer">
-            <p>更新于: 2025-11-27 07:47 (北京时间)</p>
+            <p>更新于: 2025-11-27 08:00 (北京时间)</p>
             <p><a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2025183710号-1</a></p>
-            <p>&copy; 折疼记</p>
+            <p>© 折疼记</p>
         </footer>
 
+        <!-- 模态框结构 -->
+        <div class="modal-overlay" id="articleModal" onclick="closeModal(event)">
+            <div class="modal-card" onclick="event.stopPropagation()">
+                <div class="modal-header">
+                    <span style="font-weight:bold; color:#0b63b6;">✨ 站内智能阅读</span>
+                    <span class="close-btn" onclick="closeModal()">×</span>
+                </div>
+                <div class="modal-body">
+                    <h1 class="article-title" id="mTitle"></h1>
+                    <div class="article-meta" id="mMeta"></div>
+                    <div class="article-content" id="mContent"></div>
+                    <a href="" target="_blank" id="mLink" class="read-more-btn">查看源站全文 (跳转)</a>
+                </div>
+                
+                <div class="ai-section">
+                    <div class="ai-chat-box" id="aiChatBox">
+                        <div class="ai-msg bot">🤖 你好，我是本文的 AI 助手。你可以问我：<br>- "总结一下这篇文章"<br>- "这事儿对我有什么影响？"</div>
+                    </div>
+                    <div class="ai-input-area">
+                        <input type="text" class="ai-input" id="aiInput" placeholder="问问 AI..." onkeypress="handleEnter(event)">
+                        <button class="ai-send-btn" id="aiBtn" onclick="sendToAI()">发送</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script>
+            // 全局变量存储当前文章内容
+            let currentArticleContext = "";
+
+            // 1. 筛选逻辑
             function filterNews(sourceId, btn) {
                 document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
-                const items = document.querySelectorAll('.news-item');
-                items.forEach(item => {
-                    if (sourceId === 'all' || item.getAttribute('data-source') === sourceId) {
-                        item.style.display = 'flex';
-                    } else {
-                        item.style.display = 'none';
-                    }
+                document.querySelectorAll('.news-item').forEach(item => {
+                    item.style.display = (sourceId === 'all' || item.getAttribute('data-source') === sourceId) ? 'flex' : 'none';
                 });
                 window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+
+            // 2. 打开模态框
+            function openModal(index) {
+                const dataDiv = document.getElementById('data-' + index);
+                const title = dataDiv.getAttribute('data-title');
+                const source = dataDiv.getAttribute('data-source');
+                const date = dataDiv.getAttribute('data-date');
+                const link = dataDiv.getAttribute('data-link');
+                const content = dataDiv.innerText; // 获取隐藏的全文
+
+                document.getElementById('mTitle').innerText = title;
+                document.getElementById('mMeta').innerText = `${source} · ${date}`;
+                
+                // 简单的内容格式化，防止太乱
+                document.getElementById('mContent').innerHTML = content.length > 5 ? content : '<p>暂无详细正文，请使用 AI 分析或查看源站。</p>';
+                
+                document.getElementById('mLink').href = link;
+                
+                // 保存上下文给 AI
+                currentArticleContext = `标题：${title}\n内容：${content.substring(0, 1500)}`; // 限制长度
+
+                // 重置 AI 聊天框
+                const chatBox = document.getElementById('aiChatBox');
+                chatBox.innerHTML = '<div class="ai-msg bot">🤖 针对这篇新闻，你有什么想问的？</div>';
+
+                // 显示动画
+                const overlay = document.getElementById('articleModal');
+                overlay.style.display = 'block';
+                // 强制重绘
+                overlay.offsetHeight; 
+                overlay.classList.add('open');
+                document.body.style.overflow = 'hidden'; // 禁止背景滚动
+            }
+
+            // 3. 关闭模态框
+            function closeModal(e) {
+                const overlay = document.getElementById('articleModal');
+                overlay.classList.remove('open');
+                setTimeout(() => { overlay.style.display = 'none'; }, 300);
+                document.body.style.overflow = '';
+            }
+
+            // 4. AI 逻辑 (使用 Fetch 调用 API)
+            async function sendToAI() {
+                const input = document.getElementById('aiInput');
+                const btn = document.getElementById('aiBtn');
+                const chatBox = document.getElementById('aiChatBox');
+                const question = input.value.trim();
+                
+                if (!question) return;
+
+                // UI 更新
+                input.value = '';
+                input.disabled = true;
+                btn.disabled = true;
+                btn.innerText = '思考中...';
+                
+                chatBox.innerHTML += `<div class="ai-msg user">我: ${question}</div>`;
+                chatBox.scrollTop = chatBox.scrollHeight;
+
+                try {
+                    // --- ⚠️ 这里是调用 AI 的核心 ---
+                    // 由于没有后端，我们只能前端调用。
+                    // 实际使用时，请将下面的 API_KEY 替换为你自己的 DeepSeek 或 OpenAI Key
+                    // 如果你不想暴露 Key，只能用下面的“模拟模式”
+                    
+                    const API_KEY = ""; // 🔴 【请填入你的 API KEY，例如 sk-xxxxx】
+                    const API_URL = "https://api.deepseek.com/chat/completions"; // DeepSeek 地址
+
+                    let aiResponseText = "";
+
+                    if (!API_KEY) {
+                        // 模拟模式 (如果你没填 Key)
+                        await new Promise(r => setTimeout(r, 1000));
+                        aiResponseText = "⚠️ 提示：你需要在 main.py 的 JS 代码中填入 API Key 才能真正调用 AI。\n\n不过我可以模拟回答：根据这篇文章，" + question + " 的核心在于...";
+                    } else {
+                        // 真实调用模式
+                        const response = await fetch(API_URL, {
+                            method: "POST",
+                            headers: {
+                                "Content-Type": "application/json",
+                                "Authorization": `Bearer ${API_KEY}`
+                            },
+                            body: JSON.stringify({
+                                model: "deepseek-chat",
+                                messages: [
+                                    {role: "system", content: "你是一个科技新闻助手。用户会给你一篇文章内容，请根据内容回答用户的问题。回答要简练。如果文章没提到，就说不知道。"},
+                                    {role: "user", content: `文章内容：${currentArticleContext}\n\n用户问题：${question}`}
+                                ],
+                                stream: false
+                            })
+                        });
+                        const data = await response.json();
+                        aiResponseText = data.choices[0].message.content;
+                    }
+
+                    chatBox.innerHTML += `<div class="ai-msg bot">AI: ${aiResponseText}</div>`;
+
+                } catch (err) {
+                    chatBox.innerHTML += `<div class="ai-msg bot" style="color:red">出错啦: ${err.message}</div>`;
+                } finally {
+                    input.disabled = false;
+                    btn.disabled = false;
+                    btn.innerText = '发送';
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                    input.focus();
+                }
+            }
+
+            function handleEnter(e) {
+                if (e.key === 'Enter') sendToAI();
             }
         </script>
     </body>
