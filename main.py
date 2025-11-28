@@ -5,46 +5,34 @@ from bs4 import BeautifulSoup
 import ssl
 import json
 import random
-import concurrent.futures # 引入多线程库，加速抓取
+import concurrent.futures
 import time
 
 # 1. SSL 证书修复
 if hasattr(ssl, '_create_unverified_context'):
     ssl._create_default_https_context = ssl._create_unverified_context
 
-# 2. 配置 RSS 源 (扩容至 20+ 个高质量源)
+# 2. 配置 RSS 源 (精选极度稳定、高质量、无图裂的源)
 feeds = [
-    # --- 综合科技 ---
+    # --- 核心科技新闻 ---
     {"id": "ithome", "name": "IT之家", "url": "https://www.ithome.com/rss/"},
     {"id": "landian", "name": "蓝点网", "url": "https://www.landiannews.com/feed"},
-    {"id": "cnbeta", "name": "cnBeta", "url": "https://www.cnbeta.com.tw/backend.php"},
-    {"id": "solidot", "name": "Solidot", "url": "https://www.solidot.org/index.rss"},
-    {"id": "ifanr", "name": "爱范儿", "url": "https://www.ifanr.com/feed"},
-    
-    # --- 深度与商业 ---
-    {"id": "36kr", "name": "36Kr", "url": "https://36kr.com/feed"},
-    {"id": "huxiu", "name": "虎嗅", "url": "https://www.huxiu.com/rss/0.xml"},
+    {"id": "jiemian", "name": "界面科技", "url": "https://www.jiemian.com/rss/119.xml"},
+    {"id": "pengpai", "name": "澎湃科技", "url": "https://www.thepaper.cn/css/rss_26916.xml"},
     {"id": "pingwest", "name": "品玩", "url": "https://www.pingwest.com/feed/all"},
-    {"id": "jiemian", "name": "界面新闻", "url": "https://www.jiemian.com/rss/119.xml"},
     {"id": "leiphone", "name": "雷峰网", "url": "https://www.leiphone.com/feed"},
-    
-    # --- 软件与极客 ---
+
+    # --- 极客与软件 ---
+    {"id": "solidot", "name": "Solidot", "url": "https://www.solidot.org/index.rss"},
     {"id": "appinn", "name": "小众软件", "url": "https://www.appinn.com/feed/"},
     {"id": "sspai", "name": "少数派", "url": "https://sspai.com/feed"},
     {"id": "v2ex", "name": "V2EX", "url": "https://www.v2ex.com/index.xml"},
-    {"id": "william", "name": "月光博客", "url": "https://www.williamlong.info/rss.xml"},
     {"id": "oschina", "name": "开源中国", "url": "https://www.oschina.net/news/rss"},
 
-    # --- 游戏与生活 ---
+    # --- 游戏与文化 ---
     {"id": "gcores", "name": "机核网", "url": "https://www.gcores.com/rss"},
     {"id": "yystv", "name": "游研社", "url": "https://www.yystv.cn/rss/feed"},
-    {"id": "vgtime", "name": "VGtime", "url": "https://www.vgtime.com/topic/index/load.xml"},
-    {"id": "douban_movie", "name": "豆瓣电影", "url": "https://www.douban.com/feed/movie/review/best"},
-    
-    # --- 开发者 ---
-    {"id": "ruanyifeng", "name": "阮一峰", "url": "http://www.ruanyifeng.com/blog/atom.xml"},
-    {"id": "infoq", "name": "InfoQ", "url": "https://www.infoq.cn/feed"},
-    {"id": "coolapk", "name": "酷安", "url": "https://www.coolapk.com/feed/feed"},
+    {"id": "douban", "name": "豆瓣影评", "url": "https://www.douban.com/feed/movie/review/best"},
 ]
 
 def get_image_from_html(html_content):
@@ -58,7 +46,8 @@ def get_image_from_html(html_content):
             for attr in candidates:
                 url = img.get(attr)
                 if url and url.startswith('http'):
-                    if any(x in url for x in ['emoji', '.gif', 'avatar', 'stat', 'icon', 'button', 'share']):
+                    # 过滤垃圾图
+                    if any(x in url for x in ['emoji', '.gif', 'avatar', 'stat', 'icon', 'button', 'share', 'pixel']):
                         continue
                     return url
     except: return None
@@ -70,23 +59,20 @@ def process_image_url(original_url):
     original_url = original_url.strip()
     if not original_url.startswith('http'): return None
     encoded_url = urllib.parse.quote(original_url)
-    return f"https://wsrv.nl/?url={encoded_url}&w=240&h=180&fit=cover&output=webp&q=80"
+    return f"https://wsrv.nl/?url={encoded_url}&w=280&h=200&fit=cover&output=webp&q=85"
 
 def clean_text(html):
     """ 清洗 HTML 获取纯文本 """
     if not html: return ""
     return BeautifulSoup(html, 'html.parser').get_text().strip()
 
-# 单个 Feed 抓取函数 (用于多线程)
 def fetch_feed(feed):
     feed_articles = []
     try:
-        # print(f"正在读取: {feed['name']}...") # 多线程下print会乱，注释掉
         f = feedparser.parse(feed["url"])
-        
         if not f.entries: return []
 
-        # 抓取量提升到 30 条/每源
+        # 每个源抓取 30 条
         for entry in f.entries[:30]: 
             content_html = ""
             if hasattr(entry, 'content'): content_html = entry.content[0].value
@@ -96,30 +82,28 @@ def fetch_feed(feed):
             raw_img = get_image_from_html(content_html)
             final_img = process_image_url(raw_img)
             
-            # 强过滤：无图不要
+            # 严格模式：无图跳过
             if not final_img: continue
 
             soup_text = clean_text(content_html)
-            summary_short = soup_text[:80] + "..." if soup_text else entry.title
-            full_content_for_ai = soup_text[:3000]
+            summary_short = soup_text[:85] + "..." if soup_text else entry.title
+            full_content_for_ai = soup_text[:3500]
 
             try:
-                # 统一时间处理
                 if hasattr(entry, 'published_parsed') and entry.published_parsed:
+                    ts = datetime.datetime(*entry.published_parsed[:6]).timestamp()
                     dt = datetime.datetime(*entry.published_parsed[:6])
                     pub_time = (dt + datetime.timedelta(hours=8)).strftime("%m-%d %H:%M")
-                    # 生成用于排序的时间戳
-                    ts = datetime.datetime(*entry.published_parsed[:6]).timestamp()
                 elif hasattr(entry, 'updated_parsed') and entry.updated_parsed:
+                    ts = datetime.datetime(*entry.updated_parsed[:6]).timestamp()
                     dt = datetime.datetime(*entry.updated_parsed[:6])
                     pub_time = (dt + datetime.timedelta(hours=8)).strftime("%m-%d %H:%M")
-                    ts = datetime.datetime(*entry.updated_parsed[:6]).timestamp()
                 else:
-                    pub_time = "最新"
                     ts = datetime.datetime.now().timestamp()
+                    pub_time = "最新"
             except:
-                pub_time = "最新"
                 ts = datetime.datetime.now().timestamp()
+                pub_time = "最新"
 
             feed_articles.append({
                 "title": entry.title,
@@ -133,63 +117,46 @@ def fetch_feed(feed):
                 "timestamp": ts
             })
     except Exception as e:
-        print(f"Error fetching {feed['name']}: {e}")
+        print(f"Error: {e}")
         return []
-    
     return feed_articles
 
 def generate_html():
     articles = []
     feedparser.USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 
-    print(f"开始并行抓取 {len(feeds)} 个源...")
-    start_time = time.time()
-
-    # 使用多线程并行抓取，最大 10 个线程
+    print(f"开始并行抓取 {len(feeds)} 个精选源...")
+    
     with concurrent.futures.ThreadPoolExecutor(max_workers=10) as executor:
-        # 提交所有任务
         future_to_feed = {executor.submit(fetch_feed, feed): feed for feed in feeds}
-        
         for future in concurrent.futures.as_completed(future_to_feed):
-            feed = future_to_feed[future]
             try:
                 data = future.result()
                 articles.extend(data)
-                print(f"  - {feed['name']} 抓取完成，获 {len(data)} 条")
-            except Exception as exc:
-                print(f"  - {feed['name']} 生成异常: {exc}")
+            except Exception: pass
 
-    print(f"抓取耗时: {time.time() - start_time:.2f} 秒")
-    
-    # 全局按时间倒序
+    # 排序与去重
     articles.sort(key=lambda x: x["timestamp"], reverse=True)
-    
-    print(f"去重前文章数: {len(articles)}")
-    # 简单去重 (按标题)
     unique_articles = []
-    seen_titles = set()
+    seen = set()
     for art in articles:
-        if art['title'] not in seen_titles:
+        if art['title'] not in seen:
             unique_articles.append(art)
-            seen_titles.add(art['title'])
+            seen.add(art['title'])
     articles = unique_articles
-    print(f"最终有效文章数: {len(articles)}")
 
     news_list_html = ""
     for index, art in enumerate(articles):
-        safe_content = json.dumps(art['full_content']).replace('"', '&quot;')
-        
+        # 隐藏 Class 用于分页
+        hidden_class = "" if index < 20 else "news-item-hidden"
+        display_style = "flex" if index < 20 else "none"
+
         img_html = f'''
         <div class="item-img">
-            <img src="{art["image"]}" loading="lazy" alt="封面" 
+            <img src="{art["image"]}" loading="lazy" alt="{art['title']}" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         '''
-
-        # 注意：这里增加了一个 class 'news-item-hidden' 用于前端分页
-        # 默认前 20 条显示，后面的加上 hidden class
-        hidden_class = "" if index < 20 else "news-item-hidden"
-        display_style = "flex" if index < 20 else "none"
 
         news_list_html += f"""
         <article class="news-item {hidden_class}" style="display:{display_style};" data-source="{art['source_id']}" onclick="openModal({index})">
@@ -197,10 +164,11 @@ def generate_html():
             <div class="item-content">
                 <h2 class="item-title">{art['title']}</h2>
                 <div class="item-meta">
-                    <span class="meta-tag tag-blue">{art['source']}</span>
+                    <span class="source-badge">{art['source']}</span>
                     <span class="meta-date">{art['date']}</span>
                 </div>
                 <p class="item-summary">{art['summary']}</p>
+                <!-- Hidden Data -->
                 <div id="data-{index}" style="display:none;" 
                      data-title="{art['title']}" 
                      data-link="{art['link']}"
@@ -212,14 +180,12 @@ def generate_html():
         </article>
         """
     
-    # 生成 Tabs (包含全部)
     tabs_html = '<button class="nav-btn active" onclick="filterNews(\'all\', this)">全部</button>'
-    # 提取所有不重复的 source_id 和 name
-    seen_sources = set()
+    seen_ids = set()
     for feed in feeds:
-        if feed['id'] not in seen_sources:
+        if feed['id'] not in seen_ids:
             tabs_html += f'<button class="nav-btn" onclick="filterNews(\'{feed["id"]}\', this)">{feed["name"]}</button>'
-            seen_sources.add(feed['id'])
+            seen_ids.add(feed['id'])
 
     utc_now = datetime.datetime.utcnow()
     beijing_now = utc_now + datetime.timedelta(hours=8)
@@ -233,86 +199,230 @@ def generate_html():
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
         <meta name="referrer" content="no-referrer">
+        <meta name="theme-color" content="#0b63b6">
         <title>折疼记 - 聚合资讯</title>
         <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
         <style>
-            :root {{ --cb-blue: #0b63b6; --bg-gray: #f2f2f2; --white: #fff; --text: #333; }}
-            * {{ box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }}
-            body {{ font-family: -apple-system, BlinkMacSystemFont, "Microsoft YaHei", sans-serif; background: var(--bg-gray); margin: 0; color: var(--text); display: flex; flex-direction: column; min-height: 100vh; }}
+            :root {{ 
+                --primary: #0b63b6; 
+                --primary-soft: rgba(11, 99, 182, 0.08);
+                --bg-body: #f7f9fc; 
+                --bg-card: #ffffff; 
+                --text-main: #2c3e50; 
+                --text-sub: #7f8c8d;
+                --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
+                --shadow-hover: 0 8px 24px rgba(0,0,0,0.08);
+                --radius-lg: 12px;
+                --radius-sm: 6px;
+            }}
             
-            header {{ background: var(--cb-blue); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }}
-            .header-inner {{ max-width: 800px; margin: 0 auto; height: 56px; display: flex; align-items: center; padding: 0 15px; }}
-            .logo {{ color: #fff; font-size: 18px; font-weight: 800; margin-right: 20px; white-space: nowrap; }}
-            .nav-scroll {{ flex: 1; overflow-x: auto; white-space: nowrap; display: flex; scrollbar-width: none; }}
-            .nav-btn {{ background: none; border: none; color: rgba(255,255,255,0.7); font-size: 14px; padding: 0 12px; height: 56px; transition: color 0.2s; cursor: pointer; }}
-            .nav-btn.active {{ color: #fff; font-weight: bold; border-bottom: 3px solid #fff; }}
+            * {{ box-sizing: border-box; -webkit-tap-highlight-color: transparent; }}
+            body {{ 
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+                background-color: var(--bg-body);
+                margin: 0; 
+                color: var(--text-main); 
+                display: flex; flex-direction: column; min-height: 100vh;
+            }}
             
-            .container {{ max-width: 800px; margin: 20px auto; padding: 0 15px; width: 100%; flex: 1; }}
-            .news-item {{ background: var(--white); margin-bottom: 15px; padding: 15px; display: flex; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); cursor: pointer; transition: background 0.2s; }}
-            .news-item:active {{ background: #f9f9f9; }}
+            /* --- 顶部导航 (毛玻璃) --- */
+            header {{ 
+                background: rgba(255, 255, 255, 0.85);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                position: sticky; top: 0; z-index: 100; 
+                box-shadow: var(--shadow-sm);
+                border-bottom: 1px solid rgba(0,0,0,0.05);
+            }}
+            .header-inner {{ 
+                max-width: 860px; margin: 0 auto; height: 60px; 
+                display: flex; align-items: center; padding: 0 16px; 
+            }}
+            .logo {{ 
+                color: var(--primary); font-size: 20px; font-weight: 800; 
+                margin-right: 24px; white-space: nowrap; letter-spacing: -0.5px;
+            }}
             
-            .item-img {{ width: 110px; height: 80px; flex-shrink: 0; margin-right: 15px; background: #eee; border-radius: 4px; overflow: hidden; }}
-            .item-img img {{ width: 100%; height: 100%; object-fit: cover; }}
+            .nav-scroll {{ 
+                flex: 1; overflow-x: auto; white-space: nowrap; display: flex; 
+                scrollbar-width: none; mask-image: linear-gradient(to right, transparent, black 10px, black 90%, transparent);
+            }}
+            .nav-scroll::-webkit-scrollbar {{ display: none; }}
+            .nav-btn {{ 
+                background: none; border: none; color: var(--text-sub); 
+                font-size: 15px; padding: 0 16px; height: 60px; 
+                cursor: pointer; transition: all 0.2s; font-weight: 500;
+            }}
+            .nav-btn:hover {{ color: var(--primary); }}
+            .nav-btn.active {{ 
+                color: var(--primary); font-weight: 700; 
+                position: relative; 
+            }}
+            .nav-btn.active::after {{
+                content: ''; position: absolute; bottom: 0; left: 16px; right: 16px;
+                height: 3px; background: var(--primary); border-radius: 3px 3px 0 0;
+            }}
             
-            .item-content {{ flex: 1; display: flex; flex-direction: column; justify-content: space-between; }}
-            .item-title {{ margin: 0 0 6px 0; font-size: 16px; font-weight: bold; line-height: 1.4; color: #222; }}
-            .item-meta {{ font-size: 12px; color: #999; display: flex; align-items: center; margin-bottom: 6px; }}
-            .tag-blue {{ color: var(--cb-blue); margin-right: 10px; background: rgba(11,99,182,0.1); padding: 1px 4px; border-radius: 2px; }}
-            .item-summary {{ font-size: 13px; color: #666; line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }}
+            /* --- 主内容区 --- */
+            .container {{ 
+                max-width: 860px; margin: 24px auto; padding: 0 16px; 
+                flex: 1; width: 100%; 
+            }}
+            
+            .news-item {{ 
+                background: var(--bg-card); 
+                margin-bottom: 20px; 
+                padding: 16px; 
+                display: flex; 
+                border-radius: var(--radius-lg); 
+                box-shadow: var(--shadow-sm); 
+                border: 1px solid rgba(0,0,0,0.02);
+                cursor: pointer; 
+                transition: transform 0.2s, box-shadow 0.2s;
+            }}
+            .news-item:hover {{ 
+                transform: translateY(-2px); 
+                box-shadow: var(--shadow-hover); 
+            }}
+            .news-item:active {{ transform: scale(0.99); }}
+            
+            .item-img {{ 
+                width: 140px; height: 105px; flex-shrink: 0; margin-right: 20px; 
+                background: #f0f2f5; border-radius: var(--radius-sm); overflow: hidden; 
+            }}
+            .item-img img {{ 
+                width: 100%; height: 100%; object-fit: cover; 
+                transition: transform 0.5s ease;
+            }}
+            .news-item:hover .item-img img {{ transform: scale(1.06); }}
+            
+            .item-content {{ flex: 1; display: flex; flex-direction: column; justify-content: space-between; py: 2px; }}
+            .item-title {{ 
+                margin: 0 0 8px 0; font-size: 18px; font-weight: 700; 
+                line-height: 1.45; color: var(--text-main); 
+                display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+            }}
+            .item-meta {{ font-size: 13px; color: var(--text-sub); display: flex; align-items: center; }}
+            .source-badge {{ 
+                color: var(--primary); background: var(--primary-soft);
+                padding: 2px 8px; border-radius: 4px; font-weight: 600; margin-right: 12px;
+            }}
+            .item-summary {{ 
+                font-size: 14px; color: #666; line-height: 1.6; margin: 8px 0 0 0;
+                display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+            }}
 
-            /* 加载更多提示 */
-            .load-more-status {{ text-align: center; color: #999; font-size: 13px; padding: 20px; }}
+            .load-more-status {{ 
+                text-align: center; color: var(--text-sub); 
+                font-size: 14px; padding: 30px; 
+                display: flex; align-items: center; justify-content: center; gap: 10px;
+            }}
 
-            .main-footer {{ text-align: center; padding: 30px 0; color: #ccc; font-size: 12px; background: #fff; margin-top: 20px; }}
-            .main-footer a {{ color: #ccc; text-decoration: none; }}
+            .main-footer {{ 
+                text-align: center; padding: 40px 0; color: #b0b0b0; 
+                font-size: 13px; background: #fff; margin-top: 40px; border-top: 1px solid #eee;
+            }}
+            .main-footer a {{ color: #b0b0b0; text-decoration: none; }}
 
-            /* 模态框 */
-            .modal-overlay {{ position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: none; opacity: 0; transition: opacity 0.3s; }}
+            /* --- 移动端适配 --- */
+            @media (max-width: 768px) {{
+                .item-img {{ width: 110px; height: 80px; margin-right: 12px; }}
+                .item-title {{ font-size: 16px; margin-bottom: 4px; }}
+                .item-summary {{ display: none; }}
+                .news-item {{ padding: 12px; margin-bottom: 12px; border-radius: 10px; }}
+                .container {{ margin: 15px auto; }}
+            }}
+
+            /* --- 模态框 (阅读器) --- */
+            .modal-overlay {{ 
+                position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+                background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
+                z-index: 2000; display: none; opacity: 0; transition: opacity 0.3s; 
+            }}
             .modal-overlay.open {{ display: block; opacity: 1; }}
+            
             .modal-card {{ 
-                position: fixed; bottom: 0; left: 0; width: 100%; height: 92vh; 
-                background: #fff; border-radius: 16px 16px 0 0; 
-                transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+                position: fixed; bottom: 0; left: 0; width: 100%; height: 95vh; 
+                background: #fff; border-radius: 20px 20px 0 0; 
+                transform: translateY(100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
                 z-index: 2001; display: flex; flex-direction: column;
-                box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+                box-shadow: 0 -10px 40px rgba(0,0,0,0.2);
             }}
             .modal-overlay.open .modal-card {{ transform: translateY(0); }}
+            
             @media (min-width: 769px) {{
                 .modal-card {{ 
-                    width: 700px; height: 85vh; left: 50%; top: 50%; bottom: auto;
-                    transform: translate(-50%, -40%) scale(0.95); opacity: 0; border-radius: 12px; 
+                    width: 720px; height: 90vh; left: 50%; top: 50%; bottom: auto;
+                    transform: translate(-50%, -45%) scale(0.95); opacity: 0; 
+                    border-radius: 16px; 
                 }}
                 .modal-overlay.open .modal-card {{ transform: translate(-50%, -50%) scale(1); opacity: 1; }}
             }}
             
-            .modal-header {{ padding: 15px 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; background: #fff; border-radius: 16px 16px 0 0; flex-shrink: 0; }}
-            .close-btn {{ font-size: 28px; color: #999; cursor: pointer; line-height: 1; }}
-            .modal-scroll-area {{ flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 0; }}
-            .modal-body {{ padding: 20px; }}
-
-            .article-title {{ font-size: 22px; font-weight: bold; margin-bottom: 10px; color: #222; }}
-            .article-meta {{ color: #999; font-size: 13px; margin-bottom: 20px; }}
-            .article-content {{ font-size: 16px; line-height: 1.8; color: #333; }}
-            .read-more-btn {{ display: block; width: 100%; text-align: center; background: #f5f5f5; color: #666; padding: 12px; margin-top: 30px; border-radius: 8px; text-decoration: none; font-size: 14px; }}
+            .modal-header {{ 
+                padding: 0 24px; height: 60px; border-bottom: 1px solid #eee; 
+                display: flex; justify-content: space-between; align-items: center; 
+                background: #fff; border-radius: 20px 20px 0 0; flex-shrink: 0;
+            }}
+            .close-btn {{ 
+                width: 32px; height: 32px; border-radius: 50%; background: #f2f2f2; 
+                display: flex; align-items: center; justify-content: center;
+                font-size: 20px; color: #666; cursor: pointer; transition: background 0.2s;
+            }}
+            .close-btn:hover {{ background: #e0e0e0; }}
             
-            .ai-section {{ border-top: 10px solid #f2f2f2; background: #fff; padding: 20px; }}
-            .ai-title {{ font-size: 14px; font-weight: bold; color: var(--cb-blue); margin-bottom: 10px; display: flex; align-items: center; }}
-            .ai-title span {{ margin-left: 5px; color: #666; font-weight: normal; font-size: 12px; }}
-            .ai-chat-box {{ height: 160px; overflow-y: auto; background: #f9f9f9; border: 1px solid #eee; border-radius: 8px; padding: 12px; margin-bottom: 10px; font-size: 14px; }}
-            .ai-msg {{ margin-bottom: 10px; line-height: 1.5; word-wrap: break-word; }}
-            .ai-msg.user {{ color: #fff; background: var(--cb-blue); padding: 8px 12px; border-radius: 12px 12px 0 12px; float: right; clear: both; max-width: 85%; }}
-            .ai-msg.bot {{ color: #333; background: #fff; border: 1px solid #eee; padding: 8px 12px; border-radius: 12px 12px 12px 0; float: left; clear: both; max-width: 90%; }}
-            .ai-msg::after {{ content: ""; display: table; clear: both; }}
-            .ai-input-area {{ display: flex; position: relative; }}
-            .ai-input {{ flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 20px; font-size: 14px; padding-right: 70px; outline: none; transition: border 0.3s; }}
-            .ai-input:focus {{ border-color: var(--cb-blue); }}
-            .ai-send-btn {{ position: absolute; right: 4px; top: 4px; bottom: 4px; background: var(--cb-blue); color: #fff; border: none; padding: 0 15px; border-radius: 16px; cursor: pointer; font-size: 13px; }}
-            .ai-send-btn:disabled {{ background: #ccc; }}
+            .modal-scroll-area {{ flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }}
+            .modal-body {{ padding: 30px; max-width: 680px; margin: 0 auto; }}
 
-            .comment-section {{ border-top: 10px solid #f2f2f2; background: #fff; padding: 20px; }}
-            .comment-title {{ font-size: 16px; font-weight: bold; color: #333; margin-bottom: 15px; border-left: 4px solid var(--cb-blue); padding-left: 10px; }}
-            #vcomments .vwrap {{ border: 1px solid #eee; border-radius: 8px; }}
-            #vcomments .vbtn {{ color: #fff; background: var(--cb-blue); border-color: var(--cb-blue); }}
+            .article-title {{ font-size: 26px; font-weight: 800; margin-bottom: 12px; color: #111; line-height: 1.3; }}
+            .article-meta {{ color: #999; font-size: 14px; margin-bottom: 30px; display: flex; align-items: center; gap: 10px; }}
+            .article-content {{ font-size: 17px; line-height: 1.85; color: #333; }}
+            .read-more-btn {{ 
+                display: block; width: 100%; text-align: center; 
+                background: var(--primary-soft); color: var(--primary); font-weight: 600;
+                padding: 14px; margin-top: 40px; border-radius: 10px; 
+                text-decoration: none; font-size: 15px; transition: opacity 0.2s;
+            }}
+            .read-more-btn:hover {{ opacity: 0.8; }}
+            
+            /* --- AI & 评论 --- */
+            .ai-section, .comment-section {{ 
+                border-top: 1px solid #f0f0f0; background: #fafafa; padding: 24px 30px; 
+            }}
+            .ai-title, .comment-title {{ 
+                font-size: 15px; font-weight: 700; color: var(--text-main); 
+                margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+            }}
+            
+            .ai-chat-box {{ 
+                height: 200px; overflow-y: auto; background: #fff; 
+                border: 1px solid #eee; border-radius: 12px; padding: 16px; 
+                margin-bottom: 12px; font-size: 14px; box-shadow: inset 0 2px 6px rgba(0,0,0,0.02);
+            }}
+            .ai-msg {{ margin-bottom: 12px; line-height: 1.6; word-wrap: break-word; }}
+            .ai-msg.user {{ 
+                color: #fff; background: var(--primary); padding: 8px 14px; 
+                border-radius: 14px 14px 2px 14px; float: right; clear: both; max-width: 85%; 
+            }}
+            .ai-msg.bot {{ 
+                color: #333; background: #f2f4f7; padding: 8px 14px; 
+                border-radius: 14px 14px 14px 2px; float: left; clear: both; max-width: 90%; 
+            }}
+            .ai-msg::after {{ content: ""; display: table; clear: both; }}
+            
+            .ai-input-area {{ display: flex; position: relative; }}
+            .ai-input {{ 
+                flex: 1; padding: 12px 16px; border: 1px solid #ddd; 
+                border-radius: 24px; font-size: 14px; padding-right: 80px; 
+                outline: none; transition: border 0.2s, box-shadow 0.2s;
+            }}
+            .ai-input:focus {{ border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft); }}
+            .ai-send-btn {{ 
+                position: absolute; right: 6px; top: 5px; bottom: 5px; 
+                background: var(--primary); color: #fff; border: none; 
+                padding: 0 16px; border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: 600;
+            }}
+            .ai-send-btn:disabled {{ background: #ccc; }}
         </style>
     </head>
     <body>
@@ -329,38 +439,43 @@ def generate_html():
             <main id="newsContainer">
                 {news_list_html}
             </main>
-            <div id="loadStatus" class="load-more-status">下拉加载更多...</div>
+            <div id="loadStatus" class="load-more-status">
+                <span style="opacity:0.6">正在加载更多内容...</span>
+            </div>
         </div>
 
         <footer class="main-footer">
-            <p>文章总数: {len(articles)} | 更新于: {update_time} (北京时间)</p>
+            <p>文章总数: {len(articles)} | 更新于: {update_time}</p>
             <p><a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2025183710号-1</a></p>
-            <p>© 折疼记</p>
+            <p>&copy; 折疼记</p>
         </footer>
 
         <div class="modal-overlay" id="articleModal" onclick="closeModal(event)">
             <div class="modal-card" onclick="event.stopPropagation()">
                 <div class="modal-header">
-                    <span style="font-weight:bold; color:#0b63b6;">✨ 资讯详情</span>
-                    <span class="close-btn" onclick="closeModal()">×</span>
+                    <span style="font-weight:700; color:var(--primary); font-size:16px;">✨ 沉浸阅读</span>
+                    <div class="close-btn" onclick="closeModal()">×</div>
                 </div>
+                
                 <div class="modal-scroll-area">
                     <div class="modal-body">
                         <h1 class="article-title" id="mTitle"></h1>
                         <div class="article-meta" id="mMeta"></div>
                         <div class="article-content" id="mContent"></div>
-                        <a href="" target="_blank" id="mLink" class="read-more-btn">🔗 跳转至源网站查看全文</a>
+                        <a href="" target="_blank" id="mLink" class="read-more-btn">🔗 访问源站阅读全文</a>
                     </div>
+                    
                     <div class="ai-section">
-                        <div class="ai-title">🤖 AI 助手 <span>(已联网)</span></div>
+                        <div class="ai-title">🧠 AI 深度搜索 <span>(已联网)</span></div>
                         <div class="ai-chat-box" id="aiChatBox"></div>
                         <div class="ai-input-area">
-                            <input type="text" class="ai-input" id="aiInput" placeholder="输入问题..." onkeypress="handleEnter(event)">
+                            <input type="text" class="ai-input" id="aiInput" placeholder="对此有疑问？问问 AI..." onkeypress="handleEnter(event)">
                             <button class="ai-send-btn" id="aiBtn" onclick="sendToAI()">发送</button>
                         </div>
                     </div>
+
                     <div class="comment-section">
-                        <div class="comment-title">💬 网友留言</div>
+                        <div class="comment-title">💬 评论区</div>
                         <div id="vcomments"></div>
                     </div>
                 </div>
@@ -374,13 +489,11 @@ def generate_html():
             const API_URL = "https://api.deepseek.com/chat/completions";
 
             // --- 无限滚动逻辑 ---
-            const PAGE_SIZE = 20; // 每次加载20条
-            let visibleCount = 20; // 当前显示数量
+            const PAGE_SIZE = 20; 
+            let visibleCount = 20; 
 
-            // 监听滚动
             window.addEventListener('scroll', () => {{
-                // 如果滚动到距离底部 300px 以内
-                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 300) {{
+                if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {{
                     loadMore();
                 }}
             }});
@@ -391,23 +504,21 @@ def generate_html():
                 
                 for (let i = 0; i < allItems.length; i++) {{
                     const item = allItems[i];
-                    // 只处理当前筛选下的、且当前是隐藏状态的元素
                     if (item.classList.contains('news-item-hidden')) {{
-                        // 如果在当前筛选范围内
                         if (currentFilter === 'all' || item.getAttribute('data-source') === currentFilter) {{
                             item.style.display = 'flex';
                             item.classList.remove('news-item-hidden');
                             newlyShown++;
-                            if (newlyShown >= PAGE_SIZE) break; // 每次只多放出来 PAGE_SIZE 条
+                            if (newlyShown >= PAGE_SIZE) break;
                         }}
                     }}
                 }}
 
                 const statusDiv = document.getElementById('loadStatus');
                 if (newlyShown === 0) {{
-                    statusDiv.innerText = "--- 我是有底线的 (内容已全部加载) ---";
+                    statusDiv.innerHTML = "🎉 内容已全部加载完毕";
                 }} else {{
-                    statusDiv.innerText = "下拉加载更多...";
+                    statusDiv.innerHTML = "⏳ 正在加载更多...";
                 }}
             }}
 
@@ -416,14 +527,12 @@ def generate_html():
                 document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 
-                // 重置可见性
                 const items = document.querySelectorAll('.news-item');
                 let shownCount = 0;
                 
                 items.forEach(item => {{
                     const match = (sourceId === 'all' || item.getAttribute('data-source') === sourceId);
                     if (match) {{
-                        // 重新应用分页逻辑：前20条显示，后面的隐藏
                         if (shownCount < PAGE_SIZE) {{
                             item.style.display = 'flex';
                             item.classList.remove('news-item-hidden');
@@ -434,13 +543,11 @@ def generate_html():
                         shownCount++;
                     }} else {{
                         item.style.display = 'none';
-                        // 不符合条件的也标记为 hidden，以防逻辑混乱
                         item.classList.add('news-item-hidden');
                     }}
                 }});
                 
-                // 重置加载提示
-                document.getElementById('loadStatus').innerText = "下拉加载更多...";
+                document.getElementById('loadStatus').innerHTML = "⏳ 正在加载更多...";
                 window.scrollTo({{ top: 0, behavior: 'smooth' }});
             }}
 
@@ -455,21 +562,21 @@ def generate_html():
                 const content = dataDiv.innerText.trim();
 
                 document.getElementById('mTitle').innerText = title;
-                document.getElementById('mMeta').innerText = `${{source}} · ${{date}}`;
+                document.getElementById('mMeta').innerHTML = `<span class='source-badge'>${{source}}</span> ${{date}}`;
                 document.getElementById('mContent').innerHTML = content.length > 5 ? content : '<p>暂无详细摘要，请让 AI 进行分析。</p>';
                 document.getElementById('mLink').href = link;
                 
-                currentArticleContext = `【当前阅读文章】\\n标题：${{title}}\\n内容摘要：${{content.substring(0, 2000)}}`;
+                currentArticleContext = `【文章】${{title}}\\n${{content.substring(0, 2000)}}`;
 
                 const chatBox = document.getElementById('aiChatBox');
-                chatBox.innerHTML = '<div class="ai-msg bot">💡 你好！我是 AI 助手，有什么可以帮你的？</div>';
+                chatBox.innerHTML = '<div class="ai-msg bot">💡 你好！我是 AI 助手。你可以问我关于这篇文章的问题，也可以问任何其他问题。</div>';
 
                 document.getElementById('vcomments').innerHTML = ''; 
                 new Valine({{
                     el: '#vcomments',
                     appId: 'DZ02oi5Bbo1wRzqukVZFcSZt-MdYXbMMI',
                     appKey: '7nqxYp6qhm48DoFB7eIgJyBi',
-                    placeholder: '既然来了，就说两句吧...',
+                    placeholder: '发表友善的评论...',
                     avatar: 'monsterid',
                     path: title, 
                     visitor: true
