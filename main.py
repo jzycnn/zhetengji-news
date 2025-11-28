@@ -47,7 +47,7 @@ def process_image_url(original_url):
     return f"https://wsrv.nl/?url={encoded_url}&w=240&h=180&fit=cover&output=webp&q=80"
 
 def clean_text(html):
-    """ 清洗 HTML 获取纯文本，用于 AI 上下文 """
+    """ 清洗 HTML 获取纯文本 """
     if not html: return ""
     return BeautifulSoup(html, 'html.parser').get_text().strip()
 
@@ -62,7 +62,6 @@ def generate_html():
             print(f"正在读取: {feed['name']}...")
             f = feedparser.parse(feed["url"])
             
-            # 抓取前20条
             for entry in f.entries[:20]: 
                 content_html = ""
                 if hasattr(entry, 'content'): content_html = entry.content[0].value
@@ -72,13 +71,12 @@ def generate_html():
                 raw_img = get_image_from_html(content_html)
                 final_img = process_image_url(raw_img)
                 
-                # 强过滤：无图不要
                 if not final_img: continue
 
-                # 获取摘要和全文(用于AI)
                 soup_text = clean_text(content_html)
                 summary_short = soup_text[:90] + "..." if soup_text else entry.title
-                full_content_for_ai = soup_text[:2500] # 限制 Token 长度
+                # 增加上下文长度，让 AI 更懂文章
+                full_content_for_ai = soup_text[:3000]
 
                 try:
                     if hasattr(entry, 'published_parsed') and entry.published_parsed:
@@ -108,7 +106,7 @@ def generate_html():
 
     news_list_html = ""
     for index, art in enumerate(articles):
-        # 安全处理全文内容，防止引号破坏 HTML 结构
+        # JSON 安全处理
         safe_content = json.dumps(art['full_content']).replace('"', '&quot;')
         
         img_html = f'''
@@ -128,7 +126,6 @@ def generate_html():
                     <span class="meta-date">{art['date']}</span>
                 </div>
                 <p class="item-summary">{art['summary']}</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
                 <div id="data-{index}" style="display:none;" 
                      data-title="{art['title']}" 
                      data-link="{art['link']}"
@@ -156,7 +153,7 @@ def generate_html():
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
         <meta name="referrer" content="no-referrer">
-        <title>折疼记 - AI 驱动的资讯站</title>
+        <title>折疼记 - AI 资讯站</title>
         <style>
             :root {{ --cb-blue: #0b63b6; --bg-gray: #f2f2f2; --white: #fff; --text: #333; }}
             * {{ box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }}
@@ -186,11 +183,11 @@ def generate_html():
             .main-footer {{ text-align: center; padding: 30px 0; color: #ccc; font-size: 12px; background: #fff; margin-top: 20px; }}
             .main-footer a {{ color: #ccc; text-decoration: none; }}
 
-            /* 模态框样式 */
+            /* 模态框 */
             .modal-overlay {{ position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: none; opacity: 0; transition: opacity 0.3s; }}
             .modal-overlay.open {{ display: block; opacity: 1; }}
             .modal-card {{ 
-                position: fixed; bottom: 0; left: 0; width: 100%; height: 90vh; 
+                position: fixed; bottom: 0; left: 0; width: 100%; height: 92vh; 
                 background: #fff; border-radius: 16px 16px 0 0; 
                 transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
                 z-index: 2001; display: flex; flex-direction: column;
@@ -204,23 +201,32 @@ def generate_html():
                 }}
                 .modal-overlay.open .modal-card {{ transform: translate(-50%, -50%) scale(1); opacity: 1; }}
             }}
+            
             .modal-header {{ padding: 15px 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; background: #fff; border-radius: 16px 16px 0 0; }}
-            .close-btn {{ font-size: 24px; color: #999; cursor: pointer; padding: 0 10px; }}
+            .close-btn {{ font-size: 28px; color: #999; cursor: pointer; line-height: 1; }}
+            
             .modal-body {{ flex: 1; overflow-y: auto; padding: 20px; -webkit-overflow-scrolling: touch; }}
             .article-title {{ font-size: 22px; font-weight: bold; margin-bottom: 10px; color: #222; }}
             .article-meta {{ color: #999; font-size: 13px; margin-bottom: 20px; }}
             .article-content {{ font-size: 16px; line-height: 1.8; color: #333; }}
             .read-more-btn {{ display: block; width: 100%; text-align: center; background: #f5f5f5; color: #666; padding: 12px; margin-top: 30px; border-radius: 8px; text-decoration: none; font-size: 14px; }}
             
-            /* AI 区域 */
+            /* AI 区域优化 */
             .ai-section {{ border-top: 1px solid #eee; background: #fcfcfc; padding: 15px; display: flex; flex-direction: column; }}
-            .ai-chat-box {{ height: 180px; overflow-y: auto; background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 10px; margin-bottom: 10px; font-size: 14px; }}
-            .ai-msg {{ margin-bottom: 8px; line-height: 1.5; }}
-            .ai-msg.user {{ color: var(--cb-blue); font-weight: bold; text-align: right; }}
-            .ai-msg.bot {{ color: #333; text-align: left; background: #f2f2f2; padding: 8px; border-radius: 6px; display: inline-block; max-width: 90%; }}
-            .ai-input-area {{ display: flex; }}
-            .ai-input {{ flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }}
-            .ai-send-btn {{ margin-left: 10px; background: var(--cb-blue); color: #fff; border: none; padding: 0 15px; border-radius: 6px; cursor: pointer; }}
+            .ai-title {{ font-size: 14px; font-weight: bold; color: var(--cb-blue); margin-bottom: 10px; display: flex; align-items: center; }}
+            .ai-title span {{ margin-left: 5px; color: #666; font-weight: normal; font-size: 12px; }}
+            
+            .ai-chat-box {{ height: 160px; overflow-y: auto; background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 12px; margin-bottom: 10px; font-size: 14px; }}
+            .ai-msg {{ margin-bottom: 10px; line-height: 1.5; word-wrap: break-word; }}
+            .ai-msg.user {{ color: #fff; background: var(--cb-blue); padding: 8px 12px; border-radius: 12px 12px 0 12px; float: right; clear: both; max-width: 85%; }}
+            .ai-msg.bot {{ color: #333; background: #f2f2f2; padding: 8px 12px; border-radius: 12px 12px 12px 0; float: left; clear: both; max-width: 90%; }}
+            /* 清除浮动 */
+            .ai-msg::after {{ content: ""; display: table; clear: both; }}
+
+            .ai-input-area {{ display: flex; position: relative; }}
+            .ai-input {{ flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 20px; font-size: 14px; padding-right: 70px; outline: none; transition: border 0.3s; }}
+            .ai-input:focus {{ border-color: var(--cb-blue); }}
+            .ai-send-btn {{ position: absolute; right: 4px; top: 4px; bottom: 4px; background: var(--cb-blue); color: #fff; border: none; padding: 0 15px; border-radius: 16px; cursor: pointer; font-size: 13px; }}
             .ai-send-btn:disabled {{ background: #ccc; }}
         </style>
     </head>
@@ -256,15 +262,16 @@ def generate_html():
                     <h1 class="article-title" id="mTitle"></h1>
                     <div class="article-meta" id="mMeta"></div>
                     <div class="article-content" id="mContent"></div>
-                    <a href="" target="_blank" id="mLink" class="read-more-btn">查看源站全文 (跳转)</a>
+                    <a href="" target="_blank" id="mLink" class="read-more-btn">🔗 跳转至源网站查看全文</a>
                 </div>
                 
                 <div class="ai-section">
+                    <div class="ai-title">🤖 AI 助手 <span>(已联网全库模式)</span></div>
                     <div class="ai-chat-box" id="aiChatBox">
-                        <div class="ai-msg bot">🤖 你好，我是本文的 AI 助手。<br>你可以问我：<br>“总结这篇文章” 或 “这件事有什么影响？”</div>
+                        <div class="ai-msg bot">你好！我是你的智能助手。<br>你可以针对这篇文章提问，也可以问我任何互联网知识（如代码、历史、百科）。</div>
                     </div>
                     <div class="ai-input-area">
-                        <input type="text" class="ai-input" id="aiInput" placeholder="向 AI 提问..." onkeypress="handleEnter(event)">
+                        <input type="text" class="ai-input" id="aiInput" placeholder="输入问题，搜索全网知识..." onkeypress="handleEnter(event)">
                         <button class="ai-send-btn" id="aiBtn" onclick="sendToAI()">发送</button>
                     </div>
                 </div>
@@ -273,8 +280,6 @@ def generate_html():
 
         <script>
             let currentArticleContext = "";
-            
-            // --- 你的 API KEY ---
             const API_KEY = "sk-bcc4ef2185e24dce86a028982862a81e"; 
             const API_URL = "https://api.deepseek.com/chat/completions";
 
@@ -302,10 +307,11 @@ def generate_html():
                 document.getElementById('mContent').innerHTML = content.length > 5 ? content : '<p>暂无详细摘要，请让 AI 进行分析。</p>';
                 document.getElementById('mLink').href = link;
                 
-                currentArticleContext = `标题：${{title}}\\n内容：${{content.substring(0, 2000)}}`;
+                // 保存上下文，但不再强迫 AI 只读这篇文章
+                currentArticleContext = `【当前阅读的文章参考】\\n标题：${{title}}\\n内容摘要：${{content.substring(0, 2000)}}`;
 
                 const chatBox = document.getElementById('aiChatBox');
-                chatBox.innerHTML = '<div class="ai-msg bot">🤖 针对这篇新闻，你有什么想问的？</div>';
+                chatBox.innerHTML = '<div class="ai-msg bot">💡 你好！无论是关于这篇文章，还是关于世界上的任何问题，都可以问我。</div>';
 
                 const overlay = document.getElementById('articleModal');
                 overlay.style.display = 'block';
@@ -332,12 +338,16 @@ def generate_html():
                 input.value = '';
                 input.disabled = true;
                 btn.disabled = true;
-                btn.innerText = '思考中...';
+                btn.innerText = '...';
                 
                 chatBox.innerHTML += `<div class="ai-msg user">${{question}}</div>`;
                 chatBox.scrollTop = chatBox.scrollHeight;
 
                 try {{
+                    // --- 关键修改：Prompt 工程升级 ---
+                    // 告诉 AI：不要局限于 reference，要使用 internal knowledge
+                    const systemPrompt = "你是一个功能强大的 AI 搜索助手。用户正在阅读一篇新闻，并可能会根据新闻提问，或者问完全无关的问题。\\n\\n你的任务是：\\n1. 如果用户的问题与【当前阅读的文章参考】相关，请结合文章内容深入解答。\\n2. 如果用户的问题与文章无关（例如问天气、百科、代码、历史、其他公司动态），请**忽略参考文章**，直接调用你的互联网知识储备回答。\\n3. 回答风格要像搜索引擎一样客观、精准、条理清晰。";
+
                     const response = await fetch(API_URL, {{
                         method: "POST",
                         headers: {{
@@ -347,15 +357,16 @@ def generate_html():
                         body: JSON.stringify({{
                             model: "deepseek-chat",
                             messages: [
-                                {{role: "system", content: "你是一个科技新闻助手。请根据用户提供的文章内容回答问题。如果文章未提及，请说明。回答请简洁明了。"}},
-                                {{role: "user", content: `文章内容：${{currentArticleContext}}\\n\\n用户问题：${{question}}`}}
+                                {{role: "system", content: systemPrompt}},
+                                {{role: "user", content: `${{currentArticleContext}}\\n\\n----------------\\n用户问题：${{question}}`}}
                             ],
                             stream: false
                         }})
                     }});
                     
                     if (!response.ok) {{
-                        throw new Error("API 请求失败: " + response.status);
+                        const errData = await response.json();
+                        throw new Error(errData.error?.message || "API 请求失败");
                     }}
                     
                     const data = await response.json();
@@ -363,7 +374,7 @@ def generate_html():
                     chatBox.innerHTML += `<div class="ai-msg bot">${{aiResponseText}}</div>`;
 
                 }} catch (err) {{
-                    chatBox.innerHTML += `<div class="ai-msg bot" style="color:red">出错啦: ${{err.message}}</div>`;
+                    chatBox.innerHTML += `<div class="ai-msg bot" style="color:red">⚠️ 错误: ${{err.message}}</div>`;
                 }} finally {{
                     input.disabled = false;
                     btn.disabled = false;
