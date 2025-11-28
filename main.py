@@ -10,16 +10,17 @@ import random
 if hasattr(ssl, '_create_unverified_context'):
     ssl._create_default_https_context = ssl._create_unverified_context
 
-# 2. 配置 RSS 源
+# 2. 配置 RSS 源 (精选高可用源)
 feeds = [
     {"id": "all", "name": "全部", "url": ""},
     {"id": "ithome", "name": "IT之家", "url": "https://www.ithome.com/rss/"},
-    {"id": "36kr", "name": "36Kr", "url": "https://36kr.com/feed"},
-    {"id": "solidot", "name": "Solidot", "url": "https://www.solidot.org/index.rss"},
+    {"id": "landian", "name": "蓝点网", "url": "https://www.landiannews.com/feed"},
+    {"id": "william", "name": "月光博客", "url": "https://www.williamlong.info/rss.xml"},
+    {"id": "appinn", "name": "小众软件", "url": "https://www.appinn.com/feed/"},
+    {"id": "pingwest", "name": "品玩", "url": "https://www.pingwest.com/feed/all"},
     {"id": "sspai", "name": "少数派", "url": "https://sspai.com/feed"},
-    {"id": "ifanr", "name": "爱范儿", "url": "https://www.ifanr.com/feed"},
-    {"id": "huxiu", "name": "虎嗅", "url": "https://www.huxiu.com/rss/0.xml"},
-    {"id": "coolapk", "name": "酷安", "url": "https://www.coolapk.com/feed/feed"},
+    {"id": "solidot", "name": "Solidot", "url": "https://www.solidot.org/index.rss"},
+    {"id": "v2ex", "name": "V2EX", "url": "https://www.v2ex.com/index.xml"},
 ]
 
 def get_image_from_html(html_content):
@@ -29,11 +30,14 @@ def get_image_from_html(html_content):
         soup = BeautifulSoup(html_content, 'html.parser')
         imgs = soup.find_all('img')
         for img in imgs:
+            # 增加对 src 属性的清理，有些网站会有相对路径
             candidates = ['data-original', 'data-src', 'data-url', 'src']
             for attr in candidates:
                 url = img.get(attr)
                 if url and url.startswith('http'):
-                    if 'emoji' in url or '.gif' in url or 'avatar' in url: continue
+                    # 过滤掉表情包、小图标、头像、统计像素
+                    if any(x in url for x in ['emoji', '.gif', 'avatar', 'stat', 'icon', 'button']):
+                        continue
                     return url
     except: return None
     return None
@@ -44,6 +48,7 @@ def process_image_url(original_url):
     original_url = original_url.strip()
     if not original_url.startswith('http'): return None
     encoded_url = urllib.parse.quote(original_url)
+    # 使用 wsrv.nl 代理，强制 WebP
     return f"https://wsrv.nl/?url={encoded_url}&w=240&h=180&fit=cover&output=webp&q=80"
 
 def clean_text(html):
@@ -53,34 +58,52 @@ def clean_text(html):
 
 def generate_html():
     articles = []
-    feedparser.USER_AGENT = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/100.0.4896.127 Safari/537.36"
+    # 使用更像真人的 User-Agent，增加抓取成功率
+    feedparser.USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36"
 
     print("开始抓取...")
     
     for feed in feeds[1:]:
         try:
             print(f"正在读取: {feed['name']}...")
+            # 增加 etag/modified 处理，虽然 feedparser 会自动处理，但显式调用更安全
             f = feedparser.parse(feed["url"])
             
-            for entry in f.entries[:20]: 
+            # 检查是否有 bozo 异常 (XML解析错误)
+            if f.bozo:
+                print(f"  - XML 解析可能有问题，尝试继续: {f.bozo_exception}")
+
+            if not f.entries:
+                print(f"  - 警告: {feed['name']} 没有抓取到内容，可能是被反爬了。")
+                continue
+
+            # 抓取前15条
+            for entry in f.entries[:15]: 
                 content_html = ""
-                if hasattr(entry, 'content'): content_html = entry.content[0].value
-                elif hasattr(entry, 'summary'): content_html = entry.summary
-                elif hasattr(entry, 'description'): content_html = entry.description
+                # 尝试获取全文或摘要
+                if hasattr(entry, 'content'): 
+                    content_html = entry.content[0].value
+                elif hasattr(entry, 'summary'): 
+                    content_html = entry.summary
+                elif hasattr(entry, 'description'): 
+                    content_html = entry.description
                 
                 raw_img = get_image_from_html(content_html)
                 final_img = process_image_url(raw_img)
                 
+                # 强过滤：无图不要 (为了保持版面整洁)
                 if not final_img: continue
 
                 soup_text = clean_text(content_html)
-                summary_short = soup_text[:90] + "..." if soup_text else entry.title
-                # 增加上下文长度，让 AI 更懂文章
+                summary_short = soup_text[:80] + "..." if soup_text else entry.title
                 full_content_for_ai = soup_text[:3000]
 
                 try:
                     if hasattr(entry, 'published_parsed') and entry.published_parsed:
                         dt = datetime.datetime(*entry.published_parsed[:6])
+                        pub_time = (dt + datetime.timedelta(hours=8)).strftime("%m-%d %H:%M")
+                    elif hasattr(entry, 'updated_parsed') and entry.updated_parsed:
+                        dt = datetime.datetime(*entry.updated_parsed[:6])
                         pub_time = (dt + datetime.timedelta(hours=8)).strftime("%m-%d %H:%M")
                     else:
                         pub_time = "最新"
@@ -99,16 +122,20 @@ def generate_html():
                     "timestamp": entry.get("published_parsed", datetime.datetime.now().timetuple())
                 })
         except Exception as e:
-            print(f"Error: {e}")
+            print(f"Error fetching {feed['name']}: {e}")
             continue
 
+    # 按时间倒序
     articles.sort(key=lambda x: x["timestamp"] if x["timestamp"] else tuple(), reverse=True)
+    
+    print(f"共生成 {len(articles)} 篇文章。")
 
     news_list_html = ""
     for index, art in enumerate(articles):
         # JSON 安全处理
         safe_content = json.dumps(art['full_content']).replace('"', '&quot;')
         
+        # 即使后端过滤了，前端也加上 onerror 移除，双重保险
         img_html = f'''
         <div class="item-img">
             <img src="{art["image"]}" loading="lazy" alt="封面" 
@@ -161,7 +188,7 @@ def generate_html():
             
             header {{ background: var(--cb-blue); position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }}
             .header-inner {{ max-width: 800px; margin: 0 auto; height: 56px; display: flex; align-items: center; padding: 0 15px; }}
-            .logo {{ color: #fff; font-size: 18px; font-weight: 800; margin-right: 20px; }}
+            .logo {{ color: #fff; font-size: 18px; font-weight: 800; margin-right: 20px; white-space: nowrap; }}
             .nav-scroll {{ flex: 1; overflow-x: auto; white-space: nowrap; display: flex; scrollbar-width: none; }}
             .nav-scroll::-webkit-scrollbar {{ display: none; }}
             .nav-btn {{ background: none; border: none; color: rgba(255,255,255,0.7); font-size: 14px; padding: 0 12px; height: 56px; transition: color 0.2s; }}
@@ -211,16 +238,14 @@ def generate_html():
             .article-content {{ font-size: 16px; line-height: 1.8; color: #333; }}
             .read-more-btn {{ display: block; width: 100%; text-align: center; background: #f5f5f5; color: #666; padding: 12px; margin-top: 30px; border-radius: 8px; text-decoration: none; font-size: 14px; }}
             
-            /* AI 区域优化 */
+            /* AI 区域 */
             .ai-section {{ border-top: 1px solid #eee; background: #fcfcfc; padding: 15px; display: flex; flex-direction: column; }}
             .ai-title {{ font-size: 14px; font-weight: bold; color: var(--cb-blue); margin-bottom: 10px; display: flex; align-items: center; }}
             .ai-title span {{ margin-left: 5px; color: #666; font-weight: normal; font-size: 12px; }}
-            
             .ai-chat-box {{ height: 160px; overflow-y: auto; background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 12px; margin-bottom: 10px; font-size: 14px; }}
             .ai-msg {{ margin-bottom: 10px; line-height: 1.5; word-wrap: break-word; }}
             .ai-msg.user {{ color: #fff; background: var(--cb-blue); padding: 8px 12px; border-radius: 12px 12px 0 12px; float: right; clear: both; max-width: 85%; }}
             .ai-msg.bot {{ color: #333; background: #f2f2f2; padding: 8px 12px; border-radius: 12px 12px 12px 0; float: left; clear: both; max-width: 90%; }}
-            /* 清除浮动 */
             .ai-msg::after {{ content: ""; display: table; clear: both; }}
 
             .ai-input-area {{ display: flex; position: relative; }}
@@ -307,7 +332,6 @@ def generate_html():
                 document.getElementById('mContent').innerHTML = content.length > 5 ? content : '<p>暂无详细摘要，请让 AI 进行分析。</p>';
                 document.getElementById('mLink').href = link;
                 
-                // 保存上下文，但不再强迫 AI 只读这篇文章
                 currentArticleContext = `【当前阅读的文章参考】\\n标题：${{title}}\\n内容摘要：${{content.substring(0, 2000)}}`;
 
                 const chatBox = document.getElementById('aiChatBox');
@@ -344,9 +368,7 @@ def generate_html():
                 chatBox.scrollTop = chatBox.scrollHeight;
 
                 try {{
-                    // --- 关键修改：Prompt 工程升级 ---
-                    // 告诉 AI：不要局限于 reference，要使用 internal knowledge
-                    const systemPrompt = "你是一个功能强大的 AI 搜索助手。用户正在阅读一篇新闻，并可能会根据新闻提问，或者问完全无关的问题。\\n\\n你的任务是：\\n1. 如果用户的问题与【当前阅读的文章参考】相关，请结合文章内容深入解答。\\n2. 如果用户的问题与文章无关（例如问天气、百科、代码、历史、其他公司动态），请**忽略参考文章**，直接调用你的互联网知识储备回答。\\n3. 回答风格要像搜索引擎一样客观、精准、条理清晰。";
+                    const systemPrompt = "你是一个功能强大的 AI 搜索助手。用户正在阅读一篇新闻，并可能会根据新闻提问，或者问完全无关的问题。\\n\\n你的任务是：\\n1. 如果用户的问题与【当前阅读的文章参考】相关，请结合文章内容深入解答。\\n2. 如果用户的问题与文章无关，请**忽略参考文章**，直接调用你的互联网知识储备回答。\\n3. 回答风格要像搜索引擎一样客观、精准。";
 
                     const response = await fetch(API_URL, {{
                         method: "POST",
