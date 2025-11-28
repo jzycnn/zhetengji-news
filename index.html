@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
         <meta name="referrer" content="no-referrer">
-        <title>折疼记 - AI 驱动的资讯站</title>
+        <title>折疼记 - AI 资讯站</title>
         <style>
             :root { --cb-blue: #0b63b6; --bg-gray: #f2f2f2; --white: #fff; --text: #333; }
             * { box-sizing: border-box; outline: none; -webkit-tap-highlight-color: transparent; }
@@ -36,11 +36,11 @@
             .main-footer { text-align: center; padding: 30px 0; color: #ccc; font-size: 12px; background: #fff; margin-top: 20px; }
             .main-footer a { color: #ccc; text-decoration: none; }
 
-            /* 模态框样式 */
+            /* 模态框 */
             .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 2000; display: none; opacity: 0; transition: opacity 0.3s; }
             .modal-overlay.open { display: block; opacity: 1; }
             .modal-card { 
-                position: fixed; bottom: 0; left: 0; width: 100%; height: 90vh; 
+                position: fixed; bottom: 0; left: 0; width: 100%; height: 92vh; 
                 background: #fff; border-radius: 16px 16px 0 0; 
                 transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
                 z-index: 2001; display: flex; flex-direction: column;
@@ -54,23 +54,32 @@
                 }
                 .modal-overlay.open .modal-card { transform: translate(-50%, -50%) scale(1); opacity: 1; }
             }
+            
             .modal-header { padding: 15px 20px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; background: #fff; border-radius: 16px 16px 0 0; }
-            .close-btn { font-size: 24px; color: #999; cursor: pointer; padding: 0 10px; }
+            .close-btn { font-size: 28px; color: #999; cursor: pointer; line-height: 1; }
+            
             .modal-body { flex: 1; overflow-y: auto; padding: 20px; -webkit-overflow-scrolling: touch; }
             .article-title { font-size: 22px; font-weight: bold; margin-bottom: 10px; color: #222; }
             .article-meta { color: #999; font-size: 13px; margin-bottom: 20px; }
             .article-content { font-size: 16px; line-height: 1.8; color: #333; }
             .read-more-btn { display: block; width: 100%; text-align: center; background: #f5f5f5; color: #666; padding: 12px; margin-top: 30px; border-radius: 8px; text-decoration: none; font-size: 14px; }
             
-            /* AI 区域 */
+            /* AI 区域优化 */
             .ai-section { border-top: 1px solid #eee; background: #fcfcfc; padding: 15px; display: flex; flex-direction: column; }
-            .ai-chat-box { height: 180px; overflow-y: auto; background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 10px; margin-bottom: 10px; font-size: 14px; }
-            .ai-msg { margin-bottom: 8px; line-height: 1.5; }
-            .ai-msg.user { color: var(--cb-blue); font-weight: bold; text-align: right; }
-            .ai-msg.bot { color: #333; text-align: left; background: #f2f2f2; padding: 8px; border-radius: 6px; display: inline-block; max-width: 90%; }
-            .ai-input-area { display: flex; }
-            .ai-input { flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
-            .ai-send-btn { margin-left: 10px; background: var(--cb-blue); color: #fff; border: none; padding: 0 15px; border-radius: 6px; cursor: pointer; }
+            .ai-title { font-size: 14px; font-weight: bold; color: var(--cb-blue); margin-bottom: 10px; display: flex; align-items: center; }
+            .ai-title span { margin-left: 5px; color: #666; font-weight: normal; font-size: 12px; }
+            
+            .ai-chat-box { height: 160px; overflow-y: auto; background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 12px; margin-bottom: 10px; font-size: 14px; }
+            .ai-msg { margin-bottom: 10px; line-height: 1.5; word-wrap: break-word; }
+            .ai-msg.user { color: #fff; background: var(--cb-blue); padding: 8px 12px; border-radius: 12px 12px 0 12px; float: right; clear: both; max-width: 85%; }
+            .ai-msg.bot { color: #333; background: #f2f2f2; padding: 8px 12px; border-radius: 12px 12px 12px 0; float: left; clear: both; max-width: 90%; }
+            /* 清除浮动 */
+            .ai-msg::after { content: ""; display: table; clear: both; }
+
+            .ai-input-area { display: flex; position: relative; }
+            .ai-input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 20px; font-size: 14px; padding-right: 70px; outline: none; transition: border 0.3s; }
+            .ai-input:focus { border-color: var(--cb-blue); }
+            .ai-send-btn { position: absolute; right: 4px; top: 4px; bottom: 4px; background: var(--cb-blue); color: #fff; border: none; padding: 0 15px; border-radius: 16px; cursor: pointer; font-size: 13px; }
             .ai-send-btn:disabled { background: #ccc; }
         </style>
     </head>
@@ -90,6 +99,126 @@
         <article class="news-item" data-source="ithome" onclick="openModal(0)">
             
         <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/10/a27c01ba-3353-4e33-83c4-d49bd0ffdc95.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto/auto-orient%2Co_1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">盘兴高铁今日正式通车，贵州实现“市市通高铁”</h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">IT之家</span>
+                    <span class="meta-date">11-28 10:11</span>
+                </div>
+                <p class="item-summary">IT之家 11 月 28 日消息，盘州至兴义高铁（盘兴高铁）今日正式通车，至此，贵州省九个市州的中心城市实现“市市通高铁”。IT之家查询获悉，盘兴高铁位于贵州省西南部，线路起自贵州...</p>
+                <div id="data-0" style="display:none;" 
+                     data-title="盘兴高铁今日正式通车，贵州实现“市市通高铁”" 
+                     data-link="https://www.ithome.com/0/900/904.htm"
+                     data-source="IT之家"
+                     data-date="11-28 10:11">
+                     IT之家 11 月 28 日消息，盘州至兴义高铁（盘兴高铁）今日正式通车，至此，贵州省九个市州的中心城市实现“市市通高铁”。IT之家查询获悉，盘兴高铁位于贵州省西南部，线路起自贵州省六盘水市盘州市盘州站，终至位于黔西南布依族苗族自治州兴义市的兴义南站，线路全长 99 公里，设计时速 250 公里。全线共设盘州、保田、兴义南 3 座车站，其中保田、兴义南为新建车站，盘州站为改扩建车站。盘兴高铁建成通车后，最高时速按 250 公里运营。开通运营初期，每日开行 7 对动车组列车，均为跨线动车组列车。贵阳北、铜仁、重庆西、成都南站至兴义南站最快分别 2 小时 1 分、3 小时 54 分、4 小时 29 分、6 小时 26 分可达。为满足旅客不同出行需求，铁路部门在盘兴高铁实施灵活折扣、差异化的市场化票价机制，为旅客出行提供更多选择，具体票价可通过铁路 12306 查询。
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ithome" onclick="openModal(1)">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/c86573f5-76b7-45a5-bf56-1c3730ff72bb.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">物理版“Debugging”：美国维修店拆解 PS5 出现活体蟑螂窝</h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">IT之家</span>
+                    <span class="meta-date">11-28 10:05</span>
+                </div>
+                <p class="item-summary">IT之家 11 月 28 日消息，科技媒体 Wccftech 昨日（11 月 27 日）发布博文，美国犹他州一家名为“DVD Game Exchange”的维修中心近期遭遇了一起令...</p>
+                <div id="data-1" style="display:none;" 
+                     data-title="物理版“Debugging”：美国维修店拆解 PS5 出现活体蟑螂窝" 
+                     data-link="https://www.ithome.com/0/900/902.htm"
+                     data-source="IT之家"
+                     data-date="11-28 10:05">
+                     IT之家 11 月 28 日消息，科技媒体 Wccftech 昨日（11 月 27 日）发布博文，美国犹他州一家名为“DVD Game Exchange”的维修中心近期遭遇了一起令人作呕的维修案例。维修人员在拆解一台被送修的 PlayStation 5 主机时，发现其内部布满蟑螂粪便且有大量活体蟑螂爬出，这才是导致设备故障的真正原因。IT之家附上视频如下：据社交媒体平台 X 上的用户“Financial Dystopia”转发的视频显示，这台主机并非遭遇了常见的软件 Bug 或硬件短路，而是急需进行一场字面意义上的“除虫（Debugging）”。维修人员在接手该设备时，并未预料到机箱内部竟隐藏着一个活跃的生物群落。维修人员最初按照标准流程对主机进行了初步诊断。在排查电源模块并确认供电系统并非致祸元凶后，技术人员拆开了机箱外壳试图寻找断点。然而，映入眼帘的并非烧毁的电路板，而是散落在组件各个角落的蟑螂粪便。随着拆解的深入，情况变得更为骇人，大量活体蟑螂开始从组件缝隙中爬出，维修人员认为这些害虫的入侵与排泄物堆积才是导致系统瘫痪的罪魁祸首。工作人员为了防止这些“非法入侵者”逃逸至维修店内，立即使用塑料膜将整台 PS5 进行了多层严密包裹，并通知机主将其领回。维修代表在视频中无奈地表示，这种真正的“除虫”工作只能由机主自行完成。该媒体指出此事在网络上引发了广泛共鸣，不少用户分享了类似的恐怖经历，包括曾在 PC 塔式机箱中发现黑寡妇蜘蛛巢穴的案例，这起“蟑螂窝 PS5”事件为所有电子设备用户敲响了警钟：电子设备内部温暖、黑暗的环境极易吸引害虫筑巢。
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ithome" onclick="openModal(2)">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/5c3905fe-1796-45b4-a98b-a047e46ac577.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">欧盟新规：网络平台与支付商须承担更严格反诈责任，受害消费者可获赔偿</h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">IT之家</span>
+                    <span class="meta-date">11-28 10:03</span>
+                </div>
+                <p class="item-summary">IT之家 11 月 28 日消息，当地时间周四，欧洲议会与欧盟理事会已就《支付服务法规》（PSR）和《第三版支付服务指令》（PSD3）达成一致，旨在打造一个更开放、更具竞争力且安全...</p>
+                <div id="data-2" style="display:none;" 
+                     data-title="欧盟新规：网络平台与支付商须承担更严格反诈责任，受害消费者可获赔偿" 
+                     data-link="https://www.ithome.com/0/900/901.htm"
+                     data-source="IT之家"
+                     data-date="11-28 10:03">
+                     IT之家 11 月 28 日消息，当地时间周四，欧洲议会与欧盟理事会已就《支付服务法规》（PSR）和《第三版支付服务指令》（PSD3）达成一致，旨在打造一个更开放、更具竞争力且安全性更高的欧盟支付服务体系。新规重点在于统一欧盟内部支付服务标准，同时大幅增强欺诈防护机制。此次改革将覆盖银行、邮政支付机构、第三方支付机构、相关技术服务商，以及部分电子通信服务商和在线平台，将通过升级支付体系与强化监管措施，首次将部分责任延伸至与支付系统关联的在线平台。多项调查显示，网络诈骗规模正在高速增长。Meta 预计，其 2024 年全球收入中约有 10% 来自与诈骗相关的广告。每天约有 150 亿条高风险广告向用户投放，其中包含虚拟货币骗局、非法在线赌场以及销售禁品的内容。根据新规，若支付服务提供商未能采取适当的反诈措施，他们将承担由此造成的客户损失。PSP 必须核对收款人姓名与唯一识别码是否一致，如出现不符需拒绝支付指令并告知付款方。同时，PSP 需实施强客户认证并进行风险评估，同时向用户提供消费限额及支付阻断功能。若诈骗者发起或修改交易，该笔交易将被视为未经授权，PSP 需承担全部责任。接收方支付机构在发现可疑交易时也必须冻结款项。针对冒充客服诈骗，PSP 必须向用户全额退款，只要用户向警方报案并通知其支付机构。在线平台也将承担责任：若其在被通知后未删除诈骗内容，则需向负责退款的 PSP 赔偿相关损失。此项规定在《数字服务法案》的基础上进一步强化了平台责任。此外，金融服务广告主需向大型平台与搜索引擎证明其具备合法资格（或豁免资格）才能在本地提供服务。为提高用户体验，欧盟还要求支付服务提供商必须提供真人客服支持（IT之家注：不可仅依赖机器人），各国公共资源也应投入用于反诈教育。其他方面，客户在支付前必须获得所有费用信息，例如货币兑换费用或任何自动取款的固定收费，无论运营方是谁。所有 PSP 必须在用户选择时参与替代性争议解决机制，以提升纠纷处理效率。协议将降低“开放银行业务”中的市场壁垒，禁止银行等账户服务机构歧视账户信息服务商或支付发起服务商。授权的开放银行服务商将享有访问账户数据的权限，且法规明确列出了禁止的数据访问障碍。用户也将获得一个权限管理面板，用于查看和管理数据授权情况。移动设备制造商与电子服务提供商则需在公平、合理、不歧视的条件下，允许前端服务将支付处理所需的数据进行存储与传输。支付机构的授权流程将进一步规范，包括资本要求、自有资金计算方式、预算预测及统一的审批时间。已依据《加密资产市场监管条例》授权的加密资产服务商将通过简化程序获取许可，但仍必须满足风险控制要求。法规报告人 René Repasi 表示，新规定将统一反诈措施并减少支付欺诈，若银行未尽到责任，将需承担更多责任。同时，协议首次明确了在线平台在诈骗源头时的赔偿义务。指令报告人 Morten Løkkegaard 则强调，协议将推动支付市场更加开放与具有韧性，同时确保民众在商店中也可无消费提取现金，使现金继续成为便利的支付方式。Morten Løkkegaard 表示：“通过这项协议，我们终于开始直面一个长期轻易接触公众的诈骗行业。消费者若遭遇仿冒诈骗（spoofing fraud），将有权获得赔偿。”他补充称：“网上支付应当像在本地面包店买面包一样安全。大型科技公司从这些让普通人暴露在诈骗风险中的广告间接获利，这是不可接受的。”Løkkegaard 强调，该改革不仅对消费者保护具有里程碑意义，也有助于改善商业支付环境并促进支付服务创新。他表示，这项协议将成为打造更安全、更可信赖的欧洲数字经济的重要一步。
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ithome" onclick="openModal(3)">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/061bdfed-18cd-4902-92dc-c8e85cc9328e.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">台积电展望定制版 HBM4E 内存：N3P 制程基础裸片集成内存控制器</h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">IT之家</span>
+                    <span class="meta-date">11-28 09:59</span>
+                </div>
+                <p class="item-summary">IT之家 11 月 28 日消息，参考德媒 Hardwareluxx 编辑 Andreas Schilling 在社交平台分享的图片，台积电在本月 25 日于荷兰阿姆斯特丹举行的 ...</p>
+                <div id="data-3" style="display:none;" 
+                     data-title="台积电展望定制版 HBM4E 内存：N3P 制程基础裸片集成内存控制器" 
+                     data-link="https://www.ithome.com/0/900/899.htm"
+                     data-source="IT之家"
+                     data-date="11-28 09:59">
+                     IT之家 11 月 28 日消息，参考德媒 Hardwareluxx 编辑 Andreas Schilling 在社交平台分享的图片，台积电在本月 25 日于荷兰阿姆斯特丹举行的 2025 年 OIP（开放创新平台）生态系统论坛欧洲场上分享了对首代定制 HBM 内存的看法。与美光首席商务官 Sumit Sadana 的观点类似，台积电也认为定制 HBM 将在 HBM4E 时代正式落地，其对相关产品的称呼是 C-HBM4E。▲ 图源：Andreas Schilling台积电在 HBM4 时代提供了 2 种不同的 HBM Base Die（基础裸片）制程方案，分别是面向主流市场的 N12FFC+ 和追求更高性能的 N5。而在 C-HBM4E 上，为向基础裸片集成 MC（内存控制器）以满足节省计算芯片面积等需求，台积电将提供 N3P 先进制程基础裸片解决方案，宣称可将能效提升至 HBM3E 基础裸片的 2 倍左右。同时 C-HBM4E 的 Vdd 电压将仅有 0.75V，较 HBM4 进一步降低。
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ithome" onclick="openModal(4)">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/8bd9a989-e94e-4079-903a-be5d9d31a9b7.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">微软称 Edge 浏览器和 Win11 用户渴望 AI 办公，用户回怼称你听错了</h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">IT之家</span>
+                    <span class="meta-date">11-28 09:51</span>
+                </div>
+                <p class="item-summary">IT之家 11 月 28 日消息，科技媒体 Windows Latest 今天（11 月 28 日）发布博文，报道称微软在宣传 Windows 11 和 Edge 浏览器中的“Co...</p>
+                <div id="data-4" style="display:none;" 
+                     data-title="微软称 Edge 浏览器和 Win11 用户渴望 AI 办公，用户回怼称你听错了" 
+                     data-link="https://www.ithome.com/0/900/898.htm"
+                     data-source="IT之家"
+                     data-date="11-28 09:51">
+                     IT之家 11 月 28 日消息，科技媒体 Windows Latest 今天（11 月 28 日）发布博文，报道称微软在宣传 Windows 11 和 Edge 浏览器中的“Copilot for Work”时，声称此举是响应用户需求，却遭到核心用户群体的广泛反对。微软于 11 月 19 日通过官方 @MSEdgeDev 账号宣传 Edge 浏览器中的 Copilot 模式，宣称集成该功能是因为听到了“用户希望在工作中使用 Copilot 模式”的呼声。然而大量 Windows 老用户涌入评论区，严厉驳斥微软的说法，直言“你听错了”。用户们表示，从未要求针对工作场景定制 AI 模式，并对微软将聊天机器人“怼到脸上”的强制做法感到愤怒。一位用户更是毫不客气地评论道：“我不是婴儿，不需要你们强行喂食 AI 功能。”IT之家注：此次争议的核心在于微软推广的“Copilot 模式”（Copilot Mode），该模式被设定为消费者的默认用户体验，微软将其定位为类似 Perplexity Comet 的“智能体（Agentic）”。从技术层面看，该模式支持“多标签页推理”，能同时从最多 30 个标签页中提取信息，并声称能通过自动化处理多步骤工作流来“粉碎重复性任务”，例如替用户预订差旅机票。尽管微软辩称这是为了打造“适合工作的安全 AI 浏览体验”，并允许用户在设置中关闭，但其核心逻辑仍是试图让 AI 接管用户操作，这与专业用户对精准控制的需求背道而驰。该媒体指出面对铺天盖地的批评，微软采取了“鸵鸟政策”。观察发现，微软社交媒体团队仅选择性回复极少数赞美 Copilot 的评论，而对成千上万条质疑声视而不见。
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ithome" onclick="openModal(5)">
+            
+        <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/a4b920b2-e8be-484d-bc1b-1221d328e9ec.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
@@ -101,8 +230,7 @@
                     <span class="meta-date">11-28 09:44</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，一款型号为 25125PS17S 小米新品于 11 月 19 日通过了工信部 3C 认证，博主 @数码闲聊站 透露该产品为小米新款专业摄影手柄，同...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-0" style="display:none;" 
+                <div id="data-5" style="display:none;" 
                      data-title="小米 17 Ultra 专属摄影手柄通过 3C 认证，可以当移动电源" 
                      data-link="https://www.ithome.com/0/900/896.htm"
                      data-source="IT之家"
@@ -112,7 +240,7 @@
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome" onclick="openModal(1)">
+        <article class="news-item" data-source="ithome" onclick="openModal(6)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/b6d55cb2-cc28-4839-906b-880a93512e35.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -126,8 +254,7 @@
                     <span class="meta-date">11-28 09:42</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，凯华电子 Kailh 昨日发布了新款的机械触点式矮型轴体 —— 紫鸢轴。凯华紫鸢轴的触发行程仅有 0.8mm，触发速度相较普通轴体提升约 60%；...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-1" style="display:none;" 
+                <div id="data-6" style="display:none;" 
                      data-title="凯华发布新款机械矮轴 —— 紫鸢轴：POM 轴芯，0.8mm 短触发行程" 
                      data-link="https://www.ithome.com/0/900/894.htm"
                      data-source="IT之家"
@@ -137,7 +264,7 @@
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome" onclick="openModal(2)">
+        <article class="news-item" data-source="ithome" onclick="openModal(7)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/0b7d68c9-389a-45e6-b87d-aa036b82c41b.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -151,8 +278,7 @@
                     <span class="meta-date">11-28 09:42</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，网易《逆水寒》手游将在 12 月 5 日迎来逆水寒史上最浓缩、最紧凑的新版本 —— 3.2.2 版本【戎马关山 宿命相逢】。20 天内，玩家将体验...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-2" style="display:none;" 
+                <div id="data-7" style="display:none;" 
                      data-title="网易《逆水寒》手游 3.2.2 版本联动安塞腰鼓，全新剧情预告发布" 
                      data-link="https://www.ithome.com/0/900/893.htm"
                      data-source="IT之家"
@@ -162,7 +288,7 @@
             </div>
         </article>
         
-        <article class="news-item" data-source="36kr" onclick="openModal(3)">
+        <article class="news-item" data-source="36kr" onclick="openModal(8)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.36krcdn.com/hsossms/20251128/v2_df7339f6371041e190fe1d361b2a1c56%40394564713_oswg642716oswg1080oswg924_img_000%3Fx-oss-process%3Dimage/format%2Cjpg/interlace%2C1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -180,8 +306,7 @@
 封面来源 |  视觉中国 
 羽毛球的价格暴涨已成为“不可逆”的事实。
 今年7月，全球第一的羽毛球品牌尤尼克斯YONEX再度发布调价通知，其中的...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-3" style="display:none;" 
+                <div id="data-8" style="display:none;" 
                      data-title="这家日本品牌，吃到了中国的「羽毛球红利」" 
                      data-link="https://36kr.com/p/3572058437925769?f=rss"
                      data-source="36Kr"
@@ -232,12 +357,18 @@
 
 36氪根据天猫APP整理，价格为包含促销等活动的券后价格
 为了保证一定的市场占有率，尤尼克斯在全球范围内加大市场推广与营销投入。
-作为羽毛球头部品牌，自1984年起，尤尼克斯就担任全英羽毛球公开赛的冠名赞助商。2021年，尤尼克斯成为世界羽毛球锦标赛的官方器材合作伙伴。在中国市场，尤尼克斯也先
+作为羽毛球头部品牌，自1984年起，尤尼克斯就担任全英羽毛球公开赛的冠名赞助商。2021年，尤尼克斯成为世界羽毛球锦标赛的官方器材合作伙伴。在中国市场，尤尼克斯也先后赞助了包括“残奥羽毛球国际积分赛”“上海羽毛球公开赛”等重点赛事。
+羽毛球之外，尤尼克斯也在加大对于网球与高尔夫的投入。今年6月，尤尼克斯的“铂金网球”成为2025赛季ATP亚洲三大赛事的指定用球。这些或许都导致，2026财年上半年，尤尼克斯的“销售及一般管理费用”达到260.28亿日元，同比增长15.4%。
+当然，尤尼克斯的销售额增长仍确保了其经营利润的稳定。
+只不过，从整个上游供应的视角来看，本轮猪周期的影响仍在持续，寒潮的到来也将使羽绒服企业对上游鹅、鸭绒的需求增多，这或进一步提升羽毛球的生产成本。在未来，包括尤尼克斯在内的羽毛球品牌，也需要关注产品价格上涨引起的“消费情绪”反噬。
+在老赵的观察中，因为羽毛球产品的频繁涨价，人们打球的频次已有降低。在他的工厂，低端羽毛球产品出现滞销，比赛级的中高端产品的销量也开始下滑，逐渐从供不应求走向略有库存。
+反观尤尼克斯，涨价策略也不仅限于羽毛球产品，其羽毛球拍、鞋服、手胶等产品皆全线涨价。短期内对于核心品类的频繁提价，势必对品牌未来的溢价能力产生损耗。对于当下的尤尼克斯，仍须在羽毛球这一主营业务上，找到价格与销量的平衡。
+截至11月25
                 </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="36kr" onclick="openModal(4)">
+        <article class="news-item" data-source="36kr" onclick="openModal(9)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.36krcdn.com/hsossms/20251128/v2_6235c1b702364051a98cdff71b579538%406221844_oswg302908oswg466oswg466_img_000%3Fx-oss-process%3Dimage/format%2Cjpg/interlace%2C1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -254,8 +385,7 @@
 编辑丨袁斯来
 一款不依赖WiFi、没有复杂App的婴儿监护器，却在亚马逊上一年卖出超百万台，撑起一家公司97%的收入。
 如今，这家公司还希望通过婴儿监护器撑起一个IPO...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-4" style="display:none;" 
+                <div id="data-9" style="display:none;" 
                      data-title="46岁湖北老板再闯港股，去年在美国卖出百万台婴儿硬件" 
                      data-link="https://36kr.com/p/3571983579429761?f=rss"
                      data-source="36Kr"
@@ -288,7 +418,7 @@
 聚智科技精准抓住了全球婴儿监护器市场的爆发窗口。
 弗若斯特沙利文数据显示，2023年全球婴儿监护器市场销量达到1870万台，预计至2028年将飙升至2760万台，其中北美市场占据了这一增长的四成。
 同时，聚智科技在产品迭代与渠道卡位上都占据了先发优势。公司自2016年推出首款“HelloBaby”婴儿监护器以来就在不断扩充产品矩阵，2022年至2024年间共推出98款新型号监护器，其中2023年数量翻倍。这种快速迭代能力，使其在竞争中保持了一定的产品领先性。
-从渠道来看，聚智科技从2016年即入驻亚马逊，提前布局跨境电商。凭借先发优势，公司迅速占领美国在线市场，2024年在线出口市占率达38.7%，位居行业第一。
+从渠道来看，聚���科技从2016年即入驻亚马逊，提前布局跨境电商。凭借先发优势，公司迅速占领美国在线市场，2024年在线出口市占率达38.7%，位居行业第一。
 
  
 单一性依赖的增长瓶颈
@@ -306,12 +436,12 @@
 更为严重的是，聚智科技的退货金额从2022年的1720万元增至2024年的4520万元，产品质量与稳定性问题开始浮现。
 从行业视角看，婴儿监护器市场虽然仍在增长，但竞争格局正日趋激烈。传统家电巨头、新兴科技公司纷纷入局，产品同质化问题日益严重。未来行业的竞争重点将从硬件功能转向软件算法、数据服务和生态系统建设。
 对聚智科技而言，IPO可能既是里程碑，也是生死线。
-资本市场不会满足于单
+资本市场不会满足于单一故事的长久讲述，公司亟需向投资者证明其业务多元化的能力与清晰的第二增长曲线规划。否则，即使成功上市，也难以在波动的资本市场中维持长期估值。
                 </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome" onclick="openModal(5)">
+        <article class="news-item" data-source="ithome" onclick="openModal(10)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/e980a13a-b6f9-4c98-af2f-86254bbdb36d.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -325,8 +455,7 @@
                     <span class="meta-date">11-28 09:28</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，QQ 鸿蒙版 App 今日邀测 9.1.95（2470）版本升级，IT之家附测试说明：1、新增空间留言板2、新增面对面建群3、优化群聊音视频体验4...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-5" style="display:none;" 
+                <div id="data-10" style="display:none;" 
                      data-title="腾讯 QQ 鸿蒙版 App 获 9.1.95 邀测升级：新增网页唤起授权登录，撤回消息支持编辑" 
                      data-link="https://www.ithome.com/0/900/892.htm"
                      data-source="IT之家"
@@ -336,7 +465,7 @@
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome" onclick="openModal(6)">
+        <article class="news-item" data-source="ithome" onclick="openModal(11)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/47fcf6db-aa0c-41a5-9c11-a8c721e079e7.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -350,8 +479,7 @@
                     <span class="meta-date">11-28 09:28</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，参考消息人士 188号 (@momomo_us) 的发现，边缘计算硬件系统企业凌华科技 ADLINK 的官网上线了支持英特尔至强 6 Granit...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-6" style="display:none;" 
+                <div id="data-11" style="display:none;" 
                      data-title="凌华上线至强 600 工作站处理器服务器，W890 主板外观首次确认" 
                      data-link="https://www.ithome.com/0/900/891.htm"
                      data-source="IT之家"
@@ -361,7 +489,7 @@
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome" onclick="openModal(7)">
+        <article class="news-item" data-source="ithome" onclick="openModal(12)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/3c5edebf-36a4-4a9d-939c-5f3a7f8632e5.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -375,8 +503,7 @@
                     <span class="meta-date">11-28 09:22</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，科技媒体 aerospaceglobalnews 昨日（11 月 27 日）发布博文，报道称美国国防部高级研究计划局（DARPA）携手波音旗下极光...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-7" style="display:none;" 
+                <div id="data-12" style="display:none;" 
                      data-title="成本超支致重组：波音无襟翼飞机 X-65 首飞推迟至 2027 年" 
                      data-link="https://www.ithome.com/0/900/890.htm"
                      data-source="IT之家"
@@ -386,7 +513,7 @@
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome" onclick="openModal(8)">
+        <article class="news-item" data-source="ithome" onclick="openModal(13)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/cd184368-a7ef-418a-bcaa-7326c15e2e71.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto/auto-orient%2Co_1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -400,8 +527,7 @@
                     <span class="meta-date">11-28 09:18</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，华为 WATCH D2 腕部动态血压记录仪全新“星云蓝”配色今日首销，首发价 2888 元。IT之家查询获悉，这款手表通过搭载玄玑感知系统，实现医...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-8" style="display:none;" 
+                <div id="data-13" style="display:none;" 
                      data-title="华为 WATCH D2 新增星云蓝配色开售：动态血压监测、一键微体检，2888 元" 
                      data-link="https://www.ithome.com/0/900/887.htm"
                      data-source="IT之家"
@@ -411,7 +537,7 @@
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome" onclick="openModal(9)">
+        <article class="news-item" data-source="ithome" onclick="openModal(14)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//qimg.ithome.com/newfiles/2025/11/76df3bf7-f7a1-4c31-8117-b9b49b1d6fb1.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -425,8 +551,7 @@
                     <span class="meta-date">11-28 09:15</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，华为 MateBook Fold 非凡大师折叠电脑全新“瑞红”配色今日 10:08 开售，32GB+2TB 版本售价 26999 元。据华为终端 ...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-9" style="display:none;" 
+                <div id="data-14" style="display:none;" 
                      data-title="26999 元，华为 MateBook Fold 非凡大师折叠电脑“瑞红”配色开售" 
                      data-link="https://www.ithome.com/0/900/886.htm"
                      data-source="IT之家"
@@ -436,7 +561,7 @@
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome" onclick="openModal(10)">
+        <article class="news-item" data-source="ithome" onclick="openModal(15)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/a159929e-783b-4218-b501-0a172d19699f.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -450,8 +575,7 @@
                     <span class="meta-date">11-28 09:09</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，一加手机今日宣布，全球电池容量最大的性能旗舰来了。一加 Ace 6T 全球首发 8300mAh 冰川电池，兼具 100W 超级闪充。一加 Ace ...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-10" style="display:none;" 
+                <div id="data-15" style="display:none;" 
                      data-title="一加 Ace 6T 全球首发 8300mAh 冰川电池，号称“全球电池容量最大的性能旗舰”" 
                      data-link="https://www.ithome.com/0/900/885.htm"
                      data-source="IT之家"
@@ -461,7 +585,7 @@
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome" onclick="openModal(11)">
+        <article class="news-item" data-source="ithome" onclick="openModal(16)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//qimg.ithome.com/newfiles/2025/11/2f4b750f-46bb-4cbc-8a81-be30c16f4e5c.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -475,8 +599,7 @@
                     <span class="meta-date">11-28 09:09</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，华为 MateBook Pro 笔记本全新“拂晓粉”配色于 11 月 25 日正式发布，可选柔光屏。今日 10:08，这款新品将正式开售。32GB...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-11" style="display:none;" 
+                <div id="data-16" style="display:none;" 
                      data-title="8899 元起，华为 MateBook Pro 笔记本全新“拂晓粉”配色开售" 
                      data-link="https://www.ithome.com/0/900/884.htm"
                      data-source="IT之家"
@@ -486,7 +609,7 @@
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome" onclick="openModal(12)">
+        <article class="news-item" data-source="ithome" onclick="openModal(17)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/378bb7e6-4c98-4e4d-8225-8aae259a0020.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -500,8 +623,7 @@
                     <span class="meta-date">11-28 09:04</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，韩媒 Business Korea 昨日（11 月 27 日）发布博文，报道称三星电子宣布重大组织架构调整，正式解散成立仅一年的 HBM（高带宽内...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-12" style="display:none;" 
+                <div id="data-17" style="display:none;" 
                      data-title="“救火队”成立一年多被撤销，三星 HBM 研发并入 DRAM 回归常态化运营" 
                      data-link="https://www.ithome.com/0/900/883.htm"
                      data-source="IT之家"
@@ -511,7 +633,7 @@
             </div>
         </article>
         
-        <article class="news-item" data-source="36kr" onclick="openModal(13)">
+        <article class="news-item" data-source="36kr" onclick="openModal(18)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.36krcdn.com/hsossms/20251127/v2_09f92958b1254a8db7c821c23b272103%405971123_oswg1325905oswg1920oswg1080_img_jpg%3Fx-oss-process%3Dimage/quality%2Cq_90/format%2Cjpg/interlace%2C1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -527,8 +649,7 @@
                 <p class="item-summary">作者 | 钟艺璇
 36氪获悉，「瑞云冷链」近期完成近亿元人民币A+轮融资，本轮融资由广州产投领投，香港中侨跟投，此次融资将主要用于数字化能力提升和国际业务拓展。
 瑞云冷链创立于20...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-13" style="display:none;" 
+                <div id="data-18" style="display:none;" 
                      data-title="「瑞云冷链」完成近亿元A+轮融资，搭建“网络化+数字化+国际化”冷链综合服务平台 | 36氪首发" 
                      data-link="https://36kr.com/p/3569392468032649?f=rss"
                      data-source="36Kr"
@@ -555,7 +676,7 @@
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome" onclick="openModal(14)">
+        <article class="news-item" data-source="ithome" onclick="openModal(19)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/87f67404-d83b-4601-ae9e-ad615d79463f.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -569,8 +690,7 @@
                     <span class="meta-date">11-28 08:50</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，科技媒体 Wccftech 昨日（11 月 27 日）发布博文，报道称英特尔新一代工作站处理器 Xeon 696X 近日现身 SiSoftware...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-14" style="display:none;" 
+                <div id="data-19" style="display:none;" 
                      data-title="英特尔 Xeon 696X 处理器前瞻：64 核 4.6GHz、336 MB 的 L3 缓存，多媒体性能大涨 46%" 
                      data-link="https://www.ithome.com/0/900/881.htm"
                      data-source="IT之家"
@@ -580,7 +700,7 @@
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome" onclick="openModal(15)">
+        <article class="news-item" data-source="ithome" onclick="openModal(20)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/a8b50bb3-fb84-4016-bac5-cfef3c814924.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -594,18 +714,17 @@
                     <span class="meta-date">11-28 08:49</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，据央视新闻报道，昨天，2025 亚洲通用航空展在珠海开幕，展会将集中展示国内外通用航空和低空经济领域新成果，中国航空发动机集团带着最新型的绿色发动...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-15" style="display:none;" 
+                <div id="data-20" style="display:none;" 
                      data-title="告别“喝油”时代，无油飞机发动机首次亮相通航展" 
                      data-link="https://www.ithome.com/0/900/880.htm"
                      data-source="IT之家"
                      data-date="11-28 08:49">
-                     IT之家 11 月 28 日消息，据央视新闻报道，昨天，2025 亚洲通用航空展在珠海开幕，展会将集中展示国内外通用航空和低空经济领域新成果，中国航空发动机集团带着最新型的绿色发动机来到了现场。中国航发展台工作人员孙京臣介绍，兆瓦级混合动力系统，是以未来 3 到 8 吨级的 eVTOL 和 10 到 20 吨级的分布式电推进飞机应用为牵引所开发的。除了混动动力系统，一款不用加一滴油的飞机发动机也是首次亮相。据介绍，兆瓦级氢燃料涡轮发动机，燃烧 1 千克航空燃油就要产生 3 千克二氧化碳。而以氢燃料作为涡轮发动机的动力，它的碳排放为零。中国航发展台工作人员孙京臣介绍，研发难度非常大，因为它颠覆了很多传统。可喜的是这款发动机目前已经在国内率先实现了整机的性能达标，同时已经完成了 60 小时的持续性摸底试验。IT之家查询获悉，中国航发本届航展携 58 型通航动力产品参展，其中 ATP120 发动机、200 千瓦混合动力系统、纯电推进系统等 29 型产品为首次亮相。在“心”动力展区，中国航发系统展示了可应用于不同通航场景、满足不同客户需求的涡喷、涡扇、涡轴、涡桨等不同类型发动机。在新科技展区，中国航发展示了纯电推进系统、兆瓦级航空混合动力系统、混合动力电源系统、低空飞行器透明件组件和无人机巡检系统等典型产品。在新能源展区，中国航发重点展示了氢燃料、混合动力等绿色低碳产品。在新材料与新工艺展区，中国航发展示了在先进材料与关键成附件领域的重要创新成果，其中大部分为首次亮相。
+                     IT之家 11 月 28 日消息，据央视新闻报道，昨天，2025 亚洲通用航空展在珠海开幕，展会将集中展示国内外通用航空和低空经济领域新成果，中国航空发动机集团带着最新型的绿色发动机来到了现场。中国航发展台工作人员孙京臣介绍，兆瓦级混合动力系统，是以未来 3 到 8 吨级的 eVTOL 和 10 到 20 吨级的分布式电推进飞机应用为牵引所开发的。除了混动动力系统，一款不用加一滴油的飞机发动机也是首次亮相 —— 兆瓦级氢燃料涡轮发动机。据介绍，常规发动机燃烧 1 千克航空燃油就要产生 3 千克二氧化碳，而以氢燃料作为涡轮发动机的动力，它的碳排放为零。中国航发展台工作人员孙京臣介绍，研发难度非常大，因为它颠覆了很多传统。可喜的是这款发动机目前已经在国内率先实现了整机的性能达标，同时已经完成了 60 小时的持续性摸底试验。IT之家查询获悉，中国航发本届航展携 58 型通航动力产品参展，其中 ATP120 发动机、200 千瓦混合动力系统、纯电推进系统等 29 型产品为首次亮相。在“心”动力展区，中国航发系统展示了可应用于不同通航场景、满足不同客户需求的涡喷、涡扇、涡轴、涡桨等不同类型发动机。在新科技展区，中国航发展示了纯电推进系统、兆瓦级航空混合动力系统、混合动力电源系统、低空飞行器透明件组件和无人机巡检系统等典型产品。在新能源展区，中国航发重点展示了氢燃料、混合动力等绿色低碳产品。在新材料与新工艺展区，中国航发展示了在先进材料与关键成附件领域的重要创新成果，其中大部分为首次亮相。
                 </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome" onclick="openModal(16)">
+        <article class="news-item" data-source="ithome" onclick="openModal(21)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/98d34947-0d4e-49d5-96e3-14bbc6bbc1d6.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -619,8 +738,7 @@
                     <span class="meta-date">11-28 08:39</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，11 月 26 日下午，香港大埔宏福苑突发重大火灾，造成严重人员伤亡和财产损失。中兴通讯今日宣布向香港相关机构捐赠 500 台 5G 云电脑，并将...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-16" style="display:none;" 
+                <div id="data-21" style="display:none;" 
                      data-title="中兴通讯向香港大埔火灾灾区捐赠 500 台 5G 云电脑" 
                      data-link="https://www.ithome.com/0/900/877.htm"
                      data-source="IT之家"
@@ -630,7 +748,7 @@
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome" onclick="openModal(17)">
+        <article class="news-item" data-source="ithome" onclick="openModal(22)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/11a33fd0-d41f-4457-ba26-5fb948e72af1.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -644,8 +762,7 @@
                     <span class="meta-date">11-28 08:35</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，育碧《刺客信条：影》将于 12 月 2 日登陆 Nintendo Switch 2，并提供此前已发布的全部更新内容（但“淡路之爪”扩展包将于 20...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-17" style="display:none;" 
+                <div id="data-22" style="display:none;" 
                      data-title="育碧：任天堂 Switch 2 版《刺客信条：影》开启 DLSS 后可达 30 FPS" 
                      data-link="https://www.ithome.com/0/900/876.htm"
                      data-source="IT之家"
@@ -655,107 +772,31 @@
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome" onclick="openModal(18)">
+        <article class="news-item" data-source="huxiu" onclick="openModal(23)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//qimg.ithome.com/newfiles/2025/11/71b7a211-60f1-48b3-8ebc-82cda1ecfb20.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/26/225315811573.png&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
             <div class="item-content">
-                <h2 class="item-title">24999 元，华为 WATCH ULTIMATE DESIGN 非凡大师手表新增“紫金”配色开售</h2>
+                <h2 class="item-title">华为手机没信号、没网络，它凭什么还能让手机互相通话、发信息？</h2>
                 <div class="item-meta">
-                    <span class="meta-tag tag-blue">IT之家</span>
-                    <span class="meta-date">11-28 08:35</span>
+                    <span class="meta-tag tag-blue">虎嗅</span>
+                    <span class="meta-date">11-28 08:30</span>
                 </div>
-                <p class="item-summary">IT之家 11 月 28 日消息，华为 WATCH ULTIMATE DESIGN 非凡大师手表新增“紫金”配色将于今日 9:08 开售，主打非凡设计，拥有十段 18K 金条、24...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-18" style="display:none;" 
-                     data-title="24999 元，华为 WATCH ULTIMATE DESIGN 非凡大师手表新增“紫金”配色开售" 
-                     data-link="https://www.ithome.com/0/900/875.htm"
-                     data-source="IT之家"
-                     data-date="11-28 08:35">
-                     IT之家 11 月 28 日消息，华为 WATCH ULTIMATE DESIGN 非凡大师手表新增“紫金”配色将于今日 9:08 开售，主打非凡设计，拥有十段 18K 金条、24K 镀金表带等旗舰设计，售价 24999 元。据华为终端 BG 董事长余承东此前介绍，这款手表采用全新“非凡设计”，配备十二边形紫色陶瓷表圈，拥有高硬度、高耐磨等特性，号称“温润如玉”，机身配备十段 18K 金条，整体使用立体镶嵌工艺、舵形设计，配备 24K 纯金字符，可让手表在光芒下“熠熠生辉”。IT之家注意到，这款手表还搭载 24K 镀金表带，内置 54 粒表节、伸缩蝴蝶扣，业界首创复合稀土紫色陶瓷。软件方面，这款手表可作为尊界 S800 车钥匙，只需要划一划指尖就能开关主副驾、后排、后备箱车门，还支持 eSIM 独立通话，配备“腕上鸿蒙智能体”，支持北斗卫星语音消息，支持支付宝、航旅纵横、中国国航等第三方 App。京东华为 WATCH ULTIMATE DESIGN 非凡大师 紫金款 24999 元直达链接
+                <p class="item-summary">华为新出来两个新玩意，一个叫700兆赫13公里无网紧急通信，一个叫2.4吉赫兹7公里畅联无网通信，名字有点长有点绕，但是“无网通信”这4个字估计很多人都记住了。那么问题来了，明明没...</p>
+                <div id="data-23" style="display:none;" 
+                     data-title="华为手机没信号、没网络，它凭什么还能让手机互相通话、发信息？" 
+                     data-link="http://www.huxiu.com/article/4810240.html?f=wangzhan"
+                     data-source="虎嗅"
+                     data-date="11-28 08:30">
+                     华为新出来两个新玩意，一个叫700兆赫13公里无网紧急通信，一个叫2.4吉赫兹7公里畅联无网通信，名字有点长有点绕，但是“无网通信”这4个字估计很多人都记住了。那么问题来了，明明没信号没网络，它是凭什么还能让手机互相通话发信息的呢？这个“无网”到底该怎么理解？下载虎嗅APP，第一时间获取深度独到的商业科技资讯，连接更多创新人群与线下活动
                 </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome" onclick="openModal(19)">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/c232cdcd-cee9-4d85-b560-41261fe6ff12.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title">育碧《刺客信条：影》游戏后续更新将专注“小而美”，《淡路之爪》恐成绝版大型 DLC</h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">IT之家</span>
-                    <span class="meta-date">11-28 08:31</span>
-                </div>
-                <p class="item-summary">IT之家 11 月 28 日消息，育碧副游戏总监 Simon Lemay-Comtois 近日确认，公司目前没有计划为《刺客信条：影》（Assassin's Creed Shado...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-19" style="display:none;" 
-                     data-title="育碧《刺客信条：影》游戏后续更新将专注“小而美”，《淡路之爪》恐成绝版大型 DLC" 
-                     data-link="https://www.ithome.com/0/900/874.htm"
-                     data-source="IT之家"
-                     data-date="11-28 08:31">
-                     IT之家 11 月 28 日消息，育碧副游戏总监 Simon Lemay-Comtois 近日确认，公司目前没有计划为《刺客信条：影》（Assassin's Creed Shadows）开发第二款类似《淡路之爪》（Claws of Awaji）规模的大型 DLC 扩展包。在接受 YouTuber JorRaptor 采访时，Lemay-Comtois 表示，截至目前，育碧没有计划为《刺客信条：影》的“第二年”更新开发任何达到《淡路之爪》规模的扩展内容。IT之家援引博文介绍，Lemay-Comtois 解释称，团队不再遵循以往“季票”包含多个大型 DLC 的传统做法，而是试图保持内容的“小巧与敏捷（small and reactive）”。这种策略旨在根据社区反馈快速调整内容，将其视为一次学习经验，以便为未来的项目积累数据。他强调，随着“第一年”不得不进行的“紧急救火”（修复漏洞）工作结束，团队在“第二年”将放慢节奏，专注于确立能为游戏增添哪些“实质性内容（chunks of meat）”。尽管《刺客信条：影》在 PlayStation 平台上的销量未能匹敌《羊蹄山之魂》（Ghost of Yotei），但育碧上半财年的报告显示该游戏整体表现超出了公司预期。该媒体认为，根据目前的规划，于今年 9 月发布的《淡路之爪》极有可能成为该作唯一的一部大型 DLC，这标志着育碧对该作的后续支持力度相较于前作《英灵殿》有了明显缩减。
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item" data-source="ithome" onclick="openModal(20)">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/49406360-4682-41fc-be91-9c976af9a237.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title">微星推 PBO BCLK 主板超频功能：榨干 AMD 处理器潜能，游戏帧率最高提升 15%</h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">IT之家</span>
-                    <span class="meta-date">11-28 08:18</span>
-                </div>
-                <p class="item-summary">IT之家 11 月 28 日消息，科技媒体 Wccftech 昨日（11 月 27 日）发布博文，报道称微星（MSI）为其 AM5 平台 800 系列 MAX 主板，推出名为“PB...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-20" style="display:none;" 
-                     data-title="微星推 PBO BCLK 主板超频功能：榨干 AMD 处理器潜能，游戏帧率最高提升 15%" 
-                     data-link="https://www.ithome.com/0/900/873.htm"
-                     data-source="IT之家"
-                     data-date="11-28 08:18">
-                     IT之家 11 月 28 日消息，科技媒体 Wccftech 昨日（11 月 27 日）发布博文，报道称微星（MSI）为其 AM5 平台 800 系列 MAX 主板，推出名为“PBO BCLK Booster”的 BIOS 新功能，进一步挖掘 AMD Ryzen 处理器（涵盖 7000/9000 系列）的性能潜力，最高可提升 15%。微星此前已陆续推出了 X3D 游戏模式、延迟杀手（Latency Killer）以及支持 256GB 大容量内存等实用功能。随着搭载外部时钟发生器（BCLK Generator）的全新“MAX”系列主板上市，微星进一步挖掘硬件潜力，引入了“PBO BCLK Booster”功能。该技术不仅支持最新的 MAX 系列，还向下兼容 B850MPOWER 及顶级的 MEG X870E GODLIKE 等主板。IT之家援引博文介绍，“PBO BCLK Booster”的核心优势在于极大地降低了超频门槛。传统 BCLK（基频）调整往往涉及复杂的电压与频率匹配，而微星通过 BIOS 预设了“Profile 1”和“Profile 2”两种配置文件，支持用户一键启用。该功能利用板载的时钟发生器直接调整 CPU 基频，本质上属于一种便捷的超频手段。例如，针对 Ryzen 7 9800X3D 处理器，两个档位分别将基频锁定在 103 MHz 和 105 MHz。同时，系统会将 CPU 电压保持在“Auto”模式，交由处理器自行管理电压行为，从而在提升频率的同时尽量简化设置流程。根据微星公布的测试数据，该功能在实际游戏场景中表现亮眼。当用户开启“PBO BCLK Booster”并配合 DDR5-6000 的低延迟（Tighter）内存配置时，相比默认状态的 Ryzen 处理器，整体性能获得了显著增益。具体来看，《赛博朋克 2077》帧率提升了 6%，《地铁：离去》提升 5%，《孤岛惊魂 6》提升 7%，而在新作《毁灭战士：黑暗时代》（DOOM: The Dark Ages）中，性能涨幅更是高达 15%。不过，微星也坦诚指出，由于涉及基频调整，用户在享受高性能的同时可能会面临系统不稳定的风险。“PBO BCLK Booster”还可以与微星此前推出的“X3D 游戏模式”叠加使用，从而进一步压榨 Ryzen 处理器的极限性能。对于不想花费大量时间进行手动调试的用户而言，这种利用主板原生硬件优势的“傻瓜式”优化极具吸引力。
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item" data-source="ithome" onclick="openModal(21)">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/6fcde6c2-dbee-41d3-a150-108f76866ac8.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title">英特尔战未来：酷睿 Ultra 9 285K 时隔一年 Linux 性能提升约 9%，同时功耗下降约 15%</h2>
-                <div class="item-meta">
-                    <span class="meta-tag tag-blue">IT之家</span>
-                    <span class="meta-date">11-28 08:17</span>
-                </div>
-                <p class="item-summary">IT之家 11 月 28 日消息，英特尔酷睿 Ultra 9 285K（Arrow Lake）桌面处理器在发布之初或许并未引起 DIY 玩家的追捧，但 Phoronix 最新的测试...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-21" style="display:none;" 
-                     data-title="英特尔战未来：酷睿 Ultra 9 285K 时隔一年 Linux 性能提升约 9%，同时功耗下降约 15%" 
-                     data-link="https://www.ithome.com/0/900/872.htm"
-                     data-source="IT之家"
-                     data-date="11-28 08:17">
-                     IT之家 11 月 28 日消息，英特尔酷睿 Ultra 9 285K（Arrow Lake）桌面处理器在发布之初或许并未引起 DIY 玩家的追捧，但 Phoronix 最新的测试表明，该平台的性能在过去一年中提升了大约 9%。Phoronix 将酷睿 Ultra 9 285K 的最新测试表现与去年 10 月上市当天的基准测试结果进行了对比，采用了相同的 2×16GB DDR5-6400 内存以及硬件配置。结果显示：酷睿 Ultra 9 285K 处理器平均性能比一年前提升了大约 9%，并且同样的芯片现在的功耗仅为当时的 85% 左右，也就是说功耗降低了约 15%，而这完全得益于软件优化。Phoronix 报告称，此次测试涵盖了 240 多项基准项目，在所有测试的工作负载中均未发现性能下降的情况，这些工作负载涵盖了广泛的实际应用场景，包括代码编译、压缩、Web 基准测试、高性能计算 (HPC) 和模拟任务等。这两次测试中最主要的变化只有软件更新，以及主板 BIOS 更新（IT之家注：华硕 ROG MAXIMUS Z890 HERO），并使用与发布时一致的 XMP1 设置。Phoronix 去年的测试基于 Ubuntu 24.04 LTS，搭配 Linux 6.10 内核、GCC 13.2 编译器及适用于 Radeon RX 7900 GRE 显卡的 Mesa 24.2 驱动。本次测试升级至 Ubuntu 25.10，并手动更新至 Linux 6.18 Git 内核，同时采用 GCC 15.2 稳定版、Mesa 25.2，以及过去一年间众多关键软件组件的更新。
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item" data-source="ifanr" onclick="openModal(22)">
+        <article class="news-item" data-source="ifanr" onclick="openModal(24)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/images/ep/cover-images/hai_tan_zu_qiu_ren_cover.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -781,8 +822,7 @@
 
 
 国产厂商集体叫停 Air 项目...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-22" style="display:none;" 
+                <div id="data-24" style="display:none;" 
                      data-title="早报｜多家企业紧急捐赠逾亿元驰援香港火灾/国产厂商集体叫停Air项目/500 强企业密集裁员，数万岗位消失" 
                      data-link="https://www.ifanr.com/1646416?utm_source=rss&utm_medium=rss&utm_campaign="
                      data-source="爱范儿"
@@ -913,37 +953,43 @@ Tomorrow’s Product Awards 2025｜明日产品榜单评选已正式启动。我
 供应链消息显示，iPhone Air 在国内上市两周销量仅约 5 万台，与 iPhone 17 的热销形成鲜明对比。由于销售不佳，苹果主要供应商富士康已拆除了大部分生产线，仅保留「一条半」，预计在 11 月末全面停产；另一供应商立讯精密则已于 10 月底停止生产。
 界面新闻援引业内人士称，苹果已将下一代 iPhone Air 从发布计划中移除，但供应商透露该机型仍在为超薄电池和部分传感器技术进行验证，或为未来折叠屏产品铺路。
 分析师指出，iPhone Air 在全球市场均未达预期，三星 Galaxy S25 edge 等同类超薄机型也遭遇类似困境。6 毫米以下的极致轻薄设计在结构堆叠上存在挑战，往往牺牲影像和续航能力，难以打动旗舰价位段的消费者。
-与苹果形成对比的是，华为 Mate 70 Air 自 11 月 6 日开启预售以来表现
+与苹果形成对比的是，华为 Mate 70 Air 自 11 月 6 日开启预售以来表现亮眼，售价 4199 元起，搭载 6500mAh 硅碳负极电池和 7 英寸屏幕，日均销量一度超过 5000 台。
+分析人士认为，华为在续航、影像和音效等方面更符合用户需求，尽管厚度不及苹果 Air 极致，但整体体验更具吸引力。
+汇丰警告：OpenAI 至 2030 年仍难盈利
+
+据《财富》报道，汇丰银行在最新分析中指出，OpenAI 在未来十年将面临极端沉重的资金压力，即便到 2030 年用户规模可能覆盖全球成年人的 44%，仍难以实现盈利。
+汇丰团队在更新模型时，将 OpenAI 与微软 2500 亿美元、亚马逊 380 亿美元的长期云协议纳入计算，并强调这些扩容承诺并未伴随新的融资。
+若要兑现增长目标，公司至少还需新增 2070 亿美元算力投入，相当于约 1.47 万亿元人民币。OpenAI 的目标是在本年代末达到 36 GW 算力，这一规模接近美国中型州的用电量。
+分析显示，即便 OpenAI 在 2030 年营收可能突破 2130 亿美元，依旧不足以覆盖算力与数据中心租赁费用。汇丰预计其自由现金流仍为负，整体缺口将达 2070 亿美元。即使提高订阅付费比例、进入广告市场或提升算
                 </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ithome" onclick="openModal(23)">
+        <article class="news-item" data-source="huxiu" onclick="openModal(25)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/b1287fb1-ea02-45bf-8028-e2c538d09340.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/27/171138527097.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
             <div class="item-content">
-                <h2 class="item-title">主动散热解封苹果 A18 Pro 满血性能：iPhone 16 Pro Max 多核跑分超 iPhone Air</h2>
+                <h2 class="item-title">“酸奶界爱马仕”悄悄降价，现制酸奶陷集体困局？</h2>
                 <div class="item-meta">
-                    <span class="meta-tag tag-blue">IT之家</span>
-                    <span class="meta-date">11-28 08:03</span>
+                    <span class="meta-tag tag-blue">虎嗅</span>
+                    <span class="meta-date">11-28 07:00</span>
                 </div>
-                <p class="item-summary">IT之家 11 月 28 日消息，Reddit 用户 VenZoah 昨日（11 月 27 日）发布测试数据显示，上一代旗舰 iPhone 16 Pro Max 在采用主动散热措施...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-23" style="display:none;" 
-                     data-title="主动散热解封苹果 A18 Pro 满血性能：iPhone 16 Pro Max 多核跑分超 iPhone Air" 
-                     data-link="https://www.ithome.com/0/900/871.htm"
-                     data-source="IT之家"
-                     data-date="11-28 08:03">
-                     IT之家 11 月 28 日消息，Reddit 用户 VenZoah 昨日（11 月 27 日）发布测试数据显示，上一代旗舰 iPhone 16 Pro Max 在采用主动散热措施后，其搭载的 A18 Pro 芯片性能可媲美甚至超越新款 iPhone Air 搭载的 A19 Pro（降频版）。该用户在 iPhone 16 Pro Max 上施加外部主动散热（如使用散热背夹），成功解锁了其搭载的 A18 Pro 芯片的潜能。根据 Geekbench 6 数据库及 VenZoah 提供的实测截图，在主动散热环境下，iPhone 16 Pro Max（A18 Pro）取得了单核 3630 分、多核 9638 分的成绩。作为对比，新款 iPhone Air（搭载 6 核 CPU 和 5 核 GPU 的 A19 Pro）在常规被动散热下的成绩为单核 3687 分、多核 9390 分。这组数据直观地证实，解除温控限制后的 A18 Pro 在多核性能上反超了 A19 Pro。该媒体指出，这项测试结果，凸显了散热系统对移动设备性能释放的关键作用。A18 Pro 与 A19 Pro 均基于台积电 3nm 工艺制造，两者相隔一代。VenZoah 的实验证明，iPhone 16 Pro Max 原本具备更强的性能储备，但受限于机身内部被动散热的物理瓶颈，无法在日常使用中持续维持高频运行。一旦通过外部手段解决积热问题，其性能即可实现大幅跃升。IT之家此前报道，通过加装桌面级 SSD 散热器，iPhone 17 Pro Max 在 3DMark 测试中的稳定性可达 90%，进一步印证了散热升级对性能释放的必要性。相关阅读：《苹果 iPhone 17 Pro Max 被魔改外挂 SSD 散热器，4K 视频录制不再降频》《苹果最强散热：iPhone 17 Pro / Max 首次引入 VC 均热板设计》《苹果形象化介绍：iPhone 17 Pro 如何靠 VC 均热板实现“巅峰性能”》《网友水冷改造苹果 iPhone 17 Pro Max，安兔兔跑分提升约 8%》
+                <p class="item-summary">一杯酸奶售价49元，人均消费40元以上，曾被誉为“酸奶界爱马仕”的Blueglass，用降价撕开了高端酸奶市场的泡沫。下载虎嗅APP，第一时间获取深度独到的商业科技资讯，连接更多创...</p>
+                <div id="data-25" style="display:none;" 
+                     data-title="“酸奶界爱马仕”悄悄降价，现制酸奶陷集体困局？" 
+                     data-link="http://www.huxiu.com/article/4810541.html?f=wangzhan"
+                     data-source="虎嗅"
+                     data-date="11-28 07:00">
+                     一杯酸奶售价49元，人均消费40元以上，曾被誉为“酸奶界爱马仕”的Blueglass，用降价撕开了高端酸奶市场的泡沫。下载虎嗅APP，第一时间获取深度独到的商业科技资讯，连接更多创新人群与线下活动
                 </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr" onclick="openModal(24)">
+        <article class="news-item" data-source="ifanr" onclick="openModal(26)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/lptm.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -958,8 +1004,7 @@ Tomorrow’s Product Awards 2025｜明日产品榜单评选已正式启动。我
                 </div>
                 <p class="item-summary">在造车新势力这波浪潮里，零跑一直是个很特别的存在。如果说有的品牌靠「服务」起家，有的品牌靠「流量」活着，那零跑给人的印象，更像是一个闷头做题的书生。
 过去两年，它靠着 C10、C1...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-24" style="display:none;" 
+                <div id="data-26" style="display:none;" 
                      data-title="9.28 万起！刚刚上市的零跑 Lafa5，不是无聊的家用车" 
                      data-link="https://www.ifanr.com/1646338?utm_source=rss&utm_medium=rss&utm_campaign="
                      data-source="爱范儿"
@@ -1010,12 +1055,40 @@ Lafa5 并不完美，它可能无法像当年的经典车型那样瞬间成为�
 ▲ 零跑 S01
 
 那次跌倒让零跑痛定思痛，转向了实用主义。T03 负责走量，C11、C10、C16 负责赚钱。零跑把自己变成了一个极其务实的「全家桶」供应商，用性价比构筑了护城河，也在这个过程中赚到了钱，活了下来，而且活得很好。
-但那个关于「驾驶乐趣」的念头，可能从来就没有在零跑的文化里消失过。现在的零跑，已经不是六年前那个捉襟见肘的初创公司了。它有技术储备，有资金支持，有供应链话语权。所以，Lafa5 不是什么「欧洲特供转内销」，它是零跑在解决了生存问题后，对
+但那个关于「驾驶乐趣」的念头，可能从来就没有在零跑的文化里消失过。现在的零跑，已经不是六年前那个捉襟见肘的初创公司了。它有技术储备，有资金支持，有供应链话语权。所以，Lafa5 不是什么「欧洲特供转内销」，它是零跑在解决了生存问题后，对自己初心的某种回归。
+这次零跑给出的 Slogan 是：
+自己定义路。
+这句话是说给 Lafa5 的潜在用户听的：你们依然有权利选择一种更自我、更鲜活的生活方式，不必被迫接受那些千篇一律的「街车」。在 Lafa5 上，加速、转向、声浪、踏板，你想怎么调就怎么调。
+
+这句话也是说给零跑自己听的：在内卷的市场中，除了无休止地比拼性价比和尺寸，依然可以选择一条更难、但更有趣的路。
+当然，Lafa5 注定不会像 C16 那样成为大众市场的万金油，如何让习惯了「大即是好」的消费者，去理解小车背后的价值？如何重建大家对国产两厢车的信心？这都需要时间去验证。
+
+但无论如何，Lafa5 的出现，让我们在这个略显无聊的时代，多了一种「不无聊」的选择。这不仅是零跑的浪漫，也是中国汽车市场走向成熟、开始容纳多元文化的标志。
+正如时尚总有周期，个性的回归终将到来。Lafa5 或许就是那个报春的信号。
+
+
+
+
+李华 (李华)
+
+带轮子的都关注，欢迎交流。
+邮箱：tanjiewen@ifanr.com
+
+
+
+
+
+邮箱
+8
+
+
+
+#欢迎关注爱范儿官方微信公众号：爱范儿（微信号：ifanr），更多精彩内容第一时间为您
                 </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="36kr" onclick="openModal(25)">
+        <article class="news-item" data-source="36kr" onclick="openModal(27)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.36krcdn.com/hsossms/20251127/v2_0dd7ef9c53a94cdbb063fc9c6073b323%405862220_oswg1149215oswg1562oswg1564_img_jpg%3Fx-oss-process%3Dimage/quality%2Cq_90/format%2Cjpg/interlace%2C1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1030,8 +1103,7 @@ Lafa5 并不完美，它可能无法像当年的经典车型那样瞬间成为�
                 </div>
                 <p class="item-summary">站在2025年的岁末，当我们试图为这一年的资本市场寻找一个确切的注脚时，“并购”无疑是最为响亮的一个词。
 在“并购六条”等政策的持续推动下，上市企业、地方国资、险资、VC/PE机构...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-25" style="display:none;" 
+                <div id="data-27" style="display:none;" 
                      data-title="2025年度中国股权投资行业「产业并购」投资机构系列名册揭晓！" 
                      data-link="https://36kr.com/p/3571296799833219?f=rss"
                      data-source="36Kr"
@@ -1051,7 +1123,7 @@ Lafa5 并不完美，它可能无法像当年的经典车型那样瞬间成为�
             </div>
         </article>
         
-        <article class="news-item" data-source="36kr" onclick="openModal(26)">
+        <article class="news-item" data-source="36kr" onclick="openModal(28)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.36krcdn.com/hsossms/20251127/v2_a5db9d2a91c74b8d89fe21c65a789620%405862220_oswg1968912oswg1562oswg2779_img_jpg%3Fx-oss-process%3Dimage/quality%2Cq_90/format%2Cjpg/interlace%2C1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1066,8 +1138,7 @@ Lafa5 并不完美，它可能无法像当年的经典车型那样瞬间成为�
                 </div>
                 <p class="item-summary">2025年接近尾声，回望过去几年的中国一级市场，无疑经历了翻山越岭之艰辛与变化。
 尤其在过去一年，一级市场出资结构完成阶段性调整。在整体节奏放缓之下，市场参与者机构与资金性质都已蜕...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-26" style="display:none;" 
+                <div id="data-28" style="display:none;" 
                      data-title="今朝更好看｜2025年度有限合伙人、国资、精品投行三大榜单揭晓" 
                      data-link="https://36kr.com/p/3571253177866370?f=rss"
                      data-source="36Kr"
@@ -1076,7 +1147,7 @@ Lafa5 并不完美，它可能无法像当年的经典车型那样瞬间成为�
 尤其在过去一年，一级市场出资结构完成阶段性调整。在整体节奏放缓之下，市场参与者机构与资金性质都已蜕变——国资体系机构、地方政府引导基金等展现出其应有之稳定性与战略性，肩负产业升级与区域协同的“双重使命”，精准匹配国家战略，重点支持人工智能、先进制造、生命科学、新材料、新能源等科技领域，并有效构建市场信心底盘。而带有其他属性的母基金、产业资本、保险资金等多元资本，也积极调整、发挥其差异化优势，参与产业变革之中，进而推动创新创业的发展。
 资产端退出也是市场聚焦的话题——我们关注到，并购事件相比以往频发：诸多PE机构开始寻求优质资产，为其注入金融资本角度的管理和加持。例如，CPE源峰收购汉堡王中国业务83%股权；博裕投资与星巴克达成战略合作，成立合资企业；红杉中国以11亿欧元的估值收购Marshall马歇尔的多数股权等等。而一些专注在S基金交易的精品投行，也活跃于市场之间，以加速行业流动性。
 基于以上市场变化和观察，我们首次设置了「中国最具影响力国资投资机构」，并循例发布「中国最受市场关注有限合伙人」「中国最受关注政府引导基金」「中国最受关注S基金」名册。
-我们也关注到，作为连接资本与资产的桥梁，也是反映一级市场冷暖的晴雨表：FA机构同样经受了洗牌和考验——当下的���品投行们，不光需要理解全球局势、政策方针，还需进一步加深对人工智能、具身智能等的垂直钻研，进而为创业者提供更加优质的战略梳理、资源对接和交易结构设计等等全链条服务。国际化、专业化、多元化 的综合性FA和长期专注垂类领域的精品FA，都将面临区别于以往的更大挑战。
+我们也关注到，作为连接资本与资产的桥梁，也是反映一级市场冷暖的晴雨表：FA机构同样经受了洗牌和考验——当下的精品投行们，不光需要理解全球局势、政策方针，还需进一步加深对人工智能、具身智能等的垂直钻研，进而为创业者提供更加优质的战略梳理、资源对接和交易结构设计等等全链条服务。国际化、专业化、多元化 的综合性FA和长期专注垂类领域的精品FA，都将面临区别于以往的更大挑战。
 延续以往，我们找到了2025年「中国股权投资市场最具影响力/最具成长力精品投行」，专门单独设置「并购重组」、「企业融资」单项奖，并且分领域单独筛选出「新质生产力、先进制造、人工智能、具身智能、半导体/集成电路、航空航天、新能源、新材料、医疗健康、新消费」领域的佼佼者。
 名册现正式发布，谨以此记录坚守长期主义的同行者。
 
@@ -1119,7 +1190,7 @@ A I- FA
             </div>
         </article>
         
-        <article class="news-item" data-source="36kr" onclick="openModal(27)">
+        <article class="news-item" data-source="36kr" onclick="openModal(29)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.36krcdn.com/hsossms/20251127/v2_157dbb99e71146f0b256c9e6747eece6%405868219_oswg77953oswg1280oswg426_img_jpeg%3Fx-oss-process%3Dimage/quality%2Cq_100/format%2Cjpg/interlace%2C1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1134,8 +1205,7 @@ A I- FA
                 </div>
                 <p class="item-summary">从AI加速度到用户价值，再到文化赋能，这些在实战中淬炼出的关键词，同时也是解码未来不可或缺的“生存法则”。
 2026年的商业路标已经为你立好，时代的新剧本，正等待每一位参与者共同书...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-27" style="display:none;" 
+                <div id="data-29" style="display:none;" 
                      data-title="刚刚的WISE2025大会上，43位商业大佬用这些关键词解读2025……" 
                      data-link="https://36kr.com/p/3570679148264320?f=rss"
                      data-source="36Kr"
@@ -1183,12 +1253,20 @@ A I- FA
 
 创维集团首席技术官、深圳市酷开网络科技有限公司首席执行官 王志国：
 
-【关键词：AI原生】——当大模型诞生的时候，我眼前一亮。立即在内部提出了AIOS的概念，提出了酷开要成为AI原生企业，以AI驱动公司，避免人成为AI
+【关键词：AI原生】——当大模型诞生的时候，我眼前一亮。立即在内部提出了AIOS的概念，提出了酷开要成为AI原生企业，以AI驱动公司，避免人成为AI运行的瓶颈。从管理到业务，Happy Work AIOS与Happy Life AIOS支撑起AI原生酷开。Happy Work AIOS是把客户、用户、技术、产品、员工、资产注册进系统，理顺对象关系，构建企业价值AI生产线，让每个员工目标清晰、快乐赚钱。Happy Life AIOS就是要把家庭成员、设备、外部服务都能够注册进系统，由AI统筹，消除家庭的认知差与信息差，增强家庭成员的相互理解，相互关心，实现家庭高性价比的快乐生活。双系统驱动，实现从赚钱到花钱的快乐闭环。这就是AI原生酷开。
+
+飞书深诺集团创始人兼CEO 沈晨岗：
+
+【关键词：AI加速度】——2025年，AI已经从一个模糊的概念，发展为生产力变革的关键变量。营销及商业流程数字化加速迭代，数字内容生产指数级增长，数据衡量也从不可能变为皆有可能。AI已成为商业进化的加速度引擎，它带来的不仅是效率，更是决策范式的根本变革。在出海国际化大潮中，AI加速度更将成为全球品牌竞争弯道超车的核心竞争力之一。
+
+趣丸科技人工智能首席科学家、趣丸千音CTO 张强：
+
+【关键词：垂直AI红利】——我们相信，中国AI的黄金机会在垂直领域。当前
                 </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="36kr" onclick="openModal(28)">
+        <article class="news-item" data-source="36kr" onclick="openModal(30)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.36krcdn.com/hsossms/20251127/v2_fc75571ec2f442779f88ff89200e9390%401199336245_oswg19176oswg1080oswg608_img_000%3Fx-oss-process%3Dimage/format%2Cjpg/interlace%2C1&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1205,8 +1283,7 @@ A I- FA
 编辑｜苏建勋
 《智能涌现》获悉，谷歌已于去年年底立项两个AI眼镜项目，目前两项目已经进入POC（小批量试产）阶段，正在密集推进选型、ID设计。
 知情人士表示，谷歌的AI...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-28" style="display:none;" 
+                <div id="data-30" style="display:none;" 
                      data-title="谷歌重启AI眼镜：富士康代工，三星设计，或2026Q4发布丨智能涌现独家" 
                      data-link="https://36kr.com/p/3571198300289921?f=rss"
                      data-source="36Kr"
@@ -1240,7 +1317,31 @@ end
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr" onclick="openModal(29)">
+        <article class="news-item" data-source="huxiu" onclick="openModal(31)">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/27/173506713973.png&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">明星们的火锅生意，终于干不下去了</h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">虎嗅</span>
+                    <span class="meta-date">11-27 18:30</span>
+                </div>
+                <p class="item-summary">老板名气再大，也不会让菜更好吃，明星还是别来掺和餐饮圈了下载虎嗅APP，第一时间获取深度独到的商业科技资讯，连接更多创新人群与线下活动...</p>
+                <div id="data-31" style="display:none;" 
+                     data-title="明星们的火锅生意，终于干不下去了" 
+                     data-link="http://www.huxiu.com/article/4810572.html?f=wangzhan"
+                     data-source="虎嗅"
+                     data-date="11-27 18:30">
+                     老板名气再大，也不会让菜更好吃，明星还是别来掺和餐饮圈了下载虎嗅APP，第一时间获取深度独到的商业科技资讯，连接更多创新人群与线下活动
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ifanr" onclick="openModal(32)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/B0012189-1024x768.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1256,8 +1357,7 @@ end
                 <p class="item-summary">1924 年，珠穆朗玛峰脚下。
 《纽约时报》的记者追问英国登山家乔治·马洛里，为何要以身犯险、执着于攀登那座死寂的雪山时，他留下了一句回荡百年的低语：
 Because it’s t...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-29" style="display:none;" 
+                <div id="data-32" style="display:none;" 
                      data-title="华为Mate 80系列，回答了珠峰脚下最出名的问题" 
                      data-link="https://www.ifanr.com/1646236?utm_source=rss&utm_medium=rss&utm_campaign="
                      data-source="爱范儿"
@@ -1327,12 +1427,50 @@ Mate 20系列，源自超跑车灯的经典设计，规整地落于中轴；Mate
 ▲ 华为Mate 60系列雅川青
 
 这一次，随着双环设计的脚步，Mate 80系列将目光投向了更遥远的「极境」。
-Mate 80 和 Mate 80 Pro 从自然界的宏大景观中汲取灵感，带来了云杉绿、雪
+Mate 80 和 Mate 80 Pro 从自然界的宏大景观中汲取灵感，带来了云杉绿、雪域白、曜石黑、晨曦金。
+云杉绿取自生长在海拔 3000 米之上，历经风霜依然苍劲的针叶林，透着一股顽强的生命力；雪域白，去除了工业白漆的燥意，还原了阳光照射在千年积雪上的那种纯净与圣洁。
+
+
+
+
+而在 Mate 80 Pro Max 上，这种色彩叙事被推向了高潮——华为将视线投向了更遥远的极地，带来了四款「极境之色」：极光青、极昼金、极地银、极夜黑。
+极光青，复刻了极夜苍穹下，那抹变幻莫测的欧若拉之光，神秘而难以捕捉；极地银，如同冰川折射出的冷冽光辉，纯粹而锋利。
+而极昼金与极夜黑，则定格了极境的一体两面：前者是午夜太阳洒在冰原上的一抹神圣暖意，后者则是极寒世界沉浸于深邃暗夜的厚重与神秘。
+色彩，是一种跨越语言、种族与文明的通感，在这个被钢筋水泥包裹的时代，我们比任何时候都更需要那一抹来自极境的亮色，提醒我们世界依然辽阔。
+带上最坚硬的装备，去把世界尽头的风景装进口袋，然后继续向前，探索下一个极境。
+致敬无畏探索的勇气
+每个人心中，总能选出一些具有象征意义的产品。
+华为 Mate 系列也不例外，翻开 Mate 系列的编年史，你会看到清晰的精神脉络：
+Mate 40系列-致敬生命的顽强；
                 </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr" onclick="openModal(30)">
+        <article class="news-item" data-source="huxiu" onclick="openModal(33)">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/25/031215261802.png&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">干架的不着急，劝架的反而急了，为何美国要逼乌签协议？</h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">虎嗅</span>
+                    <span class="meta-date">11-27 16:30</span>
+                </div>
+                <p class="item-summary">俄乌这边还没打完仗，美国就先把自己快玩崩了，一个新28条掀起了千层浪。俄罗斯、乌克兰、美国各方究竟面临着什么？美国又有什么算盘？下载虎嗅APP，第一时间获取深度独到的商业科技资讯，...</p>
+                <div id="data-33" style="display:none;" 
+                     data-title="干架的不着急，劝架的反而急了，为何美国要逼乌签协议？" 
+                     data-link="http://www.huxiu.com/article/4809267.html?f=wangzhan"
+                     data-source="虎嗅"
+                     data-date="11-27 16:30">
+                     俄乌这边还没打完仗，美国就先把自己快玩崩了，一个新28条掀起了千层浪。俄罗斯、乌克兰、美国各方究竟面临着什么？美国又有什么算盘？下载虎嗅APP，第一时间获取深度独到的商业科技资讯，连接更多创新人群与线下活动
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ifanr" onclick="openModal(34)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/11-11.png&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1348,8 +1486,7 @@ Mate 80 和 Mate 80 Pro 从自然界的宏大景观中汲取灵感，带来了�
                 <p class="item-summary">小米汽车的产品矩阵正在加速扩张。
 继 SUV 「昆仑」和 YU7 高性能版本 GT 车型后，小米汽车似乎还有一项名为「曼岛」的车型正在开发中。
 消息最初来源于汽车博主 @ 小吕斯基...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-30" style="display:none;" 
+                <div id="data-34" style="display:none;" 
                      data-title="小米 YU9 最快下月亮相，还有神秘房车项目曝光" 
                      data-link="https://www.ifanr.com/1646297?utm_source=rss&utm_medium=rss&utm_campaign="
                      data-source="爱范儿"
@@ -1414,7 +1551,55 @@ Mate 80 和 Mate 80 Pro 从自然界的宏大景观中汲取灵感，带来了�
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr" onclick="openModal(31)">
+        <article class="news-item" data-source="huxiu" onclick="openModal(35)">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/26/150330054934.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">杭州网红大撤退，昔日“直播之都”再难撑起造富梦</h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">虎嗅</span>
+                    <span class="meta-date">11-27 15:50</span>
+                </div>
+                <p class="item-summary">钱塘江畔的丽晶国际大厦，曾是2万主播聚集的“杭州第一网红大楼”，如今租金腰斩、空置率高达三成，光环不再。直播行业到底怎么了？下载虎嗅APP，第一时间获取深度独到的商业科技资讯，连接...</p>
+                <div id="data-35" style="display:none;" 
+                     data-title="杭州网红大撤退，昔日“直播之都”再难撑起造富梦" 
+                     data-link="http://www.huxiu.com/article/4809990.html?f=wangzhan"
+                     data-source="虎嗅"
+                     data-date="11-27 15:50">
+                     钱塘江畔的丽晶国际大厦，曾是2万主播聚集的“杭州第一网红大楼”，如今租金腰斩、空置率高达三成，光环不再。直播行业到底怎么了？下载虎嗅APP，第一时间获取深度独到的商业科技资讯，连接更多创新人群与线下活动
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="huxiu" onclick="openModal(36)">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/26/024103249605.png&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">中国官宣寻找地球2.0，给宇宙起源、生命归宿等找答案</h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">虎嗅</span>
+                    <span class="meta-date">11-27 13:30</span>
+                </div>
+                <p class="item-summary">10月24日，中科院国家空间科学中心正式宣布十五期间要实施“太空探源科学卫星计划”，发射4颗科学卫星，分别叫鸿蒙计划、夸父二号、系外地球巡天卫星和eXTP，其中第3颗卫星系外地球巡...</p>
+                <div id="data-36" style="display:none;" 
+                     data-title="中国官宣寻找地球2.0，给宇宙起源、生命归宿等找答案" 
+                     data-link="http://www.huxiu.com/article/4809791.html?f=wangzhan"
+                     data-source="虎嗅"
+                     data-date="11-27 13:30">
+                     10月24日，中科院国家空间科学中心正式宣布十五期间要实施“太空探源科学卫星计划”，发射4颗科学卫星，分别叫鸿蒙计划、夸父二号、系外地球巡天卫星和eXTP，其中第3颗卫星系外地球巡天卫星就是负责寻找人类第二家园地球2.0的。今天就用大白话为大家一口气讲清楚，这4项计划它到底有什么作用？技术亮点和科学价值是什么？下载虎嗅APP，第一时间获取深度独到的商业科技资讯，连接更多创新人群与线下活动
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ifanr" onclick="openModal(37)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/images/ep/cover-images/sha_mo_lv_ren_cover.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1446,8 +1631,7 @@ Mate 80 和 Mate 80 Pro 从自然界的宏大景观中汲取灵感，带来了�
 
 
 消...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-31" style="display:none;" 
+                <div id="data-37" style="display:none;" 
                      data-title="早报｜苹果有望超过三星，重回全球手机第一/已获3C认证移动电源将不受新标准影响/前特斯拉机器人团队成员加入小米" 
                      data-link="https://www.ifanr.com/1646229?utm_source=rss&utm_medium=rss&utm_campaign="
                      data-source="爱范儿"
@@ -1576,12 +1760,42 @@ MEGA 召回导致理想损失超 11 亿元
 今年 10 月，理想汽车宣布召回 11411 辆 MEGA，将更换冷却液、动力电池等部件，主要因冷却液防腐性能不足可能导致动力电池热失控风险。
 在财报电话会上，理想 CFO 李铁针对上述情况进行了回答：
 理想将此次召回事件认定为期后事项，因此会把相关成本计入最近可核算的三季度财报中，同时这对理想的成本控制中心来说是一项不小的压力。
-
+会上，理想总裁马东辉还表示，目前理想 i8 和 i6 正处于产能爬坡、交付提速与市场渗透的关键阶段。其透露，预计到明年年初，i6 的月产能将稳步提升至 2 万台。
+而在自研芯片方面，马东辉透露，搭载自研 M100 芯片的控制器正处于大规模系统测试阶段，预计明年启动商业化落地。
+据悉，该芯片与理想自研的基础模型编译器及软件系统协同开发，未来搭载于新一代 VLA 自动驾驶系统时，其性价比有望达到当前高端芯片的三倍以上。
+另外，理想汽车董事长李想日前也宣布，将发布理想 AI 智能眼镜，并号称「是理想最好的人工智能附件」。李想还表示，理想 AI 音箱也在考虑之内，希望理想的 AI 能力实现在理想汽车用户中更全面的覆盖。
+OpenAI 否认 ChatGPT 怂恿 16 岁少年自杀
+据彭博社报道，OpenAI 就一起指控 ChatGPT 怂恿 16 岁少年 Adam Raine 自杀的诉讼作出回应，并表示聊天记录显示 ChatGPT 累计发出超过 100 次寻求帮助的提醒。
+报道指出，OpenAI 在提交给法院的文件中表示，Adam Raine 的离世令人痛心，不过完整聊天记录表明，ChatGPT
                 </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr" onclick="openModal(32)">
+        <article class="news-item" data-source="huxiu" onclick="openModal(38)">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/25/171912490132.png&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">花100万就能上太空？中国太空船票比马斯克便宜390倍</h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">虎嗅</span>
+                    <span class="meta-date">11-27 09:00</span>
+                </div>
+                <p class="item-summary">100万人民币就能买到中国的太空船票，比马斯克的SpaceX便宜390倍。那么这个与马斯克的船票有什么区别？中国又有什么优势？下载虎嗅APP，第一时间获取深度独到的商业科技资讯，连...</p>
+                <div id="data-38" style="display:none;" 
+                     data-title="花100万就能上太空？中国太空船票比马斯克便宜390倍" 
+                     data-link="http://www.huxiu.com/article/4809571.html?f=wangzhan"
+                     data-source="虎嗅"
+                     data-date="11-27 09:00">
+                     100万人民币就能买到中国的太空船票，比马斯克的SpaceX便宜390倍。那么这个与马斯克的船票有什么区别？中国又有什么优势？下载虎嗅APP，第一时间获取深度独到的商业科技资讯，连接更多创新人群与线下活动
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ifanr" onclick="openModal(39)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/1-21.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1596,8 +1810,7 @@ MEGA 召回导致理想损失超 11 亿元
                 </div>
                 <p class="item-summary">继丰田宣布 GR Supra 停产之后，其「孪生兄弟」宝马 Z4 也迎来了终章。
 近日，宝马确认将在 2026 年春季正式结束 Z4（G29 世代）的生产。自 1995 年 Z3 ...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-32" style="display:none;" 
+                <div id="data-39" style="display:none;" 
                      data-title="双座敞篷传奇落幕，宝马 Z4 即将停产" 
                      data-link="https://www.ifanr.com/1646166?utm_source=rss&utm_medium=rss&utm_campaign="
                      data-source="爱范儿"
@@ -1654,7 +1867,7 @@ Z4 的停产，标志着一个时代的落幕。过去三十年，它承载了�
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr" onclick="openModal(33)">
+        <article class="news-item" data-source="ifanr" onclick="openModal(40)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/GT-T.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1668,8 +1881,7 @@ Z4 的停产，标志着一个时代的落幕。过去三十年，它承载了�
                     <span class="meta-date">11-26 18:40</span>
                 </div>
                 <p class="item-summary">对于高通来说，骁龙 8 至尊版的能力已经被各家 Android 阵营的品牌所认可，它已经是旗舰手机的第一选择。关于次旗舰的选择，倒是历来并不统一，有的品牌会选择上一代的骁龙 8 至...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-33" style="display:none;" 
+                <div id="data-40" style="display:none;" 
                      data-title="高通发布了第五代骁龙 8，它和第五代骁龙 8 至尊版有什么不一样？" 
                      data-link="https://www.ifanr.com/1646219?utm_source=rss&utm_medium=rss&utm_campaign="
                      data-source="爱范儿"
@@ -1740,7 +1952,55 @@ CPU 架构上，第五代骁龙 8 和第五代骁龙 8 至尊版类似，采用�
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr" onclick="openModal(34)">
+        <article class="news-item" data-source="huxiu" onclick="openModal(41)">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/26/182754201638.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">超70亿独角兽“原地解散”，无人车赛道却将爆发？</h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">虎嗅</span>
+                    <span class="meta-date">11-26 18:32</span>
+                </div>
+                <p class="item-summary">本文来自微信公众号：物流进化TransLog，作者：晓璐，原文标题：《超70亿独角兽“原地解散”！无人车赛道下一个出局者，会是谁？》，题图来自：视觉中国（毫末智行的“小魔驼”在四川...</p>
+                <div id="data-41" style="display:none;" 
+                     data-title="超70亿独角兽“原地解散”，无人车赛道却将爆发？" 
+                     data-link="http://www.huxiu.com/article/4810062.html?f=wangzhan"
+                     data-source="虎嗅"
+                     data-date="11-26 18:32">
+                     本文来自微信公众号：物流进化TransLog，作者：晓璐，原文标题：《超70亿独角兽“原地解散”！无人车赛道下一个出局者，会是谁？》，题图来自：视觉中国（毫末智行的“小魔驼”在四川省体育馆巡逻）无人物流车无疑是2025年自动驾驶领域最热的赛道。仅超十亿元级别的融资，就已诞生多笔。伴随资金涌入，这个赛道也迎来越来越多的跨界入局者，如德赛西威、佑驾创新、轻舟智航等。与此同时，多家头部无人物流车企业，已经突破万台级别的交付关口。千台、百台级别的订单，也屡屡出现。看起来，无人物流车已步入规模化落地的快速发展阶段。而另一面，一些玩家正在出局。11月22日下午，毫末智行科技有限公司（以下简称“毫末智行”）突然发布“停工放假通知”，宣布自11月24日起，公司及分公司全部在职员工停工放假，复工时间另行通知。有员工向媒体表示，公司领导层没有对该通知作出任何解释，随后公司群被禁言；自今年8月起，毫末智行就不再按时发工资，截至目前，公司已拖欠两个月工资。300~400名毫末员工就此被迫“原地解散”。2025年开年，毫末智行董事长张凯与CEO顾维灏曾在全员内部信中表示，公司融资进展顺利，未来可期：“2025年开年毫末成功获得张家港创新投资集团有限公司的新一轮融资，同时多笔融资也进入收尾阶段。”（2025年初全员信截图，来自毫末智行公众号）但关于这笔新融资，并未有其他公开信息可查。随之而来的则是公司现金流紧张、欠薪等问题被曝出。实际上，毫末智行在2024年11月便被传出现裁员风暴：职能部门裁员比例达30%，研发人员也遭遇末位淘汰；到了2025年上半年，多位高管相继离职。这家曾估值超10亿美元的“独角兽”，缘何被曝出突然停摆？无人物流车赛道，下一个出局者会是谁？背靠长城、估值超10亿美元，打造全球首款9万元内中型无人物流车故事得从长城汽车说起。2019年11月，毫末智行科技有限公司正式成立。而它其实正是由长城汽车技术中心的智能驾驶前瞻分部孵化而来，专门从事智能汽车与无人驾驶技术的研发。毫末智行的核心团队一部分来自长城汽车，一部分则来自互联网领域专业的无人驾驶团队。其最大的优势，既是能够依托长城汽车主机车厂资源，同时也积累了大量的无人驾驶真实数据。可以说，毫末智行是无人物流车领域自带光环的早期玩家。2020年4月，毫末智行末端物流自动配送车线控底盘产品“小魔盘”试制成功；10月，号称全球最大L4末端物流自动配送车柔性制造基地启用；11月，其末端物流自动配送车“小魔驼”诞生。两个月后，毫末智行无人物流应用示范项目落地深圳坪山区；同时，毫末智行还与美团、多点、阿里达摩院、达达快送等达成合作。2021年2月，与物美多点合作的低速无人车履约项目上路，毫末智行开启小魔驼产品的商业化落地之路。2022年4月，毫末智行推出全球第一款10万元级末端无人物流车小魔驼2.0，售价12.88万元；2023年5月，小魔驼3.0正式发布。值得关注的是，毫末智行再次刷新了产品底价：小魔驼3.0官方整车售价仅89999元，成为彼时全球首款9万元内的中型末端无人物流车。两年半时间里，毫末智行的低速无人物流车产品小魔驼完成三次迭代，但也止步于此。产品推进过程中，毫末智行的融资历程也颇为快速，迄今已进行了多轮融资。尤其是2021年12月，毫末智行宣布获近10亿元的A轮融资。此轮融资后，毫末智行估值超10亿美元，成功晋级自动驾驶独角兽。从目前毫末智行官方披露的融资历程来看，其累计融资总额超过16亿元，背后投资方不仅有产业资本，还有“国家队”、地方政府基金的身影。尽管含着金汤匙出生，并一路拥有合作伙伴与资本的助力，毫末智行也未能顺利走下去。谁“推倒”了曾经的独角兽？回到毫末智行成立之初，为加速产业落地，其提出了“风车战略”：公司从乘用车、低速物流车和智能硬件三个方向进行布局，这三个方向作为三个叶片不断转动、不断收集场景数据，从而生产出更好的产品，形成公司正向发展的飞轮。对于低速无人物流车业务，毫末智行起初给自己的定位是，“行业助力者”。基于这条业务线方针，毫末智行提出一套“5S”服务体系，运力服务（MAAS）、车辆服务（VAAS）、系统工具服务（PAAS）、供应链和硬件服务（IAAS）以及工厂服务（FAAS）。依靠这套体系，毫末智行和多家互联网大厂达成合作，深化自己的低速物流车生态服务者定位。（毫末5S服务模式，来自毫末智行公众号）拿FAAS来说，其是毫末智行提供的工厂制造产能服务——为自动驾驶行业内的科技型企业提供样车试制、样车改制、小批量生产及大批量生产的功能。如前文提到，毫末智行专门打造了一个号称全球最大的L4末端物流自动配送车柔性制造基地。这个在河北保定的制造基地是完全为低速无人车生产而设计的全新工厂，最大产能可达年产5000台。早在2021年4月，毫末助力美团打造的新一代L4级末端无人配送车“魔袋20”落地运营；同年10月，毫末加入阿里“小蛮驴”自动驾驶生态。毫末智行为诸如美团的合作方提供量产制造服务，且生产制造流程部分采用汽车行业标准。其中，毫末智行团队所具备的长城汽车基因，为无人配送车的制造提供了有力保障。由这点来看，毫末智行似乎掌握着区别于其他玩家的独特优势，有望让末端低速无人物流车这扇叶片真正转动起来。而现实却是，毫末智行几乎没有量产交付新闻，有的只是小范围场景里的单量。2023年7月，毫末宣布小魔驼配送订单量累计突破20万单；2023年11月末，公司四周年内部信中提到：“小魔驼已累计配送超过23万单，并将于2023年第四季度在商超履约配送场景实现盈利。”然而，物流进化根据过往资料整理发现，毫末小魔驼主要是与物美多点等商超合作，在北京、上海等部分商超附近的高端社区开展常态化运营，按指定路线实现从A点到B点的无人配送。毫末智行公开的信息显示，截至2024年11月末，小魔驼已累计配送超过90万单；而到今年5月，这个数据仍然是90万。年产5000台的制造基地已落成，何时能扩大落地运营规模和范围？何时能实现批量交付目标？又如何真正将末端无人配送完成商业闭环？现在来看，毫末尚未摸索出清晰答案。据媒体报道，有毫末智行的员工透露：“低速无人小车今年销售目标仅50余台，公司既不研发新车型，也不计划扩大销量，基本处于清库存状态”。对于乘用车智能驾驶业务，一个难以回避的问题就是，毫末智行严重依赖于长城。毫末智行此前曾宣布与三家主机厂签订定点合作协议，不过其官网显示，毫末智行所搭载的车型均出自长城汽车，合作主机厂也仅有长城汽车一家。而对长城汽车来说，毫末智行仅仅是其供应商之一。当智能驾驶行业竞争越来越激烈，毫末智行明显“掉队”的情况下，长城汽车也转而更多地选择了其他供应商。毫末智行这种高度依赖单一主机厂、缺乏自我造血的发展模式，使其在面临行业环境调整时难以抵抗风险。至于智能硬件方面，毫末智行官网显示，除了前文提到的低速无人通用线控底盘“小魔盘”外，还有自动跟随载物出行机器人“小汤圆”、智能清扫机器人“小魔净”两款机器人产品。据毫末智行公众号今年2月发布的信息：2024年底，毫末已开始在成都武侯筹建智能机器人制造工厂，将为接下来的规模量产奠定基础。2025年春节前后，毫末接到多笔大订单，涉及物流、安防、清洁等智能机器人领域。2024年上半年，毫末智行曾推出针对产
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="huxiu" onclick="openModal(42)">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/23/141958939817.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">智驾下一个关键挑战，是不被别人摘“桃子”？</h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">虎嗅</span>
+                    <span class="meta-date">11-26 18:17</span>
+                </div>
+                <p class="item-summary">出品丨虎嗅汽车组作者丨李赓 头图丨元戎启行时间来到2025年末，自动驾驶竟然再次“热”了起来。2025年10月至11月，中国广义自动驾驶领域（含Robotaxi、智驾厂商、Robo...</p>
+                <div id="data-42" style="display:none;" 
+                     data-title="智驾下一个关键挑战，是不被别人摘“桃子”？" 
+                     data-link="http://www.huxiu.com/article/4808755.html?f=wangzhan"
+                     data-source="虎嗅"
+                     data-date="11-26 18:17">
+                     出品丨虎嗅汽车组作者丨李赓 头图丨元戎启行时间来到2025年末，自动驾驶竟然再次“热”了起来。2025年10月至11月，中国广义自动驾驶领域（含Robotaxi、智驾厂商、RoboVan等），融资事件达12起，融资总规模超411亿元人民币。换句话说，这两个月的二级市场融资动作已经超越了2022年和2024年全年的数值，逼近了2023年的水平。真金白银再次豪赌的真正原因，是行业再次看到了“商业化”的原点时刻来临。尤其是随着2025年一大批智驾公司、车企、L4玩家在底层技术升级到大模型和思维链（CoT）之后，全行业智驾能力肉眼可见地出现了再次飞跃。一个严峻的问题也随即给到行业里所有玩家——无论是基础硬件的车企，还是提供智驾算法和解决方案的创业公司，还是拥有海量用户的出行平台，都要想尽一切办法，保证自己不会成为“被摘桃子”的人。这个“桃子”不仅涵盖商业化逻辑下的“定价权”，也包括了行业竞争视角下的“发展权”。核心威胁主要有三重：主机厂自研成熟后把供应商边缘化；大平台在技术成熟之后，用更强的成本和生态优势吸走用户；资本之后的某个时间节点，用资金重新定义行业 “赢家”。前不久，虎嗅汽车与元戎启行的CEO周光进行了一番沟通，后者以目前智驾创业公司第一梯队的视角，分享了他们目前最新的商业化布局和战略，也谈及了不少其对于智驾整体赛道接下来的看法。干赢自研，解决第一重挑战高工智能汽车研究院监测数据显示， 2025年1-9月，中国市场乘用车搭载城区领航辅助（支持付费选装）车型交付量同比增长99.5%，但整体交付渗透率并不高，只有7.01%。消费者对于“城市NOA”这样的高阶智驾，往往还会抱着“旗舰产品你没有，我不买；主流产品你有的选，我也不买”的态度。在这个行业背景下，元戎启行在2025年却实现了相当不错的成绩：截止到2025年10月底，元戎启行的城市NOA智驾方案累计交付了15万辆，10月单月的交付量更是达到了3.19万辆，合作主机厂覆盖长城、Smart、零跑等多个品牌。尤其是与长城的深度合作。后者去年年底战略投资了元戎，今年将蓝山和高山两款重要新品也都搭载了元戎，而且是标配式的搭载。近期坊间传闻长城已经开始对自建的“毫末智行”下手，进入了了“停工放”状态。从结果上，元戎启行证明自己消除了上文提到的第一重威胁——主机厂对智驾公司的边缘化。元戎启行CEO周光给出了三点主要原因：技术路线有“先手”：2023年别人还在“有图/规则方案”，元戎启行已经可用的“无图+端到端方案”，在当时抢占了与车企合作的先手；早早投入“量产”工程：第一次创业（Roadstar.ai）最终失败的经历，让元戎启行把“技术要落到车上、形成规模量产”当成核心目标，所以很早搭工程体系、去啃车规流程，让2025年实现了“量产十几款车、交付十多万台”；与车企一起聚焦投入：元戎启行不追求合作车型数量，而是 “选对几款车，把它们做成爆款”，核心项目上采取几乎驻场式的ALL IN投入。因为慎重选择合作对象，然后把有限精力ALL IN到核心车型上，所以实际效果好；因为实际效果好，所以在车企“自研+外采”的组合中表现更突出；在这个基础上持续和车企共同打造爆款、共享销量与口碑红利，最终让元戎启行与车企之间形成了一个合作的正向循环。部分搭载元戎启行城市NOA智驾解决方案的产品车型尤其是第三点，一旦某款爆款车型（如蓝山、高山、银河M9）实现销量突破，单车销量便能迅速放大，从而带动元戎的装机规模、市场口碑及后续定点项目实现滚雪球式增长。这不仅能在数据和资金层面反哺下一轮量产项目，更将整体量产节奏推向“突然加速”的状态。20万的成绩已经相当不错，但元戎启行已经开始计划2026的目标，周光指出：“公司内部对2026年业绩设定了较高目标，力争实现百万辆级的量产规模。”之所以将2026年目标设定得如此之高，核心考量也在于如何保持自身技术领先。周光进一步解释：“今年20万辆的交付，实质是为2026年基于百万级数据训练更成熟的Foundation Model奠定基础。因此，明年的量产扩张不仅是为了财务增长，更是为大模型‘注入燃料’。”简单来理解，一切交付都应该能够被再次投入到数据闭环中，为接下来的技术发展提供助力。也正是基于这种思考，元戎启行目前并未在“城市NOA”以下级别的产品上投入资源，因为入门级解决方案需在多方面做出妥协，例如网络配置可能阻碍数据闭环，无法有效支持智能驾驶技术的持续演进。2026年的百万目标从战略考量上是合理的，但挑战肯定依旧存在。用周光自己的话来说，关键挑战在于工程体系能否匹配规模化扩张的需求。提前防御“大平台”，接下来的核心要务相比已经基本解决了的“主机厂自研淘汰供应商”挑战，“大平台”吸引走用户的挑战威胁要更大。在虎嗅汽车看来，“大平台”所对应的不只有出行平台、地图商、L4智驾出行企业，更包括了很多对Robotaxi业务跃跃欲试的车企。以国内网约车出行的两大入口“滴滴”和“高德”为例，每天都要完成数千万单的出行需求，已经在大众心目中建立了牢固的品牌形象。就在上个月，滴滴引入约20亿元的D轮融资，继续加码自己的智驾投入，推动L4自动驾驶应用落地。按照他们的规划，最迟2026年就要完成技术的商业化验证，在滴滴APP中实现混合派单（人驾 + 无人车）。如果后续滴滴智驾水平进展足够快，完全可能“近用户楼台先得月”地抢先满足用户的出行需求。元戎启行对此的战略，是参考特斯拉，将规划直接向Robotaxi和具身智能延伸，相当于自己先手布局有可能的竞争。周光表示，未来三大核心业务为“量产车辅助驾驶”、“Robotaxi”和“Road AGI”。三者可概括为：为客户车企提供智能驾驶系统、与车企合作推出驾驶服务、探索智能驾驶在更多场景中的应用。在Robotaxi方面，10月元戎启行与无锡市政府达成战略合作，将在无锡建设测试研发基地并推进Robotaxi业务落地。对于开展Robotaxi业务，周光认为其必要性在于：Robotaxi在复杂城市道路和高强度运营环境中产生大量密集且极端场景的数据。量产车提供规模和广度，Robotaxi则贡献数据密度与长尾场景，二者结合才能推动模型达到商用成熟度。在技术路线上，周光明确支持“特斯拉模式”。他认为，依赖高精地图和重运营的Waymo路线虽在短期内具备安全可控优势，但从长远看，“消费级量产车+端到端大模型+无高精地图”的特斯拉路径更具竞争力。周光在今年早些的线下沟通中也曾强调过：近五年AI领域的核心突破来自GPT所验证的Scaling Law（规模效应），这只有通过大规模量产才能充分实现。随着元戎启行在GPT启发的VLA路线上继续向前，必然能够在全域部署与成本控制上激发出更大的潜力。如果说量产车辅助驾驶与Robotaxi已形成“双重奏”，那么Road AGI则构成元戎启行远景中的“第三重奏”，更接近通用机器人服务场景。元戎启行在今年CES上展示的Road AGI Demo场景示例Road AGI将融合VLA（视觉-语言-行动）与VLN（视觉-语言-导航）两大核心模型，协同应对复杂琐碎的“最后100米”任务。其目标是让各类物理执行单元能像外卖员一样，精准完成从路端到用户门口的送达服务。当前规划中，VLN负责在无导航地图环境下识别出口、
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ifanr" onclick="openModal(43)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/VS-DwarkeshPateldwarkeshspX-0124.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1755,8 +2015,7 @@ CPU 架构上，第五代骁龙 8 和第五代骁龙 8 至尊版类似，采用�
                 </div>
                 <p class="item-summary">修个 bug 可以来回把同一个错误引回来，写代码能绕一圈又走回原地。
 但几乎所有 AI 公司都坚信，只要把模型做大、把数据堆满、把算力扔进去，智能就会自动涌现。这套规模定律（Sca...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-34" style="display:none;" 
+                <div id="data-43" style="display:none;" 
                      data-title="Ilya 罕见发声：Scaling 时代已结束，我们对 AGI 的定义可能全错了" 
                      data-link="https://www.ifanr.com/1646168?utm_source=rss&utm_medium=rss&utm_campaign="
                      data-source="爱范儿"
@@ -1804,12 +2063,43 @@ Ilya 把过去这段时间的研究，分成了两个阶段。2012 年到 2020 �
 他提到了一个脑损伤患者的案例，这个人失去了情感能力，虽然智商正常、能言善辩，却连穿哪双袜子都要纠结几个小时。 这说明情感不仅是情绪，它本质上是一个价值函数（Value Function）。
 
 不过 Ilya 说目前没有找到很合适的概念，来类比情绪在机器学习中的角色，所以用价值函数来替代。
-为了解释什么是价值函数，
+为了解释什么是价值函数，Ilya 提到了少年学开车的例子， 一个青少年，可能只需要练 10 个小时甚至更少，就能学会开车上路。他不需要像现在的自动驾驶 AI 那样，在模拟器里撞车几百万次才能学会避让。
+为什么？因为人类自带了一个极其强大的价值函数，这个价值函数就像一个内置评价器，一旦偏离车道，我们人类会感到紧张，而这相当于一种负反馈。
+那么依赖情绪的价值函数，和我们之前一直听到的强化学习，区别又是什么呢？
+Ilya 说在没有中间价值函数的强化学习里，通常要等到任务彻底结束，AI 才知道自己是赢了还是输了；但价值函数就像是我们的直觉或内心评分系统。当我们下棋丢了一个子，不需要等到这盘棋下完，我们心里立马会「咯噔」一下，这步棋下错了。
+那个学开车的少年，不用等到真的压线丢分了才会改正，而是只要开得稍微偏离车道，他立刻会感到紧张或不自信。这种实时的、内在的反馈机制，让他能极其高效地从少量经验中学习。
+
+对于传统的强化学习，他的看法是这是一种天真且低效率做法。在传统的强化学习中，模型需要尝试成千上万次动作或思考步骤，直到产出一个最终的解决方案，然后根据这个最终结果的好坏获得一个评分，即训练信号。
+这意味着在得出最终解
                 </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr" onclick="openModal(35)">
+        <article class="news-item" data-source="huxiu" onclick="openModal(44)">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.huxiucdn.com/article/cover/202511/25/114503820025.png&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">10个月狂开5000家门店，又一餐饮万店品牌诞生</h2>
+                <div class="item-meta">
+                    <span class="meta-tag tag-blue">虎嗅</span>
+                    <span class="meta-date">11-26 15:49</span>
+                </div>
+                <p class="item-summary">幸运咖门店数量从5000家暴涨到1万家，成为继蜜雪冰城后又一万店咖啡品牌，速度惊人。那么瑞幸、幸运咖的万店奇迹证明了什么？下载虎嗅APP，第一时间获取深度独到的商业科技资讯，连接更...</p>
+                <div id="data-44" style="display:none;" 
+                     data-title="10个月狂开5000家门店，又一餐饮万店品牌诞生" 
+                     data-link="http://www.huxiu.com/article/4809394.html?f=wangzhan"
+                     data-source="虎嗅"
+                     data-date="11-26 15:49">
+                     幸运咖门店数量从5000家暴涨到1万家，成为继蜜雪冰城后又一万店咖啡品牌，速度惊人。那么瑞幸、幸运咖的万店奇迹证明了什么？下载虎嗅APP，第一时间获取深度独到的商业科技资讯，连接更多创新人群与线下活动
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item" data-source="ifanr" onclick="openModal(45)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/d6274656c3229f2ce016a5a0a3735b74.jpeg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1824,8 +2114,7 @@ Ilya 把过去这段时间的研究，分成了两个阶段。2012 年到 2020 �
                 </div>
                 <p class="item-summary">现在的浏览器，越来越「重」了。
 写方案要开着 Word，查资料要切回浏览器，回消息又得跳到微信。屏幕被切得支离破碎，注意力也跟着碎掉。每次想让 AI 帮忙，都要先经历一番「寻找 A...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-35" style="display:none;" 
+                <div id="data-45" style="display:none;" 
                      data-title="夸克 AI 浏览器全面升级，可随时唤起千问" 
                      data-link="https://www.ifanr.com/1646048?utm_source=rss&utm_medium=rss&utm_campaign="
                      data-source="爱范儿"
@@ -1891,12 +2180,24 @@ Atlas 的理念是让 AI 成为操作系统的一部分，但它的实现方式�
 用了几天夸克之后，我开始思考一个问题：当 AI 真正融入浏览器，它到底在改变什么?
 答案可能比想象中更深刻。
 过去 20 年里，浏览器的形态几乎没变。1995 年，比尔·盖茨在一份备忘录里写道：微软将操作系统作为人机接口，从而控制整个微机行业，而网景则控制了人们通向互联网的入口。
-谁控制了入口，谁就能定义规则、分配流量、获得数据。2010 年，Chrome 成为稳定支持三个平台且拥有书签同步功能的浏
+谁控制了入口，谁就能定义规则、分配流量、获得数据。2010 年，Chrome 成为稳定支持三个平台且拥有书签同步功能的浏览器。但即便如此，它的交互本质仍然是 1995 年的逻辑：
+用户负责提出问题，浏览器提供零零碎碎的回答。
+
+你依然要在多个标签页之间来回切换，手动拼凑信息，自己综合结论。这个模式延续了近 30 年，直到 AI 出现。夸克这次做的事情，本质上是在挑战这套交互范式。
+通过千问读屏、悬浮球、快捷键，千问已经跨出了浏览器窗口的边界。
+你在 Word 里写文章，在 Figma 里调布局，在任何一个应用场景里，千问都能理解你正在做什么，并给出针对性反馈。AI 不再局限于某个应用内部，成为整个系统的基础能力。
+     
+为什么是夸克先做出来？有几个原因。
+首先，这与夸克的用户基础和战略定位密切相关。
+随着阿里千问与夸克 AI 浏览器深度融合，也正式成为超 1 亿电脑用户的桌面级智能助理，这个量级的用户基础，意味着夸克有足够的场景数据和反馈来打磨产品体验。
+浏览器作为电脑上最核心的入口，几乎涵盖用户获取信息与执行任务的所有场景。而 AI 在这个场景下的能力空间巨大，也标志着阿里巴巴千问正加速实现对 C 端场景的全面覆盖——从移动端到桌面端，从对话框到操作系统级的全局调用。
+
+此外，浏览器的智能化上限
                 </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr" onclick="openModal(36)">
+        <article class="news-item" data-source="ifanr" onclick="openModal(46)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/header-ver-c.jpeg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1910,8 +2211,7 @@ Atlas 的理念是让 AI 成为操作系统的一部分，但它的实现方式�
                     <span class="meta-date">11-26 11:00</span>
                 </div>
                 <p class="item-summary">通常，提到一部手机的名字，我们总会联想到其背后的特质——比如 nova 总让人想到「年轻」，而 Pura 系列显然就是「时尚」，至于 Mate ——能让人联想到的词很多，但没有一个...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-36" style="display:none;" 
+                <div id="data-46" style="display:none;" 
                      data-title="定义国产高端新十年，华为 Mate 和鸿蒙 6 给出回答" 
                      data-link="https://www.ifanr.com/1646112?utm_source=rss&utm_medium=rss&utm_campaign="
                      data-source="爱范儿"
@@ -1971,12 +2271,21 @@ Mate 70 Pro+
 
 全新的小艺帮帮忙功能，则让华为Mate 80系列具备了学习能力，你真的可以「教手机做事」，例如在京东上买咖啡这样的定期操作，现在交给小艺代为处理就非常方便：
 
-在日常生活中，全新升级的小艺简报还能打破应用边界，主动聚合日程、通
+在日常生活中，全新升级的小艺简报还能打破应用边界，主动聚合日程、通知及待办信息，自动生成效率、健康或学习类的场景化摘要。
+
+值得一提的，还有今年在 Mate X7 上首次商用 A2A 智能体协作的全新小艺。
+用通俗的话来讲，支持 A2A 智能体的小艺，已经不单是华为自己训练出的 AI 模型了，而是一个打通了诸多业务平台、涵盖用户需求方方面面的多 AI 智能体的聚合——
+
+比如当你拿着 Mate X7，就可以直接开口向小艺说：「帮我订一张 11 月 25 日去深圳的机票，选深航，要一个能看到日落的座位」。
+相比以往的 AI 助手需要分开执行打开航司 app、选日期、选座位等多次操作，鸿蒙 6 中的新小艺可以直接联动「深航飞飞」智能体，在同一个 session 中实现从收到指令到下单出票的丝滑小连招。
+
+又比如来自东方财富的妙想金融智能体，作为首款来自金融行业的鸿蒙金融智能体，很适配 Mate X7 这样的折叠屏手机，真正能做到通晓行情、洞悉事件、理解逻辑，动动嘴就能完成一次专业分析。
+只需在指令里加上一句「小艺，用妙想……」，鸿蒙 6 系统就会调用妙想金融智能体生成可视化要点、定量结论与可追溯逻辑，将「人找信息」转变为「信息找人」。再结合 Mate X
                 </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr" onclick="openModal(37)">
+        <article class="news-item" data-source="ifanr" onclick="openModal(47)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/images/ep/cover-images/chun_bai_wu_shi_li_de_niu_zi_xi_ha_ge_cover.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2002,8 +2311,7 @@ Mate 70 Pro+
 
 
 「史上最严」充电宝新规明年实施...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-37" style="display:none;" 
+                <div id="data-47" style="display:none;" 
                      data-title="早报｜折叠屏 iPhone 或命名 Ultra/4699 元起，华为 Mate80 系列发布/「史上最严」充电宝新规将实施，3C认证全面失效" 
                      data-link="https://www.ifanr.com/1646106?utm_source=rss&utm_medium=rss&utm_campaign="
                      data-source="爱范儿"
@@ -2121,12 +2429,22 @@ Google 推动 AI 芯片销售，英伟达回应
 消息人士透露，Meta 正与 Google 商谈在 2027 年投入数十亿美元，将 TPU 部署在 Meta 的数据中心，并计划在明年继续租赁 Google Cloud 的芯片。当前，Meta 主要依赖英伟达 GPU，这一潜在转变显示其在多元化芯片供应上的战略考量。
 过去，Google 主要通过 Google Cloud 向客户租赁自研的张量处理单元（TPU）。
 Google 云部门高层曾表示，若 TPU 推广成功，公司有望争取英伟达约 10% 的年度营收份额，相当于数十亿美元的市场规模。
-部分客户希望在本地使用 TPU，以满足更高的数据安全与合规要求。Google 还强调 TPU 在高频交易等场
+部分客户希望在本地使用 TPU，以满足更高的数据安全与合规要求。Google 还强调 TPU 在高频交易等场景中的优势。
+与此同时，英伟达 CEO 黄仁勋密切关注 Google 的技术进展，并积极与 OpenAI、Anthropic 等潜在 TPU 用户达成合作，以稳固 GPU 市场主导地位。英伟达目前市值高达 4.36 万亿美元，仍是全球市值最高的公司之一。
+
+而英伟达昨晚发帖表示，其对 Google 的成功感到高兴，同时称「他们在人工智能领域取得了巨大进步，我们继续向谷歌供货。」
+英伟达强调，自己的技术领先行业一代，其 AI 芯片是唯一能够运行所有人工智能模型并在任何计算场所运行的平台。
+其还表示，与专为特定人工智能框架或功能设计的 ASIC 相比，英伟达自己的芯片提供更高的性能、通用性和可替代性。
+Spotify 计划 2026 年再涨美国订阅价格
+
+《金融时报》援引三位知情人士称，Spotify 计划在 2026 年第一季度再次上调美国订阅价格。主要唱片公司正向苹果与 Spotify 施压，要求两大音乐流媒体平台提高价格，以应对通胀与行业成本上涨。
+去年，Spotify 已在美国进行过一次涨价，并在今年 8 月对多个国际市场调整价格。
+目前，Spotify Premium 在美国的月
                 </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr" onclick="openModal(38)">
+        <article class="news-item" data-source="ifanr" onclick="openModal(48)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/00-2.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2143,8 +2461,7 @@ Google 云部门高层曾表示，若 TPU 推广成功，公司有望争取英�
 一位当天在展台担任接待的女孩发问：「做『小蜜蜂』是不是比站展台轻松一点？」
 
 我一时间没明白「小蜜蜂」是什么，搜索了...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-38" style="display:none;" 
+                <div id="data-48" style="display:none;" 
                      data-title="今年广州车展，主角不是车企" 
                      data-link="https://www.ifanr.com/1646013?utm_source=rss&utm_medium=rss&utm_campaign="
                      data-source="爱范儿"
@@ -2209,12 +2526,22 @@ Google 云部门高层曾表示，若 TPU 推广成功，公司有望争取英�
 
 而入门车型长安启源 Q05 与零跑 A10 两款新车甚至将配备激光雷达的车型售价压低至了 10 万元以内，反映出智能化配置正从高端溢价项转变为大众车型的基础竞争力。
 以大众、日产、奇瑞为首的传统车企们，在展台上不再回避「智能」标签，反而主动将其融入燃油车的产品叙事。它们在发布会上频频强调 L2 级辅助驾驶、数字座舱、车联网服务等配置，这些曾被视为新能源专属的卖点，如今已成为燃油车宣传的常规内容。
-最具代表性的案例来自东风日产。其在广州车展推出的天籁
+最具代表性的案例来自东风日产。其在广州车展推出的天籁·鸿蒙座舱版，起售价仅 13 万元，却搭载了 15.6 英寸 HUAWEI 车载智慧屏、鸿蒙座舱 5.0 系统，并支持跨设备无缝流转、AI 语音助手、无麦 K 歌等智能功能。
+
+分化与洗牌
+未来的整车企业，正加速分化为两类截然不同的发展路径。
+一类是极少数「全能型选手」。如特斯拉、比亚迪、小米、蔚来，坚它们选择了一条行业中最艰难、但也最具长期确定性的道路。
+它们不仅在芯片、算法、电池、座舱系统、操作系统等底层技术上坚持全栈自研，更牢牢掌控从核心零部件到整车制造的完整供应链体系。
+「全能型选手」的核心能力，早已超越单一技术模块的突破，而是一套覆盖研发、生产、供应链管理、质量控制乃至软件生态的全局性统筹能力。这种端到端的垂直整合，构成了其难以被复制的竞争壁垒。
+
+另一类则是数量更为庞大的「集成型品牌」。对它们而言，从零构建自研体系既不现实，也非必要。
+将智能驾驶、三电系统、数字座舱等核心子系统交由华为、Momenta、宁德时代等新兴 Tier 1 托管，转而聚焦于产品定义、用户体验与市场运营，成为一条更务实且高效的发展路径。
+这类企业的真正竞争力，在于能否精准理解用户需求、把握市场节奏，并
                 </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr" onclick="openModal(39)">
+        <article class="news-item" data-source="ifanr" onclick="openModal(49)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/IMG_0002-1.jpeg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2229,8 +2556,7 @@ Google 云部门高层曾表示，若 TPU 推广成功，公司有望争取英�
                 </div>
                 <p class="item-summary">刚刚新鲜发布的华为 Mate 80 手机和一系列新品，爱范儿已经第一时间开箱上手体验。来看看今年最强华为手机，有什么亮点？
 首先看华为 Mate 80 Pro Max，我们拿到的是...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-39" style="display:none;" 
+                <div id="data-49" style="display:none;" 
                      data-title="华为 Mate 旗舰新机上手：我们用 20 倍长焦微距，找到了一个小彩蛋" 
                      data-link="https://www.ifanr.com/1646033?utm_source=rss&utm_medium=rss&utm_campaign="
                      data-source="爱范儿"
@@ -2282,7 +2608,7 @@ MatePad Edge 配备了一块 14.2 英寸的 OLED 屏幕，窄至 4.1mm 的窄边
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr" onclick="openModal(40)">
+        <article class="news-item" data-source="ifanr" onclick="openModal(50)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/7M304957.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2298,8 +2624,7 @@ MatePad Edge 配备了一块 14.2 英寸的 OLED 屏幕，窄至 4.1mm 的窄边
                 <p class="item-summary">近日，荣耀推出了数字系列新品，新品有荣耀 500 标准版和荣耀 500 Pro 两款，标准版定价 2699 元起，500 Pro 定价 3599 元起售。
 
 设计部分，荣耀 500...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-40" style="display:none;" 
+                <div id="data-50" style="display:none;" 
                      data-title="荣耀 500 Pro 体验：Live 图也支持路人消除，从影像到性能全覆盖的 AI 手机" 
                      data-link="https://www.ifanr.com/1646049?utm_source=rss&utm_medium=rss&utm_campaign="
                      data-source="爱范儿"
@@ -2365,7 +2690,7 @@ DECO 部分突出的玻璃面模到后盖有顺滑的视觉过渡，一体性极
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr" onclick="openModal(41)">
+        <article class="news-item" data-source="ifanr" onclick="openModal(51)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/coverifanr-1.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2380,8 +2705,7 @@ DECO 部分突出的玻璃面模到后盖有顺滑的视觉过渡，一体性极
                 </div>
                 <p class="item-summary">今年华为开了很多发布会，推出了不少「又新又怪」的产品——「阔折叠」Pura X、「折叠电脑」MateBook Fold、「一目双镜」Pura 80 Ultra 等等……
 但今天发布...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-41" style="display:none;" 
+                <div id="data-51" style="display:none;" 
                      data-title="4699 元起！华为发布 Mate 80 系列：全能、直屏，还有性价比" 
                      data-link="https://www.ifanr.com/1645965?utm_source=rss&utm_medium=rss&utm_campaign="
                      data-source="爱范儿"
@@ -2450,12 +2774,28 @@ Mate 70 首发的红枫原色摄像头广受好评，Mate 80 搭载的第二代�
 
 对于大折叠手机，厚度和重量是非常重要的参数，华为 Mate X7 展开厚度 4.5mm，折叠厚度 9.5mm，整机重量 235 克。
 
-受制于紧凑的机身空间，折叠屏手机的影像系统限制颇多。凭借模组小型化和手机内部结构优化，华为展开厚度仅有 4.5mm 的华为 Mate X7 典藏版中堆了不少料，包括 Mate 80 Pro Max 同
+受制于紧凑的机身空间，折叠屏手机的影像系统限制颇多。凭借模组小型化和手机内部结构优化，华为展开厚度仅有 4.5mm 的华为 Mate X7 典藏版中堆了不少料，包括 Mate 80 Pro Max 同款主摄。
+华为 Mate X7 影像典藏版配置如下：
+
+主摄：5000 万像素 RYYB 传感器，1/1.28 英寸，F1.4-F4.0 RYD 传感器，17.5 超大集成电容，十档物理可变光圈，支持光学防抖。
+长焦微距：5000 万像素 RYYB传感器，光圈 F2.2，3.5 倍光学长焦，7 倍光学品质变焦，支持光学防抖。
+超广角：4000 万像素 RYYB 传感器，光圈 F2.2
+第二代红枫摄像头
+
+
+不过，华为 Mate X7 最大的亮点不只是硬件配置，而是自研系统 HarmonyOS6 加持下，折叠大屏的独有的全新交互。
+利用鸿蒙应用数据互通的特性，华为 Mate X7 可以实现左边应用点击分享右边，不需要复制粘贴和应用跳转。
+像是导航和攻略的场景，左边打开小红书、马蜂窝这些应用，右边打开地图，选择地址后地图可快速识别形成路径规划。
+分屏最有潜力的场景，还是 AI 助手。打开小艺分屏之后，可以直接将左边应用的内容传递到小艺，AI 助手就能结合上下文和联想进行回答。
+
+华为 Mate X7 的配置和售价如下：
+
+华为 Mate X7，配置 12GB + 256GB 起步，起售价 
                 </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr" onclick="openModal(42)">
+        <article class="news-item" data-source="ifanr" onclick="openModal(52)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/BhkHHxz2.jpeg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2470,8 +2810,7 @@ Mate 70 首发的红枫原色摄像头广受好评，Mate 80 搭载的第二代�
                 </div>
                 <p class="item-summary">你有没有过这种体验，想买个东西，先去小红书找了二三十篇笔记，B 站看了十几个测评，然后上什么值得买看了下优惠的渠道，最后，人已经麻到不想买了。
 今天，OpenAI 给了一个新的统一...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-42" style="display:none;" 
+                <div id="data-52" style="display:none;" 
                      data-title="ChatGPT 这个新功能，想把淘宝小红书 B 站的活全干了" 
                      data-link="https://www.ifanr.com/1645943?utm_source=rss&utm_medium=rss&utm_campaign="
                      data-source="爱范儿"
@@ -2525,12 +2864,20 @@ OpenAI 最后也提到，他们没收钱。不会因为谁给钱多，就暗中�
 
 其次，这次购物研究的功能，是由一个经过强化学习训练的 GPT-5 mini 版本支持，专门用于购物任务。他们创建了一个新的评估方法，来衡量模型推荐的商品是否符合用户的需求，最后的结果是购物研究达到了最高的 64% 准确率。
 不过，尽管模型很强，OpenAI 还是提到，库存和价格瞬息万变，购物研究也可能会有疏漏，建议大家在下单前，点击 ChatGPT 提供的商家链接，去官网做最终确认。
-在未来，甚至可以直接通过 ChatGPT 购买，OpenAI 提到那些已经加入 Instant Checkout（支付平台 Stripe 与 ChatGPT 合作的即时结算），
+在未来，甚至可以直接通过 ChatGPT 购买，OpenAI 提到那些已经加入 Instant Checkout（支付平台 Stripe 与 ChatGPT 合作的即时结算），且提供该功能的商家，就能让我们边挑选边下单了。
+除了模型存在疏漏，更大的局限是在中文市场，大部分的国产，尤其是没出海的品牌，数据缺失比较严重；同时国内电商页面也无法实时抓取。不过，用来调研一些国际品牌为主的商品，ChatGPT 还是能派得上用场。
+再者说，以国产 AI 进步的速度，如果想要跟进类似的功能，接入淘宝京东拼多多大概也是「分分钟」的事。
+
+对于 ChatGPT 新上线的购物研究功能，X 上的网友也是各种意见都有。有人说「OpenAI 又一次快速实现了，我的整个创业想法。」、还有网友给出一张密密麻麻的 AI 订阅费用对比，说「AI 能帮我找到最适合的 AI 订阅吗」，也有人犀利的表示「别再破坏我的 ChatGPT 了」……
+
+回头看 GPT-5 发布后，ChatGPT 这三个多月来的更新，群聊、视频社交、即时结账、购物、浏览器以及即将到来的成人模式等，OpenAI 看准了要利用它的庞大流量留住这些用户。对它来说，当前保持住用户的现有存量，比进一步挖掘用户增量可能更重要。
+而购物研究，只是 ChatGPT 牢牢绑住现有用户，很小的一次的探索；电商这块巨大的蛋糕，它才刚刚进来。
+#
                 </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr" onclick="openModal(43)">
+        <article class="news-item" data-source="ifanr" onclick="openModal(53)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/images/ep/cover-images/xia_tian_chong_lang_cover.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2560,8 +2907,7 @@ Claude Opus 4.5 正式推出
 
 
 ...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-43" style="display:none;" 
+                <div id="data-53" style="display:none;" 
                      data-title="早报｜ChatGPT推出购物研究功能/豆包输入法官宣上线/Google苹果互传功能或登陆更多安卓手机" 
                      data-link="https://www.ifanr.com/1645932?utm_source=rss&utm_medium=rss&utm_campaign="
                      data-source="爱范儿"
@@ -2682,12 +3028,20 @@ Anthropic 同时更新了 Claude Developer Platform、Claude Code 以及消费�
 
 据多家媒体报道，联想集团正在加大内存芯片库存，以应对人工智能产业带来的供应紧张与价格上涨。
 联想 CFO 郑孝明在彭博电视采访中表示，公司当前零部件库存比平时高出约 50%，以缓解 AI 数据中心和云硬件需求激增导致的供应压力。
-他强调，联想将尽力避免将成本上涨转嫁至消费者端，并利用高库存优
+他强调，联想将尽力避免将成本上涨转嫁至消费者端，并利用高库存优势保持市场竞争力。
+此外，据界面新闻报道，联想董事长兼 CEO 杨元庆在财报发布会上称，全球 DRAM 与 NAND 芯片短缺预计将持续至明年，价格已较此前上涨约 50%。
+他表示，联想通过与三星、海力士等供应商签订长期合同，确保全年供应稳定，并凭借规模优势锁定大部分产能。
+腾讯或参投，拓竹融资估值或达 100 亿美金
+
+据 36 氪报道，拓竹正接近完成新一轮融资，腾讯参投，公司估值或达 100 亿美金。
+消息人士指出，此轮融资延续了今年 7 月拓竹与腾讯云达成合作的趋势，拓竹旗下 3D 模型平台 MakerWorld 已接入腾讯混元 3D 生成模型。不过，拓竹与腾讯方面均否认相关传闻。
+拓竹近年来在消费级 3D 打印市场表现突出。东吴证券研报显示，去年公司营收预计达到 55-60 亿元，净利润接近 20 亿元。其出货量已超 120 万台，全球市占率达 29%。上一轮融资完成于 2023 年，投资方包括铭石投资、淡马锡、True Light、五源资本。
+据公司估算，全球超过 70% 的 3D 打印农场配备其 P1 系列打印机。与此同时，竞争加剧，大疆近期宣布投资 3D 打印企业智能派，
                 </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr" onclick="openModal(44)">
+        <article class="news-item" data-source="ifanr" onclick="openModal(54)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/33.jpeg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2702,8 +3056,7 @@ Anthropic 同时更新了 Claude Developer Platform、Claude Code 以及消费�
                 </div>
                 <p class="item-summary">最近这段时间，大模型发布就跟下饺子似的，一个接一个往外冒。
 前脚 Gemini 3 Pro 刚抢了两周风头，后脚 Claude Opus 4.5 刚刚就正式发布，还是主打编程，还是...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-44" style="display:none;" 
+                <div id="data-54" style="display:none;" 
                      data-title="编程测试碾压人类！Claude Opus 4.5 深夜突袭，AI 编程进入「超人时代」" 
                      data-link="https://www.ifanr.com/1645911?utm_source=rss&utm_medium=rss&utm_campaign="
                      data-source="爱范儿"
@@ -2753,12 +3106,21 @@ Claude Opus 4.5 和前代模型比，在实现相同甚至更优结果的情况�
 有时开发者希望模型能持续深入思考，有时又需要更快速灵活的响应。
 所以，API 里新加了一个叫 effort 的参数，让你可以根据需求选：要么优先省时间和成本，要么最大化模型能力。任君选择。
 当设置为中等 effort 等级时，Opus 4.5 在 SWE-bench Verified 测试中和 Sonnet 4.5 的最佳成绩持平，但输出 tokens 数减少了 76%。
-而在最高 effort 等级下，Opus 4.5 的表现比 Sonnet 4.5 高出 4.3 个百分点，同时
+而在最高 effort 等级下，Opus 4.5 的表现比 Sonnet 4.5 高出 4.3 个百分点，同时还减少了 48% 的输出量。
+凭借 effort 控制、上下文压缩（context compaction）和高级工具调用能力，Claude Opus 4.5 能跑更久、完成更多任务，而且需要的人工干预更少了。
+
+此外，真正的 AI 智能体需要在成百上千种工具之间无缝协作。
+想象一个 IDE 助手集成了 Git、文件管理、测试框架和部署流程，或者一个运营智能体同时连着 Slack、GitHub、Google Drive、Jira 和几十个 MCP 服务器。
+问题在于，传统方式会把所有工具定义一次性塞进上下文。拿连接五个服务器的系统来说，GitHub 需要 26K tokens，Slack 需要 21K tokens，Sentry、Grafana、Splunk 加起来又是 8K tokens。
+对话还没开始呢，就已经占了 55K tokens 了。要是再加上 Jira，轻松突破 100K tokens。更麻烦的是，当工具名字相似时，模型容易选错工具或者传错参数。
+
+Anthropic 推出了三项新功能来解决这些问题。
+Tool Search Tool 让 Claude 按需动态发现工具，只
                 </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr" onclick="openModal(45)">
+        <article class="news-item" data-source="ifanr" onclick="openModal(55)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/Weixin-Image_20251124175632_2865_68.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2773,8 +3135,7 @@ Claude Opus 4.5 和前代模型比，在实现相同甚至更优结果的情况�
                 </div>
                 <p class="item-summary">「@元宝，总结一下这篇文章」，自从在微信公众号留言区能@元宝之后，让元宝来总结文章内容成了最热门的玩法。
 但元宝能做的远不止是总结一篇文章，就在 Nano Banana Pro 发...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-45" style="display:none;" 
+                <div id="data-55" style="display:none;" 
                      data-title="元宝上线一句话生成视频，这会是评论区的整活小能手" 
                      data-link="https://www.ifanr.com/1645857?utm_source=rss&utm_medium=rss&utm_campaign="
                      data-source="爱范儿"
@@ -2844,12 +3205,17 @@ HunyuanVideo 1.5 主打是轻量化和开源，但在画面色调和细节一致
 ▲在微信里，找到元宝联系人，可以直接生成图片，图为发送「生成一个线条小狗」后的效果
 
 就像公众号文章的评论区，元宝的总结，有时候真谈不上有多么精辟和有启发性，但是我们就逐渐习惯了凡事都 @ 一下元宝。
-视频生成也是这样，说不定哪天元宝就能在公众号文
+视频生成也是这样，说不定哪天元宝就能在公众号文章的评论区，在微信联系人的对话里，用 AI 生成的 GIF 表情包和我们斗图。而这些，也只有元宝能做到。
+#欢迎关注爱范儿官方微信公众号：爱范儿（微信号：ifanr），更多精彩内容第一时间为您奉上。
+爱范儿 |
+原文链接 ·
+查看评论 ·
+新浪微博
                 </div>
             </div>
         </article>
         
-        <article class="news-item" data-source="ifanr" onclick="openModal(46)">
+        <article class="news-item" data-source="ifanr" onclick="openModal(56)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//s3.ifanr.com/wp-content/uploads/2025/11/42.jpg&w=240&h=180&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2864,8 +3230,7 @@ HunyuanVideo 1.5 主打是轻量化和开源，但在画面色调和细节一致
                 </div>
                 <p class="item-summary">每当苹果在 WWDC 发布新版 iOS，相关热搜总是会出现类似这样的话题：究竟哪款老 iPhone 首次被排除在升级名单之外，不幸「掉队」？
 新能源汽车也是如此——引入智能化后，「...</p>
-                <!-- 隐藏的数据域，供 JS 读取 -->
-                <div id="data-46" style="display:none;" 
+                <div id="data-56" style="display:none;" 
                      data-title="理想 VLA 再更新，不但自主充电还能躲「鱼雷」" 
                      data-link="https://www.ifanr.com/1645817?utm_source=rss&utm_medium=rss&utm_campaign="
                      data-source="爱范儿"
@@ -2924,7 +3289,19 @@ VLA 的主张不是「更像人开车」的表演，而是用多模态大模型 
 从技术角度看，VLA 让辅助驾驶从「猴子时期」迈进了「人类时期」，拥有了「能思考、能沟通、能记忆、能自我提升」的能力。
 
 较早之前，理想 VLA 司机大模型就定下过六维指标：「选对路、速度对、舒适度、安心感、可沟通、高效率」。
-从「自主会开」到「自主会充」，从道路到站区，从能刹住到会躲开
+从「自主会开」到「自主会充」，从道路到站区，从能刹住到会躲开，VLA 持续让「智驾」的价值从单点功能推到整段体验。
+
+全新的 VLA 充电能力，让「补能」这个常用场景首次实现了「理解空间、自动完成任务」的空间理解，也验证了理想坚持 VLA 路线的正确性——可迁移、可学习、可持续进化，这正是理想汽车日益坚实的护城河之一。
+同时，最新的「防御性 AES 」首次将 AES 功能扩展到「正前/正后/侧前/侧后」的全域风险规避。
+就目前而言，VLA 还未曾到达「技术能力上限」的位置，仍然在不断地迭代进化，它仍然有着很多需要去落地的探索点，这也就说明 VLA 接下来还会有更多的能力，可以被更新释放。
+
+基业长青的公司往往特别看重厚积薄发与长期复利，所以真正的护城河从来都不在 PPT 的算法名词当中，而是在每一公里的稳定行驶、每一次自主进站的充电补能、每一次被避免的事故当中。
+理想 VLA 的长期价值，正在这些可被持续验证的细节中不断放大。
+#欢迎关注爱范儿官方微信公众号：爱范儿（微信号：ifanr），更多精彩内容第一时间为您奉上。
+爱范儿 |
+原文链接 ·
+查看评论 ·
+新浪微博
                 </div>
             </div>
         </article>
@@ -2933,7 +3310,7 @@ VLA 的主张不是「更像人开车」的表演，而是用多模态大模型 
         </div>
 
         <footer class="main-footer">
-            <p>更新于: 2025-11-28 09:53 (北京时间)</p>
+            <p>更新于: 2025-11-28 10:26 (北京时间)</p>
             <p><a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2025183710号-1</a></p>
             <p>© 折疼记</p>
         </footer>
@@ -2948,15 +3325,16 @@ VLA 的主张不是「更像人开车」的表演，而是用多模态大模型 
                     <h1 class="article-title" id="mTitle"></h1>
                     <div class="article-meta" id="mMeta"></div>
                     <div class="article-content" id="mContent"></div>
-                    <a href="" target="_blank" id="mLink" class="read-more-btn">查看源站全文 (跳转)</a>
+                    <a href="" target="_blank" id="mLink" class="read-more-btn">🔗 跳转至源网站查看全文</a>
                 </div>
                 
                 <div class="ai-section">
+                    <div class="ai-title">🤖 AI 助手 <span>(已联网全库模式)</span></div>
                     <div class="ai-chat-box" id="aiChatBox">
-                        <div class="ai-msg bot">🤖 你好，我是本文的 AI 助手。<br>你可以问我：<br>“总结这篇文章” 或 “这件事有什么影响？”</div>
+                        <div class="ai-msg bot">你好！我是你的智能助手。<br>你可以针对这篇文章提问，也可以问我任何互联网知识（如代码、历史、百科）。</div>
                     </div>
                     <div class="ai-input-area">
-                        <input type="text" class="ai-input" id="aiInput" placeholder="向 AI 提问..." onkeypress="handleEnter(event)">
+                        <input type="text" class="ai-input" id="aiInput" placeholder="输入问题，搜索全网知识..." onkeypress="handleEnter(event)">
                         <button class="ai-send-btn" id="aiBtn" onclick="sendToAI()">发送</button>
                     </div>
                 </div>
@@ -2965,8 +3343,6 @@ VLA 的主张不是「更像人开车」的表演，而是用多模态大模型 
 
         <script>
             let currentArticleContext = "";
-            
-            // --- 你的 API KEY ---
             const API_KEY = "sk-bcc4ef2185e24dce86a028982862a81e"; 
             const API_URL = "https://api.deepseek.com/chat/completions";
 
@@ -2994,10 +3370,11 @@ VLA 的主张不是「更像人开车」的表演，而是用多模态大模型 
                 document.getElementById('mContent').innerHTML = content.length > 5 ? content : '<p>暂无详细摘要，请让 AI 进行分析。</p>';
                 document.getElementById('mLink').href = link;
                 
-                currentArticleContext = `标题：${title}\n内容：${content.substring(0, 2000)}`;
+                // 保存上下文，但不再强迫 AI 只读这篇文章
+                currentArticleContext = `【当前阅读的文章参考】\n标题：${title}\n内容摘要：${content.substring(0, 2000)}`;
 
                 const chatBox = document.getElementById('aiChatBox');
-                chatBox.innerHTML = '<div class="ai-msg bot">🤖 针对这篇新闻，你有什么想问的？</div>';
+                chatBox.innerHTML = '<div class="ai-msg bot">💡 你好！无论是关于这篇文章，还是关于世界上的任何问题，都可以问我。</div>';
 
                 const overlay = document.getElementById('articleModal');
                 overlay.style.display = 'block';
@@ -3024,12 +3401,16 @@ VLA 的主张不是「更像人开车」的表演，而是用多模态大模型 
                 input.value = '';
                 input.disabled = true;
                 btn.disabled = true;
-                btn.innerText = '思考中...';
+                btn.innerText = '...';
                 
                 chatBox.innerHTML += `<div class="ai-msg user">${question}</div>`;
                 chatBox.scrollTop = chatBox.scrollHeight;
 
                 try {
+                    // --- 关键修改：Prompt 工程升级 ---
+                    // 告诉 AI：不要局限于 reference，要使用 internal knowledge
+                    const systemPrompt = "你是一个功能强大的 AI 搜索助手。用户正在阅读一篇新闻，并可能会根据新闻提问，或者问完全无关的问题。\n\n你的任务是：\n1. 如果用户的问题与【当前阅读的文章参考】相关，请结合文章内容深入解答。\n2. 如果用户的问题与文章无关（例如问天气、百科、代码、历史、其他公司动态），请**忽略参考文章**，直接调用你的互联网知识储备回答。\n3. 回答风格要像搜索引擎一样客观、精准、条理清晰。";
+
                     const response = await fetch(API_URL, {
                         method: "POST",
                         headers: {
@@ -3039,15 +3420,16 @@ VLA 的主张不是「更像人开车」的表演，而是用多模态大模型 
                         body: JSON.stringify({
                             model: "deepseek-chat",
                             messages: [
-                                {role: "system", content: "你是一个科技新闻助手。请根据用户提供的文章内容回答问题。如果文章未提及，请说明。回答请简洁明了。"},
-                                {role: "user", content: `文章内容：${currentArticleContext}\n\n用户问题：${question}`}
+                                {role: "system", content: systemPrompt},
+                                {role: "user", content: `${currentArticleContext}\n\n----------------\n用户问题：${question}`}
                             ],
                             stream: false
                         })
                     });
                     
                     if (!response.ok) {
-                        throw new Error("API 请求失败: " + response.status);
+                        const errData = await response.json();
+                        throw new Error(errData.error?.message || "API 请求失败");
                     }
                     
                     const data = await response.json();
@@ -3055,7 +3437,7 @@ VLA 的主张不是「更像人开车」的表演，而是用多模态大模型 
                     chatBox.innerHTML += `<div class="ai-msg bot">${aiResponseText}</div>`;
 
                 } catch (err) {
-                    chatBox.innerHTML += `<div class="ai-msg bot" style="color:red">出错啦: ${err.message}</div>`;
+                    chatBox.innerHTML += `<div class="ai-msg bot" style="color:red">⚠️ 错误: ${err.message}</div>`;
                 } finally {
                     input.disabled = false;
                     btn.disabled = false;
