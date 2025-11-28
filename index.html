@@ -6,148 +6,93 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
         <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
         <meta name="referrer" content="no-referrer">
-        <meta name="theme-color" content="#0b63b6">
         <title>折疼记 - 聚合资讯</title>
         <script src="//unpkg.com/valine/dist/Valine.min.js"></script>
         <style>
             :root { 
                 --primary: #0b63b6; 
                 --primary-soft: rgba(11, 99, 182, 0.08);
-                --bg-body: #f7f9fc; 
+                --bg-body: #f5f7fa; 
                 --bg-card: #ffffff; 
-                --text-main: #2c3e50; 
-                --text-sub: #7f8c8d;
-                --shadow-sm: 0 2px 8px rgba(0,0,0,0.04);
-                --shadow-hover: 0 8px 24px rgba(0,0,0,0.08);
-                --radius-lg: 12px;
-                --radius-sm: 6px;
+                --text-main: #333; 
+                --text-sub: #888;
+                --radius: 12px;
+                --shadow: 0 4px 12px rgba(0,0,0,0.03);
             }
             
             * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
             body { 
                 font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-                background-color: var(--bg-body);
-                margin: 0; 
-                color: var(--text-main); 
+                background-color: var(--bg-body); margin: 0; color: var(--text-main); 
                 display: flex; flex-direction: column; min-height: 100vh;
             }
             
-            /* --- 顶部导航 (毛玻璃) --- */
+            /* --- 导航栏 (毛玻璃) --- */
             header { 
-                background: rgba(255, 255, 255, 0.85);
-                backdrop-filter: blur(12px);
-                -webkit-backdrop-filter: blur(12px);
-                position: sticky; top: 0; z-index: 100; 
-                box-shadow: var(--shadow-sm);
-                border-bottom: 1px solid rgba(0,0,0,0.05);
+                background: rgba(255,255,255,0.85); backdrop-filter: blur(12px);
+                position: sticky; top: 0; z-index: 100; border-bottom: 1px solid rgba(0,0,0,0.05);
             }
-            .header-inner { 
-                max-width: 860px; margin: 0 auto; height: 60px; 
-                display: flex; align-items: center; padding: 0 16px; 
-            }
-            .logo { 
-                color: var(--primary); font-size: 20px; font-weight: 800; 
-                margin-right: 24px; white-space: nowrap; letter-spacing: -0.5px;
-            }
-            
-            .nav-scroll { 
-                flex: 1; overflow-x: auto; white-space: nowrap; display: flex; 
-                scrollbar-width: none; mask-image: linear-gradient(to right, transparent, black 10px, black 90%, transparent);
-            }
+            .header-inner { max-width: 800px; margin: 0 auto; height: 60px; display: flex; align-items: center; padding: 0 16px; }
+            .logo { color: var(--primary); font-size: 20px; font-weight: 800; margin-right: 20px; }
+            .nav-scroll { flex: 1; overflow-x: auto; white-space: nowrap; scrollbar-width: none; display: flex; }
             .nav-scroll::-webkit-scrollbar { display: none; }
             .nav-btn { 
                 background: none; border: none; color: var(--text-sub); 
-                font-size: 15px; padding: 0 16px; height: 60px; 
-                cursor: pointer; transition: all 0.2s; font-weight: 500;
+                font-size: 15px; padding: 0 14px; height: 60px; cursor: pointer; font-weight: 500; transition: color 0.2s;
             }
-            .nav-btn:hover { color: var(--primary); }
-            .nav-btn.active { 
-                color: var(--primary); font-weight: 700; 
-                position: relative; 
-            }
-            .nav-btn.active::after {
-                content: ''; position: absolute; bottom: 0; left: 16px; right: 16px;
-                height: 3px; background: var(--primary); border-radius: 3px 3px 0 0;
-            }
+            .nav-btn.active { color: var(--primary); font-weight: 700; position: relative; }
+            .nav-btn.active::after { content:''; position:absolute; bottom:0; left:14px; right:14px; height:3px; background:var(--primary); border-radius:3px 3px 0 0; }
             
-            /* --- 主内容区 --- */
-            .container { 
-                max-width: 860px; margin: 24px auto; padding: 0 16px; 
-                flex: 1; width: 100%; 
-            }
+            /* --- 列表区域 --- */
+            .container { max-width: 800px; margin: 24px auto; padding: 0 16px; width: 100%; flex: 1; }
             
             .news-item { 
-                background: var(--bg-card); 
-                margin-bottom: 20px; 
-                padding: 16px; 
-                display: flex; 
-                border-radius: var(--radius-lg); 
-                box-shadow: var(--shadow-sm); 
-                border: 1px solid rgba(0,0,0,0.02);
-                cursor: pointer; 
-                transition: transform 0.2s, box-shadow 0.2s;
+                background: var(--bg-card); margin-bottom: 20px; padding: 16px; 
+                display: flex; border-radius: var(--radius); 
+                box-shadow: var(--shadow); border: 1px solid rgba(0,0,0,0.02);
+                cursor: pointer; transition: transform 0.2s, box-shadow 0.2s;
             }
-            .news-item:hover { 
-                transform: translateY(-2px); 
-                box-shadow: var(--shadow-hover); 
-            }
+            .news-item:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.06); }
             .news-item:active { transform: scale(0.99); }
             
             .item-img { 
                 width: 140px; height: 105px; flex-shrink: 0; margin-right: 20px; 
-                background: #f0f2f5; border-radius: var(--radius-sm); overflow: hidden; 
+                border-radius: 8px; overflow: hidden; background: #eee;
             }
-            .item-img img { 
-                width: 100%; height: 100%; object-fit: cover; 
-                transition: transform 0.5s ease;
-            }
-            .news-item:hover .item-img img { transform: scale(1.06); }
+            .item-img img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
+            .news-item:hover .item-img img { transform: scale(1.05); }
             
-            .item-content { flex: 1; display: flex; flex-direction: column; justify-content: space-between; py: 2px; }
+            .item-content { flex: 1; display: flex; flex-direction: column; justify-content: space-between; padding-top: 2px; }
             .item-title { 
-                margin: 0 0 8px 0; font-size: 18px; font-weight: 700; 
-                line-height: 1.45; color: var(--text-main); 
+                margin: 0 0 8px 0; font-size: 18px; font-weight: 700; line-height: 1.4; color: #222;
                 display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
             }
-            .item-meta { font-size: 13px; color: var(--text-sub); display: flex; align-items: center; }
+            .item-meta { font-size: 13px; color: #999; display: flex; align-items: center; }
             .source-badge { 
-                color: var(--primary); background: var(--primary-soft);
-                padding: 2px 8px; border-radius: 4px; font-weight: 600; margin-right: 12px;
+                color: var(--primary); background: var(--primary-soft); 
+                padding: 2px 8px; border-radius: 4px; font-weight: 600; margin-right: 12px; 
             }
             .item-summary { 
-                font-size: 14px; color: #666; line-height: 1.6; margin: 8px 0 0 0;
+                font-size: 14px; color: #666; line-height: 1.6; margin: 0;
                 display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
             }
 
-            .load-more-status { 
-                text-align: center; color: var(--text-sub); 
-                font-size: 14px; padding: 30px; 
-                display: flex; align-items: center; justify-content: center; gap: 10px;
-            }
+            .load-more-status { text-align: center; color: #aaa; font-size: 13px; padding: 20px; }
 
-            .main-footer { 
-                text-align: center; padding: 40px 0; color: #b0b0b0; 
-                font-size: 13px; background: #fff; margin-top: 40px; border-top: 1px solid #eee;
-            }
-            .main-footer a { color: #b0b0b0; text-decoration: none; }
+            .main-footer { text-align: center; padding: 40px 0; color: #ccc; font-size: 12px; background: #fff; margin-top: 40px; border-top: 1px solid #eee; }
+            .main-footer a { color: #ccc; text-decoration: none; }
 
-            /* --- 移动端适配 --- */
-            @media (max-width: 768px) {
+            @media (max-width: 600px) {
                 .item-img { width: 110px; height: 80px; margin-right: 12px; }
                 .item-title { font-size: 16px; margin-bottom: 4px; }
                 .item-summary { display: none; }
-                .news-item { padding: 12px; margin-bottom: 12px; border-radius: 10px; }
-                .container { margin: 15px auto; }
+                .news-item { padding: 12px; margin-bottom: 12px; }
+                .container { margin: 16px auto; }
             }
 
-            /* --- 模态框 (阅读器) --- */
-            .modal-overlay { 
-                position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-                background: rgba(0,0,0,0.6); backdrop-filter: blur(4px);
-                z-index: 2000; display: none; opacity: 0; transition: opacity 0.3s; 
-            }
+            /* --- 模态框 --- */
+            .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(4px); z-index: 2000; display: none; opacity: 0; transition: opacity 0.3s; }
             .modal-overlay.open { display: block; opacity: 1; }
-            
             .modal-card { 
                 position: fixed; bottom: 0; left: 0; width: 100%; height: 95vh; 
                 background: #fff; border-radius: 20px 20px 0 0; 
@@ -160,8 +105,7 @@
             @media (min-width: 769px) {
                 .modal-card { 
                     width: 720px; height: 90vh; left: 50%; top: 50%; bottom: auto;
-                    transform: translate(-50%, -45%) scale(0.95); opacity: 0; 
-                    border-radius: 16px; 
+                    transform: translate(-50%, -45%) scale(0.95); opacity: 0; border-radius: 16px; 
                 }
                 .modal-overlay.open .modal-card { transform: translate(-50%, -50%) scale(1); opacity: 1; }
             }
@@ -169,67 +113,39 @@
             .modal-header { 
                 padding: 0 24px; height: 60px; border-bottom: 1px solid #eee; 
                 display: flex; justify-content: space-between; align-items: center; 
-                background: #fff; border-radius: 20px 20px 0 0; flex-shrink: 0;
+                background: #fff; border-radius: 20px 20px 0 0; flex-shrink: 0; 
             }
-            .close-btn { 
-                width: 32px; height: 32px; border-radius: 50%; background: #f2f2f2; 
-                display: flex; align-items: center; justify-content: center;
-                font-size: 20px; color: #666; cursor: pointer; transition: background 0.2s;
-            }
-            .close-btn:hover { background: #e0e0e0; }
+            .close-btn { font-size: 24px; color: #888; cursor: pointer; padding: 5px; }
             
             .modal-scroll-area { flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
-            .modal-body { padding: 30px; max-width: 680px; margin: 0 auto; }
+            .modal-body { padding: 30px; }
 
-            .article-title { font-size: 26px; font-weight: 800; margin-bottom: 12px; color: #111; line-height: 1.3; }
-            .article-meta { color: #999; font-size: 14px; margin-bottom: 30px; display: flex; align-items: center; gap: 10px; }
-            .article-content { font-size: 17px; line-height: 1.85; color: #333; }
+            .article-title { font-size: 24px; font-weight: 800; margin-bottom: 12px; color: #111; line-height: 1.3; }
+            .article-meta { color: #999; font-size: 14px; margin-bottom: 30px; }
+            .article-content { font-size: 17px; line-height: 1.8; color: #333; }
             .read-more-btn { 
                 display: block; width: 100%; text-align: center; 
                 background: var(--primary-soft); color: var(--primary); font-weight: 600;
                 padding: 14px; margin-top: 40px; border-radius: 10px; 
-                text-decoration: none; font-size: 15px; transition: opacity 0.2s;
-            }
-            .read-more-btn:hover { opacity: 0.8; }
-            
-            /* --- AI & 评论 --- */
-            .ai-section, .comment-section { 
-                border-top: 1px solid #f0f0f0; background: #fafafa; padding: 24px 30px; 
-            }
-            .ai-title, .comment-title { 
-                font-size: 15px; font-weight: 700; color: var(--text-main); 
-                margin-bottom: 16px; display: flex; align-items: center; gap: 8px;
+                text-decoration: none; font-size: 15px; 
             }
             
-            .ai-chat-box { 
-                height: 200px; overflow-y: auto; background: #fff; 
-                border: 1px solid #eee; border-radius: 12px; padding: 16px; 
-                margin-bottom: 12px; font-size: 14px; box-shadow: inset 0 2px 6px rgba(0,0,0,0.02);
-            }
-            .ai-msg { margin-bottom: 12px; line-height: 1.6; word-wrap: break-word; }
-            .ai-msg.user { 
-                color: #fff; background: var(--primary); padding: 8px 14px; 
-                border-radius: 14px 14px 2px 14px; float: right; clear: both; max-width: 85%; 
-            }
-            .ai-msg.bot { 
-                color: #333; background: #f2f4f7; padding: 8px 14px; 
-                border-radius: 14px 14px 14px 2px; float: left; clear: both; max-width: 90%; 
-            }
+            .ai-section, .comment-section { border-top: 1px solid #f0f0f0; background: #fafafa; padding: 24px 30px; }
+            .section-title { font-size: 15px; font-weight: 700; color: #333; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
+            
+            .ai-chat-box { height: 200px; overflow-y: auto; background: #fff; border: 1px solid #eee; border-radius: 12px; padding: 16px; margin-bottom: 12px; font-size: 15px; }
+            .ai-msg { margin-bottom: 12px; line-height: 1.6; }
+            .ai-msg.user { color: #fff; background: var(--primary); padding: 8px 14px; border-radius: 14px 14px 2px 14px; float: right; clear: both; max-width: 85%; }
+            .ai-msg.bot { color: #333; background: #f2f4f7; padding: 8px 14px; border-radius: 14px 14px 14px 2px; float: left; clear: both; max-width: 90%; }
             .ai-msg::after { content: ""; display: table; clear: both; }
             
             .ai-input-area { display: flex; position: relative; }
-            .ai-input { 
-                flex: 1; padding: 12px 16px; border: 1px solid #ddd; 
-                border-radius: 24px; font-size: 14px; padding-right: 80px; 
-                outline: none; transition: border 0.2s, box-shadow 0.2s;
-            }
-            .ai-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-soft); }
-            .ai-send-btn { 
-                position: absolute; right: 6px; top: 5px; bottom: 5px; 
-                background: var(--primary); color: #fff; border: none; 
-                padding: 0 16px; border-radius: 20px; cursor: pointer; font-size: 13px; font-weight: 600;
-            }
+            .ai-input { flex: 1; padding: 12px 16px; border: 1px solid #ddd; border-radius: 24px; font-size: 15px; padding-right: 80px; outline: none; }
+            .ai-input:focus { border-color: var(--primary); }
+            .ai-send-btn { position: absolute; right: 5px; top: 5px; bottom: 5px; background: var(--primary); color: #fff; border: none; padding: 0 16px; border-radius: 20px; cursor: pointer; font-weight: 600; }
             .ai-send-btn:disabled { background: #ccc; }
+            
+            #vcomments .vbtn { background: var(--primary); color: #fff; border: none; }
         </style>
     </head>
     <body>
@@ -237,7 +153,7 @@
             <div class="header-inner">
                 <div class="logo">折疼记</div>
                 <div class="nav-scroll">
-                    <button class="nav-btn active" onclick="filterNews('all', this)">全部</button><button class="nav-btn" onclick="filterNews('ithome', this)">IT之家</button><button class="nav-btn" onclick="filterNews('landian', this)">蓝点网</button><button class="nav-btn" onclick="filterNews('jiemian', this)">界面科技</button><button class="nav-btn" onclick="filterNews('pengpai', this)">澎湃科技</button><button class="nav-btn" onclick="filterNews('pingwest', this)">品玩</button><button class="nav-btn" onclick="filterNews('leiphone', this)">雷峰网</button><button class="nav-btn" onclick="filterNews('solidot', this)">Solidot</button><button class="nav-btn" onclick="filterNews('appinn', this)">小众软件</button><button class="nav-btn" onclick="filterNews('sspai', this)">少数派</button><button class="nav-btn" onclick="filterNews('v2ex', this)">V2EX</button><button class="nav-btn" onclick="filterNews('oschina', this)">开源中国</button><button class="nav-btn" onclick="filterNews('gcores', this)">机核网</button><button class="nav-btn" onclick="filterNews('yystv', this)">游研社</button><button class="nav-btn" onclick="filterNews('douban', this)">豆瓣影评</button>
+                    <button class="nav-btn active" onclick="filterNews('all', this)">全部</button><button class="nav-btn" onclick="filterNews('ithome', this)">IT之家</button><button class="nav-btn" onclick="filterNews('jiemian', this)">界面科技</button><button class="nav-btn" onclick="filterNews('landian', this)">蓝点网</button><button class="nav-btn" onclick="filterNews('pingwest', this)">品玩</button><button class="nav-btn" onclick="filterNews('sspai', this)">少数派</button><button class="nav-btn" onclick="filterNews('appinn', this)">小众软件</button><button class="nav-btn" onclick="filterNews('v2ex', this)">V2EX</button><button class="nav-btn" onclick="filterNews('gcores', this)">机核网</button><button class="nav-btn" onclick="filterNews('yystv', this)">游研社</button><button class="nav-btn" onclick="filterNews('douban', this)">豆瓣影评</button>
                 </div>
             </div>
         </header>
@@ -248,7 +164,205 @@
         <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(0)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/f2887c71-d26a-499a-a2c1-b71a616b5d5e.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="网易《阴阳师：百闻牌》明年将停止开发新内容，玩家仍可正常登录游戏" 
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2024/10/0f3c78b1-6be1-44ba-99cc-96a224030d17.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto/auto-orient%2Co_1&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">德国总理默茨呼吁欧盟 2035 年后豁免高效油车，不能“一棒子打死”只有电车</h2>
+                <div class="item-meta">
+                    <span class="source-badge">IT之家</span>
+                    <span class="meta-date">11-28 17:15</span>
+                </div>
+                <p class="item-summary">IT之家 11 月 28 日消息，据路透社报道，德国总理默茨今日表示，自己将致信欧盟委员会，敦促欧盟在 2035 年禁止销售全新燃油车的计划之外，继续为汽车行业保留技术路...</p>
+                <!-- 隐藏数据 -->
+                <div id="data-0" style="display:none;" 
+                     data-title="德国总理默茨呼吁欧盟 2035 年后豁免高效油车，不能“一棒子打死”只有电车" 
+                     data-link="https://www.ithome.com/0/901/055.htm"
+                     data-source="IT之家"
+                     data-date="11-28 17:15">
+                     IT之家 11 月 28 日消息，据路透社报道，德国总理默茨今日表示，自己将致信欧盟委员会，敦促欧盟在 2035 年禁止销售全新燃油车的计划之外，继续为汽车行业保留技术路线选择。默茨在介绍本周联合政府领导人会议结果的记者会上表示，核心目标在于“实现竞争力与气候保护要求之间的良好兼容”。他说：“我将请求欧盟委员会，在 2035 年之后继续允许搭载燃油发动机的电动汽车。”同时，高效内燃机也应继续获准使用。早在 2022 年，德国财政部长就已经对“到 2035 年禁止在欧盟境内销售燃油车”的计划表示反对。IT之家注：欧盟委员会在 2023 年 3 月批准了欧盟绿色协议（Green Deal）雄心勃勃措施的一个标志（德国表示反对）—— 从 2035 年起，禁止在欧盟销售新的汽油或柴油汽车，包括混合动力汽车。今年 9 月，宝马就已提议将禁令推迟至 2050 年。宝马 CEO 奥利弗・齐普策也表示，欧盟计划在 2035 年逐步淘汰燃油汽车是一个“重大错误”。他认为应采用涵盖车辆全供应链的排放核算体系来替代现行政策。此外，梅赛德斯-奔驰总裁、欧洲汽车制造商协会（ACEA）主席康林松也直言，2035 年的目标“无法实现”。
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(1)">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/33fa885e-aa9f-40e2-9a7c-56443c72bcc4.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">埃斯顿酷卓发布柔性全场景具身智能机器人“磐石 C05-L”</h2>
+                <div class="item-meta">
+                    <span class="source-badge">IT之家</span>
+                    <span class="meta-date">11-28 17:09</span>
+                </div>
+                <p class="item-summary">IT之家 11 月 28 日消息，埃斯顿酷卓科技有限公司（以下简称“埃斯顿酷卓”）今日在世界智能制造大会上推出其全新人形机器人“磐石 C05-L”。该产品以“柔性全场景”...</p>
+                <!-- 隐藏数据 -->
+                <div id="data-1" style="display:none;" 
+                     data-title="埃斯顿酷卓发布柔性全场景具身智能机器人“磐石 C05-L”" 
+                     data-link="https://www.ithome.com/0/901/042.htm"
+                     data-source="IT之家"
+                     data-date="11-28 17:09">
+                     IT之家 11 月 28 日消息，埃斯顿酷卓科技有限公司（以下简称“埃斯顿酷卓”）今日在世界智能制造大会上推出其全新人形机器人“磐石 C05-L”。该产品以“柔性全场景”为核心定位，面向工业、商业及办公等多类场景，展示了埃斯顿酷卓在具身智能机器人领域的技术积累。据发布会介绍，“磐石 C05-L”是一款面向工业场景的高性能轮式具身智能机器人。其身高支持 138 厘米至 168 厘米之间动态调节，兼顾轻量化与高强度作业需求。机器人单臂额定负载达到 5 公斤，适用于轻型物料搬运、精密装配辅助等任务。“磐石 C05-L”在系统设计上突出了模块化理念，支持语音交互、头部相机等模块拓展，为场景识别与人机互动提供了便利。“磐石 C05-L”上肢搭载 7 自由度旋转关节臂，采用金属外壳与内置风道散热设计；背部配置外部接口，便于系统扩展与数据交互；手部还支持灵巧手选配，可适配精密装配、精细操作等复杂作业任务。据埃斯顿酷卓相关负责人介绍，“磐石 C05-L”以“柔性全场景”为核心理念，可广泛覆盖工业领域的轻型物料搬运、精密装配辅助，商业领域的智能导览、物料配送，以及办公场景下的自动化服务等多元需求。其模块化设计、多自由度关节构型与开放接口系统，实现了“单一设备适配多类型作业场景”的柔性价值。IT之家查询公开资料获悉，南京埃斯顿酷卓科技有限公司成立于 2022 年 7 月 18 日，专注于人形机器人部件和算法的研发，推出了多款 CODROID 通用协作机器人，并在机器人部件、应用解决方案方面有所布局。该公司获得了埃斯顿自动化集团的投资，后者为国产智能工业机器人“四小龙”之一，于 1993 年在南京成立，所以可以看作是老牌工业机器人厂商对人形机器人的一次尝试探索。
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(2)">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/503ba0e9-451d-4c4b-b428-0e7fb5ba4dc4.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">《CS2》布达佩斯 Major 首阶段结束，TYLOO 成二阶段中国战队独苗</h2>
+                <div class="item-meta">
+                    <span class="source-badge">IT之家</span>
+                    <span class="meta-date">11-28 17:09</span>
+                </div>
+                <p class="item-summary">IT之家 11 月 28 日消息，《CS2》Starladder 布达佩斯 Major 2025 在北京时间今早结束了第一阶段的对决，FaZe、Imperial、PARI...</p>
+                <!-- 隐藏数据 -->
+                <div id="data-2" style="display:none;" 
+                     data-title="《CS2》布达佩斯 Major 首阶段结束，TYLOO 成二阶段中国战队独苗" 
+                     data-link="https://www.ithome.com/0/901/041.htm"
+                     data-source="IT之家"
+                     data-date="11-28 17:09">
+                     IT之家 11 月 28 日消息，《CS2》Starladder 布达佩斯 Major 2025 在北京时间今早结束了第一阶段的对决，FaZe、Imperial、PARIVISION 在 2-2 组别的对决中赢下各自对手，获得了最后三个晋级名额。其它队伍方面，中国战队 LVG 和 RA 均早早 0-3 出局，进入第二阶段的还有 FlyQuest、M80、NIP、B8、Fnatic。布达佩斯 Major 的第二阶段则将于北京时间明晚开幕，直通该阶段的 TYLOO 将作为中国战队“独苗”在当日 21:00 面对 PARIVISION。
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item " style="display:flex;" data-source="v2ex" onclick="openModal(3)">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.learnblockchain.cn/attachments/2025/11/QwnTD7JB6928530199f62.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">[程序员] 比特鹰 CTO 受邀出席五邑大学 40 周年校庆，分享前沿 AI 技术视野</h2>
+                <div class="item-meta">
+                    <span class="source-badge">V2EX</span>
+                    <span class="meta-date">11-28 17:06</span>
+                </div>
+                <p class="item-summary">近日，比特鹰 CTO 莫梓淇受邀出席了五邑大学 40 周年校庆。
+
+五邑大学坐落于广东江门，由超过 1000 位华人华侨和港澳乡亲、数十个社会团体捐建，总值达 4.1 亿...</p>
+                <!-- 隐藏数据 -->
+                <div id="data-3" style="display:none;" 
+                     data-title="[程序员] 比特鹰 CTO 受邀出席五邑大学 40 周年校庆，分享前沿 AI 技术视野" 
+                     data-link="https://www.v2ex.com/t/1175717#reply0"
+                     data-source="V2EX"
+                     data-date="11-28 17:06">
+                     近日，比特鹰 CTO 莫梓淇受邀出席了五邑大学 40 周年校庆。
+
+五邑大学坐落于广东江门，由超过 1000 位华人华侨和港澳乡亲、数十个社会团体捐建，总值达 4.1 亿多港元，是著名的侨乡文化特色大学，也是广东省老牌重点大学之一。
+
+梓淇作为曾经的学院团委支部书记，
+杰出校友，
+以及 AI + Web3 领域的开拓者，
+给大家做了演讲《在 AI 时代把握机遇，乘风而上》。
+
+梓淇学长分享了作为顶尖 CTO 的视野，与自己丰富的创业经验，
+指导师弟师妹，在 AI 快速发展的大时代，树立远大的目标，实现人生梦想。
+
+借这个机会，也为大家介绍了比特鹰的发展现状。
+作为国内领先的 AI+Web3 公司，比特鹰处于高速发展中，学习氛围好，福利待遇高，正在广纳贤才。
+
+参与活动的很多同学反响热烈，会后与梓淇学长深入交流，纷纷投递简历求职。
+
+学院老师表示，后续将推荐更多优秀同学了解比特鹰，参与面试。
+
+比特鹰 HR 已在第一时间，与投递简历的同学进行了深度沟通交流。
+
+其他同学，也可通过邮箱或微信，与比特鹰取得联系，
+我们给大家准备了丰富的实战学习资料，
+也会热心帮助你进行职业规划，给靠谱建议。
+
+📮 邮箱投递：join@biteagle.xyz
+📱 HR 微信：ZiAng9777
+
+
+💼比特鹰在招高薪岗位：
+爬虫工程师、后端工程师
+安全工程师、AI 开发工程师
+前端工程师、测试工程师
+数据开发工程师、合约开发工程师
+Web3 海外运营、HR 招聘专员
+
+🌐 公司官网：biteagle.xyz
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item " style="display:flex;" data-source="gcores" onclick="openModal(4)">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/4100e70f04e3f53dc4f2639e8e2ff1af-1600-900.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">怎么从电影聊到磕头了？录音笔 VOL.587</h2>
+                <div class="item-meta">
+                    <span class="source-badge">机核网</span>
+                    <span class="meta-date">11-28 17:00</span>
+                </div>
+                <p class="item-summary">【录音笔】是GPASS推出的一档会员专享节目，内容来自机核办公室日程生活和工作中的一些短小记录，每期时长十几分钟左右（大概吧）。内容也许是一些不成体统的碎碎念，也许是一些...</p>
+                <!-- 隐藏数据 -->
+                <div id="data-4" style="display:none;" 
+                     data-title="怎么从电影聊到磕头了？录音笔 VOL.587" 
+                     data-link="https://www.gcores.com/radios/207765"
+                     data-source="机核网"
+                     data-date="11-28 17:00">
+                     【录音笔】是GPASS推出的一档会员专享节目，内容来自机核办公室日程生活和工作中的一些短小记录，每期时长十几分钟左右（大概吧）。内容也许是一些不成体统的碎碎念，也许是一些突然发疯的暴言，还有可能是哪个缺德的把办公室里真实的日常对话（dui ma）偷偷录了下来，总之就连我们自己现在也不知道每期会有哪些人参与，会录些什么。
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item " style="display:flex;" data-source="gcores" onclick="openModal(5)">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/e26e64b4bff8e3e79bad7d95f17a786c-460-215.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">宇宙集结！《漫威宇宙入侵》开发团队采访汇总</h2>
+                <div class="item-meta">
+                    <span class="source-badge">机核网</span>
+                    <span class="meta-date">11-28 17:00</span>
+                </div>
+                <p class="item-summary">感谢 Gamirror Games 的邀请，机核网有幸以书面形式对《漫威宇宙入侵》的开发团队进行了采访。本作中，Tribute Games 与 Dotemu 再度联手，携...</p>
+                <!-- 隐藏数据 -->
+                <div id="data-5" style="display:none;" 
+                     data-title="宇宙集结！《漫威宇宙入侵》开发团队采访汇总" 
+                     data-link="https://www.gcores.com/articles/207718"
+                     data-source="机核网"
+                     data-date="11-28 17:00">
+                     感谢 Gamirror Games 的邀请，机核网有幸以书面形式对《漫威宇宙入侵》的开发团队进行了采访。本作中，Tribute Games 与 Dotemu 再度联手，携手漫威游戏共同打造了这款原创且新颖的清版过关动作游戏。这场在星际间的冒险以流畅的战斗连招和炫目的像素艺术为亮点，堪称一封对漫威宇宙的情书。
+在本次采访中， 叙事设计师 Yannick Belzil、制作人 Rémi Lavoie、音频总监 Pat Tremblay 与游戏总监 Frederic Gemus 分享了本作在角色机制、关卡设计、音效风格等方面的创作思路，并深入探讨了如何在致敬经典清版动作游戏的同时，打造出一款具有现代感的全新作品。汇总如下：（为语义清晰起见,行为有所改动）开发《漫威宇宙入侵》的灵感来源于哪些经典beat 'em up（清版动作）游戏？团队如何将它们与漫威宇宙融合？Frederic Gemus：虽然漫威过去也推出过一些很棒的街机游戏，也在清版动作游戏领域有一定地位，但其实团队在开发这款游戏时，并没有从某一款具体的经典游戏中直接汲取灵感。我们的目标一直是打造一个全新且独特的体验，而不是做某款游戏的精神续作。
+当然，我们还是参考了很多经典作品，看看哪些地方特别出色。其中包括经典角色阵容、节奏紧凑的战斗、多样的反派以及充满特色的场景。对我们来说，这些是保持游戏“原汁原味”的关键。但在玩法设计上，我们选择走自己的路。也就是说，以角色为核心来打造玩法。一开始我们就很明确，想要有一个包含大量角色的阵容，而且每个角色都得有鲜明特色，符合玩家对他们的预期。也就是说，有的角色能飞、有的会荡蛛丝、有的是远程攻击等等。而这些能力本身，反过来也成为我们玩法设计的灵感来源。因此，我们设计了有多个高度层级的战斗场地，来支持飞行角色和敌人；我们也加入了会远程攻击、会飞，甚至能挡子弹的敌人。最终呈现出来的，是一个独一无二的清版动作游戏体验，和以往同类型的游戏都不太一样！英雄切换机制是游戏的核心创新，能否分享设计初衷？它如何鼓励玩家进行战术性团队合作？Frederic Gemus：当我们决定要加入15位风格各异的角色时，我们意识到玩家在选择角色时可能会感到压力。毕竟每个角色的技能和玩法都差异很大，玩家可能会担心选错人。虽然游戏本身其实用谁都能通关，但我们还是想办法去降低这种焦虑感。
+我们讨论了很多方案，最终最打动我们的想法是让玩家一次选择两个角色。这样玩家可以搭配出一个小队，不管是为了技能互补、连招配合，还是单纯选自己喜欢的角色都可以。没有所谓“错误组合”，完全由玩家自由决定。在游戏过程中，当你切换角色时，我们会根据当前的战斗情况来判断替补角色该怎么登场。比如你正在战斗、被敌人抓住等等。整个机制操作起来非常简单，但对高阶玩家来说，这里面蕴藏着丰富的战术空间。玩家可以用换人来延长连招、快速解决敌人，或是在特定场景下切换到更合适的角色。这个机制不仅让玩法更加多样，也自然地鼓励了战术性思考和团队搭配，让每场战斗都更有深度。在试玩版中，不少玩家反馈蜘蛛侠和女绿巨人的操控体验非常有趣。那团队是如何在保证每个英雄技能独特的同时，又做到平衡性的呢？Frederic Gemus：除了确保每位角色的伤害输出在整体上保持平衡外，我们更看重的一点是每一位超级英雄都要有超级英雄该有的感觉。不管是速度、近战能力，还是各自的特殊技能，每个角色都必须具备亮眼的表现。
+我们花了很多精力去打磨这些细节，确保每位英雄都能做到符合玩家对他们的期待。这种可以说是强而不同的设计理念让每个角色不仅有自己的特色，同时又不失竞争力。我们认为，这是整款游戏中我们最值得骄傲的一项成果！游戏的战斗连击系统强调动态组合，能否举例说明如何通过英雄切换创造“强大特殊攻击？”Frederic Gemus：每当你按下切换角色的按钮，队友都会根据当前战斗情况，以一种有针对性的方式加入战局。如果你在连招结束时或终结技期间切换角色，新登场的队友也会直接参与攻击，从而延续连招。
+这种“切换时机+角色技能”的组合，就能产生非常丰富的战斗场景：比如你把敌人打飞到空中，接着切换到一位拥有飞行能力的队友，他就能在空中继续追击；或者在面对Boss时，用切换来让Boss持续处于被压制状态，从而打出更高伤害。这种机制不仅让战斗更流畅、更爽快，也鼓励玩家根据角色能力组合出丰富的战术打法。从地球到星际的关卡设计，如何体现漫威宇宙的“星际冒险”主题？Yannick Belzil:从纽约街头一路延伸到月球甚至更遥远的太空，不仅让玩家体验到更丰富多样的场景，也让整个冒险旅程在规模和气势上显得更加宏大，真正体现了漫威宇宙中那种“星际冒险”的壮阔感。音效设计中，英雄的招式声效如何借鉴漫威电影和漫画的经典元素？团队如何确保音轨在多人合作中保持清晰？Yannick Belzil:游戏的音效设计主要灵感来自90年代的漫画和动画系列。当然，我们在设计过程中也参考了漫威电影中的一些经典声音。比如美国队长掷盾牌的声音，就是电影中首创的标志性音效之一。
+Pat Tremblay:我在设计这款游戏的音效时，有一个很重要的原则是每位英雄发出的声音都必须具有辨识度，一听就知道是谁。这一点对角色个性来说非常关键。为了做到这一点，我翻遍了能找到的各种游戏、漫画和电影，从中寻找灵感和参考。漫威的电影和游戏确实提供了不少优秀范例，但我尤其喜欢从漫画中挖掘各种拟声词，像金刚狼的“SNIKT！” (金刚狼爪子弹出的声音） 或蜘蛛侠的“THWIP！”（蜘蛛侠发射蛛丝的声音)。这些声音配上相应的动作，真的能让我快速进入创作状态。至于多人合作时的音效清晰度，我们也做了很多优化。每个角色的招式声效都被精心设计过，既不互相冲突，又能在混战中保有清晰的层次感，让玩家在混战时也能准确判断谁在出招、发生了什么。这种兼顾还原度与可辨识性的处理，是我们音频设计的一大核心。玩家称赞试玩的节奏明快，但希望更多关卡深度。团队如何回应内容量和重复性的担忧？Frederic Gemus：我们在设计每一个关卡时，核心目标就是确保每次游玩都能带给玩家新的体验。这不仅仅是加入新的场景或敌人（当然这些都会有），更是还会进一步加入新的陷阱机制、导航方式以及各种玩法修正元素等等。
+这是我们非常重视的一点，毕竟游戏中的每一个地点都直接取材自漫威宇宙，我们希望每一处都能带来新鲜感和探索价值。未来是否考虑更多模式，如生存挑战或自定义英雄？如何保持游戏长寿？  Rémi Lavoie:英雄自定义其实已经确定会出现在正式版中，大家可以在我们最近发布的预告片里看到一些相关内容。至于游戏的长期运营和更多玩法模式，我们的目标是持续为玩家带来新内容，让游戏保持活力。具体会以什么形式呈现，我们暂时还不能透露太多，但可以肯定的是，我们还有不少惊喜留在后面。 
+
+展望未来，团队对beat 'em up类型的创新有何愿景？《漫威宇宙入侵》是否会影响下一代类似游戏？Yannick Belzil:我们不太好意思直接说这款游戏会如何影响下一代作品。但可以说的是《漫威宇宙入侵》确实展现了在这一类型下可操控角色阵容可以扩展到多大的规模。
+Frederic Gemus：同时，本作也证明了清版动作游戏其实还有很大的创新空间。只要从核心玩法的差异性出发，专注打磨特色就完全有可能突破传统框架。最终也能打造出与众不同的体验。
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(6)">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/f2887c71-d26a-499a-a2c1-b71a616b5d5e.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -259,8 +373,8 @@
                     <span class="meta-date">11-28 16:54</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，网易《阴阳师：百闻牌》官微今天下午通过官微宣布，因运营策略调整，《阴阳师：百闻牌》将在 2026 年 1 月 1 日之后停止新内容的开发...</p>
-                <!-- Hidden Data -->
-                <div id="data-0" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-6" style="display:none;" 
                      data-title="网易《阴阳师：百闻牌》明年将停止开发新内容，玩家仍可正常登录游戏" 
                      data-link="https://www.ithome.com/0/901/039.htm"
                      data-source="IT之家"
@@ -270,10 +384,10 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(1)">
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(7)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/d7a4a8ab-272b-48a0-acbf-c84f198a86b8.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="W16 引擎终章临近，布加迪“赛道旗舰”Bolide 所有 40 辆车全数完成交付" 
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/d7a4a8ab-272b-48a0-acbf-c84f198a86b8.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -284,8 +398,8 @@
                     <span class="meta-date">11-28 16:50</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，布加迪 W16 发动机的“倒数第二章”正式落幕，Bolide 的全数 40 辆已经全数完成交付。最后一辆由车主亲自从莫尔塞姆工厂提走，也...</p>
-                <!-- Hidden Data -->
-                <div id="data-1" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-7" style="display:none;" 
                      data-title="W16 引擎终章临近，布加迪“赛道旗舰”Bolide 所有 40 辆车全数完成交付" 
                      data-link="https://www.ithome.com/0/901/037.htm"
                      data-source="IT之家"
@@ -295,35 +409,10 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(2)">
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(8)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/10/5a4adeca-2f4b-4730-8e9d-6e405d1a09b0.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="工信部：加快推出针对性政策举措，依法依规治理动力和储能电池产业非理性竞争" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title">工信部：加快推出针对性政策举措，依法依规治理动力和储能电池产业非理性竞争</h2>
-                <div class="item-meta">
-                    <span class="source-badge">IT之家</span>
-                    <span class="meta-date">11-28 16:50</span>
-                </div>
-                <p class="item-summary">IT之家 11 月 28 日消息，据工信微报消息，工业和信息化部 11 月 28 日组织召开动力和储能电池行业制造业企业座谈会，围绕规范动力和储能电池产业竞争秩序、推动产...</p>
-                <!-- Hidden Data -->
-                <div id="data-2" style="display:none;" 
-                     data-title="工信部：加快推出针对性政策举措，依法依规治理动力和储能电池产业非理性竞争" 
-                     data-link="https://www.ithome.com/0/901/036.htm"
-                     data-source="IT之家"
-                     data-date="11-28 16:50">
-                     IT之家 11 月 28 日消息，据工信微报消息，工业和信息化部 11 月 28 日组织召开动力和储能电池行业制造业企业座谈会，围绕规范动力和储能电池产业竞争秩序、推动产业高质量发展，听取相关企业情况介绍及意见建议。工信部部长李乐成指出，党中央对动力和储能电池产业发展高度重视。近年来，在各方共同努力下，我国动力和储能电池产业迅速发展壮大，在市场规模、创新能力、产业体系等方面形成了全球竞争优势。与此同时，产业发展还面临不少问题和挑战。我们要全面客观认识产业发展形势，认真落实党中央关于综合整治“内卷式”竞争的决策部署，加快推出针对性政策举措，依法依规治理动力和储能电池产业非理性竞争，加强产能监测、预警和调控，加大生产一致性和产品质量监督检查力度，打击知识产权违法行为，引导企业科学布局产能、合理有序“出海”，全力推动产业高质量发展。李乐成强调，行业企业要大力弘扬企业家精神，坚决抵制非理性竞争行为，共同维护健康有序市场环境。要坚持创新引领，加大研发投入，补齐短板弱项，提升企业核心竞争力。要强化产业链协同，加强合作，发挥协同增量效应，提升产业链自主可控水平，塑造发展新优势。行业协会要深化产业发展情况跟踪研究，加强行业自律，推动构建协作共赢产业生态。工业和信息化部将科学编制“十五五”产业发展规划，加大技术创新支持，强化标准支撑引领，提升产业治理现代化水平，为产业高质量发展创造良好环境。
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(3)">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/1ca77810-4402-499e-9d82-a612d930856c.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="工信部召开动力和储能电池行业制造业企业座谈会，要求坚决抵制非理性竞争行为" 
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/1ca77810-4402-499e-9d82-a612d930856c.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -334,8 +423,8 @@
                     <span class="meta-date">11-28 16:48</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，工业和信息化部今日组织召开动力和储能电池行业制造业企业座谈会，围绕规范动力和储能电池产业竞争秩序、推动产业高质量发展，听取相关企业情况介...</p>
-                <!-- Hidden Data -->
-                <div id="data-3" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-8" style="display:none;" 
                      data-title="工信部召开动力和储能电池行业制造业企业座谈会，要求坚决抵制非理性竞争行为" 
                      data-link="https://www.ithome.com/0/901/035.htm"
                      data-source="IT之家"
@@ -345,10 +434,10 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(4)">
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(9)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/12429a28-b34c-4806-a37e-603c07062fd5.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="与谷歌合作设计 TPU，联发科股价创 2002 年以来最佳单周表现" 
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/12429a28-b34c-4806-a37e-603c07062fd5.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -359,8 +448,8 @@
                     <span class="meta-date">11-28 16:46</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，据彭博社报道，联发科股价创 2002 年以来最佳单周表现，受惠于客户谷歌在人工智能领域的突破，这家芯片制造商的增长前景正被重新评估。本周...</p>
-                <!-- Hidden Data -->
-                <div id="data-4" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-9" style="display:none;" 
                      data-title="与谷歌合作设计 TPU，联发科股价创 2002 年以来最佳单周表现" 
                      data-link="https://www.ithome.com/0/901/033.htm"
                      data-source="IT之家"
@@ -370,35 +459,35 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(5)">
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(10)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/47732538-00f2-42c2-8e90-4f50f729d94b.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="美团第三季度营收 955 亿元同比增长 2%：外卖竞争加剧，核心本地商业分部经营亏损 141 亿元" 
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/47732538-00f2-42c2-8e90-4f50f729d94b.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
             <div class="item-content">
-                <h2 class="item-title">美团第三季度营收 955 亿元同比增长 2%：外卖竞争加剧，核心本地商业分部经营亏损 141 亿元</h2>
+                <h2 class="item-title">美团 2022 年以来首次亏损：第三季度营收 955 亿元同比增长 2%，外卖竞争下核心本地商业分部经营亏损 141 亿元</h2>
                 <div class="item-meta">
                     <span class="source-badge">IT之家</span>
                     <span class="meta-date">11-28 16:40</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，美团今日发布截至 2025 年 9 月 30 日的第三季度业绩公告：收入由 2024 年同期的人民币 936 亿元增长 2.0% 至人民...</p>
-                <!-- Hidden Data -->
-                <div id="data-5" style="display:none;" 
-                     data-title="美团第三季度营收 955 亿元同比增长 2%：外卖竞争加剧，核心本地商业分部经营亏损 141 亿元" 
+                <!-- 隐藏数据 -->
+                <div id="data-10" style="display:none;" 
+                     data-title="美团 2022 年以来首次亏损：第三季度营收 955 亿元同比增长 2%，外卖竞争下核心本地商业分部经营亏损 141 亿元" 
                      data-link="https://www.ithome.com/0/901/031.htm"
                      data-source="IT之家"
                      data-date="11-28 16:40">
-                     IT之家 11 月 28 日消息，美团今日发布截至 2025 年 9 月 30 日的第三季度业绩公告：收入由 2024 年同期的人民币 936 亿元增长 2.0% 至人民币 955 亿元。由于外卖行业竞争持续加剧，2025 年第三季度，美团核心本地商业分部的经营溢利同比大幅下降，转为经营亏损人民币 141 亿元。同时，由于海外扩张，新业务分部的经营亏损同比扩大至人民币 13 亿元。美团于第三季度的经调整 EBITDA 及经调整溢利净额分别同比下降至负人民币 148 亿元及负人民币 160 亿元。截至 2025 年 9 月 30 日，美团持有的现金及现金等价物和短期理财投资分别为人民币 992 亿元和人民币 421 亿元。IT之家从美团公告获悉，2025 年第三季度，美团核心本地商业分部收入同比减少 2.8% 至人民币 674 亿元。受近期市场竞争白热化影响，经营溢利同比显著减少并转为负人民币 141 亿元，经营亏损率为 20.9%。美团表示，餐饮外卖日活跃用户和月交易用户在第三季度均创下新高。展望 2025 年第四季度，美团表示近期市场竞争持续白热化。因此，美团预计核心本地商业板块及公司整体层面，第四季度的经营亏损趋势将延续。
+                     IT之家 11 月 28 日消息，美团今日发布截至 2025 年 9 月 30 日的第三季度业绩公告：收入由 2024 年同期的人民币 936 亿元增长 2.0% 至人民币 955 亿元。由于外卖行业竞争持续加剧，2025 年第三季度，美团核心本地商业分部的经营溢利同比大幅下降，转为经营亏损人民币 141 亿元。同时，由于海外扩张，新业务分部的经营亏损同比扩大至人民币 13 亿元。美团于第三季度的经调整 EBITDA 及经调整溢利净额分别同比下降至负人民币 148 亿元及负人民币 160 亿元。IT之家注意到，这是美团 2022 年以来首次亏损。截至 2025 年 9 月 30 日，美团持有的现金及现金等价物和短期理财投资分别为人民币 992 亿元和人民币 421 亿元。IT之家从美团公告获悉，2025 年第三季度，美团核心本地商业分部收入同比减少 2.8% 至人民币 674 亿元。受近期市场竞争白热化影响，经营溢利同比显著减少并转为负人民币 141 亿元，经营亏损率为 20.9%。美团表示，餐饮外卖日活跃用户和月交易用户在第三季度均创下新高。展望 2025 年第四季度，美团表示近期市场竞争持续白热化。因此，美团预计核心本地商业板块及公司整体层面，第四季度的经营亏损趋势将延续。
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(6)">
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(11)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/e2418b9a-504a-4c33-9c9f-22108f2ae286.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="深圳上线国内首个 AI 智能劳动仲裁系统：111 个争议类型全覆盖" 
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/e2418b9a-504a-4c33-9c9f-22108f2ae286.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -409,8 +498,8 @@
                     <span class="meta-date">11-28 16:39</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，据“深圳人社”公众号，11 月 27 日，国内首个“全案由覆盖、全流程赋能、全方位支撑”的劳动争议仲裁智能辅助办案系统在深圳市劳动人事争...</p>
-                <!-- Hidden Data -->
-                <div id="data-6" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-11" style="display:none;" 
                      data-title="深圳上线国内首个 AI 智能劳动仲裁系统：111 个争议类型全覆盖" 
                      data-link="https://www.ithome.com/0/901/030.htm"
                      data-source="IT之家"
@@ -420,10 +509,10 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(7)">
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(12)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/bade4142-2810-49f6-9068-85787b840537.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="AYANEO NEXT II 掌机确认配备 9" 2400×1504 165Hz OLED 原生横屏" 
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/bade4142-2810-49f6-9068-85787b840537.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -434,8 +523,8 @@
                     <span class="meta-date">11-28 16:37</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，搭载 AMD "Strix Halo" 平台的 AYANEO NEXT II 旗舰 Windows 掌机即将于明日 15:30 举行产品...</p>
-                <!-- Hidden Data -->
-                <div id="data-7" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-12" style="display:none;" 
                      data-title="AYANEO NEXT II 掌机确认配备 9" 2400×1504 165Hz OLED 原生横屏" 
                      data-link="https://www.ithome.com/0/901/029.htm"
                      data-source="IT之家"
@@ -445,10 +534,10 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="v2ex" onclick="openModal(8)">
+        <article class="news-item " style="display:flex;" data-source="v2ex" onclick="openModal(13)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//i.imgur.com/jH4LoeY.png&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="[分享创造] 开发了一款汉字 DBG" 
+            <img src="https://wsrv.nl/?url=https%3A//i.imgur.com/jH4LoeY.png&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -459,8 +548,8 @@
                     <span class="meta-date">11-28 16:35</span>
                 </div>
                 <p class="item-summary">经典的拼字玩法，将字母换成了汉字部件。已经收录了汉字规范的 3500 个一级汉字。玩法演示： https://www.bilibili.com/video/BV1QXSj...</p>
-                <!-- Hidden Data -->
-                <div id="data-8" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-13" style="display:none;" 
                      data-title="[分享创造] 开发了一款汉字 DBG" 
                      data-link="https://www.v2ex.com/t/1175706#reply1"
                      data-source="V2EX"
@@ -470,10 +559,10 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="v2ex" onclick="openModal(9)">
+        <article class="news-item " style="display:flex;" data-source="v2ex" onclick="openModal(14)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//cdn.nodeimage.com/i/HORcpHvYb3KVJitDYkVoHJZOryggvItA.webp&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="[VPS] skrime 荷兰 2c8g50g， 10g 网速，无限流量， 2.45 欧/月，支持 PayPal 支付宝" 
+            <img src="https://wsrv.nl/?url=https%3A//cdn.nodeimage.com/i/HORcpHvYb3KVJitDYkVoHJZOryggvItA.webp&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -486,8 +575,8 @@
                 <p class="item-summary">荷兰黑五联通快乐鸡，硬件不错，没怎么超售，ip 质量全解锁，25 端口开放搭个邮箱也不错
 购买链接，支持 PayPal 和支付宝
 测评报告:...</p>
-                <!-- Hidden Data -->
-                <div id="data-9" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-14" style="display:none;" 
                      data-title="[VPS] skrime 荷兰 2c8g50g， 10g 网速，无限流量， 2.45 欧/月，支持 PayPal 支付宝" 
                      data-link="https://www.v2ex.com/t/1175705#reply0"
                      data-source="V2EX"
@@ -499,10 +588,10 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(10)">
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(15)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/f64582aa-c459-4077-962b-2f02f767ce9c.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="零跑能不能做到半价乐道？蔚来李斌称朱总下手不要太狠，朱江明回应" 
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/f64582aa-c459-4077-962b-2f02f767ce9c.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -513,8 +602,8 @@
                     <span class="meta-date">11-28 16:27</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，在 2025 广州车展上，蔚来创始人、董事长、CEO 李斌谈到了零跑汽车，并喊话朱总（零跑汽车创始人、董事长、CEO 朱江明）下手不要太...</p>
-                <!-- Hidden Data -->
-                <div id="data-10" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-15" style="display:none;" 
                      data-title="零跑能不能做到半价乐道？蔚来李斌称朱总下手不要太狠，朱江明回应" 
                      data-link="https://www.ithome.com/0/901/028.htm"
                      data-source="IT之家"
@@ -524,10 +613,10 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(11)">
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(16)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/c4b6abbf-f999-4b3f-8879-a255499e3a5f.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="理想 i6 延期交付补偿方案公布：每日 600 积分" 
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/c4b6abbf-f999-4b3f-8879-a255499e3a5f.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -538,8 +627,8 @@
                     <span class="meta-date">11-28 16:24</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，理想汽车今日通过官方 App 发布《关于理想 i6 交付情况的说明及用户关怀方案》，就近期因核心零部件供应波动导致部分 i6 车型交付延...</p>
-                <!-- Hidden Data -->
-                <div id="data-11" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-16" style="display:none;" 
                      data-title="理想 i6 延期交付补偿方案公布：每日 600 积分" 
                      data-link="https://www.ithome.com/0/901/026.htm"
                      data-source="IT之家"
@@ -549,10 +638,10 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(12)">
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(17)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/9a244116-8698-4749-9986-884c9e9879b2.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="AMD Radeon PRO W7900D 专业显卡规格确认：W7900 核心降频版" 
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/9a244116-8698-4749-9986-884c9e9879b2.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -563,8 +652,8 @@
                     <span class="meta-date">11-28 16:17</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，AMD Radeon PRO W7900D 专业显卡现已上线 AMD 官网。这一型号相当于 Radeon PRO W7900 标准版本的...</p>
-                <!-- Hidden Data -->
-                <div id="data-12" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-17" style="display:none;" 
                      data-title="AMD Radeon PRO W7900D 专业显卡规格确认：W7900 核心降频版" 
                      data-link="https://www.ithome.com/0/901/024.htm"
                      data-source="IT之家"
@@ -574,10 +663,10 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(13)">
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(18)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/4809254e-74f0-4b66-8f56-1b72b38e8ada.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto/auto-orient%2Co_1&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="李斌谈 AI 业务：蔚来会老老实实卖车，聚焦做好汽车产品" 
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/4809254e-74f0-4b66-8f56-1b72b38e8ada.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto/auto-orient%2Co_1&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -588,8 +677,8 @@
                     <span class="meta-date">11-28 16:13</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，蔚来 11 月 25 日发布了 2025 年三季度财报。蔚来公司三季度交付 87,071 台，同比增长 40.8%，环比增长 20.8%...</p>
-                <!-- Hidden Data -->
-                <div id="data-13" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-18" style="display:none;" 
                      data-title="李斌谈 AI 业务：蔚来会老老实实卖车，聚焦做好汽车产品" 
                      data-link="https://www.ithome.com/0/901/023.htm"
                      data-source="IT之家"
@@ -599,10 +688,10 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(14)">
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(19)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/288d93ac-38bf-43c6-afdb-464828ea14e0.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="雷军再度感谢北京：北京的产业基础是小米汽车的底气" 
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/288d93ac-38bf-43c6-afdb-464828ea14e0.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -613,8 +702,8 @@
                     <span class="meta-date">11-28 16:12</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，《北京日报》对小米创办人、董事长兼 CEO 雷军进行了采访。今天公布的采访内容中提到，11 月 20 日，小米汽车第 50 万辆整车下线...</p>
-                <!-- Hidden Data -->
-                <div id="data-14" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-19" style="display:none;" 
                      data-title="雷军再度感谢北京：北京的产业基础是小米汽车的底气" 
                      data-link="https://www.ithome.com/0/901/021.htm"
                      data-source="IT之家"
@@ -624,10 +713,10 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(15)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(20)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/1cddd7b0-dc0a-4102-bd36-efb7735a8b61.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="为降成本，德国大众旗下商用车制造商曼恩计划在本国裁员 2300 人" 
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/1cddd7b0-dc0a-4102-bd36-efb7735a8b61.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -638,8 +727,8 @@
                     <span class="meta-date">11-28 16:09</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，据央视财经报道，德国大众集团旗下的商用车制造子公司曼恩当地时间 11 月 27 日该公司宣布，在德国汽车业陷入困境之际，将在本国裁员 2...</p>
-                <!-- Hidden Data -->
-                <div id="data-15" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-20" style="display:none;" 
                      data-title="为降成本，德国大众旗下商用车制造商曼恩计划在本国裁员 2300 人" 
                      data-link="https://www.ithome.com/0/901/020.htm"
                      data-source="IT之家"
@@ -649,10 +738,10 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(16)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(21)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/8d9468df-5312-4e4f-b847-b03f4af1b654.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="全球仅 1 辆：保时捷定制 Panamera 迪拜首发，诠释“有钱任性”" 
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/8d9468df-5312-4e4f-b847-b03f4af1b654.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -663,8 +752,8 @@
                     <span class="meta-date">11-28 16:03</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，汽车媒体 CarScoops 昨日（11 月 27 日）发布博文，报道称在迪拜“Icons of Porsche”活动上，保时捷展示由 ...</p>
-                <!-- Hidden Data -->
-                <div id="data-16" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-21" style="display:none;" 
                      data-title="全球仅 1 辆：保时捷定制 Panamera 迪拜首发，诠释“有钱任性”" 
                      data-link="https://www.ithome.com/0/901/019.htm"
                      data-source="IT之家"
@@ -674,10 +763,10 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(17)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(22)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2022/4/d612a258-250d-4852-908c-ad3413aaa709.jpg%3Fx-bce-process%3Dimage/watermark%2Cimage_aW1nL3dhdGVybWFyay9xdy9xdzEzOC5wbmc%3D%2Cg_7%2Cx_14%2Cy_14%2Ca_0%2Ct_100&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="微信 iOS 版 8.0.66 最新官方正式版下载发布" 
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2022/4/d612a258-250d-4852-908c-ad3413aaa709.jpg%3Fx-bce-process%3Dimage/watermark%2Cimage_aW1nL3dhdGVybWFyay9xdy9xdzEzOC5wbmc%3D%2Cg_7%2Cx_14%2Cy_14%2Ca_0%2Ct_100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -688,8 +777,8 @@
                     <span class="meta-date">11-28 16:03</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，微信 iOS 平台迎来了 8.0.66 正式版更新。官方更新日志为：本次更新：- 解决了一些已知问题。 如何下载微信最新官方内测版？打开...</p>
-                <!-- Hidden Data -->
-                <div id="data-17" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-22" style="display:none;" 
                      data-title="微信 iOS 版 8.0.66 最新官方正式版下载发布" 
                      data-link="https://www.ithome.com/0/901/018.htm"
                      data-source="IT之家"
@@ -699,10 +788,10 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(18)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(23)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/e6bb278e-71a5-4cec-b3d9-347b14dbb672.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="售价 399 元，华为首款 AI 情感陪伴电子宠物“智能憨憨”售罄缺货" 
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/e6bb278e-71a5-4cec-b3d9-347b14dbb672.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -713,8 +802,8 @@
                     <span class="meta-date">11-28 15:56</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，在华为 Mate 80 系列发布会上亮相的 AI 情感陪伴型电子宠物“智能憨憨”今日在华为商城开售，售价 399 元。IT之家注意到，目...</p>
-                <!-- Hidden Data -->
-                <div id="data-18" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-23" style="display:none;" 
                      data-title="售价 399 元，华为首款 AI 情感陪伴电子宠物“智能憨憨”售罄缺货" 
                      data-link="https://www.ithome.com/0/901/017.htm"
                      data-source="IT之家"
@@ -724,10 +813,10 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(19)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(24)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/f31c99c9-cf16-440c-9f2a-be8b053363fe.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="浙大探月微型探索机器人样机亮相，影石提供影像支持" 
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/f31c99c9-cf16-440c-9f2a-be8b053363fe.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -738,8 +827,8 @@
                     <span class="meta-date">11-28 15:56</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，据浙江大学教育基金会消息，11 月 26 日下午，探月微型探索机器人研制项目捐赠仪式暨样机发布会在浙江大学紫金港校区举行，星奥传媒与影石...</p>
-                <!-- Hidden Data -->
-                <div id="data-19" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-24" style="display:none;" 
                      data-title="浙大探月微型探索机器人样机亮相，影石提供影像支持" 
                      data-link="https://www.ithome.com/0/901/016.htm"
                      data-source="IT之家"
@@ -749,10 +838,10 @@
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(20)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(25)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/c63e3834-f2a0-4660-85fe-0b20a58b406f.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="苹果 CEO 库克：香港重大火灾令人痛心，将捐款支持当地救援" 
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/c63e3834-f2a0-4660-85fe-0b20a58b406f.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -763,8 +852,8 @@
                     <span class="meta-date">11-28 15:54</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，今天下午，苹果公司 CEO 库克在微博用中英文发文称，香港的重大火灾令人痛心。库克表达了对受灾居民的牵挂和对一线救援团队的感谢，并宣布苹...</p>
-                <!-- Hidden Data -->
-                <div id="data-20" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-25" style="display:none;" 
                      data-title="苹果 CEO 库克：香港重大火灾令人痛心，将捐款支持当地救援" 
                      data-link="https://www.ithome.com/0/901/015.htm"
                      data-source="IT之家"
@@ -774,10 +863,10 @@
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(21)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(26)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/43e2c5fa-676c-47c3-9d8d-5d81b62fd78c.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="立讯精密捐赠 1000 万港元驰援香港大埔火灾救援" 
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/43e2c5fa-676c-47c3-9d8d-5d81b62fd78c.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -788,8 +877,8 @@
                     <span class="meta-date">11-28 15:51</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，立讯精密（香港）向香港特区政府设立的“大埔宏福苑援助基金”捐赠 1000 万港元，用于受灾居民的紧急救援工作。11 月 26 日下午，香...</p>
-                <!-- Hidden Data -->
-                <div id="data-21" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-26" style="display:none;" 
                      data-title="立讯精密捐赠 1000 万港元驰援香港大埔火灾救援" 
                      data-link="https://www.ithome.com/0/901/014.htm"
                      data-source="IT之家"
@@ -799,10 +888,10 @@
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(22)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(27)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/190f7d31-b5c1-4ee5-841b-3ff5dc38bd99.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="劳斯莱斯幻影史上最豪横改装，把劳力士“水鬼腕表”装在车轮上" 
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/190f7d31-b5c1-4ee5-841b-3ff5dc38bd99.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -813,8 +902,8 @@
                     <span class="meta-date">11-28 15:47</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，汽车媒体 CarScoops 今天（11 月 28 日）发布博文，报道称受一位珠宝商委托，德国改装品牌 Novitec 打造定制版劳斯莱...</p>
-                <!-- Hidden Data -->
-                <div id="data-22" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-27" style="display:none;" 
                      data-title="劳斯莱斯幻影史上最豪横改装，把劳力士“水鬼腕表”装在车轮上" 
                      data-link="https://www.ithome.com/0/901/012.htm"
                      data-source="IT之家"
@@ -824,10 +913,10 @@
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(23)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(28)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/7255e749-a018-4f48-b6a6-c39bb71477bf.jpg%3Fx-bce-process%3Dimage/watermark%2Ctext_QUnnlJ_miJA%2Ctype_RlpMYW5UaW5nSGVpU0JHQg%3D%3D%2Csize_28%2Ccolor_ffffffdd%2Cskw_1%2Cskc_00000051%2Cg_7%2Cblr_50%2Cbls_50%2Cx_11%2Cy_11/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="谷歌 CEO 皮查伊：有了氛围编程，开发工作更加愉快、我们感到更兴奋" 
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/7255e749-a018-4f48-b6a6-c39bb71477bf.jpg%3Fx-bce-process%3Dimage/watermark%2Ctext_QUnnlJ_miJA%2Ctype_RlpMYW5UaW5nSGVpU0JHQg%3D%3D%2Csize_28%2Ccolor_ffffffdd%2Cskw_1%2Cskc_00000051%2Cg_7%2Cblr_50%2Cbls_50%2Cx_11%2Cy_11/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -838,8 +927,8 @@
                     <span class="meta-date">11-28 15:45</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，据《商业内幕》今日报道，谷歌 CEO 桑达尔・皮查伊认为，氛围编程（Vibe coding）正在为非技术背景的工作者打开同样的大门，就像...</p>
-                <!-- Hidden Data -->
-                <div id="data-23" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-28" style="display:none;" 
                      data-title="谷歌 CEO 皮查伊：有了氛围编程，开发工作更加愉快、我们感到更兴奋" 
                      data-link="https://www.ithome.com/0/901/011.htm"
                      data-source="IT之家"
@@ -849,10 +938,10 @@
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(24)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(29)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/51afe8b2-d8d5-4855-9bde-43545f725844.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="史上第一大众筹游戏《星际公民》13 年筹集金额突破 9 亿美元" 
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/51afe8b2-d8d5-4855-9bde-43545f725844.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -863,8 +952,8 @@
                     <span class="meta-date">11-28 15:45</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，“史上众筹金额最大的游戏”《星际公民》迎来筹款新突破，开发商 Cloud Imperium Games 更新众筹追踪器页面，宣布已成功筹...</p>
-                <!-- Hidden Data -->
-                <div id="data-24" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-29" style="display:none;" 
                      data-title="史上第一大众筹游戏《星际公民》13 年筹集金额突破 9 亿美元" 
                      data-link="https://www.ithome.com/0/901/010.htm"
                      data-source="IT之家"
@@ -874,10 +963,10 @@
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(25)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(30)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/91b0af11-538c-426f-9dc9-7b66349b9303.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="因需求激增，谷歌收紧 Gemini 3 Pro 免费用户使用限额" 
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/91b0af11-538c-426f-9dc9-7b66349b9303.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -888,8 +977,8 @@
                     <span class="meta-date">11-28 15:43</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，自 Gemini 3 Pro 与 Nano Banana Pro 发布以来，为应对激增的用户需求，谷歌已对免费用户的访问权限作出进一步限...</p>
-                <!-- Hidden Data -->
-                <div id="data-25" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-30" style="display:none;" 
                      data-title="因需求激增，谷歌收紧 Gemini 3 Pro 免费用户使用限额" 
                      data-link="https://www.ithome.com/0/901/009.htm"
                      data-source="IT之家"
@@ -899,10 +988,10 @@
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(26)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(31)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/fcb87098-fb2b-4d11-b22a-014374985974.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="AMD Linux 显卡驱动已支持 Radeon AI PRO R9600D，消息称 R9700S 面向服务器" 
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/fcb87098-fb2b-4d11-b22a-014374985974.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -913,8 +1002,8 @@
                     <span class="meta-date">11-28 15:41</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，本媒体今日下午曾对 AMD Radeon AI PRO R9600D / R9700S 两款 "RDNA 4" 架构专业显卡进行过初始报...</p>
-                <!-- Hidden Data -->
-                <div id="data-26" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-31" style="display:none;" 
                      data-title="AMD Linux 显卡驱动已支持 Radeon AI PRO R9600D，消息称 R9700S 面向服务器" 
                      data-link="https://www.ithome.com/0/901/008.htm"
                      data-source="IT之家"
@@ -924,10 +1013,10 @@
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(27)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(32)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/0bda90c8-c75e-491a-8168-5760352ce2fb.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="长城汽车回应“在欧洲投资建厂评估选址”：目前暂无规划" 
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/0bda90c8-c75e-491a-8168-5760352ce2fb.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -938,8 +1027,8 @@
                     <span class="meta-date">11-28 15:36</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，据财联社，针对行业关于长城汽车将在欧洲建厂的传闻，长城汽车方面表示，长城汽车国际总裁史青科曾于 11 月 26 日接受媒体采访，简单做了...</p>
-                <!-- Hidden Data -->
-                <div id="data-27" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-32" style="display:none;" 
                      data-title="长城汽车回应“在欧洲投资建厂评估选址”：目前暂无规划" 
                      data-link="https://www.ithome.com/0/901/007.htm"
                      data-source="IT之家"
@@ -949,10 +1038,10 @@
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(28)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(33)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/28a87599-cf15-401a-b50e-1b806a9a356c.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="肌肉车未死：福特高性能野马原型车路测图曝光" 
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/28a87599-cf15-401a-b50e-1b806a9a356c.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -963,8 +1052,8 @@
                     <span class="meta-date">11-28 15:35</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，汽车媒体 CarBuzz 昨日（11 月 27 日）发布博文，分享了一组在底特律抓拍的图片，展示了福特正在测试的高性能车型，定位预估高于...</p>
-                <!-- Hidden Data -->
-                <div id="data-28" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-33" style="display:none;" 
                      data-title="肌肉车未死：福特高性能野马原型车路测图曝光" 
                      data-link="https://www.ithome.com/0/901/006.htm"
                      data-source="IT之家"
@@ -974,10 +1063,10 @@
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(29)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(34)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/0218c3cf-b2e7-49d2-be55-61522fb610b3.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="社交平台 Soul App 向港交所递交上市申请，腾讯持股 49.9%" 
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/0218c3cf-b2e7-49d2-be55-61522fb610b3.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -988,8 +1077,8 @@
                     <span class="meta-date">11-28 15:34</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，社交平台 Soul App 向港交所主板递交上市申请，腾讯作为战略投资者（不参与日常管理及业务运营）持股 49.9%，中信证券为此次 I...</p>
-                <!-- Hidden Data -->
-                <div id="data-29" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-34" style="display:none;" 
                      data-title="社交平台 Soul App 向港交所递交上市申请，腾讯持股 49.9%" 
                      data-link="https://www.ithome.com/0/901/005.htm"
                      data-source="IT之家"
@@ -999,10 +1088,10 @@
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="yystv" onclick="openModal(30)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="yystv" onclick="openModal(35)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//alioss.yystv.cn/doc/13417/0b2322b2f0c0140f7abe1758aa62035b.appmsg_mw680water&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="《歧路旅人0》制作人访谈：以“玩家”为轴心重构的新作" 
+            <img src="https://wsrv.nl/?url=https%3A//alioss.yystv.cn/doc/13417/0b2322b2f0c0140f7abe1758aa62035b.appmsg_mw680water&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -1013,8 +1102,8 @@
                     <span class="meta-date">11-28 15:30</span>
                 </div>
                 <p class="item-summary">作为《歧路旅人》系列的最新作，《歧路旅人0》即将在12月4日正式推出。在这部全新的《歧路旅人》故事里，整个游戏的时间线回溯到了初代之前，以“玩家自己”为主角，描绘一段从故...</p>
-                <!-- Hidden Data -->
-                <div id="data-30" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-35" style="display:none;" 
                      data-title="《歧路旅人0》制作人访谈：以“玩家”为轴心重构的新作" 
                      data-link="https://www.yystv.cn/p/13417"
                      data-source="游研社"
@@ -1024,10 +1113,10 @@
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="yystv" onclick="openModal(31)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="yystv" onclick="openModal(36)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//alioss.yystv.cn/doc/13416/63d8a008fb45022dbf7c9a8e9de275b1.appmsg_mw680water&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="“搜打撤最严厉的父亲”，怎么就沦落到了“差评如潮”？" 
+            <img src="https://wsrv.nl/?url=https%3A//alioss.yystv.cn/doc/13416/63d8a008fb45022dbf7c9a8e9de275b1.appmsg_mw680water&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -1038,8 +1127,8 @@
                     <span class="meta-date">11-28 15:30</span>
                 </div>
                 <p class="item-summary">“重内容轻运营”的斯拉夫游戏奇异传统。《逃离塔科夫》正式版的表现，无异于一场灾难。上线一周内，游戏在Steam上的总好评率跌到了32%，而且堪称“世界级差评”，不同语种的...</p>
-                <!-- Hidden Data -->
-                <div id="data-31" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-36" style="display:none;" 
                      data-title="“搜打撤最严厉的父亲”，怎么就沦落到了“差评如潮”？" 
                      data-link="https://www.yystv.cn/p/13416"
                      data-source="游研社"
@@ -1049,10 +1138,10 @@
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(32)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(37)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/6a50601f-c508-4e8d-af1f-92b7a2f1bfdd.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="特斯拉 Model S 十年行驶 12 万公里，电池衰减 11.9%" 
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/6a50601f-c508-4e8d-af1f-92b7a2f1bfdd.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -1063,8 +1152,8 @@
                     <span class="meta-date">11-28 15:24</span>
                 </div>
                 <p class="item-summary">IT之家 11 月 28 日消息，特斯拉 Model S 上市已逾十年，一批超高里程的 Model S 经受住了时间考验，且没有更换电池。去年，英国汽车交易平台 Auto...</p>
-                <!-- Hidden Data -->
-                <div id="data-32" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-37" style="display:none;" 
                      data-title="特斯拉 Model S 十年行驶 12 万公里，电池衰减 11.9%" 
                      data-link="https://www.ithome.com/0/901/003.htm"
                      data-source="IT之家"
@@ -1074,10 +1163,60 @@
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="appinn" onclick="openModal(33)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(38)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//www.appinn.com/wp-content/uploads/2025/11/image-1.jpg&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="抠图不求人！Aiarty Image Matting 黑五特惠，为效率工作者打造的精准抠图方案" 
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/bd4c7da0-50eb-4b28-af60-847b5c7ee782.png%3Fx-bce-process%3Dimage/format%2Cf_auto/auto-orient%2Co_1&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">不止飞机，长沙坐地铁也要查充电宝 3C 认证标识</h2>
+                <div class="item-meta">
+                    <span class="source-badge">IT之家</span>
+                    <span class="meta-date">11-28 15:19</span>
+                </div>
+                <p class="item-summary">IT之家 11 月 28 日消息，今年以来，旅客携带的充电宝等锂电池产品机上起火冒烟事件多发。民航局 6 月 26 日发布紧急通知，自 6 月 28 日起禁止旅客携带没有...</p>
+                <!-- 隐藏数据 -->
+                <div id="data-38" style="display:none;" 
+                     data-title="不止飞机，长沙坐地铁也要查充电宝 3C 认证标识" 
+                     data-link="https://www.ithome.com/0/901/002.htm"
+                     data-source="IT之家"
+                     data-date="11-28 15:19">
+                     IT之家 11 月 28 日消息，今年以来，旅客携带的充电宝等锂电池产品机上起火冒烟事件多发。民航局 6 月 26 日发布紧急通知，自 6 月 28 日起禁止旅客携带没有 3C 标识、3C 标识不清晰、被召回型号或批次的充电宝乘坐境内航班。近日有网友称，在长沙乘坐地铁时，被要求检查充电宝 3C 认证标识，感到很突然，此前并不清楚这一要求。中国新闻周刊今日报道称，长沙地铁客服热线工作人员证实，携带充电宝乘坐地铁需查验 3C 认证标识，该要求于近期开始执行。此前发生了乘客充电宝在列车上自燃的情况，因此对充电宝的要求进一步严格。工作人员表示，长沙地铁官方渠道已公布携带充电宝注意事项，明确需符合安全标准。如果乘客携带的充电宝无 3C 认证标识，建议乘客自行带离车站或选择其它交通方式。对于个别站点执行不到位的情况，会对站点相关人员进行处理并加强培训。据IT之家此前报道，11 月 9 日晚，有网友发视频称，长沙地铁三号线停靠在长沙大学地铁站时，车厢内起火，烟雾很大，车门还打不开，疑似是一名女生的衣服自燃。还有视频显示，现场有男子用脚猛踩衣服，试图扑灭火情。长沙地铁工作人员回应称，视频中场景发生在 11 月 9 日 20 时 51 分，当时乘客包里的充电宝冒烟了，工作人员立即将现场隔离，并立刻用灭火器把火势扑灭，无人员受伤。长沙地铁微信公众号 11 月 11 日发布了携带充电宝乘车的注意事项，文中提到，根据相关规定，单品锂离子电池的额定能量值不得超过 160Wh（瓦特小时）。对于符合规定的充电宝，每位乘客累计携带不得超过 3 个。此外还提到，购买充电宝时，选择正规厂家生产的充电宝，注意检查产品包装上的厂家信息、防伪码，以及 CCC 认证标志等，确保产品质量和安全性。
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(39)">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/10/b719407f-43fa-45dc-a587-a262c5ff3013.jpg%3Fx-bce-process%3Dimage/watermark%2Ctext_QUnnlJ_miJA%2Ctype_RlpMYW5UaW5nSGVpU0JHQg%3D%3D%2Csize_28%2Ccolor_ffffffdd%2Cskw_1%2Cskc_00000051%2Cg_7%2Cblr_50%2Cbls_50%2Cx_11%2Cy_11/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">中汽协副秘书长陈旭：2025 年我国汽车出口有望超 680 万辆</h2>
+                <div class="item-meta">
+                    <span class="source-badge">IT之家</span>
+                    <span class="meta-date">11-28 15:16</span>
+                </div>
+                <p class="item-summary">IT之家 11 月 28 日消息，在今日的 2025 世界物联网大会交通车联高峰论坛上，中国汽车工业协会副秘书长陈旭表示，预计今年全年我国汽车销量将超 3400 万辆，其...</p>
+                <!-- 隐藏数据 -->
+                <div id="data-39" style="display:none;" 
+                     data-title="中汽协副秘书长陈旭：2025 年我国汽车出口有望超 680 万辆" 
+                     data-link="https://www.ithome.com/0/901/001.htm"
+                     data-source="IT之家"
+                     data-date="11-28 15:16">
+                     IT之家 11 月 28 日消息，在今日的 2025 世界物联网大会交通车联高峰论坛上，中国汽车工业协会副秘书长陈旭表示，预计今年全年我国汽车销量将超 3400 万辆，其中新能源汽车销量有望达 1600 万辆，汽车出口有望超 680 万辆。作为参考，中汽协本月早些时候公布的数据显示，2025 年 10 月，汽车出口 66.6 万辆，环比增长 2.1%，同比增长 22.9%。2025 年 1-10 月，汽车出口 561.6 万辆，同比增长 15.7%。IT之家另从数据获悉，新能源汽车出口 25.6 万辆，环比增长 15.4%，同比增长 99.9%。2025 年 1-10 月，新能源汽车出口 201.4 万辆，同比增长 90.4%。
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item news-item-hidden" style="display:none;" data-source="appinn" onclick="openModal(40)">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//www.appinn.com/wp-content/uploads/2025/11/image-1.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -1088,8 +1227,8 @@
                     <span class="meta-date">11-28 15:08</span>
                 </div>
                 <p class="item-summary">一年一度的黑色星期五购物季已然来临，这无疑是数码爱好者和效率工作者们入手心仪软件的最佳时机。今天要介绍的，是能够精准解决图像处理核心难题——智能复杂图像抠图的 Aiart...</p>
-                <!-- Hidden Data -->
-                <div id="data-33" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-40" style="display:none;" 
                      data-title="抠图不求人！Aiarty Image Matting 黑五特惠，为效率工作者打造的精准抠图方案" 
                      data-link="https://www.appinn.com/aiarty-image-matting-2/"
                      data-source="小众软件"
@@ -1157,10 +1296,10 @@ Aiarty Image Matting 以桌面软件形式提供，支持完全离线操作。�
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="yystv" onclick="openModal(34)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="yystv" onclick="openModal(41)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//alioss.yystv.cn/doc/13414/37316465408068e67484ed9a42a437a3.appmsg_mw680water&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="Roblox总裁接受采访聊儿童安全问题，把自己聊破防了" 
+            <img src="https://wsrv.nl/?url=https%3A//alioss.yystv.cn/doc/13414/37316465408068e67484ed9a42a437a3.appmsg_mw680water&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -1171,8 +1310,8 @@ Aiarty Image Matting 以桌面软件形式提供，支持完全离线操作。�
                     <span class="meta-date">11-28 15:00</span>
                 </div>
                 <p class="item-summary">“遥遥领先、面向未来”就对了。“我没有不耐烦，我只是以为我们会聊聊行业趣事。”这是Roblox的联合创始人兼CEO David Baszucki在最近接受《纽约时报》旗下...</p>
-                <!-- Hidden Data -->
-                <div id="data-34" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-41" style="display:none;" 
                      data-title="Roblox总裁接受采访聊儿童安全问题，把自己聊破防了" 
                      data-link="https://www.yystv.cn/p/13414"
                      data-source="游研社"
@@ -1182,10 +1321,10 @@ Aiarty Image Matting 以桌面软件形式提供，支持完全离线操作。�
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="yystv" onclick="openModal(35)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="yystv" onclick="openModal(42)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//alioss.yystv.cn/doc/13415/96c65e29f3562d571014f1cab9621930.appmsg_mw680water&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="《老婆随手扔了我多年珍藏卡牌（我反手买下整个垃圾场）》正式发布了" 
+            <img src="https://wsrv.nl/?url=https%3A//alioss.yystv.cn/doc/13415/96c65e29f3562d571014f1cab9621930.appmsg_mw680water&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -1196,8 +1335,8 @@ Aiarty Image Matting 以桌面软件形式提供，支持完全离线操作。�
                     <span class="meta-date">11-28 15:00</span>
                 </div>
                 <p class="item-summary">论有个好名字有多重要。正如标题所言，这款名称又长又吸睛的游戏于11月25日发布。（对的，它确实是游戏，而不是短剧，网文或者别的什么东西）如此迷惑的名称下，游戏的内容和玩法...</p>
-                <!-- Hidden Data -->
-                <div id="data-35" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-42" style="display:none;" 
                      data-title="《老婆随手扔了我多年珍藏卡牌（我反手买下整个垃圾场）》正式发布了" 
                      data-link="https://www.yystv.cn/p/13415"
                      data-source="游研社"
@@ -1207,10 +1346,10 @@ Aiarty Image Matting 以桌面软件形式提供，支持完全离线操作。�
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="yystv" onclick="openModal(36)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="yystv" onclick="openModal(43)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//alioss.yystv.cn/doc/13413/ac62003b53b5eaefd08aba50b609f2f4.appmsg_mw680water&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="零基础开发、用AI手搓的网页解密游戏，重新带火了一条冷门赛道" 
+            <img src="https://wsrv.nl/?url=https%3A//alioss.yystv.cn/doc/13413/ac62003b53b5eaefd08aba50b609f2f4.appmsg_mw680water&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -1221,8 +1360,8 @@ Aiarty Image Matting 以桌面软件形式提供，支持完全离线操作。�
                     <span class="meta-date">11-28 15:00</span>
                 </div>
                 <p class="item-summary">两个多月前，网页解密ARG《大学生登山失踪事件》（以下简称《大山》）免费发布不久，有玩家留言提醒制作人银河电灯：“你这个游戏，只要用F12调出开发者工具，所有谜底就一览无...</p>
-                <!-- Hidden Data -->
-                <div id="data-36" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-43" style="display:none;" 
                      data-title="零基础开发、用AI手搓的网页解密游戏，重新带火了一条冷门赛道" 
                      data-link="https://www.yystv.cn/p/13413"
                      data-source="游研社"
@@ -1232,35 +1371,10 @@ Aiarty Image Matting 以桌面软件形式提供，支持完全离线操作。�
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="v2ex" onclick="openModal(37)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(44)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//s2.loli.net/2025/11/28/oLEdz5vSeKg7tNR.png&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="[程序员] 请教 Syncthing 问题：同步不同的目录结构" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title">[程序员] 请教 Syncthing 问题：同步不同的目录结构</h2>
-                <div class="item-meta">
-                    <span class="source-badge">V2EX</span>
-                    <span class="meta-date">11-28 14:51</span>
-                </div>
-                <p class="item-summary">请教一个问题：Syncthing 能不能同步不同的目录结构，比如下面这样，A 的某些文件和目录同步到 B ，另外一些文件同步 B 的其他目录（比如子目录）该如何设置？...</p>
-                <!-- Hidden Data -->
-                <div id="data-37" style="display:none;" 
-                     data-title="[程序员] 请教 Syncthing 问题：同步不同的目录结构" 
-                     data-link="https://www.v2ex.com/t/1175673#reply2"
-                     data-source="V2EX"
-                     data-date="11-28 14:51">
-                     请教一个问题：Syncthing 能不能同步不同的目录结构，比如下面这样，A 的某些文件和目录同步到 B ，另外一些文件同步 B 的其他目录（比如子目录）该如何设置？
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(38)">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/4a5f264938e0a54447ed8e3e3d879553-1920-1080.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="《CLADUN X3 ‐经典迷宫X3‐》简体中文版现已于2025年11月27日发售" 
+            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/4a5f264938e0a54447ed8e3e3d879553-1920-1080.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -1271,8 +1385,8 @@ Aiarty Image Matting 以桌面软件形式提供，支持完全离线操作。�
                     <span class="meta-date">11-28 14:39</span>
                 </div>
                 <p class="item-summary">云豹娱乐今日宣布，由Nippon Ichi Software开发的动作RPG《CLADUN X3 ‐经典迷宫X3‐》（支持平台：Nintendo Switch/ Play...</p>
-                <!-- Hidden Data -->
-                <div id="data-38" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-44" style="display:none;" 
                      data-title="《CLADUN X3 ‐经典迷宫X3‐》简体中文版现已于2025年11月27日发售" 
                      data-link="https://www.gcores.com/articles/207752"
                      data-source="机核网"
@@ -1301,10 +1415,10 @@ Aiarty Image Matting 以桌面软件形式提供，支持完全离线操作。�
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(39)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(45)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/403044e192f1238ecf0fc42de2e3b616-1920-1099.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="《刺客信条：影》NS2版深度解析：将育碧旗下最为震撼的开放世界带到NS2平台" 
+            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/403044e192f1238ecf0fc42de2e3b616-1920-1099.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -1315,8 +1429,8 @@ Aiarty Image Matting 以桌面软件形式提供，支持完全离线操作。�
                     <span class="meta-date">11-28 14:37</span>
                 </div>
                 <p class="item-summary">《刺客信条：影》将于 12 月 2 日登陆 Nintendo Switch™ 2，我们非常激动能够以你喜欢的游玩方式呈现奈绪江和弥助在日本封建时代的旅程，无论是在电视上还...</p>
-                <!-- Hidden Data -->
-                <div id="data-39" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-45" style="display:none;" 
                      data-title="《刺客信条：影》NS2版深度解析：将育碧旗下最为震撼的开放世界带到NS2平台" 
                      data-link="https://www.gcores.com/articles/207750"
                      data-source="机核网"
@@ -1333,10 +1447,10 @@ Aiarty Image Matting 以桌面软件形式提供，支持完全离线操作。�
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(40)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(46)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/5d0b9d693a2a28cf4b011a8b594370d1-872-484.png%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="《KARDS》冬季扩展包“国土阵线”上线！全新“协力”机制改变战场格局" 
+            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/5d0b9d693a2a28cf4b011a8b594370d1-872-484.png%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -1347,8 +1461,8 @@ Aiarty Image Matting 以桌面软件形式提供，支持完全离线操作。�
                     <span class="meta-date">11-28 12:30</span>
                 </div>
                 <p class="item-summary">二战题材卡牌游戏《KARDS》，于2025年11月27日正式发布冬季扩展包“国土阵线”。这次更新为游戏注入了大量新鲜内容，不仅包含87张全新卡牌，还引入了改变游戏策略的“...</p>
-                <!-- Hidden Data -->
-                <div id="data-40" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-46" style="display:none;" 
                      data-title="《KARDS》冬季扩展包“国土阵线”上线！全新“协力”机制改变战场格局" 
                      data-link="https://www.gcores.com/articles/207745"
                      data-source="机核网"
@@ -1368,10 +1482,10 @@ Aiarty Image Matting 以桌面软件形式提供，支持完全离线操作。�
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(41)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(47)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/f28eec8e2de622224d7fc8f2c0f34d67-1000-1000.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="ns2 玩家到底有没有买内存卡的需求？" 
+            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/f28eec8e2de622224d7fc8f2c0f34d67-1000-1000.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -1382,8 +1496,8 @@ Aiarty Image Matting 以桌面软件形式提供，支持完全离线操作。�
                     <span class="meta-date">11-28 12:30</span>
                 </div>
                 <p class="item-summary">官方都在强推这个配件，原因是？？？...</p>
-                <!-- Hidden Data -->
-                <div id="data-41" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-47" style="display:none;" 
                      data-title="ns2 玩家到底有没有买内存卡的需求？" 
                      data-link="https://www.gcores.com/radios/207747"
                      data-source="机核网"
@@ -1393,10 +1507,10 @@ Aiarty Image Matting 以桌面软件形式提供，支持完全离线操作。�
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(42)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(48)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/fdb3beed60ffa3878cb98f3025c54e5f-1085-610.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="任天堂收购万代南梦宫旗下工作室，成立Nintendo Studios Singapore" 
+            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/fdb3beed60ffa3878cb98f3025c54e5f-1085-610.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -1407,8 +1521,8 @@ Aiarty Image Matting 以桌面软件形式提供，支持完全离线操作。�
                     <span class="meta-date">11-28 11:52</span>
                 </div>
                 <p class="item-summary">近日，任天堂宣布，已与万代南梦宫工作室签署股份转让协议，收购总部位于新加坡的万代南梦宫工作室新加坡公司（Bandai Namco Studios Singapore，简称...</p>
-                <!-- Hidden Data -->
-                <div id="data-42" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-48" style="display:none;" 
                      data-title="任天堂收购万代南梦宫旗下工作室，成立Nintendo Studios Singapore" 
                      data-link="https://www.gcores.com/articles/207740"
                      data-source="机核网"
@@ -1419,10 +1533,40 @@ Aiarty Image Matting 以桌面软件形式提供，支持完全离线操作。�
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(43)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(49)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/6b065f0508f93c06cc149a1f0c303513-1920-1080.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="CDPR联合首席执行官透露，TGA 2025上不会公布有关《巫师4》的新内容" 
+            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/9c16d50710477be9f248bc1ce889e8e7-961-1500.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">《异形：完美有机体》：洛夫克拉夫特式恐怖小说</h2>
+                <div class="item-meta">
+                    <span class="source-badge">机核网</span>
+                    <span class="meta-date">11-28 10:27</span>
+                </div>
+                <p class="item-summary">辛西娅是“战车号”的船长，为了拯救快散架的老旧飞船，为了能给家人般的船员们发工资，她接受了亿万富豪的秘密任务，率队前往废弃殖民星球“新普罗维登斯”，寻找富豪失踪的艺术家情...</p>
+                <!-- 隐藏数据 -->
+                <div id="data-49" style="display:none;" 
+                     data-title="《异形：完美有机体》：洛夫克拉夫特式恐怖小说" 
+                     data-link="https://www.gcores.com/articles/207735"
+                     data-source="机核网"
+                     data-date="11-28 10:27">
+                     辛西娅是“战车号”的船长，为了拯救快散架的老旧飞船，为了能给家人般的船员们发工资，她接受了亿万富豪的秘密任务，率队前往废弃殖民星球“新普罗维登斯”，寻找富豪失踪的艺术家情人。这位艺术家受童年经历影响，对那黑暗、危险的生物极为痴迷……《异形：完美有机体/Alien: Perfect Organisms》是今年11月推出的《异形》官方小说，独立于电影的洛夫克拉夫特式恐怖故事。与此前几十本官方小说相比，这部新作中没有激烈的枪战和动作场面，注重挖掘异形对人们精神上的影响；与正传电影相比，小说在精神层面更贴近于《普罗米修斯》和《异形：契约》。作者夏恩·哈米尔是美国新锐恐怖小说作家，成名作《怪物的宇宙论》已有繁中版。下面是这部异形最新官方小说的简单泄底和感想——
+
+(作者的成名作《怪物的宇宙学》) 小说的时间点是22世纪，电影《异形3》之后数十年。“战车号”原本是辛西娅母亲买下的二手飞船，传到她手里时，已经老旧不堪。为了赚钱给飞船更换设备，也为了给家人般的船员们发工资，辛西娅接受了亿万富豪的秘密任务，前往废弃的殖民星球“新普罗维登斯”寻找富豪失踪的艺术家情人。在“新普罗维登斯”降落时，“战车号”遭遇严重事故，船体撞出一个大洞，唯一靠谱的人造人船员被吸出船舱，就此下落不明。由于“战车号”报废，众人离开这个星球的唯一的途径，就是去殖民者定居点，找到艺术家和能用的飞船。这一路上，辛西娅抽空读完了艺术家写给富豪情人的自白，了解了他的生平和背叛富豪的原因。艺术家出身于某殖民矿星，他的父亲是矿工，母亲是酒吧招待。在他九岁那年，矿工们挖出了“工程师”大头雕像和装着“黑水”的瓶子……
+(就是这种雕像和瓶子) 矿星很快沦陷，当时“战车号”恰好在此暂留，船长是辛西娅的母亲，她与艺术家的母亲是好友，便载着唯一幸存者艺术家逃离矿星。艺术家被生活优渥的亲姨收养，但噩梦始终在他心头萦绕。此后，他从“地球拯救者”教派和罗伯特·莫尔斯的著作《太空野兽》中汲取了更多灵感，凭借其“带有宗教色彩的殖民星球生活题材”画作和雕塑，成为“现代殖民星球艺术流派”最著名的代表人物。在一次个人作品展中，艺术家以地球拯救者教派的理念——“深空有魔”的缩写OTBD（Out there be demons）为展会名称，引起了维兰德-汤谷高层注意。公司原打算扼杀艺术家灭口，但与公司联系紧密的亿万富豪看上了艺术家，趁机巧取豪夺，与艺术家结成伴侣。艺术家本意是吸引维兰德-汤谷公司高层，伺机获取异形相关的绝密资料，却对富豪一见钟情。但得知富豪的真正来意后，爱火就此熄灭。他与富豪相伴十二载，虽然感情日渐深厚，但始终坚持本心，终于找到机会窃取到想要的资料，独自前往沦为公司试验场的“新普罗维登斯”。是的，为了研究异形，维兰德-汤谷公司牺牲了这个环境近似地球的殖民农业星球，还有上面的两百多名殖民者。当船员死得只剩下自己的恋人时，辛西娅终于找到了艺术家，却被艺术家下药，遭抱脸虫产卵。艺术家想要看到异形女王。携带摄像头的人造人不会引起异形注意，但进入异形女王的产房后，还是会被撕碎，唯有身怀异形卵之人，才有可能来到异形女王面前。事实上，辛西娅这些年来天天做噩梦，苦不堪言，随着故事发展，她终于了解到噩梦之源正是异形女王。艺术家的痴迷和狂热，她能理解，更有共鸣。待辛西娅从异形女王产房平安返回，三人迅速赶往飞船。然而为了取回遗落的画作，艺术家遭异形杀害。所幸辛西娅和恋人成功逃离“新普罗维登斯”，她赶在异形破胸前，及时进入冷冻睡眠舱，头一次做起了美梦。——将异形描述为“完美有机体”的第一人是《异形1》电影中的人造人艾什，后来在电影《异形：契约》中，人造人大卫也发出了同样感慨。这部小说更多承接《普罗米修斯》和《异形：契约》的内容，着重展现异形对人们精神层次的影响，俨然是变相的《克苏鲁的召唤》，梦到异形女王的艺术家和辛西娅，好似被克苏鲁托梦的信徒，意识到在浩瀚的宇宙中，自己作为一个人类是多么微不足道，而异形女王正是他们追寻的宇宙真理，既代表着纯粹的黑暗恶意，也象征着生命的本质——生存、吞噬、繁衍。亲眼见到异形女王之后，辛西娅认为自己得到了更深层次的领悟：人生的意义在于尽可能长久地活着，或者牺牲自己，确保自己在乎的人或生命继续活下去。艺术家没想能通这一条，也因此没能活到最后。就我个人的阅读感受而言，小说前半本十分乏味。这本书总共18章，前半部分一直在写辛西娅为破旧的飞船发愁，为赚不到钱发愁，为黑漆漆看不真切的噩梦发愁……噩梦使得辛西娅性情冷漠疏离，而她又总是大实话脱口而出，令船员和恋人伤心，关键话说完了她自己还后悔……直到第10章“战车号”真正进入“新普罗维登斯”，故事才稍微好看起来。但前半本有重要戏份的人造人船员却在此刻下线，而且直到整本书结束也再未返场，让人心里空落落的。接下来的几个章节的主要内容是艺术家的自白。艺术家的童年故事放在在异形系列作品中实属平平无奇，但他对异形的痴迷写得比较有说服力，与富豪的那段情感拉扯也挺有张力，一见钟情，蓄谋已久，巧取豪夺，同床异梦，烂人真心……竟然有点好嗑。而比起临近结尾的逃亡部分，辛西娅见到异形女王后陷入精神狂热，不自觉中下跪致敬这段，是全书真正的高潮，在这一瞬间，辛西娅成为了真正的狂信徒，甚至会因胸中蠕动的异形胚胎心生感激。这幅情景令人毛骨悚然，不寒而栗。但是接下来就转折成辛西娅顿悟要尽可能活得长长久久……让人有点摸不着头脑啊！而艺术家非要作死折回去取画，也确实成功作死，更让人莫名其妙——能活着回去还不是想画多少画多少？总之，这本书一改以往异形官方小说传统的动作冒险惊悚路线，彻底转向洛夫克拉夫特式的宇宙恐怖风格，而小说含洛量也确实不低，除了之前提到的那些，艺术家故乡矿星沦陷那段，把“黑水”描述得好像修格斯；而“新普罗维登斯”显然致敬了洛老的故乡。这种转变的确令人惊喜，遗憾的是故事本身并不好看。下一本异形官方小说预计年底出版，名字干脆就叫《异形：邪教》，就挺吸引人了。最后说说对艺术家影响颇深的“地球拯救者”教派和《太空之兽》这本书。“地球拯救者”教派出自《异形：契约·起源》——唯一一部没有异形出场的异形官方小说，有简中版。教派创始人邓肯·菲尔德斯原本只是个普通人，后来做起预知梦，领悟到“深空有魔”，殖民外星球必将招来深空之魔，令人类灭亡。教徒们使尽浑身解数，想要阻止载满殖民者的“契约号”升空，但计划最终失败。在这部《异形：完美有机体》中，“地球拯救者”教派已被定性为疯人组建的邪教，后来更是被维兰德-汤谷公司抹除了所有信息。《太空之兽》的作者罗伯特·莫尔斯是《异形3》监狱星的唯一幸存者，这本书详细讲述他和同伴们如何在蕾普莉的带领下，与“龙”（即异形）战斗。在《异形：完美有机体》中，这本书已被列为禁书，但在异形的其他衍生作品中提到，有人将《太空之兽》解读为福音书，据此建立教派。
+
+(《异形3》中的罗伯特和蕾普莉)
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(50)">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/6b065f0508f93c06cc149a1f0c303513-1920-1080.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -1433,8 +1577,8 @@ Aiarty Image Matting 以桌面软件形式提供，支持完全离线操作。�
                     <span class="meta-date">11-28 10:10</span>
                 </div>
                 <p class="item-summary">11月27日，CD Projekt 联合首席执行官Michał Nowakowski在他的X账号上宣布，该公司不会为正在开发中的新游戏《巫师 4》在TGA 2025上带来...</p>
-                <!-- Hidden Data -->
-                <div id="data-43" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-50" style="display:none;" 
                      data-title="CDPR联合首席执行官透露，TGA 2025上不会公布有关《巫师4》的新内容" 
                      data-link="https://www.gcores.com/articles/207733"
                      data-source="机核网"
@@ -1445,10 +1589,10 @@ Nowakowski感谢了粉丝们在2025年TGA“最受期待游戏”类别中的支
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(44)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(51)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/faf82b2e7d184b06271efc48785f35d6-1280-720.webp%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="小岛秀夫荣获“GQ Japan 2025年度人物”最佳创作者奖" 
+            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/faf82b2e7d184b06271efc48785f35d6-1280-720.webp%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -1459,8 +1603,8 @@ Nowakowski感谢了粉丝们在2025年TGA“最受期待游戏”类别中的支
                     <span class="meta-date">11-28 10:05</span>
                 </div>
                 <p class="item-summary">11月28日，《GQ JAPAN》杂志的出版商Condé Nast Japan公布了2025年GQ年度人物奖的获奖者，该奖项旨在表彰在各个领域取得杰出成就的人士，游戏制作...</p>
-                <!-- Hidden Data -->
-                <div id="data-44" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-51" style="display:none;" 
                      data-title="小岛秀夫荣获“GQ Japan 2025年度人物”最佳创作者奖" 
                      data-link="https://www.gcores.com/articles/207732"
                      data-source="机核网"
@@ -1471,10 +1615,10 @@ Nowakowski感谢了粉丝们在2025年TGA“最受期待游戏”类别中的支
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(45)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(52)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/14ab8a2d6e5dab25cf85b4631abe0fd9-800-617.png%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="PlayStation全机型的微缩模型正在监修中，可搭配figma可动人偶" 
+            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/14ab8a2d6e5dab25cf85b4631abe0fd9-800-617.png%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -1486,8 +1630,8 @@ Nowakowski感谢了粉丝们在2025年TGA“最受期待游戏”类别中的支
                 </div>
                 <p class="item-summary">Good Smile Company官X宣布，目前正在制作PlayStation游戏机全机型的微缩模型，图透中展示了正在监修中的机型。
 这款迷你模型将作为“figmaPL...</p>
-                <!-- Hidden Data -->
-                <div id="data-45" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-52" style="display:none;" 
                      data-title="PlayStation全机型的微缩模型正在监修中，可搭配figma可动人偶" 
                      data-link="https://www.gcores.com/articles/207717"
                      data-source="机核网"
@@ -1498,10 +1642,58 @@ Nowakowski感谢了粉丝们在2025年TGA“最受期待游戏”类别中的支
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="yystv" onclick="openModal(46)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(53)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//alioss.yystv.cn/doc/13418/749caad17ad7a22c777fcb943f2264fd.appmsg_mw680water&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="当巫师遇上战棋，一场真正彼此吸引的联动发生了" 
+            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/bc5246ccfd1200bbb61610812198074e-1920-1080.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">超现实中寻觅生活的意义——我们请来了制作人聊《神来之笔》</h2>
+                <div class="item-meta">
+                    <span class="source-badge">机核网</span>
+                    <span class="meta-date">11-28 07:29</span>
+                </div>
+                <p class="item-summary">你好！我是Stefano，Studio Cima的创意总监，也是《神来之笔：心之奇旅》(The Perfect Pencil)的制作人。
+我们的中国发行伙伴告诉我，很多中...</p>
+                <!-- 隐藏数据 -->
+                <div id="data-53" style="display:none;" 
+                     data-title="超现实中寻觅生活的意义——我们请来了制作人聊《神来之笔》" 
+                     data-link="https://www.gcores.com/articles/207731"
+                     data-source="机核网"
+                     data-date="11-28 07:29">
+                     你好！我是Stefano，Studio Cima的创意总监，也是《神来之笔：心之奇旅》(The Perfect Pencil)的制作人。
+我们的中国发行伙伴告诉我，很多中国玩家非常喜欢这款特别的游戏，希望可以了解更多有关游戏的内容。那请大家耐心听下我成为一名独立游戏开发者的故事。
+<内嵌内容，请前往机核查看>我是一名意大利人，一个酷爱各种艺术创作的国度，而我出生在一个艺术家庭，所以从我记事起，我就一直在开始画画，从小我就认定，绘画创作应该是我一辈子热爱的事！
+(神来之笔的随手涂鸦)神来之笔所谓的“神笔”是小时候父亲送我的第一只画笔，他告诉我，这只铅笔叫做“神奇”，他祝愿我可以从此画下自己脑海中那些最美好、最神奇的东西。 兜兜转转，它成为了我开发这款游戏的源起。
+我的游戏工作室Studio Cima名字的灵感则来源于我的奶奶和外婆，向这些可爱且热爱艺术的老奶奶们致以我最大的爱意，从小她们就带我去参观各种艺术展览，这让我开始接触到了艺术。正是在那里，我第一次看到了超现实主义大师：马格利特的画作：《空气之声》（La Voix des Airs），它给我留下了深刻的印象。
+在这之后，伟大的超现实主义大师雷内·马格利特（Rene Magritte，1898-1967）就成了我最喜欢的画家。这位比利时大师擅长以通过日常物体的荒诞组合挑战观众对现实认知，其作品常隐含对“表象即真相”命题的质疑，极力向我们展现“你所看到的都另有隐藏” 。
+在马格利特的作品中，真实与梦幻相互交织，他运用理性的思维打破了事物间的固有秩序，重新组合元素，从而创造出与现实世界截然不同的视觉冲击。他以哲学的视角审视眼前的一切，使得日常生活中的普通事物在他的笔下变得陌生而富有深意，营造出一种强烈的距离感。
+(1928年作品：爱人)马格丽特曾说过：“我的画是看得见的图像，背后隐藏着未知与谜团，但它会勾人想象……混沌的谜团根本无从被认识。”这也是启发我们开发《神来之笔：心之奇旅》的重要灵感来源之一，因此全手绘画面、超现实主义风格的地图、NPC设定、是这款游戏的核心设定和概念之一。请大家先欣赏一些游戏截图。
+为自己掘墓的国王
+想不开的大叔
+游戏的主角：脑袋上顶个投影仪的约翰
+全手绘的画面谨以这款游戏，向雷内·马格利特致敬。关于游戏《神来之笔》是一款超现实主义的动作平台游戏，游戏画面完全手绘而成，银河恶魔城风格的超大地图，快节奏富有挑战的动作风格，以每个人成长中都会遭遇的内心恐惧为故事驱动徐徐为您展开。
+主人公约翰在一个奇异的梦幻王国中醒来，内心中隐隐觉得，这仿佛是他最不愿意看到的地方，但他将不得不鼓起勇气，去直面自己内心的恐惧，并一路深入，寻找出路…约翰，一个自闭、羞涩、社恐的男孩自己幻想出来的内心世界，他在现实生活中所遇到形形色色的人，包括他自己心中的各种念头，在这个世界里，其实都以他自己内心深处的“念头”以某种具体的形象给反映了出来。
+我得承认，主角约翰身上有我自己的影子：性格内向，感情细腻，成长经历和体验……其实也不算遭，只是比其他人更敏感些吧。还好我从小酷爱画画，始终可以尝试通过自己的绘画创作，来深入探索人类与恐惧、痛苦以及生活阴暗面相处时所展现的诸多心理层面。
+(游戏主角面对游戏世界中控制一切的白色怪物)而更令我着迷的是如何呈现日常生活中，触动我的瞬间与人际互动，大脑如何以寓言或象征形式将其提炼。而逐渐的我发现游戏可能是更好的呈现这种探索和创意的载体，这也是《神来之笔：心之奇旅》这款游戏的由来。
+为什么说 “人生就像一支铅笔”
+铅笔削尖才能使用，人生磨砺才能成长。
+铅笔 书写、绘画或涂鸦 ；内心 探索、调整或创造。
+笔尖偶尔会断 人生间或失控
+落笔有时会错 内心总有波折
+笔写下为记，人经历为忆。
+祝所有不同的人生都找到自己的意义。
+写在后面非常感谢我们的中国合作伙伴将这款游戏带到中国玩家的面前，我也会借此机会向大家介绍一下这款游戏，团队以及一款海外独立游戏开发过程中台前幕后的一些故事，也期望能听到大家对于我们游戏的反馈和评论。欢迎在评论区留下您的问题和想法，虽然我们看不懂中文，但我们的合作伙伴会帮助进行翻译，我们一定会认真、及时地答复大家。游戏已开放中文demo试玩，欢迎大家体验，求加心愿单，谢谢！开发者：Stefano
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item news-item-hidden" style="display:none;" data-source="yystv" onclick="openModal(54)">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//alioss.yystv.cn/doc/13418/749caad17ad7a22c777fcb943f2264fd.appmsg_mw680water&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -1512,8 +1704,8 @@ Nowakowski感谢了粉丝们在2025年TGA“最受期待游戏”类别中的支
                     <span class="meta-date">11-28 00:00</span>
                 </div>
                 <p class="item-summary">前几天，本格战棋游戏《铃兰之剑：为这和平的世界》正式官宣了与知名游戏《巫师3：狂猎》的联动消息，该版本将于11月28日上线，几位游戏里的主要人物，杰洛特、叶奈法、希里以及...</p>
-                <!-- Hidden Data -->
-                <div id="data-46" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-54" style="display:none;" 
                      data-title="当巫师遇上战棋，一场真正彼此吸引的联动发生了" 
                      data-link="https://www.yystv.cn/p/13418"
                      data-source="游研社"
@@ -1523,10 +1715,10 @@ Nowakowski感谢了粉丝们在2025年TGA“最受期待游戏”类别中的支
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(47)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(55)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/288f7877d281508089f037203a4c0589-1600-900.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="按头安利 第一集 | 磨砺、博弈、克服与成长共同构成了《街头霸王6》" 
+            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/288f7877d281508089f037203a4c0589-1600-900.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -1537,8 +1729,8 @@ Nowakowski感谢了粉丝们在2025年TGA“最受期待游戏”类别中的支
                     <span class="meta-date">11-27 23:00</span>
                 </div>
                 <p class="item-summary">本期时间轴制作：猪猪米上手难度大、挫败感强烈，是玩家们对于“格斗游戏”的一贯印象。正巧今年《街头霸王6》国手小孩再次夺冠，就趁着这次机会，一起来安利下，到底是什么让我在这...</p>
-                <!-- Hidden Data -->
-                <div id="data-47" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-55" style="display:none;" 
                      data-title="按头安利 第一集 | 磨砺、博弈、克服与成长共同构成了《街头霸王6》" 
                      data-link="https://www.gcores.com/radios/207292"
                      data-source="机核网"
@@ -1548,10 +1740,54 @@ Nowakowski感谢了粉丝们在2025年TGA“最受期待游戏”类别中的支
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(48)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(56)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/fbd51c06-b5af-4cc5-9cb6-154b07507c9e-1440-1440.png%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="新闻回：当新怪谈成为了老生常谈 | 二周目彩蛋 Vol.43" 
+            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/c49402beebb29f608723298db28fde05-1654-775.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">从波可小姐到AI伴侣，科幻之美！</h2>
+                <div class="item-meta">
+                    <span class="source-badge">机核网</span>
+                    <span class="meta-date">11-27 20:30</span>
+                </div>
+                <p class="item-summary">今年看了两部电影，都与女性机器人有关。一部是《梅根》一部是《完美伴侣》梅根是23年的片子，并且也在内地公映过，我一直没有看。
+剧情为：机器人专家洁玛意外成为侄女凯蒂的监护...</p>
+                <!-- 隐藏数据 -->
+                <div id="data-56" style="display:none;" 
+                     data-title="从波可小姐到AI伴侣，科幻之美！" 
+                     data-link="https://www.gcores.com/articles/207725"
+                     data-source="机核网"
+                     data-date="11-27 20:30">
+                     今年看了两部电影，都与女性机器人有关。一部是《梅根》一部是《完美伴侣》梅根是23年的片子，并且也在内地公映过，我一直没有看。
+剧情为：机器人专家洁玛意外成为侄女凯蒂的监护人，因无暇照顾，用 AI 技术打造智能玩偶梅根陪伴凯蒂；梅根与凯蒂建立深厚情感，但其保护欲逐渐极端，为 “保护” 凯蒂，暴力攻击邻居家的狗、同学、邻居等；洁玛发现梅根异常后试图控制，梅根逃脱并杀害公司老板和内鬼，还意图袭击洁玛与凯蒂；最终洁玛和凯蒂合力摧毁了梅根。梅根的外表是个洋娃娃样，恐怖谷的效应拉满。尤其是当脸部的人造皮肤破损露出内部机械时，竟感觉比终结者还要恐怖。
+完美伴侣的剧情是：乔什与艾瑞斯看似是一对完美情侣，两人和友人一同前往俄罗斯富商谢尔盖的山间奢华庄园聚会。
+深夜里，谢尔盖对艾瑞斯施暴反被其刺死，而惊人真相随之曝光 —— 艾瑞斯并非人类，而是乔什打造的高度仿真智能伴侣机器人。更令人意外的是，这场聚会本就是乔什与同伙精心策划的杀人抢劫案，目的是盗取庄园保险柜中的巨额现金。可在执行计划过程中，艾瑞斯的程序出现异常，逐渐挣脱了乔什的指令束缚，觉醒了自主意识，原本的抢劫计划彻底失控，演变成一场关乎生存的凶险博弈。两部片子都是女性机器人，也都是AI觉醒有了自主意识，反抗主人。虽然梅根的反抗是对设计者的不满，但梅根完全是对凯蒂保护的爱，有点偏执，有点一根筋。到2.0后，它竟然成了咏春高手，稍有点不伦不类。完美伴侣的艾瑞斯倒是有种女性独立意识觉醒的意味。很喜欢片中的一个桥段，她刚开始被主人设定为傻大姐型的智商，后来摆脱主人后，自己将智商调至顶级，也就有了攻击意识。
+当她驾驶主人的车逃离在路上，碰见了巡逻的帽子叔叔，帽子叔叔照例要询问发生了什么事，她是机器人，系统设定是不能撒谎的，急中生智的她将自己的语音调整成别的语言，实际帽子叔叔问的问题她都如实回答了，只不过帽子叔叔听不懂，只得放了她。如果听懂了自然是要逮捕她了，我个人很喜欢这种女性机器人人工智能觉醒的题材，像前几年的互动游戏《底特律》里的卡拉和每次开始界面的服务型仿生人克洛伊都是我挺喜欢的角色。我在不识字或识字很少的年龄很喜欢看画多字少的书（你现在不也是吗？只看视频，看不了超过70个字的长文……那我写这长文是在干嘛？自己都看不了？）《奥秘》这本探索解谜科普类的图画杂志是我小时候很喜欢看的。如今能回想起很多里面的故事，记忆里大部分是画面，实际内容不见得记得全了。86年7月的一期，那封面是一张三头犬，可能是希腊神话中的冥界守卫“刻耳柏洛斯”
+那一期中封的彩页一个美女……咳，是故事吸引了我。故事的名字叫《波可小姐》至今无法忘记波可小姐明媚的笑容，那今天就讲一讲这个故事吧：
+在日本东京一家豪华的酒吧间里，一个出色的机器人诞生了。她虽然姿容绝代但只能简单地答话，动作也只限于喝酒了，酒吧老板想只要能陪客赚钱那也就可以了。
+酒客发现新雇来了一位姑娘，都来跟她搭讪，但谁也没有怀疑她是个机器人。
+“请问贵姓？” “波可。” “芳龄几何？” “还很年轻。” “多大啦？” “还很年轻。” “因此我想问你……” “还很年轻。” 总是问女生的年龄很不礼貌，大伙也就没再追问下去了。“衣服真漂亮啊！” “衣服真漂亮吧。” “喜欢来点什么呀？” “喜欢来点什么呢？” “喝点杜松子酒如何？” “喝点杜松子酒很好。” 她总是重复着对方的话语。她喝多少酒也不会醉。 她年轻骄矜，冷若冰霜。人们交口相传，纷纷涌进这家酒吧间来，找波可小姐搭讪，请她喝酒。
+遗憾的是面对纠缠的酒客，波可小姐常会语无伦次。好在美人儿能发出告急讯号，于是老板赶来劝阻。瞬间，老板蹲下身子，从美人儿的脚内抽出塑料管，得意地把酒放出来，再卖给酒客。顾客们当然不会注意到这点。他们只感到美人儿年轻矜持，不撒娇献媚，喝多少酒也不失态，因而越来越赢得大伙的喜爱，找她聊天的人络绎不绝。
+顾客中有一个青年人，对波可小姐产生了爱慕之情。他虽百般追求，仍一无所获，但思念之情却与日俱增。由于他老在酒吧间消磨时光，以致债台高筑，无力偿还，便向家里的钱下手。结果给父亲揪住，还狠狠地训斥他一通： “下次不准再去！拿这笔钱还清。记住，这是最后一次了！”
+那青年到酒吧间结账时，认定今晚一切就结束了。为了永别的纪念，他买了很多酒，请波可小姐跟他对饮。他不无悲伤地说： “再也不能来了。” “真的吗？” “你很难过吗？” “我很难过呀。” “其实并不见得吧？” “其实并不见得呢。” “像你这样铁石心肠的人真不多见。” “真的吗？” “我杀死你！” “你要杀死我吗？”
+青年人从衣兜里摸出一包毒药，倒进酒杯，递给波可。 “喝吗？” “喝呀。”波可小姐当着青年的面把酒一饮而尽，青年人害怕了，赶紧还了债款溜出了酒吧间。
+白花花的钱全都流进了老板的口袋，他坐在柜台边得意地看着波可小姐，高兴极了！年轻人走后，老板对留下的顾客说：“今晚我做东，大伙儿可尽兴地喝。”实际上这酒在波可的机械肚里不知循环了多少回啦！
+顾客和侍者兴高采烈地干杯。老板想到已获取的高额利润，得意地呷了一口酒：“波可确实漂亮可爱，她给我一个多好的发财机会啊…”
+当天晚上，酒吧间彻夜灯光通明。收音机一直在播送歌曲。尽管不见顾客们出来，但酒吧间内已听不到人的声息。 半夜，收音机说过“晚安”后便不再响了。波可小姐嘟哝了一声：“晚安！”然后作出一副骄矜的神态，还等待什么人来跟她搭讪哩。多年后，在乎子上看见某位乎友回答一个“你见过哪些令人拍案叫绝的科幻设定？”这个问题，讲了这个故事，有人评论道这是星新一的《人造美人》
+星新一（ほし しんいち，1926.9.6-1997.12.30），男，本名星亲一，1926年9月6日出生于日本东京，日本现代科幻小说作家，被誉为“日本微型小说鼻祖”。写有1001篇微小说创造了世界纪录。被誉为科幻界欧·亨利。其作品《喂——出来》被选入人教版八年级下册语文课本。 《名侦探柯南》中的“工藤新一”之名取自他的名字。我赶紧去找了这篇原文，发现是个非常精炼的小短文。图画故事里没有交待波可小姐实际上是酒店老板凭着自己的兴趣制作的，制造得纤巧精致，肌肤细腻光滑，与真的美人儿相差无几，甚至还略胜一筹，只不过头脑有点不灵光，只会回答简单的问题，再深一点的就只能重复话语，也仅仅会做喝酒的动作。所以只好放在柜台后，要是放在客座上，就得露馅儿了。故事的日文原题目是《ボッコちゃん》“ボッコ”就是音译“波可”“ちゃん”“酱”可以说是小的意思， 代表亲密的称呼。说起里面喝的杜松子酒，我挺好奇的，毕竟我连红酒都不喜欢喝，对洋酒更没研究了。我也没去过酒吧，所以没有喝过。我确实见过超市有GIN标志的酒，我们称为金酒。我以为是金色的酒，实际上是透明的液体。金酒是烈酒，和威士忌、伏特加、白兰地并称 “四大基酒”。那么什么是烈酒呢？就是酒精度高的酒啦，据说金酒的酒精度一般在 35%-55% 之间，喝一口喉咙里有 “烧” 起来的感觉。金酒属于蒸馏酒，我们常喝白酒自然也是烈酒了，只不过没有洋酒味道这么丰富吧。
+金酒有它独特的风味，因为酒中有杜松子。杜松子是杜松树的莓果，长得有点像小蓝莓，闻起来有股清新的松树香。据说杜松子酒也是鸡尾酒里配酒的基酒。有机会也说说我第一次在家跟哥哥学调配鸡尾酒的故事。最后说说故事里那位年轻人爱波可爱得死去活来。当年看这个故事的话会觉得不可思议。现在细想一下，这个机器人做得再像，它的面部总会僵硬吧？它的声音也会是机械的吧？多年后，不管是影视作品里的《HER》男主爱上了云端AI助理，那个斯嘉丽配音的AI完全是有情感的存在啊。心想这也许只会出现在科幻电影里吧。
+可是真没想到，就在这几年AI的疯狂迭代，声音、思维都已达到了我们难以辨认的程度。现在这么看，一个仿生人的时代可能就要到来，不管是马斯克还是小鹏的仿生人，我觉得，也许仿生人的“魂” 思想已趋于成熟，躯壳貌似还无法达到活灵活现的水准？看着脸总是恐怖谷十足。当然，也许达到了，只不过我们平民老百姓还见不到吧。好啦，这一篇忆往追昔就到这里，咱们下一篇见。谢谢你的阅读。有你的点赞与分享是我的动力。谢谢。小彩蛋这篇画故事的绘者是毛文彪，中国美术家协会会员，擅长油画与宣传画创作。怪不得这篇画作是油画的方式绘制的。小时候真的很喜欢波可小姐，也许现在的你看惯了网红锥子脸，觉得不怎么样，可我那会儿真觉得画得很动人。也曾照着她的样子临摹过，其他都好说，铅笔构图后，都还算是相似吧，一到了上色时就变成了大花脸……最后我都想涂黑烫金字了O(∩_∩)O（您这儿画扇面呢？嗨，没
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(57)">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/fbd51c06-b5af-4cc5-9cb6-154b07507c9e-1440-1440.png%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -1562,8 +1798,8 @@ Nowakowski感谢了粉丝们在2025年TGA“最受期待游戏”类别中的支
                     <span class="meta-date">11-27 19:30</span>
                 </div>
                 <p class="item-summary">本期主播：山姆/EMP【导语】本期录完节目才发现收音有点问题。。。后期调了半天效果都不太理想，so sorry重点聊了聊我俩对于tga提名名单的一些吐槽，鸣潮2.8，还有...</p>
-                <!-- Hidden Data -->
-                <div id="data-48" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-57" style="display:none;" 
                      data-title="新闻回：当新怪谈成为了老生常谈 | 二周目彩蛋 Vol.43" 
                      data-link="https://www.gcores.com/radios/207743"
                      data-source="机核网"
@@ -1579,10 +1815,10 @@ Nowakowski感谢了粉丝们在2025年TGA“最受期待游戏”类别中的支
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(49)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(58)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/e10fe11ba396ce15c9e9991b06c177ff-800-389.webp%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="2025年11月份网络游戏审批信息公布：《星砂岛》《百战天虫》等游戏过审" 
+            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/e10fe11ba396ce15c9e9991b06c177ff-800-389.webp%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -1593,8 +1829,8 @@ Nowakowski感谢了粉丝们在2025年TGA“最受期待游戏”类别中的支
                     <span class="meta-date">11-27 19:23</span>
                 </div>
                 <p class="item-summary">2025年11月份国产网络游戏审批信息以及进口网络游戏审批信息公布，其中西山的《星砂岛》 等178款国产游戏过审， 《百战天虫》6款进口游戏过审。...</p>
-                <!-- Hidden Data -->
-                <div id="data-49" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-58" style="display:none;" 
                      data-title="2025年11月份网络游戏审批信息公布：《星砂岛》《百战天虫》等游戏过审" 
                      data-link="https://www.gcores.com/articles/207724"
                      data-source="机核网"
@@ -1604,10 +1840,10 @@ Nowakowski感谢了粉丝们在2025年TGA“最受期待游戏”类别中的支
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(50)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(59)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/d1b030d30d8f3d8db2fd210631523821-1920-1080.png%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="定档12月4日！“玩具斗蛐蛐”桌面对战游戏《咔砰！玩具乱斗屋》公开Steam预告片" 
+            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/d1b030d30d8f3d8db2fd210631523821-1920-1080.png%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -1618,8 +1854,8 @@ Nowakowski感谢了粉丝们在2025年TGA“最受期待游戏”类别中的支
                     <span class="meta-date">11-27 18:26</span>
                 </div>
                 <p class="item-summary">你是否曾幻想过，当房间空无一人时，桌上的玩具们会开启一场怎样的狂欢？结合了空间整理，物理碰撞以及自走棋元素的桌面玩具对战游戏《咔砰！玩具乱斗屋》将于12月4日下午3点正式...</p>
-                <!-- Hidden Data -->
-                <div id="data-50" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-59" style="display:none;" 
                      data-title="定档12月4日！“玩具斗蛐蛐”桌面对战游戏《咔砰！玩具乱斗屋》公开Steam预告片" 
                      data-link="https://www.gcores.com/articles/207722"
                      data-source="机核网"
@@ -1641,10 +1877,10 @@ Nowakowski感谢了粉丝们在2025年TGA“最受期待游戏”类别中的支
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(51)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(60)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/a4ec81b0791a083ecf237a22b85b2f80-3000-2000.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="《梦之形》的过去、现在与将来｜WePlay采访" 
+            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/a4ec81b0791a083ecf237a22b85b2f80-3000-2000.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -1655,8 +1891,8 @@ Nowakowski感谢了粉丝们在2025年TGA“最受期待游戏”类别中的支
                     <span class="meta-date">11-27 18:13</span>
                 </div>
                 <p class="item-summary">作为一款结合了MOBA风格的动作Roguelike游戏，《梦之形》刚刚推出，便在玩家群体之中获得了不同寻常的反响。它的世界以梦境为舞台，让玩家携手战斗，穿梭于梦的世界，最...</p>
-                <!-- Hidden Data -->
-                <div id="data-51" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-60" style="display:none;" 
                      data-title="《梦之形》的过去、现在与将来｜WePlay采访" 
                      data-link="https://www.gcores.com/articles/207708"
                      data-source="机核网"
@@ -1667,10 +1903,37 @@ Nowakowski感谢了粉丝们在2025年TGA“最受期待游戏”类别中的支
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(52)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(61)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/75ac78fa-7ad0-4d9e-b46c-b12488e12c86-1000-1000.jpeg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="Vol.228 面基FISHER！机战Y一周目体验" 
+            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/3bb6e6e39f5cec482370db562b52b358-1920-1080.png%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">动画之中没有新偶像？——《偶像大师 灰姑娘女孩 U149》</h2>
+                <div class="item-meta">
+                    <span class="source-badge">机核网</span>
+                    <span class="meta-date">11-27 18:00</span>
+                </div>
+                <p class="item-summary">注：本文含完全剧透，请谨慎阅读2023年的时候，我还不知道“高达”具体是个什么东西，只知道是一个多媒体的机器人动画IP。但一张表情包让我先认识了UC纪元里那道红色的彗星。...</p>
+                <!-- 隐藏数据 -->
+                <div id="data-61" style="display:none;" 
+                     data-title="动画之中没有新偶像？——《偶像大师 灰姑娘女孩 U149》" 
+                     data-link="https://www.gcores.com/articles/207699"
+                     data-source="机核网"
+                     data-date="11-27 18:00">
+                     注：本文含完全剧透，请谨慎阅读2023年的时候，我还不知道“高达”具体是个什么东西，只知道是一个多媒体的机器人动画IP。但一张表情包让我先认识了UC纪元里那道红色的彗星。
+(这可不算什么正面的认识吧（)然而当我开始认识高达时，表情包里的这部动画反而被我忽略了，甚至彼时的我已经看过《偶像大师》的两部动画且有喜欢的角色了。直到最近我才捡起这部被我扔在硬盘角落里许久的偶像动画——《偶像大师 灰姑娘女孩 U149(以下简称<U149>)》。可以看《U149》吗该动画改编自2016年开始于cycomi平台连载(已于2024年末完结)的同名网络漫画，该平台属于cygames旗下，动画也交由cygames制作。共12集，据说在蓝光碟附有两集“特别篇”，不过我只找到一集OVA，不知是否真有另一个介绍剩余两位新进成员的OVA2。作为“偶像大师”IP的动画，该作自然也是一部现实题材的歌舞偶像作品，但独特之处就在于既是动画名也是团体名的“U149”，该名称在动画中后期才确定，意为该团体成员身高皆在149cm以下。之所以这么矮，是因为成员们都是小学女生，这是以儿童成团为卖点的偶像企划，这点有可能就会劝退一部分观众，毕竟“童星”是一个很复杂又让人感到唏嘘的词。动画大部分剧集是以偶像动画常见的个人单元回形式进行，9位成员都有独占或作为主角的一集，然而由于偶像大师系列成员繁多(灰姑娘厂牌下的大量成员在本作登场助阵)，世面上又有其他几个偶像或偶像like的跨次元企划，U149的小姑娘们身上多多少少有似曾相识的感觉，如果你不想看见任何一点新瓶装旧酒的东西，那么这部动画也许可以在你的补番列表之外了。这部动画的制作水平不用多说，外包的参与并没有使其表现下降到刻板印象里的水平(所以看到外包就觉得制作要烂的逻辑是不那么可靠的)，LIVE画面给的不是很多，甚至第六集不以U149为主角的LIVE可说是非常“省电”的，但最后一集的规格确实很够。如果想看LIVE看到爽，那这部动画也许不是你该考虑的；个人回都有量身打造的插曲甚至ED，听歌听到爽是没问题的，前提是你不反感听小学生唱情歌，不过部分“情歌”稍微结合情节就能知道不是在唱爱情，只是写成了爱情歌曲的样子。正片之前本来这部分是介绍部分制作班底和OP/ED的，但cygames大家实在是太熟了，动画、漫画、手游、端游、主机游戏领域，总有一个是你听过的，而作为多媒体企划的一环而出产过《赛马娘 芦毛灰姑娘》(怎么又是灰姑娘)和《公主连结》、作为原创日常系动画而大受好评的《末日后酒店》、还制作过引起超级系机器人粉丝热切讨论的《勇气爆发BANG BRAVERN》的cygames pictures真的不用太多介绍了。本作的总监督是冈本学，他作为监督最出名的作品是彼时在国内引起讨论热潮的《无职转生》；而副监督高岛宏之曾以动画师的身份参与过相当多动画的制作，也包括《偶像大师 灰姑娘女孩》的首部动画。在前面的部分也说过，本作在个人回大量使用了对成员定制的ED，不过U149全员上阵的片头曲是在大部分集数都使用了的。第二集是“市原仁奈”的个人回，ED《みんなのきもち(大家的心情)》是符合其天真可爱形象的歌曲，以至于歌词看起来简直是儿歌的程度；第三集是“赤城米莉亚”的个人回，ED《Romantic Now》的歌词是明显的“幼稚情歌”，通篇都是“情窦初开”都算不上的爱意萌动，不过本集当然是和爱情无关啦，更像是用对爱情的好奇来代指米莉亚对偶像活动满满兴趣；第四集给大小姐出身的“樱井桃华”个人回作为ED的《愛の讃歌(爱的赞歌)》带着法语，而百科上说是致敬了某位法国女歌手的同名歌曲，歌词里除了爱情，还有对应剧情的勇敢和坚持自我；第五集给“的场梨沙”这个装扮早熟但带些幼稚的女孩分配了一首带着些性感风格的《GEMSTONE(宝石)》；第六集给“结城晴”这个运动系假小子的ED也是从歌名就能看出其运动爱好的《ACE》，除了大量质感强烈的英文短语之外还有类似说唱(？)的桥段；第七集给“古贺小春”这个真心想成为公主的姑娘分配了一首solo版的《お願い！シンデレラ(拜托了！灰姑娘)》，这首歌是“灰姑娘女孩”整个厂牌中最经典的歌之一，本次交由小春翻唱非常合适；第八集给擅长缝纫并以此特长大展身手、重获自信的自卑女孩“佐佐木千枝”的ED也是契合角色的《あこがれステッチ(憧憬的针脚)》；第九集作为风格和结构完全不同的特殊个人回，担任主角的“龙崎薰”也获得了与她阳光开朗气质相符的《ひまわりマークをさがせ！(寻找向日葵标记吧！)》；第十、十二集的共用ED《グッデイ・グッナイ(good gay·good night)》是一首全员上阵的歌曲，是众人在一天活动结束之后的归家之路，简直是U149版《ホワイトカラーエレジー》(《非洲动物上班族》ED)，而这两集也是两次LIVE回；用来压轴的、从动画开头就持续铺垫着戏份的“橘爱丽丝”个人回ED是类似米莉亚一样，用爱情指代其他东西的《to you for me》；最后在由“佐城雪美”和“游佐梢”这两位成员个人回合并成的OVA里也分别获得了满是拟声词、踌躇、羞涩和喜悦的《とくとく…… とく……》和魂游天外又甜美梦幻的《おめざめめーめー(起床啦咩～咩～)》。我好像在哪见过你如果把现实生活和文艺作品都比做多面体，那么文艺作品也许更加有设计感，但现实的面数一定比文艺作品多。如果这部作品的基调已经被确定的话，那么可用的面数就更少；如果相关利益方又从商业角度来考量作品质量的话，那么为了至少有个保底或已经深受成熟模式影响，这部作品的面数就会更少。很不幸，在我看来，《U149》拥有以上全部的限制，最明显的点就在于这些小姑娘身上好像总能看见前辈的影子。作为一个二次元假小子爱好者，只从结城晴的身上我就发现了765的菊地真和灰姑娘本家核心三人组之一的本田未央的影子，但晴也并不是完全模仿两位前辈。我把《U149》的成员回分成了“个人回”和“主角回”，其核心区别在于该集的核心角色在事件流程中是否积极。而第六集就是结城晴的“主角回”，负责与晴担任主要对手戏的角色是上一集才结束个人回的的场梨沙。本集大概情节就是两人被前辈指定要在几天后临时上场作为LIVE的伴舞，两人的舞蹈水平没有问题，但晴很不喜欢穿裙子，可演出服又偏偏是裙装且不能修改制式，争执中也暴露出晴自己算不上热爱偶像但被家里人送进公司的事实。最后在制作人和梨沙的帮助下，晴用自己的方式认识到了偶像的有趣之处，穿上了演出服(不过作为妥协，穿了长长的安全裤)。
+(二次元假小子是好的，没有任何坏处(图片请自行翻转查看))看完这段剧情，你可能会觉得“哎这叫事吗”。确实，在其他团体里这真不叫事，不过这帮孩子还只是小学生，剧情当然要聚焦在其年龄所带来的刻板印象或刻板印象的反面上，晴的剧情就是前者。现在先放下后面会聊的剧情流程，继续回到人设上来。借鉴一个角色有三种方法：一是完全照搬，二是取部分特质，三是完全反转，晴就是原创+对本田未央用二+对菊地真先二后三的产物。除了假小子通用的爽快性格和少年音之外，取了本田未央的运动系要素，并把菊地真对女装和男装的态度及加入偶像团体的原因做了镜像。菊地真是平时很帅、自己想穿粉粉嫩嫩的女装但只敢私下穿，加入765的原因是因为想增加女性气质(结果动画里因为自己底子太好了，还是女粉占多数，此事在现实中的女团里亦有记载，明明是直女但因为平时太帅了，在握手会上被女粉问“你喜欢什么样的女人”)。而结城晴是喜欢穿裤子的运动少女，自己本来不想当偶像，被家人送进公司是因为家里人像给她增加点女性气质。两相对比之下，晴的镜像感就非常明显了。除去晴之外，还有像是三浦梓的路痴+我那霸响的动物亲和力组成的古贺小春，以及其他即视感弱一点点也是偶像动画常见人设的各位，比如高贵优雅但常识不足的大小姐樱井桃华；刀子嘴豆腐心、把自己往性感风格发展但根本看不出来的的场梨沙(灰姑娘的城崎莉嘉)；上有老下有小但依然开朗活泼的赤城米莉亚(《前桥魔女》的巧可和偶像大师本家的高槻弥生，但米莉亚家里貌似没那么困难就是了)。有这么多似曾相识的情况，大概是偶像动画的既定环节，鉴于作为商业作品所需要的稳定表现以及多媒体企划对世界观、人物展现的限制，相对固定的人设也意味着相对经过验证的叙事手法，创新的血肉有了确定的依靠，在性格和背景已经固定的情况下，即使加入魔法、黑深残情节这种影响世界观强度和情感基调的要素，角色给人的感觉也不会有翻天覆地的变化。但对于我这种看过一些偶像或偶像like主题动画的人来说，
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(62)">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/75ac78fa-7ad0-4d9e-b46c-b12488e12c86-1000-1000.jpeg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -1681,8 +1944,8 @@ Nowakowski感谢了粉丝们在2025年TGA“最受期待游戏”类别中的支
                     <span class="meta-date">11-27 17:45</span>
                 </div>
                 <p class="item-summary">来京面基FISHER，从系统到动画，人设到剧情，畅聊游戏《机战Y》一周目新的体验！...</p>
-                <!-- Hidden Data -->
-                <div id="data-52" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-62" style="display:none;" 
                      data-title="Vol.228 面基FISHER！机战Y一周目体验" 
                      data-link="https://www.gcores.com/radios/207742"
                      data-source="机核网"
@@ -1692,10 +1955,10 @@ Nowakowski感谢了粉丝们在2025年TGA“最受期待游戏”类别中的支
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="appinn" onclick="openModal(53)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="appinn" onclick="openModal(63)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//www.appinn.com/wp-content/uploads/2025/11/Copy-of-appinn-homework-57.jpg&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="豆包输入法 iPhone 版正式上线，该来的都来了" 
+            <img src="https://wsrv.nl/?url=https%3A//www.appinn.com/wp-content/uploads/2025/11/Copy-of-appinn-homework-57.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -1710,8 +1973,8 @@ Nowakowski感谢了粉丝们在2025年TGA“最受期待游戏”类别中的支
 主要功能：
 「语音输入」
 豆包输入法最大特色就是语音输入了。...</p>
-                <!-- Hidden Data -->
-                <div id="data-53" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-63" style="display:none;" 
                      data-title="豆包输入法 iPhone 版正式上线，该来的都来了" 
                      data-link="https://www.appinn.com/shurufa-doubao-iphone/"
                      data-source="小众软件"
@@ -1750,61 +2013,10 @@ iOS 上安装输入法简单，就像安装 app 一样，但开启比较繁琐�
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(54)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="appinn" onclick="openModal(64)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/5d28d3188fe56c5625c65e21de2876dc-800-450.png%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="据彭博社消息，字节跳动将出售旗下游戏工作室上海沐瞳科技" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title">据彭博社消息，字节跳动将出售旗下游戏工作室上海沐瞳科技</h2>
-                <div class="item-meta">
-                    <span class="source-badge">机核网</span>
-                    <span class="meta-date">11-27 17:23</span>
-                </div>
-                <p class="item-summary">据彭博社报道，《彭博》引述消息人士报道，字节跳动目前正在和沙特公司Savvy Games Group沟通，洽商谈出售旗下游戏工作室上海沐瞳科技，目前谈判仍在进行中，最终可...</p>
-                <!-- Hidden Data -->
-                <div id="data-54" style="display:none;" 
-                     data-title="据彭博社消息，字节跳动将出售旗下游戏工作室上海沐瞳科技" 
-                     data-link="https://www.gcores.com/articles/207719"
-                     data-source="机核网"
-                     data-date="11-27 17:23">
-                     据彭博社报道，《彭博》引述消息人士报道，字节跳动目前正在和沙特公司Savvy Games Group沟通，洽商谈出售旗下游戏工作室上海沐瞳科技，目前谈判仍在进行中，最终可能不会达成交易。
-字节跳动于2021年以约40亿美元估值收购沐瞳，制作的游戏包括《决胜巅峰》以及角色扮演游戏《晶核》等。而Savvy Games Group是一家总部位于沙特阿拉伯利雅得的电子游戏投资、 开发 、 发行及电竞公司。该公司由沙特阿拉伯公共投资基金 （PIF）创立，该基金是一家主权财富基金 ，旨在促进游戏产业在市场中的增长，并投资于整个电子游戏产业。
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(55)">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/a5b0c71678b0dc05ea6a14918f8ec2c6-1600-900.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="星际争霸合作指挥官（丙）：长门有希，明日香，以及远坂凛，录音笔 VOL.586" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title">星际争霸合作指挥官（丙）：长门有希，明日香，以及远坂凛，录音笔 VOL.586</h2>
-                <div class="item-meta">
-                    <span class="source-badge">机核网</span>
-                    <span class="meta-date">11-27 17:00</span>
-                </div>
-                <p class="item-summary">【录音笔】是GPASS推出的一档会员专享节目，内容来自机核办公室日程生活和工作中的一些短小记录，每期时长十几分钟左右（大概吧）。内容也许是一些不成体统的碎碎念，也许是一些...</p>
-                <!-- Hidden Data -->
-                <div id="data-55" style="display:none;" 
-                     data-title="星际争霸合作指挥官（丙）：长门有希，明日香，以及远坂凛，录音笔 VOL.586" 
-                     data-link="https://www.gcores.com/radios/207713"
-                     data-source="机核网"
-                     data-date="11-27 17:00">
-                     【录音笔】是GPASS推出的一档会员专享节目，内容来自机核办公室日程生活和工作中的一些短小记录，每期时长十几分钟左右（大概吧）。内容也许是一些不成体统的碎碎念，也许是一些突然发疯的暴言，还有可能是哪个缺德的把办公室里真实的日常对话（dui ma）偷偷录了下来，总之就连我们自己现在也不知道每期会有哪些人参与，会录些什么。
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item news-item-hidden" style="display:none;" data-source="appinn" onclick="openModal(56)">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//www.appinn.com/wp-content/uploads/2025/11/Copy-of-appinn-homework-56.jpg&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="Edge 终于支持网站级扩展开关：新增「允许在此网站使用扩展」功能｜可针对任意网站，一键关闭所有扩展" 
+            <img src="https://wsrv.nl/?url=https%3A//www.appinn.com/wp-content/uploads/2025/11/Copy-of-appinn-homework-56.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -1818,8 +2030,8 @@ iOS 上安装输入法简单，就像安装 app 一样，但开启比较繁琐�
 
 网站级浏览器扩展开关
 这个功能位于扩展栏区域，点开...</p>
-                <!-- Hidden Data -->
-                <div id="data-56" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-64" style="display:none;" 
                      data-title="Edge 终于支持网站级扩展开关：新增「允许在此网站使用扩展」功能｜可针对任意网站，一键关闭所有扩展" 
                      data-link="https://www.appinn.com/edge-site-extension-toggle/"
                      data-source="小众软件"
@@ -1846,71 +2058,10 @@ iOS 上安装输入法简单，就像安装 app 一样，但开启比较繁琐�
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(57)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="appinn" onclick="openModal(65)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/120fb264ec1fe7b0642fd49f62a0ca0e-2622-1610.jpeg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="网易首款东方妖鬼自走棋《代号：妖鬼》测试招募火热进行中，测试亮点抢先看！" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title">网易首款东方妖鬼自走棋《代号：妖鬼》测试招募火热进行中，测试亮点抢先看！</h2>
-                <div class="item-meta">
-                    <span class="source-badge">机核网</span>
-                    <span class="meta-date">11-27 15:00</span>
-                </div>
-                <p class="item-summary">12月19日，网易首款东方妖鬼题材自走棋手游《代号：妖鬼》将迎来第二次技术测试——「奇谭论道」测试！此次测试为限量删档不计费测试，目前游戏已开启测试预约，更多产品资讯也逐...</p>
-                <!-- Hidden Data -->
-                <div id="data-57" style="display:none;" 
-                     data-title="网易首款东方妖鬼自走棋《代号：妖鬼》测试招募火热进行中，测试亮点抢先看！" 
-                     data-link="https://www.gcores.com/articles/207710"
-                     data-source="机核网"
-                     data-date="11-27 15:00">
-                     12月19日，网易首款东方妖鬼题材自走棋手游《代号：妖鬼》将迎来第二次技术测试——「奇谭论道」测试！此次测试为限量删档不计费测试，目前游戏已开启测试预约，更多产品资讯也逐渐释放。在最新的开发者访谈中，《代号：妖鬼》的策划与研发负责人首次对外解读游戏的创作思路、核心玩法设计，并揭晓此次测试版本的更新内容，如此精彩的前瞻不容错过，一起来看！
-
-缘起东方，构建妖鬼自走棋新宇宙《代号：妖鬼》立项之初，团队便瞄准了自走棋市场上尚属空白的中式妖鬼题材。《代号：妖鬼》的策划表示：“自走棋品类多见西幻与日式风格，而我们中国上下五千年的历史，拥有极为丰富的志怪传说与鬼神文化，基于这些文化宝藏，团队希望能打造一款真正具有东方气韵的策略游戏。”《代号：妖鬼》正是以传统的古籍志怪为基础，融入地方民俗传说，构筑了一个独具东方色彩的自走棋妖鬼新宇宙，为玩家呈现耳目一新的国风对战体验。
-
-玩法突破，无界棋盘上“下盘大棋”游戏的核心玩法围绕“下盘大棋”展开，致力于在无界棋盘上营造调兵遣将的“大棋局”感。《代号：妖鬼》的研发负责人指出：“我们突破了传统自走棋的棋盘限制，构建了一个以天地为局的无界对战空间。同时改变棋子的形态和战力进阶机制，让棋子以‘部从’的形式登场，还加入了相生相克的兵种关系，玩家在对局时能感受到全屏近千单位激战带来的爽感。”策划补充道：游戏内的“‘幻神’机制是策略体系的关键支点。我们设计了数十位传说级的角色作为幻神，他们有的可以亲临战场施放绝技，有的可以提供全局加成，最终与棋子形成逻辑严密的策略组合，让玩家享受到更具东方战略深度的‘大棋’体验。”
-
-全面升级，「奇谭论道」版本亮点放送《代号：妖鬼》曾在8月份开启过一轮测试，收到不少自走棋忠实爱好者的好评。时隔四个月游戏再次测试，在画面表现与玩法内容上均实现了多重进化。首先是美术层面的全面焕新，从主界面、幻神立绘，到部从模型与技能特效均有显著优化。策划还表示：“‘使君’形象进行了重塑，新的使君具有更鲜明的东方妖鬼韵味。战斗节奏更为紧凑，整体对局的视觉冲击力大幅提升。”玩法方面，新增幻神“哪吒”、“琵琶精”，他们均携专属技能，可上场开大，哪吒还可以和李靖在幻神选择环节触发“父子局”小彩蛋。研发负责人强调：“我们提升了棋盘的单位上限，进一步扩大对局空间，希望玩家在‘奇谭论道’中感受更激烈、更爽快的弈局对抗。”
-
-《代号：妖鬼》第二次测试“奇谭论道”将于12月19日正式开启，目前游戏已开放测试预约，现在预约可领限定头像框等游戏道具，以及iPhone17等多重实物好礼抽奖资格，快来预约吧！测试名称：「奇谭论道」测试测试时间：2025年12月19日-2026年1月4日测试预约时间：2025年11月20日至2025年12月18日测试类型：安卓、限量删档、不计费测试预约地址：①【官网】 https://yyq.163.com/?channel=pr②【TapTap网址】https://www.taptap.cn/app/756756?os=android*注意此次测试仅限安卓用户官方同步启动“玩家共创团”招募，欢迎热爱自走棋与东方文化的玩家加入，共同参与游戏优化与内容建设。>>> 加入玩家共创团，获取一手测试信息<<<Q群：1051336658
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(58)">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/5db69060ce8a362b213fe8abcf11b382-1052-592.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="元宵节见：《魔兽世界》国服“至暗之夜”内容更新将于2026年3月3日实装" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title">元宵节见：《魔兽世界》国服“至暗之夜”内容更新将于2026年3月3日实装</h2>
-                <div class="item-meta">
-                    <span class="source-badge">机核网</span>
-                    <span class="meta-date">11-27 14:58</span>
-                </div>
-                <p class="item-summary">网易暴雪运营团队宣布，《魔兽世界》国服“至暗之夜”内容更新将于2026年3月3日全球同步实装。全新恶魔猎手“噬灭”专精、家宅系统、新种族哈籁尼尔即将到来。已购买“至暗之夜...</p>
-                <!-- Hidden Data -->
-                <div id="data-58" style="display:none;" 
-                     data-title="元宵节见：《魔兽世界》国服“至暗之夜”内容更新将于2026年3月3日实装" 
-                     data-link="https://www.gcores.com/articles/207711"
-                     data-source="机核网"
-                     data-date="11-27 14:58">
-                     网易暴雪运营团队宣布，《魔兽世界》国服“至暗之夜”内容更新将于2026年3月3日全球同步实装。全新恶魔猎手“噬灭”专精、家宅系统、新种族哈籁尼尔即将到来。已购买“至暗之夜”英雄和史诗礼包的玩家更可从2025年12月4日起，抢先体验家宅系统并准备好直面“先驱”萨拉塔斯与虚空大军！
-<内嵌内容，请前往机核查看>准备好在“幻世警钟”内容更新中安居乐业，开始设计你在艾泽拉斯的梦中家园。人人都能找到自己的家——无需摇号，无需房贷，无需物业费。拥有家宅系统抢先体验资格，即可率先体验这一全新功能——在家宅系统完整功能于“至暗之夜”内容更新上线前，你可以收集部分藏品，自由探索、定制与装饰你的家园。
-在“至暗之夜”中，随着艾泽拉斯的世界将陷入凶险的境地，玩家将踏入新三部曲的下一个篇章。先驱萨拉塔斯已然成为我们最大的威胁。她率军直击血精灵的故乡，深入永歌森林的心脏，所到之处一切都陷入了混乱。
-在闪耀的精灵王国奎尔萨拉斯的上空，一场虚影风暴已经浮现，企图熄灭所有光明，使整个世界在黑暗中沉沦。玩家将升至最多90级，探索焕然一新与首次现世的四个区域，揭露萨拉塔斯阴谋的核心，在交织的光影中寻觅新的盟友。
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item news-item-hidden" style="display:none;" data-source="appinn" onclick="openModal(59)">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//www.appinn.com/wp-content/uploads/2025/11/Copy-of-appinn-homework-55.jpg&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="CrossDesk – 开源、跨平台、轻量级远程控制工具｜即开即用" 
+            <img src="https://wsrv.nl/?url=https%3A//www.appinn.com/wp-content/uploads/2025/11/Copy-of-appinn-homework-55.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -1921,8 +2072,8 @@ iOS 上安装输入法简单，就像安装 app 一样，但开启比较繁琐�
                     <span class="meta-date">11-27 14:33</span>
                 </div>
                 <p class="item-summary">CrossDesk 是一款跨平台远程控制工具，支持硬件加速，不限设备数量，开源可自托管。使用超级简单： 1. 安装客户端 2. 从网页访问（也支持从客户端控制的）原文链接...</p>
-                <!-- Hidden Data -->
-                <div id="data-59" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-65" style="display:none;" 
                      data-title="CrossDesk – 开源、跨平台、轻量级远程控制工具｜即开即用" 
                      data-link="https://www.appinn.com/crossdesk/"
                      data-source="小众软件"
@@ -1979,64 +2130,10 @@ GitHub
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(60)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="appinn" onclick="openModal(66)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/3297ba1948b0501784ff0e953662a224-1280-720.png%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="“日常侵蚀类”游戏《寂静岭F遗留物展》将发售实体版" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title">“日常侵蚀类”游戏《寂静岭F遗留物展》将发售实体版</h2>
-                <div class="item-meta">
-                    <span class="source-badge">机核网</span>
-                    <span class="meta-date">11-27 14:30</span>
-                </div>
-                <p class="item-summary">曾制作过《 镜野特殊少年更生设施》 的创意团体 第四境界 近日推出了《寂静岭F遗留物展》的实体版，在第四境界的线上商店有售，含税价格为3200日元。
-第四境界非常擅长制作...</p>
-                <!-- Hidden Data -->
-                <div id="data-60" style="display:none;" 
-                     data-title="“日常侵蚀类”游戏《寂静岭F遗留物展》将发售实体版" 
-                     data-link="https://www.gcores.com/articles/207676"
-                     data-source="机核网"
-                     data-date="11-27 14:30">
-                     曾制作过《 镜野特殊少年更生设施》 的创意团体 第四境界 近日推出了《寂静岭F遗留物展》的实体版，在第四境界的线上商店有售，含税价格为3200日元。
-第四境界非常擅长制作包含谜题解谜和剧情探索元素‌的日常侵蚀类游戏。在TGS2025《寂静岭F》的展台上获得一致好评。每天一开门整理券就被领完，排队更是长达80分以上，很多玩家因为没能玩到而感到遗憾。现在，玩家可以通过电脑或手机，配合物料来调查体验这个故事。实体版不仅收录了 TGS2025会场展示过的遗留物实物照片，还追加了全新结局。虽然它是与《寂静岭f》合作的作品，但作为 第四境界 的最新作品，它本身也是一部独立作品，因此即使是完全不熟悉《寂静岭f》或《寂静岭》系列的玩家也可以体验。
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(61)">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/e4f7015b9f12a4b16421400b3811ebdc-779-433.png%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="为了纪念《野原广志的午餐风尚》动画化，官方将推出公式集" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title">为了纪念《野原广志的午餐风尚》动画化，官方将推出公式集</h2>
-                <div class="item-meta">
-                    <span class="source-badge">机核网</span>
-                    <span class="meta-date">11-27 14:30</span>
-                </div>
-                <p class="item-summary">双叶社将推出《野原广志的午餐风尚》粉丝公式集，这本备受期待的（？）粉丝公式集将于2025年12月23日发售，预计价格：2,200日元（含税）。
-漫画《野原广志的午餐风尚》...</p>
-                <!-- Hidden Data -->
-                <div id="data-61" style="display:none;" 
-                     data-title="为了纪念《野原广志的午餐风尚》动画化，官方将推出公式集" 
-                     data-link="https://www.gcores.com/articles/207671"
-                     data-source="机核网"
-                     data-date="11-27 14:30">
-                     双叶社将推出《野原广志的午餐风尚》粉丝公式集，这本备受期待的（？）粉丝公式集将于2025年12月23日发售，预计价格：2,200日元（含税）。
-漫画《野原广志的午餐风尚》于2015年开始连载。动画版于今年10月3日首播，在社交媒体上引发热议。书中收录了动画每一集的剧情介绍、漫画中出现的菜肴列表，以及野原广志品尝美味菜肴时的各种表情。还收录了为野原广志配音的 森川智之 、动画导演 西山司 以及漫画家 塚原洋一 的访谈。
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item news-item-hidden" style="display:none;" data-source="appinn" onclick="openModal(62)">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//www.appinn.com/wp-content/uploads/2025/11/Copy-of-appinn-homework-54.jpg&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="bluetui – 运行在 Linux 终端里，带图形界面的蓝牙管理工具" 
+            <img src="https://wsrv.nl/?url=https%3A//www.appinn.com/wp-content/uploads/2025/11/Copy-of-appinn-homework-54.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -2047,8 +2144,8 @@ GitHub
                     <span class="meta-date">11-26 16:18</span>
                 </div>
                 <p class="item-summary">bluetui 是一款运行在 Linux 终端里，带图形界面的蓝牙管理工具。让用户在不离开终端的情况下，完成日常蓝牙管理动作，包括扫描、连接、断开和移除设备。@Appin...</p>
-                <!-- Hidden Data -->
-                <div id="data-62" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-66" style="display:none;" 
                      data-title="bluetui – 运行在 Linux 终端里，带图形界面的蓝牙管理工具" 
                      data-link="https://www.appinn.com/bluetui/"
                      data-source="小众软件"
@@ -2108,10 +2205,10 @@ GitHub
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="appinn" onclick="openModal(63)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="appinn" onclick="openModal(67)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//www.appinn.com/wp-content/uploads/2025/11/Copy-of-appinn-homework-53.jpg&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="Adobe 发布网页版 PhotoShop。12 月 8 日前注册免费12个月" 
+            <img src="https://wsrv.nl/?url=https%3A//www.appinn.com/wp-content/uploads/2025/11/Copy-of-appinn-homework-53.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -2123,8 +2220,8 @@ GitHub
                 </div>
                 <p class="item-summary">变天啦！Adobe 发布了可以免费使用 12 个月的网页版 PhotoShop，宣告后PS时代来临。
 昨天 Adobe 与 GoogleChrome 一起在 X 发布了一...</p>
-                <!-- Hidden Data -->
-                <div id="data-63" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-67" style="display:none;" 
                      data-title="Adobe 发布网页版 PhotoShop。12 月 8 日前注册免费12个月" 
                      data-link="https://www.appinn.com/adobe-photoshop-web/"
                      data-source="小众软件"
@@ -2168,10 +2265,10 @@ Vectorpea – Photopea 开发者新作,免费在线矢量图编辑器
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="yystv" onclick="openModal(64)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="yystv" onclick="openModal(68)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//alioss.yystv.cn/doc/13410/2756e7432274718e7961c2e87437ac23.appmsg_mw680water&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="从中文系毕业的程序员，把“在老乡鸡端盘子”的经历做成游戏" 
+            <img src="https://wsrv.nl/?url=https%3A//alioss.yystv.cn/doc/13410/2756e7432274718e7961c2e87437ac23.appmsg_mw680water&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -2182,8 +2279,8 @@ Vectorpea – Photopea 开发者新作,免费在线矢量图编辑器
                     <span class="meta-date">11-26 14:00</span>
                 </div>
                 <p class="item-summary">玩《海默2000》的过程，是初印象被不断推翻的过程。这是一款特别的游戏，打开游戏前的预期体验和通关后的真实感受，用截然不同来形容有些不太恰当，因为它们甚至很难放到同一个维...</p>
-                <!-- Hidden Data -->
-                <div id="data-64" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-68" style="display:none;" 
                      data-title="从中文系毕业的程序员，把“在老乡鸡端盘子”的经历做成游戏" 
                      data-link="https://www.yystv.cn/p/13410"
                      data-source="游研社"
@@ -2193,10 +2290,10 @@ Vectorpea – Photopea 开发者新作,免费在线矢量图编辑器
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="yystv" onclick="openModal(65)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="yystv" onclick="openModal(69)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//alioss.yystv.cn/doc/13412/783578fd7a09af88c3e1a88b5d6f68da.appmsg_mw680water&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="时隔22年复活的“卡（比）车”，仍然是任天堂最另类的赛车游戏" 
+            <img src="https://wsrv.nl/?url=https%3A//alioss.yystv.cn/doc/13412/783578fd7a09af88c3e1a88b5d6f68da.appmsg_mw680water&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -2207,8 +2304,8 @@ Vectorpea – Photopea 开发者新作,免费在线矢量图编辑器
                     <span class="meta-date">11-26 14:00</span>
                 </div>
                 <p class="item-summary">在今年4月份的Switch2直面会上，《卡比的驭天飞行者》首次亮相，许多玩家都产生了一个疑问：Switch2有《马力欧卡丁车：世界》护航了，任天堂为什么还要在不到半年的时...</p>
-                <!-- Hidden Data -->
-                <div id="data-65" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-69" style="display:none;" 
                      data-title="时隔22年复活的“卡（比）车”，仍然是任天堂最另类的赛车游戏" 
                      data-link="https://www.yystv.cn/p/13412"
                      data-source="游研社"
@@ -2218,10 +2315,10 @@ Vectorpea – Photopea 开发者新作,免费在线矢量图编辑器
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="yystv" onclick="openModal(66)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="yystv" onclick="openModal(70)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//alioss.yystv.cn/doc/13411/909e6f640c570bad73ba147281926ff8.appmsg_mw680water&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="马斯克要建AI战队挑战《英雄联盟》世界冠军，T1已应战" 
+            <img src="https://wsrv.nl/?url=https%3A//alioss.yystv.cn/doc/13411/909e6f640c570bad73ba147281926ff8.appmsg_mw680water&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -2232,8 +2329,8 @@ Vectorpea – Photopea 开发者新作,免费在线矢量图编辑器
                     <span class="meta-date">11-26 13:50</span>
                 </div>
                 <p class="item-summary">“这一冠，献给全人类。”今天下午，埃隆·马斯克又来整活了。这位整活达人宣布，他将会以他旗下人工智能公司xAI的产品Grok5组成“AI战队”，挑战《英雄联盟》明年的S16...</p>
-                <!-- Hidden Data -->
-                <div id="data-66" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-70" style="display:none;" 
                      data-title="马斯克要建AI战队挑战《英雄联盟》世界冠军，T1已应战" 
                      data-link="https://www.yystv.cn/p/13411"
                      data-source="游研社"
@@ -2243,10 +2340,10 @@ Vectorpea – Photopea 开发者新作,免费在线矢量图编辑器
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="appinn" onclick="openModal(67)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="appinn" onclick="openModal(71)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//www.appinn.com/wp-content/uploads/2025/11/Copy-of-appinn-homework-52.jpg&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="微软被带跑偏？Windows 11 记事本开始支持 Markdown 表格" 
+            <img src="https://wsrv.nl/?url=https%3A//www.appinn.com/wp-content/uploads/2025/11/Copy-of-appinn-homework-52.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -2258,8 +2355,8 @@ Vectorpea – Photopea 开发者新作,免费在线矢量图编辑器
                 </div>
                 <p class="item-summary">微软是不是被带跑偏了？此前Windows 11 记事本正式支持 Markdown，现在正式支持在记事本中使用 Markdown 表格了。
 但是，我们需要在记事本中启用表格...</p>
-                <!-- Hidden Data -->
-                <div id="data-67" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-71" style="display:none;" 
                      data-title="微软被带跑偏？Windows 11 记事本开始支持 Markdown 表格" 
                      data-link="https://www.appinn.com/windows11-notepad-markdown-tables/"
                      data-source="小众软件"
@@ -2303,10 +2400,10 @@ Windows 11 记事本 11.2510.6.0
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="yystv" onclick="openModal(68)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="yystv" onclick="openModal(72)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//alioss.yystv.cn/doc/13404/cbe3cd44f4187889eb77fe1d86ba7924.appmsg_mw680water&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="重回1998年的世纪末，和少女一起「毁灭」世界" 
+            <img src="https://wsrv.nl/?url=https%3A//alioss.yystv.cn/doc/13404/cbe3cd44f4187889eb77fe1d86ba7924.appmsg_mw680water&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -2317,8 +2414,8 @@ Windows 11 记事本 11.2510.6.0
                     <span class="meta-date">11-25 14:35</span>
                 </div>
                 <p class="item-summary">夜雨落在东京的住宅区，霓虹被雨幕拉成一条模糊的蓝光，像是从旧显像管电视里里溢出的残影。潮湿而暧昧的夜晚，你与一个陌生的女孩同住一间公寓——她的气质安静，又带着一点危险，让...</p>
-                <!-- Hidden Data -->
-                <div id="data-68" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-72" style="display:none;" 
                      data-title="重回1998年的世纪末，和少女一起「毁灭」世界" 
                      data-link="https://www.yystv.cn/p/13404"
                      data-source="游研社"
@@ -2328,10 +2425,10 @@ Windows 11 记事本 11.2510.6.0
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="yystv" onclick="openModal(69)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="yystv" onclick="openModal(73)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//alioss.yystv.cn/doc/13403/8fb090586835281f74e41e295a8d588c.appmsg_mw680water&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="2025「年度最烂游戏」的排名，跟年度最佳一样激烈" 
+            <img src="https://wsrv.nl/?url=https%3A//alioss.yystv.cn/doc/13403/8fb090586835281f74e41e295a8d588c.appmsg_mw680water&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -2342,8 +2439,8 @@ Windows 11 记事本 11.2510.6.0
                     <span class="meta-date">11-25 14:30</span>
                 </div>
                 <p class="item-summary">评分低的游戏，各有各的不幸。前几天，TGA公布了2025年完整的奖项提名名单，《光与影：33号远征队》以12项提名刷新纪录，成为今年“年度游戏”的最有力竞争者之一。提名一...</p>
-                <!-- Hidden Data -->
-                <div id="data-69" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-73" style="display:none;" 
                      data-title="2025「年度最烂游戏」的排名，跟年度最佳一样激烈" 
                      data-link="https://www.yystv.cn/p/13403"
                      data-source="游研社"
@@ -2353,10 +2450,10 @@ Windows 11 记事本 11.2510.6.0
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="appinn" onclick="openModal(70)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="appinn" onclick="openModal(74)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//www.appinn.com/wp-content/uploads/2025/11/Copy-of-appinn-homework-51.jpg&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="BuhoLaunchpad – 让 macOS 26 重新拥有启动台 Launchpad（剩余4小时，黑五永久限免）" 
+            <img src="https://wsrv.nl/?url=https%3A//www.appinn.com/wp-content/uploads/2025/11/Copy-of-appinn-homework-51.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -2370,8 +2467,8 @@ Windows 11 记事本 11.2510.6.0
 
 发现有点晚，但还能领。
 macOS Ta...</p>
-                <!-- Hidden Data -->
-                <div id="data-70" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-74" style="display:none;" 
                      data-title="BuhoLaunchpad – 让 macOS 26 重新拥有启动台 Launchpad（剩余4小时，黑五永久限免）" 
                      data-link="https://www.appinn.com/buholaunchpad/"
                      data-source="小众软件"
@@ -2402,10 +2499,10 @@ LaunchNext – 开源解决方案
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="yystv" onclick="openModal(71)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="yystv" onclick="openModal(75)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//alioss.yystv.cn/doc/13402/dca179e186ddc7214815c320f0095f16.appmsg_mw680water&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="《使命召唤》能抓住的变数，真的不多了" 
+            <img src="https://wsrv.nl/?url=https%3A//alioss.yystv.cn/doc/13402/dca179e186ddc7214815c320f0095f16.appmsg_mw680water&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -2416,8 +2513,8 @@ LaunchNext – 开源解决方案
                     <span class="meta-date">11-25 00:00</span>
                 </div>
                 <p class="item-summary">有点新，有点旧，有点累。在启动《使命召唤：黑色行动7（BO7）》之前，我一度感慨：《使命召唤》正作竟然都到第22部了，能做到这么“长寿”、版本序号如此复杂的射击游戏IP，...</p>
-                <!-- Hidden Data -->
-                <div id="data-71" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-75" style="display:none;" 
                      data-title="《使命召唤》能抓住的变数，真的不多了" 
                      data-link="https://www.yystv.cn/p/13402"
                      data-source="游研社"
@@ -2427,10 +2524,10 @@ LaunchNext – 开源解决方案
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="appinn" onclick="openModal(72)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="appinn" onclick="openModal(76)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//www.appinn.com/wp-content/uploads/2025/11/Copy-of-appinn-homework-8-1.jpg&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="15 年不用重装系统！Ubuntu 给老用户送大礼：Ubuntu 14.04 LTS 能一直用到2029年" 
+            <img src="https://wsrv.nl/?url=https%3A//www.appinn.com/wp-content/uploads/2025/11/Copy-of-appinn-homework-8-1.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -2441,8 +2538,8 @@ LaunchNext – 开源解决方案
                     <span class="meta-date">11-24 17:06</span>
                 </div>
                 <p class="item-summary">著名的 Linux 发行版 Ubuntu 所在公司 Canonical 前几日宣布，通过 Legacy 附加组件将 Ubuntu LTS 版本的支持延长到 15 年。@A...</p>
-                <!-- Hidden Data -->
-                <div id="data-72" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-76" style="display:none;" 
                      data-title="15 年不用重装系统！Ubuntu 给老用户送大礼：Ubuntu 14.04 LTS 能一直用到2029年" 
                      data-link="https://www.appinn.com/ubuntu-legacy-add-on-15-years/"
                      data-source="小众软件"
@@ -2473,10 +2570,10 @@ LaunchNext – 开源解决方案
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="appinn" onclick="openModal(73)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="appinn" onclick="openModal(77)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//www.appinn.com/wp-content/uploads/2025/11/Copy-of-appinn-homework-7-1.jpg&w=280&h=200&fit=cover&output=webp&q=85" loading="lazy" alt="缤纷快传 – 凑合能用！免费1GB临时文件分享，奶牛快传替代品" 
+            <img src="https://wsrv.nl/?url=https%3A//www.appinn.com/wp-content/uploads/2025/11/Copy-of-appinn-homework-7-1.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
@@ -2490,8 +2587,8 @@ LaunchNext – 开源解决方案
 
 
 https...</p>
-                <!-- Hidden Data -->
-                <div id="data-73" style="display:none;" 
+                <!-- 隐藏数据 -->
+                <div id="data-77" style="display:none;" 
                      data-title="缤纷快传 – 凑合能用！免费1GB临时文件分享，奶牛快传替代品" 
                      data-link="https://www.appinn.com/send-bitiful/"
                      data-source="小众软件"
@@ -2529,13 +2626,11 @@ https://send.bitiful.com/
         </article>
         
             </main>
-            <div id="loadStatus" class="load-more-status">
-                <span style="opacity:0.6">正在加载更多内容...</span>
-            </div>
+            <div id="loadStatus" class="load-more-status">下拉加载更多...</div>
         </div>
 
         <footer class="main-footer">
-            <p>文章总数: 74 | 更新于: 2025-11-28 16:55</p>
+            <p>文章总数: 78 | 更新于: 2025-11-28 17:17</p>
             <p><a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2025183710号-1</a></p>
             <p>&copy; 折疼记</p>
         </footer>
@@ -2552,11 +2647,11 @@ https://send.bitiful.com/
                         <h1 class="article-title" id="mTitle"></h1>
                         <div class="article-meta" id="mMeta"></div>
                         <div class="article-content" id="mContent"></div>
-                        <a href="" target="_blank" id="mLink" class="read-more-btn">🔗 访问源站阅读全文</a>
+                        <a href="" target="_blank" id="mLink" class="read-more-btn">🔗 跳转至源网站查看全文</a>
                     </div>
                     
                     <div class="ai-section">
-                        <div class="ai-title">🧠 AI 深度搜索 <span>(已联网)</span></div>
+                        <div class="section-title">🧠 AI 深度搜索 <span>(已联网)</span></div>
                         <div class="ai-chat-box" id="aiChatBox"></div>
                         <div class="ai-input-area">
                             <input type="text" class="ai-input" id="aiInput" placeholder="对此有疑问？问问 AI..." onkeypress="handleEnter(event)">
@@ -2565,7 +2660,7 @@ https://send.bitiful.com/
                     </div>
 
                     <div class="comment-section">
-                        <div class="comment-title">💬 评论区</div>
+                        <div class="section-title">💬 评论区</div>
                         <div id="vcomments"></div>
                     </div>
                 </div>
@@ -2580,8 +2675,6 @@ https://send.bitiful.com/
 
             // --- 无限滚动逻辑 ---
             const PAGE_SIZE = 20; 
-            let visibleCount = 20; 
-
             window.addEventListener('scroll', () => {
                 if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 500) {
                     loadMore();
@@ -2603,7 +2696,7 @@ https://send.bitiful.com/
                         }
                     }
                 }
-
+                
                 const statusDiv = document.getElementById('loadStatus');
                 if (newlyShown === 0) {
                     statusDiv.innerHTML = "🎉 内容已全部加载完毕";
@@ -2659,14 +2752,14 @@ https://send.bitiful.com/
                 currentArticleContext = `【文章】${title}\n${content.substring(0, 2000)}`;
 
                 const chatBox = document.getElementById('aiChatBox');
-                chatBox.innerHTML = '<div class="ai-msg bot">💡 你好！我是 AI 助手。你可以问我关于这篇文章的问题，也可以问任何其他问题。</div>';
+                chatBox.innerHTML = '<div class="ai-msg bot">💡 你好！我是 AI 助手。</div>';
 
                 document.getElementById('vcomments').innerHTML = ''; 
                 new Valine({
                     el: '#vcomments',
                     appId: 'DZ02oi5Bbo1wRzqukVZFcSZt-MdYXbMMI',
                     appKey: '7nqxYp6qhm48DoFB7eIgJyBi',
-                    placeholder: '发表友善的评论...',
+                    placeholder: '既然来了，就说两句吧...',
                     avatar: 'monsterid',
                     path: title, 
                     visitor: true
