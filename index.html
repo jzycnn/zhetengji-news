@@ -164,6 +164,155 @@
         <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(0)">
             
         <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2024/11/0c342b4a-d8ac-4302-990a-749a2094c7d7.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto/auto-orient%2Co_1&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">法国总统马克龙希望将“手机禁令”扩大到高中</h2>
+                <div class="item-meta">
+                    <span class="source-badge">IT之家</span>
+                    <span class="meta-date">12-01 12:54</span>
+                </div>
+                <p class="item-summary">IT之家 12 月 1 日消息，据 Politico 报道，法国总统埃马纽埃尔・马克龙上周五表示，从明年起，高中生“很可能”将被禁止在校内使用手机。据IT之家了解，目前法...</p>
+                <!-- 隐藏数据 -->
+                <div id="data-0" style="display:none;" 
+                     data-title="法国总统马克龙希望将“手机禁令”扩大到高中" 
+                     data-link="https://www.ithome.com/0/901/521.htm"
+                     data-source="IT之家"
+                     data-date="12-01 12:54">
+                     IT之家 12 月 1 日消息，据 Politico 报道，法国总统埃马纽埃尔・马克龙上周五表示，从明年起，高中生“很可能”将被禁止在校内使用手机。据IT之家了解，目前法国的小学生以及初中生已在校内被禁止使用手机。马克龙在法国东部一家地区性报业集团举办的活动上表示，手机禁令的第一阶段实施效果“相当不错”，并表达了支持将该政策扩展至“高中”（lycée）—— 即法国中等教育的最后阶段，学生年龄通常为 15 至 18 岁。马克龙还透露，教育部长爱德华・热弗雷（Édouard Geffray）正在对该提议进行评估。然而，要在高中全面禁止手机，可能需要立法机构通过新的法律。2018 年，法国国民议会曾投票通过现行禁令，但该法律明确适用的范围仅包括幼儿园、小学及初中阶段，并未涵盖高中。马克龙在 2024 年失去对议会的控制权后，其在国内政治中的影响力有所减弱。但近几周来，他试图通过一系列公开露面重新回到国内政治舞台，重点阐述其应对社交媒体和大型网络平台所带来挑战的计划。
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item " style="display:flex;" data-source="v2ex" onclick="openModal(1)">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//i.imgur.com/O45D4Cn.png&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">[宽带症候群] 抛弃了 fakeip 模式 & 彻底关闭本地 ipv6，发现网速变快了</h2>
+                <div class="item-meta">
+                    <span class="source-badge">V2EX</span>
+                    <span class="meta-date">12-01 12:37</span>
+                </div>
+                <p class="item-summary">起因 chrome 在最近版本中添加了一个叫 Local Network Access Checks 的功能，除了网页服务本身确有访问局域网流量和一些插件以外，只要我开着...</p>
+                <!-- 隐藏数据 -->
+                <div id="data-1" style="display:none;" 
+                     data-title="[宽带症候群] 抛弃了 fakeip 模式 & 彻底关闭本地 ipv6，发现网速变快了" 
+                     data-link="https://www.v2ex.com/t/1176097#reply1"
+                     data-source="V2EX"
+                     data-date="12-01 12:37">
+                     起因 chrome 在最近版本中添加了一个叫 Local Network Access Checks 的功能，除了网页服务本身确有访问局域网流量和一些插件以外，只要我开着软路由 fakeip 模式代理就会让所有需代理的网站都触发这个弹窗（如果拒绝就会使得大量 css 和 js 无法在网页中加载，但是单独访问又可以正常打开 css 本身）
+虽然可以通过 flags 直接禁用这个权限控制，但这个安全特性还是有启用的必要，所以计划更换成 realip 模式。
+fakeip 模式在今天的网络环境中，能起到的作用无非两个：
+
+
+如果本身你的代理插件配置了错误的 dns 流程，因为 fakeip 的关系，真正代理访问的 dns 由服务端发起，这时只要你的路由规则正确，本地的 dns 污染、错误解析那些实质上没有影响
+
+
+消弥本地网络环境和远端网络环境的差异：具体来说比如你本地打开了 ipv6 ，代理服务器 only_ipv4 ，在 realip 模式下，会因为节点试图连接 ipv6 地址而访问失败，而 fakeip 模式下就可以实现服务端自行 fallback 到 ipv4
+
+
+我主要是因为第 2 点，简单来说，如果想同时启用 ipv6 和 realip ，只有一个方法：确保你所使用的全部代理节点都拥有 ipv6 。
+但我的使用场景是部分节点有 v6 ，部分 only_ipv4 ，同时因为单纯在代理插件中屏蔽 AAAA 记录，无法确保 reject 所有 ipv6 流量（有很多软件只要你的 tun 有 ipv6 ，就会坚持连接 ipv6 目标），就算 reject 了也并不能保证可以 fallback 到 ipv4 ；
+尝试路由器开启 ipv6 获取和 ra 通告，发现因为 sing-box 的 tun 接口直接去掉了 ipv6 的关系，并不能实现：保持核心仅 v4 的同时，还能通过 dhcpv6 或 slaac 向局域网主机下发公网 ipv6
+无它，只有一个解决方案了：彻底关闭 ipv6
+之前打开 ipv6 对我的意义只有一个：确保能通过 mstsc+ipv6 远程直连我家里的一台 pc ，这是一个兜底方案，因为我这里的运营商对公网 ipv6 的上传控制非常严格，ipv6 直连上过了 2 分钟就会异常卡顿，因此我的主力方案其实是 rustdesk 中继，影响不大
+而关闭 ipv6 并且启用 realip 以后，发现网速不降反增
+ 
+（ p.s.我的本地宽带仅有 200mbps ）
+尤其是国内流量，ipv6 优先时，经常能碰到 b 站网页加载完毕，视频缓冲半天，起初以为是阿 b 的 cdn 太烂了，换成纯 ipv4 环境再也没遇到过，所以很可能是运营商对 ipv6 有更严格的控制导致（就像远程直连那样 2 分钟就卡）
+最后附上我在 openwrt 使用的，纯 ipv4+realip 模式的 sing-box 配置模板：
+>>>sing-box 裸核透明代理网关配置
+因为 realip 的关系，所以相比于 fakeip 的配置，在 dns.rules 添加了大量规则，主要是为了保证每个分流策略组，都能正确通过策略组自身代理请求 dns ，如图：
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(2)">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/d6f8396e-bccc-4c51-b199-5398c51462f2.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">内存价格飙升冲击 PC 硬件市场，消息称主板销量同比大跌 40% 至 50%</h2>
+                <div class="item-meta">
+                    <span class="source-badge">IT之家</span>
+                    <span class="meta-date">12-01 12:28</span>
+                </div>
+                <p class="item-summary">IT之家 12 月 1 日消息，此前业界普遍预计，内存价格的上涨不仅会抑制内存模组本身的销量，还将对整体 PC 硬件市场造成显著冲击。如今，DRAM 价格飙升对整个 PC...</p>
+                <!-- 隐藏数据 -->
+                <div id="data-2" style="display:none;" 
+                     data-title="内存价格飙升冲击 PC 硬件市场，消息称主板销量同比大跌 40% 至 50%" 
+                     data-link="https://www.ithome.com/0/901/516.htm"
+                     data-source="IT之家"
+                     data-date="12-01 12:28">
+                     IT之家 12 月 1 日消息，此前业界普遍预计，内存价格的上涨不仅会抑制内存模组本身的销量，还将对整体 PC 硬件市场造成显著冲击。如今，DRAM 价格飙升对整个 PC 硬件市场的影响已清晰显现。自 DRAM 价格开始大幅上涨以来，许多消费者推迟了购买新的 DDR5 内存套件或单条内存，进而也延后了新装机或升级计划。一份最新报告印证了这一趋势，且其影响尤为突出地体现在主板销量上。据 Gaz Log 援引板卡渠道的消息，包括微星（MSI）、技嘉（GIGABYTE）、华硕（ASUS）在内的主要主板厂商，当前主板销量较去年同期下降了 40% 至 50%。通常情况下，每年此时正值节日促销季，主板销量本应处于高位；然而，自 10 月以来 DRAM 价格急剧攀升，导致 DDR5 内存套件或模块的售价飙升至原先的 2 至 4 倍。目前业内普遍认为，主板厂商将不得不重新评估未来数月的销售策略。据IT之家了解，此次销量下滑的一个关键原因在于市场正全面向 DDR5 平台过渡。AMD 和英特尔最新一代处理器均已完全转向 DDR5 内存，市场上 DDR4 主板已远不如 DDR5 主板普及。今年早些时候，DDR5 价格一度趋于稳定，促使大量用户全面转向最新的 AM5 和 LGA 1851 平台。然而，许多用户原本计划升级至更高容量内存，如今却因高昂价格而无法实现。那些打算从零开始组装整机的用户，要么只能继续等待，要么被迫选择旧款硬件，而这无疑意味着性能与功能上的妥协。值得注意的是，若主板销量已出现如此大幅下滑，势必也会直接拖累 CPU 的销售。事实上，当前 CPU 销量很可能已远低于去年同期水平。目前尚不清楚这一局面将持续多久，但种种迹象表明，这或许只是开始。为应对当前困境，部分厂商近期开始将 DDR5 内存套件与主板捆绑销售，但此类促销对已拥有主板的用户并无实质帮助。
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item " style="display:flex;" data-source="gcores" onclick="openModal(3)">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/85452b890864718525ebb36cb8dc3bfd-824-439.png%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">《哆啦A梦 新·大雄的海底鬼岩城》公开正式预告，2026年2月27日上映</h2>
+                <div class="item-meta">
+                    <span class="source-badge">机核网</span>
+                    <span class="meta-date">12-01 12:05</span>
+                </div>
+                <p class="item-summary">今日，“哆啦A梦”电影官方X发布了系列最新电影《哆啦A梦 新·大雄的海底鬼岩城》的预告片，并公布计划于2026年2月27日在日本上映。
+<内嵌内容，请前往机核查看>《哆啦...</p>
+                <!-- 隐藏数据 -->
+                <div id="data-3" style="display:none;" 
+                     data-title="《哆啦A梦 新·大雄的海底鬼岩城》公开正式预告，2026年2月27日上映" 
+                     data-link="https://www.gcores.com/articles/207840"
+                     data-source="机核网"
+                     data-date="12-01 12:05">
+                     今日，“哆啦A梦”电影官方X发布了系列最新电影《哆啦A梦 新·大雄的海底鬼岩城》的预告片，并公布计划于2026年2月27日在日本上映。
+<内嵌内容，请前往机核查看>《哆啦A梦 新·大雄的海底鬼岩城》 是“哆啦A梦剧场版”系列的第45部电影，是1983年电影《哆啦A梦 新·大雄的海底鬼岩城》的重制版。
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(4)">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/9/04bff4f4-1ebb-47e3-a6d0-cf2b20e1b49c.jpg%3Fx-bce-process%3Dimage/watermark%2Ctext_QUnnlJ_miJA%2Ctype_RlpMYW5UaW5nSGVpU0JHQg%3D%3D%2Csize_28%2Ccolor_ffffffdd%2Cskw_1%2Cskc_00000051%2Cg_7%2Cblr_50%2Cbls_50%2Cx_11%2Cy_11/format%2Cf_auto/auto-orient%2Co_1&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">新加坡明年起禁止中学生校内使用智能手机和智能手表</h2>
+                <div class="item-meta">
+                    <span class="source-badge">IT之家</span>
+                    <span class="meta-date">12-01 12:01</span>
+                </div>
+                <p class="item-summary">IT之家 12 月 1 日消息，据彭博社报道，新加坡将从明年 1 月起禁止中学生在校使用智能手机和智能手表。新加坡教育部在周日发布的一份声明中表示，该举措旨在培养学生更健...</p>
+                <!-- 隐藏数据 -->
+                <div id="data-4" style="display:none;" 
+                     data-title="新加坡明年起禁止中学生校内使用智能手机和智能手表" 
+                     data-link="https://www.ithome.com/0/901/511.htm"
+                     data-source="IT之家"
+                     data-date="12-01 12:01">
+                     IT之家 12 月 1 日消息，据彭博社报道，新加坡将从明年 1 月起禁止中学生在校使用智能手机和智能手表。新加坡教育部在周日发布的一份声明中表示，该举措旨在培养学生更健康的屏幕使用习惯。根据新政策，学生在校期间必须将电子设备存放在指定区域或书包内，但学校可在特定情况下酌情允许有限使用。目前，新加坡已禁止学生在上课期间使用手机；而此次强化规定将禁令范围扩大至课间休息、课外活动及拓展课程等非授课时段。新加坡教育部指出：“研究表明，学生过度使用屏幕会挤占睡眠、体育锻炼以及与亲友社交互动等重要活动时间，并与整体幸福感下降密切相关。”声明进一步强调：“我们的共同目标是营造一个以学生学习为优先的校园环境，提升其课堂参与度，培养更健康的屏幕使用习惯，从而促进全体学生的身心健康发展。”IT之家注意到，新加坡并非唯一对未成年人使用社交媒体实施新规的国家。马来西亚一名高级官员上月表示，该国计划从明年起禁止 16 岁以下儿童注册社交媒体账户，以保护他们免受网络伤害。澳大利亚也在进行类似的打击行动。
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(5)">
+            
+        <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/4ab82a6d-5c70-40e4-aaeb-bc9155f84745.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
@@ -176,7 +325,7 @@
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，据中国运载火箭技术研究院分享，11 月 30 日，由该院抓总研制的我国首艘火箭网系回收海上平台命名为“领航者”，并成功交付。这标志着火箭院...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-0" style="display:none;" 
+                <div id="data-5" style="display:none;" 
                      data-title="定名“领航者”：我国首艘火箭网系回收海上平台命名交付" 
                      data-link="https://www.ithome.com/0/901/509.htm"
                      data-source="IT之家"
@@ -186,7 +335,7 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(1)">
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(6)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/fbad4f1b-45b7-4c78-9dee-4742c9846fce.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -201,7 +350,7 @@
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，根据中国音乐著作权协会官网今日公告，在 11 月 29 日由中国版权协会在京主办的远集坊第七十五期活动上，在中宣部版权管理局和中国版权协会...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-1" style="display:none;" 
+                <div id="data-6" style="display:none;" 
                      data-title="中国音乐著作权协会与腾讯音乐娱乐集团达成音乐著作权战略合作" 
                      data-link="https://www.ithome.com/0/901/508.htm"
                      data-source="IT之家"
@@ -211,7 +360,7 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(2)">
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(7)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/1c2ef24b-b0c9-4beb-91cb-d09a02395748.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -226,7 +375,7 @@
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，上汽 MG 今日宣布，全新 MG4 汽车购置税托底补贴从 11 月 30 日延至 12 月 28 日，锁单全新 MG4 437 从容版、4...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-2" style="display:none;" 
+                <div id="data-7" style="display:none;" 
                      data-title="上汽全新 MG4 汽车购置税跨年补贴升级方案发布，相关政策延至 12 月 28 日" 
                      data-link="https://www.ithome.com/0/901/506.htm"
                      data-source="IT之家"
@@ -236,7 +385,7 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(3)">
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(8)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/f43dd617-a47e-430b-956a-793d15db66ec.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -251,7 +400,7 @@
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，今日，法拉第未来（Faraday Future，FF）创始人、联席 CEO 贾跃亭在双上市体系周报中透露了 FF 和 FX 五年商业规划，...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-3" style="display:none;" 
+                <div id="data-8" style="display:none;" 
                      data-title="法拉第未来贾跃亭：未来五年努力实现预计 40-50 万台的产销目标" 
                      data-link="https://www.ithome.com/0/901/503.htm"
                      data-source="IT之家"
@@ -261,7 +410,7 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(4)">
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(9)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/a79e1a2e-11ae-4205-b480-f51bbf4b0b19.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -276,7 +425,7 @@
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，联合创新 INNOCN 上月末推出了“第二代视网膜屏”显示器，包括 27 英寸的 GA27V1M MAX 和 32 英寸的 GA32V1M...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-4" style="display:none;" 
+                <div id="data-9" style="display:none;" 
                      data-title="联合创新推出“第二代视网膜屏”显示器，宣称视觉体验“媲美苹果原厂显示器”" 
                      data-link="https://www.ithome.com/0/901/502.htm"
                      data-source="IT之家"
@@ -286,7 +435,7 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(5)">
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(10)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/7495cbc6-9ab4-4b60-82ff-172c623a00d7.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -301,7 +450,7 @@
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，据央视新闻报道，2025 年 11 月 5 日，神舟二十号飞船在返回任务中突发意外，其舷窗被发现出现裂纹，任务被迫紧急暂停。经过 20 多...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-5" style="display:none;" 
+                <div id="data-10" style="display:none;" 
                      data-title="神 22 乘组在序列中永远空缺，下一个乘组将被命名为神 23 乘组" 
                      data-link="https://www.ithome.com/0/901/501.htm"
                      data-source="IT之家"
@@ -311,7 +460,7 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(6)">
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(11)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/546d2541-a1ae-43e3-b970-cf5459c80bbe.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -326,7 +475,7 @@
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，中兴官网现已公布努比亚 M153 豆包手机助手的详细规格，搭载高通骁龙 8 至尊版芯片，配备 6000mAh 电池。根据参数图可以看到，这...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-6" style="display:none;" 
+                <div id="data-11" style="display:none;" 
                      data-title="努比亚 M153 豆包手机助手详细规格公布：骁龙 8 至尊版芯片，6.78 英寸 LTPO 显示屏" 
                      data-link="https://www.ithome.com/0/901/499.htm"
                      data-source="IT之家"
@@ -336,7 +485,7 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(7)">
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(12)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/d96b6cb8-ed29-4ece-82b5-8292ac1f5a88.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -351,7 +500,7 @@
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，顺丰表示，12 月 1 日起，将推出“超时赔付”服务，只要在小程序或 App 等顺丰官方渠道下单顺丰特快，若因顺丰运输原因导致的派送超时，...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-7" style="display:none;" 
+                <div id="data-12" style="display:none;" 
                      data-title="顺丰推出“超时赔付”服务：成本由公司承担，快递员无需承担" 
                      data-link="https://www.ithome.com/0/901/486.htm"
                      data-source="IT之家"
@@ -361,7 +510,7 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(8)">
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(13)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/3ac908ba-6c35-4ae6-bb3b-40f4675f5f40.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -376,7 +525,7 @@
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，HKC 领航 M8 显示器现已开启预售，搭载一块 27 英寸 Mini LED 面板，采用 4K 160Hz/1080P 320Hz 双模...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-8" style="display:none;" 
+                <div id="data-13" style="display:none;" 
                      data-title="3999 元：HKC 领航 M8 显示器开启预售，4K 160Hz/1080P 320Hz 双模 Mini LED 面板" 
                      data-link="https://www.ithome.com/0/901/481.htm"
                      data-source="IT之家"
@@ -386,7 +535,7 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(9)">
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(14)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/a1d1bf49-794e-49e5-bca0-0fb3e7e0c5a3.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -401,7 +550,7 @@
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，真我 realme 副总裁、全球营销总裁、中国区总裁徐起今日曝光了一款新机，并配文：“凛冬将至！一段新的传奇即将诞生。”目前真我官方暂未公...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-9" style="display:none;" 
+                <div id="data-14" style="display:none;" 
                      data-title="realme 新机首曝，预计为真我 15 Pro《权力的游戏》限定版" 
                      data-link="https://www.ithome.com/0/901/480.htm"
                      data-source="IT之家"
@@ -411,7 +560,7 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="gcores" onclick="openModal(10)">
+        <article class="news-item " style="display:flex;" data-source="gcores" onclick="openModal(15)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/e99578afa730c024caac535cb3646a8f-2000-1125.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -427,7 +576,7 @@
                 <p class="item-summary">《宇宙机器人》国行版，将于12月12日正式发售，建议零售价298元，光盘版预售活动现已开启。
 同时，PlayStation双十二活动，也将于12月6日-12月12日期间开...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-10" style="display:none;" 
+                <div id="data-15" style="display:none;" 
                      data-title="《宇宙机器人》国行版将于12月12日正式发售，建议零售价298元" 
                      data-link="https://www.gcores.com/articles/207837"
                      data-source="机核网"
@@ -438,7 +587,7 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(11)">
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(16)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/40462c3c-b3d5-45c4-9d6a-12f95df955eb.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -453,7 +602,7 @@
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，新款雷克萨斯 GX 车型已上市，共推出四款车型，售价区间为 77.8 万至 89.98 万元，并已开启线上下订。新款 GX 在延续家族经典...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-11" style="display:none;" 
+                <div id="data-16" style="display:none;" 
                      data-title="售 77.8 万元起，新款雷克萨斯 GX 上市" 
                      data-link="https://www.ithome.com/0/901/479.htm"
                      data-source="IT之家"
@@ -463,7 +612,7 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(12)">
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(17)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/e4699335-48fb-41fc-992c-cd7c1490aaae.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -478,7 +627,7 @@
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，AMD 显卡核心 AIB 撼讯 PowerColor 今日宣布正式开启个人送保服务，原则上适用于所有处于保修期内的中国大陆行货（国行）撼讯...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-12" style="display:none;" 
+                <div id="data-17" style="display:none;" 
                      data-title="撼讯 PowerColor 显卡个人送保服务自今日起正式上线" 
                      data-link="https://www.ithome.com/0/901/478.htm"
                      data-source="IT之家"
@@ -488,64 +637,7 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="v2ex" onclick="openModal(13)">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.lancdn.com/landian/2025/12/v22512011051.png&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title">[推广] [12 月年终活动] 国内/国外服务器特惠 不限新老用户 CN2 线路低至 99 元/年 30M 带宽 可换 IP</h2>
-                <div class="item-meta">
-                    <span class="source-badge">V2EX</span>
-                    <span class="meta-date">12-01 10:53</span>
-                </div>
-                <p class="item-summary">腾讯云 12 月年终活动来啦，本次活动继续提供超低价的国内/国外服务器，其中国内服务器价格更便宜但带宽较小、国外服务器带宽更大并且有 CN2 线路加持，连接速度不差。  ...</p>
-                <!-- 隐藏数据 -->
-                <div id="data-13" style="display:none;" 
-                     data-title="[推广] [12 月年终活动] 国内/国外服务器特惠 不限新老用户 CN2 线路低至 99 元/年 30M 带宽 可换 IP" 
-                     data-link="https://www.v2ex.com/t/1176062#reply0"
-                     data-source="V2EX"
-                     data-date="12-01 10:53">
-                     腾讯云 12 月年终活动来啦，本次活动继续提供超低价的国内/国外服务器，其中国内服务器价格更便宜但带宽较小、国外服务器带宽更大并且有 CN2 线路加持，连接速度不差。  
-活动主页：https://lancdn.co/tcact (有 aff ，下同，感谢支持)  
-境外 CN2 线路热门产品： 
-2 核心 2GB 内存 30M 带宽 50GB 固态盘存储每月 1,000GB 流量，不限新老用户，每年仅 99 元可在购买后同价续费 1 年。  
-2 核心 4GB 内存 30M 带宽 50GB 固态盘存储每月 1,500GB 流量，不限新老用户，每年仅 199 元可在购买后同价续费 1 年。  
-以上境外服务器支持新加坡、美国硅谷、韩国首尔、日本东京、德国法兰克福，其中新加坡和硅谷使用 CN2 线路连接。  
-以上服务器可申请更换一次 IP 地址。 
-活动主页： https://lancdn.co/tcact (活动主页导航栏点击同价续费进入专区)  
-测试 IP： 
-新加坡 IP：43.134.59.36 中国电信 CN2/CTGNET 、中国联通 AS4837(169 骨干网)、中国移动 AS9808(中移动国际)  
-测试链接： https://nodequality.com/r/mIVfs9blM4zBLdntBf7odvcAPR3ByjyB 
-
-硅谷 IP：43.153.83.217 中国电信 CN2 、中国联通 AS4837(联通 169 骨干网)、中国移动 AS9808(中移动国际)  
-测试链接： https://nodequality.com/r/gSGbUsZgulqQdYrMuX3rEbUyZiB7DAxw 
-
-解锁测试：(仅供参考 有可能不准确)  
-
-境内轻量服务器： 
-2 核心 2GB 内存 4M 带宽 50GB 固态盘存储每月 300GB 流量，不限新老用户，每年仅需 99 元可在购买后同价续费 1 年。  
-2 核心 4GB 内存 4M 带宽 60GB 固态盘存储每月 500GB 流量，不限新老用户，每年仅需 188 元可在购买后同价续费 1 年。  
-2 核心 4GB 内存 6M 带宽 70GB 固态盘存储每月 600GB 流量，不限新老用户，每年仅需 199 元可在购买后同价续费 1 年。  
-以上境内服务器支持上海、广州、成都、北京区域, 个人使用请选择离自己最近的区域，或选择距离用户最近的区域。  
-活动主页： https://lancdn.co/tcact (活动主页导航栏点击同价续费进入专区)  
-境内 528 元/3 年轻量服务器： 
-2 核心 4GB 内存 6M 带宽，区域可选上海、北京、广州，这款服务器限制为首次购买轻量服务器的用户，之前没买过轻量服务器都可以买。位于活动主页首页顶部。  
-代金券礼包： 
-满 100-20 、满 300-75 、满 600-150 、满 1000-300 ，代金券支持新购、续费、升级服务器等，但不支持活动产品(活动产品已经折扣)  
-代金券领取地址： https://lancdn.co/tcact (进入活动页面向下滚动找到代金券礼包专区)  
-更多折扣产品： 
-除服务器外活动还提供 EdgeOne 加量包、对象存储包、CDN 下行流量包、CDN 回源流量包、HTTPS 请求包特惠，有需要这些产品的 v 友可以在活动主页找到[全线产品特惠专区]选购。 
-注：活动随时间推移可能会发生变化，具体请以活动主页说明为准。  
-如有问题请回复中留言，亦可通过以下方式联系： 
-tg： https://lancdn.co/tel
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(14)">
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(18)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/4d9e22c2-53bb-49b5-845f-2773f66a3be8.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -560,7 +652,7 @@ tg： https://lancdn.co/tel
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，ViewSonic 优派现已在官网上线 XG273F-2K-OLED 显示器。该型号基于一块 26.5 英寸的镜面 WOLED 面板，支持...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-14" style="display:none;" 
+                <div id="data-18" style="display:none;" 
                      data-title="27" QHD 540Hz OLED 新选择，优派上线 XG273F-2K-OLED 显示器" 
                      data-link="https://www.ithome.com/0/901/477.htm"
                      data-source="IT之家"
@@ -570,7 +662,7 @@ tg： https://lancdn.co/tel
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(15)">
+        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(19)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/f4b2d6e9-b2f5-4459-a1d1-aa4abead8653.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -585,7 +677,7 @@ tg： https://lancdn.co/tel
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，据外媒 The Register 今天报道，瑞士数据保护官会议（Privatim）上周发布了一项决议，呼吁公共机构应避免使用 Micros...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-15" style="display:none;" 
+                <div id="data-19" style="display:none;" 
                      data-title="缺乏端到端加密机制，瑞士建议政府部门避免使用 Microsoft 365 等“软件即服务”生态" 
                      data-link="https://www.ithome.com/0/901/476.htm"
                      data-source="IT之家"
@@ -595,7 +687,7 @@ tg： https://lancdn.co/tel
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(16)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(20)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/ac8ee8e3-a3a3-473c-808f-706b32202856.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -610,7 +702,7 @@ tg： https://lancdn.co/tel
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，鸿蒙智行官方今日发布“战报”：11 月，全系车型交付新车 81864 台，同比增长 89.61%，创单月交付历史新高。据IT之家此前报道，...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-16" style="display:none;" 
+                <div id="data-20" style="display:none;" 
                      data-title="单月历史新高：鸿蒙智行全系车型 11 月交付新车 81864 台，同比增长 89.61%" 
                      data-link="https://www.ithome.com/0/901/474.htm"
                      data-source="IT之家"
@@ -620,7 +712,7 @@ tg： https://lancdn.co/tel
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(17)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(21)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/b0480909-2884-4eb6-b37c-b0b1fc9ace12.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -635,7 +727,7 @@ tg： https://lancdn.co/tel
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，周星驰经典喜剧《鹿鼎记》正式官宣，4K 修复版将首次登陆内地大银幕，定档 12 月 5 日全国上映。据IT之家了解，《鹿鼎记》由王晶导演，...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-17" style="display:none;" 
+                <div id="data-21" style="display:none;" 
                      data-title="首次内地院线上映：周星驰经典喜剧《鹿鼎记》4K 修复版定档 12 月 5 日" 
                      data-link="https://www.ithome.com/0/901/472.htm"
                      data-source="IT之家"
@@ -645,7 +737,7 @@ tg： https://lancdn.co/tel
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(18)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(22)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/ec881fee-66c1-4f9e-af60-f2a38813dcf8.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -660,7 +752,7 @@ tg： https://lancdn.co/tel
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，今日，豆包手机助手发布技术预览版。据官方介绍，豆包手机助手是豆包和手机厂商在操作系统层面合作的手机 AI 助手。基于豆包大模型的能力和手机...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-18" style="display:none;" 
+                <div id="data-22" style="display:none;" 
                      data-title="豆包手机助手发布技术预览版，可在工程样机努比亚 M153 上体验" 
                      data-link="https://www.ithome.com/0/901/471.htm"
                      data-source="IT之家"
@@ -670,7 +762,7 @@ tg： https://lancdn.co/tel
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="ithome" onclick="openModal(19)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(23)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/24f9ecb9-8fdf-43ef-b62b-8ac0df9a146f.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -685,7 +777,7 @@ tg： https://lancdn.co/tel
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，岚图汽车官方今日公布了其销量数据：11 月交付 20005 辆，1-11 月累计同比增长 82%。另外，岚图追光 L 轿车定档 12 月 ...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-19" style="display:none;" 
+                <div id="data-23" style="display:none;" 
                      data-title="岚图追光 L 豪华轿车定档 12 月 10 日“压轴上市”" 
                      data-link="https://www.ithome.com/0/901/470.htm"
                      data-source="IT之家"
@@ -695,7 +787,7 @@ tg： https://lancdn.co/tel
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(20)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(24)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/309f5e9f-7bfc-4f6f-a346-1d696213a6d6.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -710,7 +802,7 @@ tg： https://lancdn.co/tel
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，消息人士 @jaykihn0 北京时间今早在 X 平台爆料称，英特尔低端处理器 "Wildcat Lake" 未来将迎来一个 "Refre...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-20" style="display:none;" 
+                <div id="data-24" style="display:none;" 
                      data-title="英特尔 Wildcat Lake 处理器被曝有 Refresh 版，新增 4P + 4LPE 配置" 
                      data-link="https://www.ithome.com/0/901/469.htm"
                      data-source="IT之家"
@@ -720,7 +812,7 @@ tg： https://lancdn.co/tel
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(21)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(25)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/2535b1d58e83e7235a2f93e772d9fa4e-1920-1080.webp%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -735,7 +827,7 @@ tg： https://lancdn.co/tel
                 </div>
                 <p class="item-summary">游戏大奖主持人 Geoff Keighley 于近日在社交媒体上贴出一尊诡异雕像的特写并配文相当神秘的三个单词“regal.inspiring.thickness”。玩家...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-21" style="display:none;" 
+                <div id="data-25" style="display:none;" 
                      data-title="TGA前夕神秘雕像现身沙漠，Geoff Keighley再度化身谜语人" 
                      data-link="https://www.gcores.com/articles/207834"
                      data-source="机核网"
@@ -749,7 +841,7 @@ tg： https://lancdn.co/tel
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(22)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(26)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/5d0bdf39-10df-43d3-afbe-362bda841792.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -764,7 +856,7 @@ tg： https://lancdn.co/tel
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，据央视新闻报道，“十五五”规划建议明确提出，要前瞻布局包括氢能和核聚变能在内的六大未来产业。数据显示，当前我国氢能产业快速发展，多项技术指...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-22" style="display:none;" 
+                <div id="data-26" style="display:none;" 
                      data-title="我国绿氢年产能超 22 万吨，多项技术指标居全球首位" 
                      data-link="https://www.ithome.com/0/901/468.htm"
                      data-source="IT之家"
@@ -774,7 +866,7 @@ tg： https://lancdn.co/tel
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(23)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(27)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/11/baf0ed5c-3bc3-490a-b180-78097f338ca1.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -789,7 +881,7 @@ tg： https://lancdn.co/tel
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，《CS2》Starladder 布达佩斯 Major 2025 的第二阶段已在周末结束了前三轮的比拼，中国战队 TYLOO 目前位于 1-...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-23" style="display:none;" 
+                <div id="data-27" style="display:none;" 
                      data-title="《CS2》布达佩斯 Major 二阶段：TYLOO 暂居 1-2，Faze、NAVI 率先晋级" 
                      data-link="https://www.ithome.com/0/901/465.htm"
                      data-source="IT之家"
@@ -799,7 +891,7 @@ tg： https://lancdn.co/tel
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(24)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(28)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/b9092677-cade-41b9-9c9f-5df64ad43f9b.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -814,7 +906,7 @@ tg： https://lancdn.co/tel
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，雷神科技首款 AI 眼镜 AURA 悦享版现已开启首销，可选四类八款镜框，满足不同人群需求，售价 599 元起。雷神 AURA 悦享版眼镜...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-24" style="display:none;" 
+                <div id="data-28" style="display:none;" 
                      data-title="599 元起：雷神首款 AI 眼镜 Aura 悦享版 开启首销，可选四类镜框" 
                      data-link="https://www.ithome.com/0/901/464.htm"
                      data-source="IT之家"
@@ -824,7 +916,7 @@ tg： https://lancdn.co/tel
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(25)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(29)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/e14cbd37-a867-4a08-8c28-ebe75dc7beae.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -839,7 +931,7 @@ tg： https://lancdn.co/tel
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，据小米汽车官微消息，小米汽车「现车选购」即将开启，现车包含全新现车、官方展车、准新车。所有现车都已通过严格质检，部分车型经官方修复，都是没...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-25" style="display:none;" 
+                <div id="data-29" style="display:none;" 
                      data-title="小米汽车“现车选购”即将开启：通过严格质检，可享快速提车" 
                      data-link="https://www.ithome.com/0/901/463.htm"
                      data-source="IT之家"
@@ -849,7 +941,7 @@ tg： https://lancdn.co/tel
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(26)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(30)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/5/4f20be95-f2b3-447f-9744-87e16251f552.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto/auto-orient%2Co_1&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -864,7 +956,7 @@ tg： https://lancdn.co/tel
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，华为鸿蒙 HarmonyOS 6.0.0.115 SP16 版本现面向更多机型开启推送，首批机型包括 nova 14、Pura 80 系列...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-26" style="display:none;" 
+                <div id="data-30" style="display:none;" 
                      data-title="华为鸿蒙 HarmonyOS 6.0.0.115 SP16 版本开推，首批适配机型含 nova 14、Pura 80 系列等" 
                      data-link="https://www.ithome.com/0/901/461.htm"
                      data-source="IT之家"
@@ -874,7 +966,7 @@ tg： https://lancdn.co/tel
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(27)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(31)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/954d7d85-8a4a-4c61-b6a5-16f443b310ff.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -889,7 +981,7 @@ tg： https://lancdn.co/tel
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，博主 @智慧皮卡丘 今天在微博透露，某厂将在这个月亮相一台超大杯手机。博主表示，这台手机搭载全新徕卡镀膜，可消除色差、减少反射光 / 提高...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-27" style="display:none;" 
+                <div id="data-31" style="display:none;" 
                      data-title="消息称某厂超大杯手机本月亮相：搭载全新徕卡镀膜，预计为小米 17 Ultra" 
                      data-link="https://www.ithome.com/0/901/460.htm"
                      data-source="IT之家"
@@ -899,7 +991,7 @@ tg： https://lancdn.co/tel
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(28)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(32)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/728f446ab58ad1bb4ce5863f4f43de82-460-215.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -914,7 +1006,7 @@ tg： https://lancdn.co/tel
                 </div>
                 <p class="item-summary">由 Build A Rocket Boy 打造、IO Interactive 发行的单人动作冒险游戏《心之眼》现已在各大平台推出试玩版。通过本版本，玩家可解锁游戏持续扩展...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-28" style="display:none;" 
+                <div id="data-32" style="display:none;" 
                      data-title="《心之眼》现已推出免费试玩版" 
                      data-link="https://www.gcores.com/articles/207833"
                      data-source="机核网"
@@ -929,7 +1021,7 @@ tg： https://lancdn.co/tel
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(29)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(33)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/78eb6052-13bd-4658-908a-98076c7a7858.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -944,7 +1036,7 @@ tg： https://lancdn.co/tel
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，在北京时间今日凌晨结束的 BLAST DOTA 大满贯赛成都站 (BLAST Slam V) 线上赛阶段中，四支中国战队全部出局，无一晋级...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-29" style="display:none;" 
+                <div id="data-33" style="display:none;" 
                      data-title="中国战队无一晋级 BLAST DOTA 大满贯赛成都站线下阶段" 
                      data-link="https://www.ithome.com/0/901/458.htm"
                      data-source="IT之家"
@@ -954,7 +1046,7 @@ tg： https://lancdn.co/tel
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(30)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(34)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/27860d6413811fb1b7287d0f408bac03-616-353.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -969,7 +1061,7 @@ tg： https://lancdn.co/tel
                 </div>
                 <p class="item-summary">历经多次延期和跳票，《漫漫长夜》剧情模式第五章内容“万物尽头的光芒”定于2026年3月31日实装。在神秘的磨坊地图中，威尔·麦肯齐和阿斯特丽德·格林伍德的故事将告一段落，...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-30" style="display:none;" 
+                <div id="data-34" style="display:none;" 
                      data-title="《漫漫长夜》剧情模式终章将于2026年3月31日实装" 
                      data-link="https://www.gcores.com/articles/207831"
                      data-source="机核网"
@@ -980,7 +1072,7 @@ tg： https://lancdn.co/tel
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(31)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(35)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/e4ff39c7-7d9e-4d17-8cd6-a526c667108e.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -995,7 +1087,7 @@ tg： https://lancdn.co/tel
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，欧洲一个由德国电子同步加速器研究所（DESY）与汉堡工业大学科学家组成的研究团队，近日公布了一种新研发的摩擦纳米发电机。该装置通过将水推入...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-31" style="display:none;" 
+                <div id="data-35" style="display:none;" 
                      data-title="水流过就有电，科学家研发新型纳米发电机" 
                      data-link="https://www.ithome.com/0/901/456.htm"
                      data-source="IT之家"
@@ -1005,7 +1097,7 @@ tg： https://lancdn.co/tel
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(32)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(36)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/10d6f353-7a4d-47e5-9fd3-8c3a62906d22.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1020,7 +1112,7 @@ tg： https://lancdn.co/tel
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，豪威（OmniVision）现已推出 OVB0D 手机 CMOS 传感器，旨在对标刚刚发布的索尼 LYTIA 901。结合 GSM Are...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-32" style="display:none;" 
+                <div id="data-36" style="display:none;" 
                      data-title="豪威发布 OVB0D 手机 CMOS 传感器：2 亿像素、1/1.11 英寸，二代 DCG + LOFIC" 
                      data-link="https://www.ithome.com/0/901/455.htm"
                      data-source="IT之家"
@@ -1030,7 +1122,7 @@ tg： https://lancdn.co/tel
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(33)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(37)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/9773efa1-583e-4d78-bfc2-2d2423fe66f7.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1045,7 +1137,7 @@ tg： https://lancdn.co/tel
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，山东公安披露，近日出现了“问路借手机”新骗局：陌生人借用老人手机打电话，待手机归还后，电话卡却不翼而飞。据受害人邢大爷回忆，一辆无牌黄色轿...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-33" style="display:none;" 
+                <div id="data-37" style="display:none;" 
                      data-title="警惕“问路借手机”新骗局，嫌疑人专偷电话卡" 
                      data-link="https://www.ithome.com/0/901/453.htm"
                      data-source="IT之家"
@@ -1055,7 +1147,7 @@ tg： https://lancdn.co/tel
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(34)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(38)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/4/bb1c3dfe-9cff-46ba-96ac-9a156402b77c.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1070,7 +1162,7 @@ tg： https://lancdn.co/tel
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，韩媒 hankyung 今早报道称，尽管 SK 海力士今年上半年向谷歌的 TPU AI 芯片供应了更多的 HBM 内存，但三星电子凭借着下...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-34" style="display:none;" 
+                <div id="data-38" style="display:none;" 
                      data-title="消息称三星电子 2025H2 重夺谷歌 TPU AI 芯片主力 HBM 内存供应商地位" 
                      data-link="https://www.ithome.com/0/901/452.htm"
                      data-source="IT之家"
@@ -1080,7 +1172,7 @@ tg： https://lancdn.co/tel
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(35)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(39)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/cd362bbd-434f-42f4-91fb-81c5f8fea5cc.png%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1095,7 +1187,7 @@ tg： https://lancdn.co/tel
                 </div>
                 <p class="item-summary">IT之家 12 月 1 日消息，据游戏媒体 Gaming Bolt 昨天报道，CD Projekt RED 联合 CEO Michał Nowakowski 最近在一次会...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-35" style="display:none;" 
+                <div id="data-39" style="display:none;" 
                      data-title="CDPR 确认六年内推出《巫师 4》、《巫师 5》、《巫师 6》游戏" 
                      data-link="https://www.ithome.com/0/901/450.htm"
                      data-source="IT之家"
@@ -1105,7 +1197,7 @@ tg： https://lancdn.co/tel
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(36)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(40)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/1c210c8e59d5e6cea38f091fd8f65202-800-450.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1118,99 +1210,61 @@ tg： https://lancdn.co/tel
                     <span class="source-badge">机核网</span>
                     <span class="meta-date">12-01 09:17</span>
                 </div>
-                <p class="item-summary">螺舟工作室于近日宣布，旗下武侠沙盒游戏《太吾绘卷》的终极版本《太吾绘卷：天幕心帷》延期至2026年4月上线。本次调整主要是基于团队对游戏品质的进一步要求。在最终上线前的阶...</p>
+                <p class="item-summary">2025年11月29日，螺舟工作室宣布，原定于2026年春节发布的《太吾绘卷：天幕心帷》完全版将调整至2026年4月上线。
+29日的开发者直播中披露了未来计划实装的系统优...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-36" style="display:none;" 
+                <div id="data-40" style="display:none;" 
                      data-title="《太吾绘卷：天幕心帷》延期至2026年4月推出" 
                      data-link="https://www.gcores.com/articles/207830"
                      data-source="机核网"
                      data-date="12-01 09:17">
-                     螺舟工作室于近日宣布，旗下武侠沙盒游戏《太吾绘卷》的终极版本《太吾绘卷：天幕心帷》延期至2026年4月上线。本次调整主要是基于团队对游戏品质的进一步要求。在最终上线前的阶段，团队希望投入更充分的时间，用于系统测试、体验优化与内容打磨，以及对英文版本的最终校验与润色，以期在正式发售时能为各位呈现更完整、稳定的版本。 
-<内嵌内容，请前往机核查看>在接下来的几个月里，开发团队将持续通过官方渠道同步开发进度，并适时分享部分新增内容与机制介绍。感谢各位玩家长期以来的支持与陪伴。螺舟工作室表示，全体成员将继续全力以赴，推进《太吾绘卷：天幕心帷》的最终开发工作，唯有尽全力达成更多玩家们期望的内容，才不辜负每一位玩家的期待。
-
-
-
-<内嵌内容，请前往机核查看>
+                     2025年11月29日，螺舟工作室宣布，原定于2026年春节发布的《太吾绘卷：天幕心帷》完全版将调整至2026年4月上线。
+29日的开发者直播中披露了未来计划实装的系统优化、剧情拓展与视觉革新等十项新内容。本次延期旨在对游戏品质进行深度打磨。据直播与官方公告中透露，团队致力在未来四个多月完成以下核心模块或内容的开发与测试：1. 百晓册系统：内置可自定义详略的百科系统，支持词条跳转与公式查询，大幅降低新手学习成本；2. 界青门剧情扩展：新增该门派的独立任务链与互动玩法，深化江湖势力叙事；
+3. UI全面重置：优化界面布局与子菜单逻辑，提升操作流畅性与视觉统一性；
+4. 门派升级互动：通过地区剧情宝物触发跨区域联动任务，解锁特殊功能与高阶奖励；5. 玄字装备体系：依托门派互动获取的成长型装备，随玩家属性的提升解锁属性与特效。
+此外《太吾绘卷：天幕心帷》完全版还将对表现层与核心玩法进行大规模迭代：6. 立绘动态化：角色立绘增加动态效果，捏人系统扩充组件库；7. 战斗动画升级：实装昼夜天气系统、场景动态特效，全新的神一品功法动画；
+8. 新奇遇系统：为每种奇遇生成独立探索区域，搭配独特的差异化玩法与交互逻辑；
+9. 主线与支线收束：补充后续主线剧情、门派绘卷及地区结局，呈现最终的太吾故事；
+10. 英文本地化：针对海外市场进行的400多万字的全文翻译与UI适配。《太吾绘卷：天幕心帷》的主创茄子表示：“我们理解玩家对完整版的期待，但唯有尽全力达成更多玩家们期望的内容，才不辜负大家七年来的支持。此次延期带来的内容扩充与体验优化，将给玩家们带来一个更好的《太吾绘卷》”
                 </div>
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(37)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(41)">
             
         <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/9/61d042a1-c6f4-4df4-971e-d4c3fa484272.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/be2c0b84-164a-463d-9b19-ba143f758df3-1440-1440.png%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
                  onerror="this.closest('.news-item').remove()">
         </div>
         
             <div class="item-content">
-                <h2 class="item-title">消息称美光广岛工厂扩建明年中启动，提升 HBM 内存交付能力</h2>
+                <h2 class="item-title">手动杂谈04丨成名游戏系列何去何从</h2>
                 <div class="item-meta">
-                    <span class="source-badge">IT之家</span>
-                    <span class="meta-date">12-01 09:14</span>
+                    <span class="source-badge">机核网</span>
+                    <span class="meta-date">12-01 07:00</span>
                 </div>
-                <p class="item-summary">IT之家 12 月 1 日消息，《日经亚洲》上月末报道称，Micron 美光扩建日本广岛县东广岛市 DRAM 工厂的施工将于 2026 年 5 月启动，目标 2028 年...</p>
+                <p class="item-summary">00:40 硬件：Analogue Pocket
+19:32 近作：毁灭战士：中世纪
+46:41 考古：超级马力欧兄弟3
+1:04:12 独立：这里没有游戏：错误维度
+1...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-37" style="display:none;" 
-                     data-title="消息称美光广岛工厂扩建明年中启动，提升 HBM 内存交付能力" 
-                     data-link="https://www.ithome.com/0/901/447.htm"
-                     data-source="IT之家"
-                     data-date="12-01 09:14">
-                     IT之家 12 月 1 日消息，《日经亚洲》上月末报道称，Micron 美光扩建日本广岛县东广岛市 DRAM 工厂的施工将于 2026 年 5 月启动，目标 2028 年实现 HBM 内存出货。日本经济产业省今年 9 月曾宣布向该工厂提供合计最多 5360 亿日元的补贴（IT之家注：现汇率约合 242.99 亿元人民币），美光则承诺将在该基地的产能扩充上投资 1.5 万亿日元（现汇率约合 680.01 亿元人民币）。尽管美光今年曾一度位居 HBM 出货量第二，但其整体目标仍是在 HBM 领域实现与整体 DRAM 相当的占比。该企业同时也在美国本土积极扩产，计划未来 20 年建成 6 座 DRAM 晶圆厂。
+                <div id="data-41" style="display:none;" 
+                     data-title="手动杂谈04丨成名游戏系列何去何从" 
+                     data-link="https://www.gcores.com/radios/207845"
+                     data-source="机核网"
+                     data-date="12-01 07:00">
+                     00:40 硬件：Analogue Pocket
+19:32 近作：毁灭战士：中世纪
+46:41 考古：超级马力欧兄弟3
+1:04:12 独立：这里没有游戏：错误维度
+1:19:22 格斗：饿狼传说：狼之印记
+1:40:16 随感：成名系列该向何处去？如果你喜欢本期节目，也可以加入我们的听友群（v:himogo），与大家一起交流。
                 </div>
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(38)">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/2bb14141-2980-46fa-a02e-cc0273333f6a.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title">荣耀研发工程师透露一直在积极和各厂家尝试推动「无网通信」互连互通</h2>
-                <div class="item-meta">
-                    <span class="source-badge">IT之家</span>
-                    <span class="meta-date">12-01 09:11</span>
-                </div>
-                <p class="item-summary">IT之家 12 月 1 日消息，目前，各手机厂商正积极推出自己的「无网通信」功能。荣耀研发工程师 @荣耀曹工 昨日发文透露，荣耀一直都有在跟踪和技术储备，早期通过芯片硬件...</p>
-                <!-- 隐藏数据 -->
-                <div id="data-38" style="display:none;" 
-                     data-title="荣耀研发工程师透露一直在积极和各厂家尝试推动「无网通信」互连互通" 
-                     data-link="https://www.ithome.com/0/901/445.htm"
-                     data-source="IT之家"
-                     data-date="12-01 09:11">
-                     IT之家 12 月 1 日消息，目前，各手机厂商正积极推出自己的「无网通信」功能。荣耀研发工程师 @荣耀曹工 昨日发文透露，荣耀一直都有在跟踪和技术储备，早期通过芯片硬件优化和自研定制协议完成 demo 验证，可以让无网通信的传输距离更远，穿透性更好，也连续几年都会拿出来讨论是否要上。他表示，目前「无网通信」在实际体验上存在如下问题：① 没有统一的标准协议，各家不互通。虽然大家宣传的最大通信距离可以达到几公里，但是在实际的现实环境下大打折扣；不互通，也导致很难在范围内找到对应可以 Mesh 扩展的设备。② 「无网通信」下，现有通信的应用都无法互通，目前各家在用户界面的设计也不统一，实际操作和体验都不好；IT之家注意到，荣耀研发工程师 @荣耀曹工 还透露，荣耀一直在积极和各个厂家一起尝试去推动「无网通信」互连互通，有统一通信协议标准和体验界面，能极大提升「无网通信」的体验和用户收益。▲ 图源：荣耀研发工程师 @荣耀曹工 微博相关阅读：《vivo 推出最远超 1.5 公里无网通信技术，X200 系列手机首发》《行业首个 3.5km 无网通话：小米星辰通信系统公布，小米 15 Pro 首发》《余承东：华为 Mate 80 系列业界首发无网应急通信，最远 13km 连接、能和地震救援队联系》《到底什么是“无网通信”？》
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item news-item-hidden" style="display:none;" data-source="ithome" onclick="openModal(39)">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//img.ithome.com/newsuploadfiles/2025/12/f4554657-e9b3-446f-b916-04e0a6a56306.jpg%3Fx-bce-process%3Dimage/format%2Cf_auto&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title">2025 年 11 月小米汽车交付量超过 4 万台</h2>
-                <div class="item-meta">
-                    <span class="source-badge">IT之家</span>
-                    <span class="meta-date">12-01 09:09</span>
-                </div>
-                <p class="item-summary">IT之家 12 月 1 日消息，据小米汽车官微消息，2025 年 11 月，小米汽车交付量持续超过 4 万台。官方称，数据来源于小米汽车数据中心，统计时间为 2025 年...</p>
-                <!-- 隐藏数据 -->
-                <div id="data-39" style="display:none;" 
-                     data-title="2025 年 11 月小米汽车交付量超过 4 万台" 
-                     data-link="https://www.ithome.com/0/901/444.htm"
-                     data-source="IT之家"
-                     data-date="12-01 09:09">
-                     IT之家 12 月 1 日消息，据小米汽车官微消息，2025 年 11 月，小米汽车交付量持续超过 4 万台。官方称，数据来源于小米汽车数据中心，统计时间为 2025 年 11 月 1 日 0 点至 11 月 30 日 24 点，以全系整车实际交付为口径。IT之家注意到，11 月 20 日，第 50 万辆小米汽车在位于北京经济技术开发区的小米汽车超级工厂下线。自 2024 年 3 月 28 日首款车型 SU7 正式发布，小米汽车用 602 天、不足 20 个月，刷新了全球新能源车企 50 万辆下线的最快纪录。小米集团创始人、董事长兼 CEO 雷军称，50 万辆下线标志着小米汽车包括研发、制造、销售、交付和服务的完整体系能力得到了充分验证，也标志着小米汽车得到消费者的广泛认可，进入了规模化发展的新阶段。雷军透露，2025 年全年小米汽车预计将交付超过 40 万辆。
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(40)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(42)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/b698322cf1cfc4a4135f7448a6aade6c-1600-900.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1225,7 +1279,7 @@ tg： https://lancdn.co/tel
                 </div>
                 <p class="item-summary">本期时间轴制作：天行油炸膨化高糖高盐，听着就好就香就来劲！五位主播相会录音室，就垃圾食品这一话题进行了激情澎湃的讨论，各方均表达了对垃圾食品深切的理解与由衷的热爱，最后大...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-40" style="display:none;" 
+                <div id="data-42" style="display:none;" 
                      data-title="好吃的、垃圾的、食品" 
                      data-link="https://www.gcores.com/radios/207295"
                      data-source="机核网"
@@ -1235,7 +1289,7 @@ tg： https://lancdn.co/tel
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(41)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(43)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/bc25e4a66e9cbf2c8d43bd0f136f7249-1920-1080.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1250,7 +1304,7 @@ tg： https://lancdn.co/tel
                 </div>
                 <p class="item-summary">11月的会员节目《那我问你》来了，本期虽然西总有事不在，但我们迎来了Nadya！欢迎大家多多留言！我们2025年年底见～【那我问你】是一档GPASS会员独享节目，从202...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-41" style="display:none;" 
+                <div id="data-43" style="display:none;" 
                      data-title="逐渐变成美食节目的CEO答疑节目【那我问你 11月号】" 
                      data-link="https://www.gcores.com/radios/207296"
                      data-source="机核网"
@@ -1261,7 +1315,32 @@ tg： https://lancdn.co/tel
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="appinn" onclick="openModal(42)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(44)">
+            
+        <div class="item-img">
+            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/aba4dcd7-adc8-4d0b-b81a-ebf49bcfcc65-1600-1600.png%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                 onerror="this.closest('.news-item').remove()">
+        </div>
+        
+            <div class="item-content">
+                <h2 class="item-title">Vol.258.为了年末评奖不得不录制的10月新番评测</h2>
+                <div class="item-meta">
+                    <span class="source-badge">机核网</span>
+                    <span class="meta-date">11-30 19:59</span>
+                </div>
+                <p class="item-summary">这季度能看的新番真的出奇匮乏（新番节目还回避了二三季这种续作）结果连看的人都寥寥无几，直接导致了这期节目差点就没了最后还是矮子里坝高个把节目录制了出来（虽然好多片就一个人...</p>
+                <!-- 隐藏数据 -->
+                <div id="data-44" style="display:none;" 
+                     data-title="Vol.258.为了年末评奖不得不录制的10月新番评测" 
+                     data-link="https://www.gcores.com/radios/207844"
+                     data-source="机核网"
+                     data-date="11-30 19:59">
+                     这季度能看的新番真的出奇匮乏（新番节目还回避了二三季这种续作）结果连看的人都寥寥无几，直接导致了这期节目差点就没了最后还是矮子里坝高个把节目录制了出来（虽然好多片就一个人打分）否则年末新番投票就要出现“不存在的十月新番”这种放送事故了
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item news-item-hidden" style="display:none;" data-source="appinn" onclick="openModal(45)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//www.appinn.com/wp-content/uploads/2025/11/Copy-of-appinn-homework-59.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1276,7 +1355,7 @@ tg： https://lancdn.co/tel
                 </div>
                 <p class="item-summary">Ries 是一款在让你看中文也能轻松涨词汇的浏览器扩展（Chrome/Firefox）、iOS 应用。它通过 DeePseek/GPT 等大模型分析网页，在中文网页把一些...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-42" style="display:none;" 
+                <div id="data-45" style="display:none;" 
                      data-title="Ries 黑五4折优惠：看中文也能轻松涨词汇，浏览器英语环境生成器重磅升级，发布 iOS 客户端" 
                      data-link="https://www.appinn.com/ries-ai/"
                      data-source="小众软件"
@@ -1385,7 +1464,7 @@ Ries 会帮你翻译大部分你可能不认识的生词（例如 90%），但�
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="appinn" onclick="openModal(43)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="appinn" onclick="openModal(46)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//www.appinn.com/wp-content/uploads/2025/11/Copy-of-appinn-homework-58.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1400,7 +1479,7 @@ Ries 会帮你翻译大部分你可能不认识的生词（例如 90%），但�
                 </div>
                 <p class="item-summary">著名风投 Y Combinator 最近投了一款先进的“摸鱼”产品：Chad IDE，它自称第一款“洗脑式 IDE” 编程工具。每当你在等待 AI 写代码的 1～5分钟里...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-43" style="display:none;" 
+                <div id="data-46" style="display:none;" 
                      data-title="Chad IDE – 已被硅谷认可：当 AI 工作的时候，人类去摸鱼。" 
                      data-link="https://www.appinn.com/chad-ide/"
                      data-source="小众软件"
@@ -1450,7 +1529,7 @@ Chad IDE 如此做的理由也相当充分：
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(44)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(47)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/e7252025b4386bf1e0f8a1ddaff851a8-1368-770.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1465,7 +1544,7 @@ Chad IDE 如此做的理由也相当充分：
                 </div>
                 <p class="item-summary">最近一年，《勇者斗恶龙》（DQ）这个承载了日本玩家二十余年记忆的国民级 RPG 系列，仿佛又迎来了新一轮的 “文艺复兴”。继《DQ3》《DQ 1&2》以 HD-2D 技术...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-44" style="display:none;" 
+                <div id="data-47" style="display:none;" 
                      data-title="国民RPG的“重焕新生”：《勇者斗恶龙7 Reimagined》试玩体验" 
                      data-link="https://www.gcores.com/articles/207818"
                      data-source="机核网"
@@ -1503,7 +1582,7 @@ Chad IDE 如此做的理由也相当充分：
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(45)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(48)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/7cb495e4-1833-4b3d-9018-df66824ca493-1440-1440.png%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1518,7 +1597,7 @@ Chad IDE 如此做的理由也相当充分：
                 </div>
                 <p class="item-summary">开场过渡：上周去weplay出差的见闻短新闻：1、《星际战甲》新作团队新作《Soulframe》公布最新预告2、《棕色尘埃2》推出Steam版商城页3、2025年Stea...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-45" style="display:none;" 
+                <div id="data-48" style="display:none;" 
                      data-title="[246]游戏回_美少女是一种交互界面" 
                      data-link="https://www.gcores.com/radios/207822"
                      data-source="机核网"
@@ -1528,7 +1607,7 @@ Chad IDE 如此做的理由也相当充分：
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(46)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(49)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/ee45071e-3285-4e83-8914-7990c75144f6-1440-1440.png%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1543,7 +1622,7 @@ Chad IDE 如此做的理由也相当充分：
                 </div>
                 <p class="item-summary">本期主播：莫林  lazzyking开场BGM：The Animals-House of the Rising Sun后期剪辑：二筒  莫林封面制作：恐怖柴犬霸王...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-46" style="display:none;" 
+                <div id="data-49" style="display:none;" 
                      data-title="美国梅毒实验（下)：长夜难明|电波酒馆Vol.30" 
                      data-link="https://www.gcores.com/radios/207821"
                      data-source="机核网"
@@ -1553,7 +1632,7 @@ Chad IDE 如此做的理由也相当充分：
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(47)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(50)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/2dc6714120c53bf318bb5194c2ef10e7-1600-900.png%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1568,7 +1647,7 @@ Chad IDE 如此做的理由也相当充分：
                 </div>
                 <p class="item-summary">本期时间轴制作：西楼本周要闻：2025年Steam大奖现已开放提名,黑五大促同步开启；任天堂收购万代南梦宫旗下工作室，成立Nintendo Studios Singapo...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-47" style="display:none;" 
+                <div id="data-50" style="display:none;" 
                      data-title="有本事你出来，核周报 11.29" 
                      data-link="https://www.gcores.com/radios/207294"
                      data-source="机核网"
@@ -1578,7 +1657,7 @@ Chad IDE 如此做的理由也相当充分：
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(48)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(51)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/1f5d093905f647e6efaf57de13ee2ebe-686-423.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1594,7 +1673,7 @@ Chad IDE 如此做的理由也相当充分：
                 <p class="item-summary">万代南梦宫中国于今日宣布，决定取消原定于2025年11月29日（周六）、30日（周日）在上海西岸穹顶艺术中心举办的万代南梦宫嘉年华2025活动。
 万代南梦宫嘉年华 202...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-48" style="display:none;" 
+                <div id="data-51" style="display:none;" 
                      data-title="万代南梦宫中国发布「万代嘉年华2025」活动取消公告" 
                      data-link="https://www.gcores.com/articles/207805"
                      data-source="机核网"
@@ -1613,7 +1692,7 @@ Chad IDE 如此做的理由也相当充分：
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(49)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(52)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/9c65f64eacc676b77cb742190348efeb-900-383.png%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1628,7 +1707,7 @@ Chad IDE 如此做的理由也相当充分：
                 </div>
                 <p class="item-summary">作者：Nick编辑：柏亚舟11月25日，马斯克更新推文，想要尝试AI人工智能能否在2026年击败英雄联盟最佳人类战队。马斯克表示：“让我们看看在遵守以下重要条件下，Gro...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-49" style="display:none;" 
+                <div id="data-52" style="display:none;" 
                      data-title="马斯克组建《英雄联盟》AI战队，会改变电竞吗？" 
                      data-link="https://www.gcores.com/articles/207778"
                      data-source="机核网"
@@ -1652,7 +1731,7 @@ Chad IDE 如此做的理由也相当充分：
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(50)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(53)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/bef86f9b-c174-4db0-afc7-c8950a459cda-1280-1280.jpeg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1667,7 +1746,7 @@ Chad IDE 如此做的理由也相当充分：
                 </div>
                 <p class="item-summary">《盛世天下》是由橙光游戏平台发布的原创古风互动作品，由签约作者肉肉心机帅boy创作，2015年9月10日发布至2018年1月24日完结，真人互动剧版本于2025年9月9日...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-50" style="display:none;" 
+                <div id="data-53" style="display:none;" 
                      data-title="《盛世天下》第三期：请坚定地做恶毒女配！" 
                      data-link="https://www.gcores.com/radios/207799"
                      data-source="机核网"
@@ -1688,7 +1767,7 @@ xijunfo2021
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(51)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(54)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/60771d51b0a371a347b2baf0cc7f35f1-1600-900.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1704,7 +1783,7 @@ xijunfo2021
                 <p class="item-summary">本期时间轴制作：老斧子本期聊到的话题：
 给机洞节目投稿之后鼓起勇气开始做自己想做的事！我策划了一场在北京举办的oc创作交流展，希望能把创作者们连接起来！本期节目评论+点赞...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-51" style="display:none;" 
+                <div id="data-54" style="display:none;" 
                      data-title="机洞Vol.16｜酒是粮食精，越喝越不清醒" 
                      data-link="https://www.gcores.com/radios/207293"
                      data-source="机核网"
@@ -1721,7 +1800,7 @@ xijunfo2021
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(52)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(55)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/8a1d6c2c7b063cbcb8d1aaa45593489e-1600-900.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1736,7 +1815,7 @@ xijunfo2021
                 </div>
                 <p class="item-summary">本文首发机核微信公众号（id：Gamecores）作者：丁旦编辑：柏亚舟经过一年的折腾求变，育碧可能真的要走出低谷了。近期，育碧对外宣布，腾讯已完成对其子公司“Vanta...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-52" style="display:none;" 
+                <div id="data-55" style="display:none;" 
                      data-title="腾讯“再救”育碧之后" 
                      data-link="https://www.gcores.com/articles/207721"
                      data-source="机核网"
@@ -1752,7 +1831,7 @@ xijunfo2021
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(53)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(56)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/2d376df158243a1d9c9cd3877e06595e-1706-1279.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1767,7 +1846,7 @@ xijunfo2021
                 </div>
                 <p class="item-summary">【机事本】是机核文章区的栏目，每周五更新。每周五下班之前，我们会收集几位编辑的“小作文”，题材随意，立意自选，栏目名取自Windows系统自带的最轻便的文本编辑器，代表“...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-53" style="display:none;" 
+                <div id="data-56" style="display:none;" 
                      data-title="出差的走心感想｜机事本11.22-11.28" 
                      data-link="https://www.gcores.com/articles/207776"
                      data-source="机核网"
@@ -1781,7 +1860,7 @@ xijunfo2021
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="yystv" onclick="openModal(54)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="yystv" onclick="openModal(57)">
             
         <div class="item-img">
             <img src="https://wsrv.nl/?url=https%3A//alioss.yystv.cn/doc/13419/5dffcf0838cfa129bf08aa335bd14542.jpg_mw680water&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1796,161 +1875,12 @@ xijunfo2021
                 </div>
                 <p class="item-summary">2025年11月27日，贪玩游戏在广州国际媒体港隆重举行以“越山海拓新天”为主题的十周年庆典，政府领导、行业协会、合作伙伴、媒体渠道等多位嘉宾及贪玩游戏全体员工共同参与，...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-54" style="display:none;" 
+                <div id="data-57" style="display:none;" 
                      data-title="贪玩游戏十周年 | 十年越山海 向远拓新天" 
                      data-link="https://www.yystv.cn/p/13419"
                      data-source="游研社"
                      data-date="11-28 18:00">
                      2025年11月27日，贪玩游戏在广州国际媒体港隆重举行以“越山海拓新天”为主题的十周年庆典，政府领导、行业协会、合作伙伴、媒体渠道等多位嘉宾及贪玩游戏全体员工共同参与，共同见证这一里程碑时刻。贪玩游戏亦借此契机，回顾十年砥砺前行的历程，展现其在游戏行业的积淀与创新活力，并表达了对未来发展无限可能的信心与雄心。从创业起步到行业深耕，贪玩游戏始终与时代同频，与玩家同行，正以崭新的姿态迈向新十年。庆典盛况，肇启新程感恩之夜，毗邻珠江河畔，广州国际媒体港星光璀璨，与不远处的广州塔交相辉映。聚焦“越山海拓新天”的贪玩游戏十周年庆典，庆典现场沉浸式回顾了贪玩十年的发展轨迹：互动体验区欢声笑语，品牌形象巨型贪玩仔引人注目，成为热门打卡点。长达近百米的历程阶梯，记录着贪玩从创业起点、产品上线、代言营销到出海布局、多品类扩展、“AI+游戏”等关键节点，展现贪玩从页游、端游到移动互联网时代的变迁，定格一个时代的奋斗图景。十年间，从“是兄弟就来kan我” “大家好，我是渣渣灰”到“原汁原味，原始传奇” “让斗罗真正自由”——贪玩从一株幼苗，浇灌成一颗能为伙伴们遮风挡雨的小树，见证中国游戏行业砥砺向上、穿越周期、锐意进取的不凡历程。尤为特别的是，与主会场遥相呼应，一场温馨的“移动庆典”在珠江上演，贪玩游戏员工与伙伴乘着渡轮，共享江景与喜悦，共同庆祝这一重要里程碑。与行业共见证，创新图强的建设者贪玩游戏的十年发展，正是中国游戏产业从追赶到突破、迈向品质化与全球化新阶段的一个生动缩影。中国音像与数字出版协会常务副理事长兼秘书长在庆典致辞中肯定了这一历程：“十年风雨兼程，贪玩的发展历程，正是游戏产业锐意进取、创新图强的一个生动缩影。”他高度评价了贪玩游戏在中国游戏行业探索前行中的稳健发展，并对未来寄予厚望。近年来，贪玩游戏凝练出“发行五部曲”核心战略，确定从页游、手游、小程序、海外到全球化的立体化发行矩阵，多层次多圈层覆盖玩家，以最大化游戏ip产品的价值。同时，贪玩游戏在2025年成立全球化发行品牌“Game Lovin”，聚合海外团队能力，以进一步落实全球化战略布局。面对席卷全球的人工智能技术浪潮，其创新应用与行业健康发展的结合成为核心议题。为此，中国互联网协会行业自律工作委员会秘书长张姗姗在庆典上发布了《游戏产业人工智能技术创新与责任倡议书》，旨在促进AI技术在游戏产业的健康有序发展，为游戏行业高质量发展提供了宝贵的指引方向。贪玩游戏联合创始人吴璇在展望未来时也明确指出：“贪玩游戏将传递以创新为引擎、以玩家为核心、以技术为驱动，不断突破边界、开拓新天的行业理想。”这清晰地勾勒出贪玩作为游戏行业参与者、建设者，拥抱前沿技术、驱动产业升级的坚定决心。感恩同行伙伴，坚守品牌初心十年跋涉，山海皆平。贪玩游戏深知，每一步成长都凝聚着多方力量的支持。贪玩创始人吴旭波在致辞中向行业协会、合作伙伴以及全体员工表达了诚挚的感谢。他强调：“贪玩游戏十年来的每一步成长都离不开行业的指导，也离不开合作伙伴的信任与共进，更离不开员工的坚持、专业与热爱。”正是这些团结而坚实的力量，共同铸就了企业十周年的辉煌里程碑。多年来，贪玩游戏秉承“找回年少时贪玩的你”的品牌初心，用心传达“贪玩”的本质，以好奇心为根基，激发无穷创造力，去探索世界的无限可能。随后，庆典现场举办了“贪玩游戏品牌焕新”仪式，全新的logo图形，以更现代化的线条与符号进行勾勒，承载“专注、谦和、务实、品质、传承”的企业文化，呈递“找回年少时贪玩的你”的品牌初心，在新的十年讲述贪玩游戏的品牌故事。多元游戏IP筑基，开拓未来新天地立足当下丰厚的积累，贪玩游戏对未来发展充满信心。庆典现场精心设置的游戏IP产品墙，直观展现了贪玩游戏丰富的IP储备，也昭示着其未来发展的无限潜能。传奇、奇迹MU、热血江湖、笑傲江湖、射雕三部曲、天龙八部、千年、石器时代、武林外传、斗罗大陆游戏ip的储备，经典与多元ip齐头并进，表达出贪玩游戏“立足当下，放眼未来”的宏图大略。联合创始人吴璇在阐述未来战略时，不仅强调了技术引擎的驱动作用，更描绘了广阔的前景：“共同开拓属于中国游戏产业、属于广大玩家的崭新天地”。这预示着贪玩游戏将在现有IP深耕的基础上，持续探索多品类、全球化布局，利用AI等创新技术赋能研发与运营，不断突破边界，为全球玩家创造更丰富、更优质的游戏体验。丰富的IP储备、全球化发行体系、明确的技术路径和对玩家体验的核心关注，共同构成了贪玩开拓“新天”的坚实基础。十年破浪立潮头，扬帆启航正当时感恩之夜的深情回望，是为了更好地出发。随着数千架无人机在广州塔夜空编织出象征贪玩十年璀璨画卷的“数字星河”，以及全体员工温暖而有力的大合唱，庆典在充满希望的氛围中落下帷幕。站在十年的新起点，贪玩游戏全体成员心怀对未来的无限仰望，将继续秉持“做好游戏”的初心，脚踏实地，开拓创新。过去的十年，是“越山海”的奋斗征程；崭新的十年，将是“拓新天”的壮阔航程。面对充满机遇与挑战的未来，贪玩游戏已整装待发，勇立时代潮头。未来十年，扬帆正当时！全体贪玩人将携手行业伙伴与全球玩家，共同奔赴下一个更加辉煌的十年。
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(55)">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/7d62e97d161fc338184cc775bd933c7b-1800-1254.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title">哪来的傻缺图313期（机友续）：   斜阳残照双飞燕，独倚蓬窗思悄然</h2>
-                <div class="item-meta">
-                    <span class="source-badge">机核网</span>
-                    <span class="meta-date">11-28 17:30</span>
-                </div>
-                <p class="item-summary">（希望）在这个环节里，你（还）能看见最近的一些傻缺动图、怪新闻、视频以及一些奇怪的东西。        
-すびかか@Suyasuyabi427
-あらもん@Ara_love...</p>
-                <!-- 隐藏数据 -->
-                <div id="data-55" style="display:none;" 
-                     data-title="哪来的傻缺图313期（机友续）：   斜阳残照双飞燕，独倚蓬窗思悄然" 
-                     data-link="https://www.gcores.com/articles/207730"
-                     data-source="机核网"
-                     data-date="11-28 17:30">
-                     （希望）在这个环节里，你（还）能看见最近的一些傻缺动图、怪新闻、视频以及一些奇怪的东西。        
-すびかか@Suyasuyabi427
-あらもん@Ara_love_kirby
-@Jojidoboro
-숟끼    냐또@NYA_TT0
-@kosuzu_aluminya
-@solf_fy
-@wal_w_wal
-@tomatomi123
-@DaiIyCarmine
-あにぽけこういう未来もあるかもなの？（みたい）    朱里 shuri@ebiebieshrimp
-にいなな@niihatigounana
-モーニング  @辰巳
-柊しゆ@hiiragishiyu
-ン&ムーン周年おめでとう！  きのころっぷ@KinocoProtocolサ
-shuka@02_ihate99
-Uu _2 @uu00003222_
-@koyochi0716
-@UFOapproached
-@転載駄目
-Legend of Zelda TOTK  @Bao Nguyen
-k@KyeZzzz
-スカウォゼルダちゃん  @miviy19
-プルア  @クラ
-ジョシュア  @2632f
-Jaime  @ lejean
-@Jyoutube2025
-yukiko   @moshimoshibe
-mitsuru  @moshimoshibe
-コリをリメイクしたい   〆ソ@4me3ba_NIKU
-こうこうや@U80x8Bltm00Rqeo
-@AVandee11949
-@blazpu_
-千真@_1000ma_
-
-情け（容赦）ないモビルスーツ  @raa
-【アーセナルベース】GQuuuuuuX(オメガ・サイコミュ起動時   @井口佑
-ユニコーンガンダム  @MF Draws
-さすらいのゴッドマーズ！  @moyan
-Thomas Elliott @TElliottArt
-@Wolvenhouur
-@xathrodox86
-@Dmitry Brushray
-@SanguinisI
-@Stefan Ristić
-@ AGZAMx
-@AGZAMx
-@sebijy1
-@whistle_0324
-@NipuniDraws
-Still this one   Sekiei @Seki_31 
-@KyeZzzz『枪毙白广大』 @ KyeZzzz
-@xenotrip
-Disconnected   다준오@dattsunosuke
-@riman13682518『枪毙白广大』 @Shiszukaa
-@透明屿
-@透明屿 『枪毙白广大』 起きたら夕方…   朱里  shuri@ebiebieshrimp『枪毙白广大』 四楓院夜一   ぺねろぺ@warotamin3
-@ 透明屿『枪毙白广大』 Ninja Gaiden 4 Seori  @Kai1UP
-セオリ  @ SaTo
-Hex Maniac slumped  @GJH_1_ 『枪毙白广大』 Rebecca 🤍  @Leviarg7 
-Wifu Verified!  @xenotrip『枪毙白广大』 holy reze back   @boji_norn
-『枪毙白广大』 @asagawo_elf
-@Makimatweets
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(56)">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/4100e70f04e3f53dc4f2639e8e2ff1af-1600-900.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title">怎么从电影聊到磕头了？录音笔 VOL.587</h2>
-                <div class="item-meta">
-                    <span class="source-badge">机核网</span>
-                    <span class="meta-date">11-28 17:00</span>
-                </div>
-                <p class="item-summary">【录音笔】是GPASS推出的一档会员专享节目，内容来自机核办公室日程生活和工作中的一些短小记录，每期时长十几分钟左右（大概吧）。内容也许是一些不成体统的碎碎念，也许是一些...</p>
-                <!-- 隐藏数据 -->
-                <div id="data-56" style="display:none;" 
-                     data-title="怎么从电影聊到磕头了？录音笔 VOL.587" 
-                     data-link="https://www.gcores.com/radios/207765"
-                     data-source="机核网"
-                     data-date="11-28 17:00">
-                     【录音笔】是GPASS推出的一档会员专享节目，内容来自机核办公室日程生活和工作中的一些短小记录，每期时长十几分钟左右（大概吧）。内容也许是一些不成体统的碎碎念，也许是一些突然发疯的暴言，还有可能是哪个缺德的把办公室里真实的日常对话（dui ma）偷偷录了下来，总之就连我们自己现在也不知道每期会有哪些人参与，会录些什么。
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item news-item-hidden" style="display:none;" data-source="gcores" onclick="openModal(57)">
-            
-        <div class="item-img">
-            <img src="https://wsrv.nl/?url=https%3A//image.gcores.com/e26e64b4bff8e3e79bad7d95f17a786c-460-215.jpg%3Fx-oss-process%3Dimage/resize%2Climit_1%2Cm_fill%2Cw_626%2Ch_292/quality%2Cq_90&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
-                 onerror="this.closest('.news-item').remove()">
-        </div>
-        
-            <div class="item-content">
-                <h2 class="item-title">宇宙集结！《漫威宇宙入侵》开发团队采访汇总</h2>
-                <div class="item-meta">
-                    <span class="source-badge">机核网</span>
-                    <span class="meta-date">11-28 17:00</span>
-                </div>
-                <p class="item-summary">感谢 Gamirror Games 的邀请，机核网有幸以书面形式对《漫威宇宙入侵》的开发团队进行了采访。本作中，Tribute Games 与 Dotemu 再度联手，携...</p>
-                <!-- 隐藏数据 -->
-                <div id="data-57" style="display:none;" 
-                     data-title="宇宙集结！《漫威宇宙入侵》开发团队采访汇总" 
-                     data-link="https://www.gcores.com/articles/207718"
-                     data-source="机核网"
-                     data-date="11-28 17:00">
-                     感谢 Gamirror Games 的邀请，机核网有幸以书面形式对《漫威宇宙入侵》的开发团队进行了采访。本作中，Tribute Games 与 Dotemu 再度联手，携手漫威游戏共同打造了这款原创且新颖的清版过关动作游戏。这场在星际间的冒险以流畅的战斗连招和炫目的像素艺术为亮点，堪称一封对漫威宇宙的情书。
-在本次采访中， 叙事设计师 Yannick Belzil、制作人 Rémi Lavoie、音频总监 Pat Tremblay 与游戏总监 Frederic Gemus 分享了本作在角色机制、关卡设计、音效风格等方面的创作思路，并深入探讨了如何在致敬经典清版动作游戏的同时，打造出一款具有现代感的全新作品。汇总如下：（为语义清晰起见,行文有所改动）开发《漫威宇宙入侵》的灵感来源于哪些经典beat 'em up（清版动作）游戏？团队如何将它们与漫威宇宙融合？Frederic Gemus：虽然漫威过去也推出过一些很棒的街机游戏，也在清版动作游戏领域有一定地位，但其实团队在开发这款游戏时，并没有从某一款具体的经典游戏中直接汲取灵感。我们的目标一直是打造一个全新且独特的体验，而不是做某款游戏的精神续作。
-当然，我们还是参考了很多经典作品，看看哪些地方特别出色。其中包括经典角色阵容、节奏紧凑的战斗、多样的反派以及充满特色的场景。对我们来说，这些是保持游戏“原汁原味”的关键。但在玩法设计上，我们选择走自己的路。也就是说，以角色为核心来打造玩法。一开始我们就很明确，想要有一个包含大量角色的阵容，而且每个角色都得有鲜明特色，符合玩家对他们的预期。也就是说，有的角色能飞、有的会荡蛛丝、有的是远程攻击等等。而这些能力本身，反过来也成为我们玩法设计的灵感来源。因此，我们设计了有多个高度层级的战斗场地，来支持飞行角色和敌人；我们也加入了会远程攻击、会飞，甚至能挡子弹的敌人。最终呈现出来的，是一个独一无二的清版动作游戏体验，和以往同类型的游戏都不太一样！英雄切换机制是游戏的核心创新，能否分享设计初衷？它如何鼓励玩家进行战术性团队合作？Frederic Gemus：当我们决定要加入15位风格各异的角色时，我们意识到玩家在选择角色时可能会感到压力。毕竟每个角色的技能和玩法都差异很大，玩家可能会担心选错人。虽然游戏本身其实用谁都能通关，但我们还是想办法去降低这种焦虑感。
-我们讨论了很多方案，最终最打动我们的想法是让玩家一次选择两个角色。这样玩家可以搭配出一个小队，不管是为了技能互补、连招配合，还是单纯选自己喜欢的角色都可以。没有所谓“错误组合”，完全由玩家自由决定。在游戏过程中，当你切换角色时，我们会根据当前的战斗情况来判断替补角色该怎么登场。比如你正在战斗、被敌人抓住等等。整个机制操作起来非常简单，但对高阶玩家来说，这里面蕴藏着丰富的战术空间。玩家可以用换人来延长连招、快速解决敌人，或是在特定场景下切换到更合适的角色。这个机制不仅让玩法更加多样，也自然地鼓励了战术性思考和团队搭配，让每场战斗都更有深度。在试玩版中，不少玩家反馈蜘蛛侠和女绿巨人的操控体验非常有趣。那团队是如何在保证每个英雄技能独特的同时，又做到平衡性的呢？Frederic Gemus：除了确保每位角色的伤害输出在整体上保持平衡外，我们更看重的一点是每一位超级英雄都要有超级英雄该有的感觉。不管是速度、近战能力，还是各自的特殊技能，每个角色都必须具备亮眼的表现。
-我们花了很多精力去打磨这些细节，确保每位英雄都能做到符合玩家对他们的期待。这种可以说是强而不同的设计理念让每个角色不仅有自己的特色，同时又不失竞争力。我们认为，这是整款游戏中我们最值得骄傲的一项成果！游戏的战斗连击系统强调动态组合，能否举例说明如何通过英雄切换创造“强大特殊攻击？”Frederic Gemus：每当你按下切换角色的按钮，队友都会根据当前战斗情况，以一种有针对性的方式加入战局。如果你在连招结束时或终结技期间切换角色，新登场的队友也会直接参与攻击，从而延续连招。
-这种“切换时机+角色技能”的组合，就能产生非常丰富的战斗场景：比如你把敌人打飞到空中，接着切换到一位拥有飞行能力的队友，他就能在空中继续追击；或者在面对Boss时，用切换来让Boss持续处于被压制状态，从而打出更高伤害。这种机制不仅让战斗更流畅、更爽快，也鼓励玩家根据角色能力组合出丰富的战术打法。从地球到星际的关卡设计，如何体现漫威宇宙的“星际冒险”主题？Yannick Belzil:从纽约街头一路延伸到月球甚至更遥远的太空，不仅让玩家体验到更丰富多样的场景，也让整个冒险旅程在规模和气势上显得更加宏大，真正体现了漫威宇宙中那种“星际冒险”的壮阔感。音效设计中，英雄的招式声效如何借鉴漫威电影和漫画的经典元素？团队如何确保音轨在多人合作中保持清晰？Yannick Belzil:游戏的音效设计主要灵感来自90年代的漫画和动画系列。当然，我们在设计过程中也参考了漫威电影中的一些经典声音。比如美国队长掷盾牌的声音，就是电影中首创的标志性音效之一。
-Pat Tremblay:我在设计这款游戏的音效时，有一个很重要的原则是每位英雄发出的声音都必须具有辨识度，一听就知道是谁。这一点对角色个性来说非常关键。为了做到这一点，我翻遍了能找到的各种游戏、漫画和电影，从中寻找灵感和参考。漫威的电影和游戏确实提供了不少优秀范例，但我尤其喜欢从漫画中挖掘各种拟声词，像金刚狼的“SNIKT！” (金刚狼爪子弹出的声音） 或蜘蛛侠的“THWIP！”（蜘蛛侠发射蛛丝的声音)。这些声音配上相应的动作，真的能让我快速进入创作状态。至于多人合作时的音效清晰度，我们也做了很多优化。每个角色的招式声效都被精心设计过，既不互相冲突，又能在混战中保有清晰的层次感，让玩家在混战时也能准确判断谁在出招、发生了什么。这种兼顾还原度与可辨识性的处理，是我们音频设计的一大核心。玩家称赞试玩的节奏明快，但希望更多关卡深度。团队如何回应内容量和重复性的担忧？Frederic Gemus：我们在设计每一个关卡时，核心目标就是确保每次游玩都能带给玩家新的体验。这不仅仅是加入新的场景或敌人（当然这些都会有），更是还会进一步加入新的陷阱机制、导航方式以及各种玩法修正元素等等。
-这是我们非常重视的一点，毕竟游戏中的每一个地点都直接取材自漫威宇宙，我们希望每一处都能带来新鲜感和探索价值。未来是否考虑更多模式，如生存挑战或自定义英雄？如何保持游戏长寿？  Rémi Lavoie:英雄自定义其实已经确定会出现在正式版中，大家可以在我们最近发布的预告片里看到一些相关内容。至于游戏的长期运营和更多玩法模式，我们的目标是持续为玩家带来新内容，让游戏保持活力。具体会以什么形式呈现，我们暂时还不能透露太多，但可以肯定的是，我们还有不少惊喜留在后面。 
-
-展望未来，团队对beat 'em up类型的创新有何愿景？《漫威宇宙入侵》是否会影响下一代类似游戏？Yannick Belzil:我们不太好意思直接说这款游戏会如何影响下一代作品。但可以说的是《漫威宇宙入侵》确实展现了在这一类型下可操控角色阵容可以扩展到多大的规模。
-Frederic Gemus：同时，本作也证明了清版动作游戏其实还有很大的创新空间。只要从核心玩法的差异性出发，专注打磨特色就完全有可能突破传统框架。最终也能打造出与众不同的体验。
                 </div>
             </div>
         </article>
@@ -2737,7 +2667,7 @@ LaunchNext – 开源解决方案
         </div>
 
         <footer class="main-footer">
-            <p>文章总数: 77 | 更新于: 2025-12-01 11:59</p>
+            <p>文章总数: 77 | 更新于: 2025-12-01 12:55</p>
             <p><a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2025183710号-1</a></p>
             <p>&copy; 折疼记</p>
         </footer>
