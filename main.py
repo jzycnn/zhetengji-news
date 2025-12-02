@@ -197,9 +197,10 @@ def generate_html():
             </div>
             '''
 
-        # JSON 安全转义
-        safe_content = json.dumps(art['full_content']).replace('"', '&quot;')
-        safe_zh_summary = json.dumps(art['summary']).replace('"', '&quot;') # 预翻译的中文内容
+        # 【核心修复】ensure_ascii=False 确保输出中文而不是Unicode编码
+        safe_content = json.dumps(art['full_content'], ensure_ascii=False).replace('"', '&quot;')
+        safe_zh_summary = json.dumps(art['summary'], ensure_ascii=False).replace('"', '&quot;') 
+        safe_en_title = json.dumps(art['en_title'], ensure_ascii=False).replace('"', '&quot;')
 
         news_list_html += f"""
         <article class="news-item {hidden_class}" style="display:{display_style};" data-source="{art['source_id']}" onclick="openModal({index})">
@@ -216,7 +217,7 @@ def generate_html():
                 <!-- 隐藏数据 -->
                 <div id="data-{index}" style="display:none;" 
                      data-title="{art['title']}" 
-                     data-en-title="{art['en_title']}"
+                     data-en-title='{safe_en_title}'
                      data-link="{art['link']}"
                      data-source="{art['source']}"
                      data-date="{art['date']}"
@@ -254,70 +255,128 @@ def generate_html():
                 --bg-body: #fafafa; 
                 --bg-card: #ffffff; 
                 --text-main: #111; 
-                --radius: 12px;
+                --text-sub: #666;
+                --radius: 8px;
+                --shadow: 0 2px 5px rgba(0,0,0,0.05);
             }}
-            * {{ box-sizing: border-box; -webkit-tap-highlight-color: transparent; }}
-            body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background-color: var(--bg-body); margin: 0; color: var(--text-main); display: flex; flex-direction: column; min-height: 100vh; }}
             
-            header {{ background: rgba(255,255,255,0.9); backdrop-filter: blur(20px); position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #eaeaea; }}
+            * {{ box-sizing: border-box; -webkit-tap-highlight-color: transparent; }}
+            body {{ 
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                background-color: var(--bg-body); margin: 0; color: var(--text-main); 
+                display: flex; flex-direction: column; min-height: 100vh;
+            }}
+            
+            header {{ 
+                background: rgba(255,255,255,0.9); backdrop-filter: blur(20px);
+                position: sticky; top: 0; z-index: 100; border-bottom: 1px solid #eaeaea;
+            }}
             .header-inner {{ max-width: 800px; margin: 0 auto; height: 60px; display: flex; align-items: center; padding: 0 16px; }}
-            .logo {{ color: #000; font-size: 18px; font-weight: 900; margin-right: 20px; }}
+            .logo {{ color: #000; font-size: 18px; font-weight: 900; margin-right: 20px; letter-spacing: -0.5px; }}
             .logo span {{ color: var(--primary); }}
             
             .nav-scroll {{ flex: 1; overflow-x: auto; white-space: nowrap; scrollbar-width: none; display: flex; }}
             .nav-scroll::-webkit-scrollbar {{ display: none; }}
-            .nav-btn {{ background: none; border: none; color: #666; font-size: 14px; padding: 0 12px; height: 60px; cursor: pointer; font-weight: 500; }}
+            .nav-btn {{ 
+                background: none; border: none; color: var(--text-sub); 
+                font-size: 14px; padding: 0 12px; height: 60px; cursor: pointer; font-weight: 500; 
+            }}
             .nav-btn.active {{ color: #000; font-weight: 700; }}
             
             .container {{ max-width: 800px; margin: 24px auto; padding: 0 16px; width: 100%; flex: 1; }}
-            .news-item {{ background: var(--bg-card); margin-bottom: 16px; padding: 16px; display: flex; border-radius: var(--radius); box-shadow: 0 2px 5px rgba(0,0,0,0.05); border: 1px solid #eaeaea; cursor: pointer; transition: all 0.2s ease; }}
+            
+            .news-item {{ 
+                background: var(--bg-card); margin-bottom: 16px; padding: 16px; 
+                display: flex; border-radius: var(--radius); 
+                box-shadow: var(--shadow); border: 1px solid #eaeaea;
+                cursor: pointer; transition: all 0.2s ease;
+            }}
             .news-item:hover {{ transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.08); }}
             
-            .item-img {{ width: 120px; height: 90px; flex-shrink: 0; margin-right: 16px; border-radius: 4px; overflow: hidden; background: #f5f5f5; position: relative; }}
+            .item-img {{ 
+                width: 120px; height: 90px; flex-shrink: 0; margin-right: 16px; 
+                border-radius: 4px; overflow: hidden; background: #f5f5f5; position: relative;
+            }}
             .item-img img {{ width: 100%; height: 100%; object-fit: cover; }}
-            .img-fallback {{ position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: none; align-items: center; justify-content: center; font-size: 32px; font-weight: 800; }}
+            
+            .img-fallback {{ 
+                position: absolute; top: 0; left: 0; width: 100%; height: 100%; 
+                display: none; align-items: center; justify-content: center; 
+                font-size: 32px; font-weight: 800;
+            }}
             .item-img[data-type="fallback"] .img-fallback {{ display: flex; }}
             .item-img[data-type="fallback"] img {{ display: none; }}
 
             .item-content {{ flex: 1; display: flex; flex-direction: column; justify-content: space-between; }}
-            .item-title {{ margin: 0 0 6px 0; font-size: 17px; font-weight: 700; line-height: 1.4; color: #000; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }}
+            .item-title {{ 
+                margin: 0 0 6px 0; font-size: 17px; font-weight: 700; line-height: 1.4; color: #000;
+                display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+            }}
             .item-meta {{ font-size: 12px; color: #888; display: flex; align-items: center; }}
             .source-badge {{ padding: 2px 6px; border-radius: 4px; font-weight: 600; margin-right: 10px; font-size: 11px; text-transform: uppercase; }}
-            .item-summary {{ font-size: 14px; color: #555; line-height: 1.6; margin: 0; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }}
+            .item-summary {{ 
+                font-size: 14px; color: #555; line-height: 1.6; margin: 0;
+                display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+            }}
 
             .load-more-status {{ text-align: center; color: #aaa; font-size: 13px; padding: 20px; }}
             .main-footer {{ text-align: center; padding: 40px 0; color: #ccc; font-size: 12px; background: #fff; border-top: 1px solid #eaeaea; }}
             .main-footer a {{ color: #999; text-decoration: none; }}
 
+            @media (max-width: 600px) {{
+                .item-img {{ width: 100px; height: 75px; margin-right: 12px; }}
+                .item-title {{ font-size: 16px; }}
+                .item-summary {{ display: none; }}
+            }}
+
             /* 模态框 */
             .modal-overlay {{ position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 2000; display: none; opacity: 0; transition: opacity 0.3s; }}
             .modal-overlay.open {{ display: block; opacity: 1; }}
-            .modal-card {{ position: fixed; bottom: 0; left: 0; width: 100%; height: 95vh; background: #fff; border-radius: 20px 20px 0 0; transform: translateY(100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); z-index: 2001; display: flex; flex-direction: column; box-shadow: 0 -10px 40px rgba(0,0,0,0.2); }}
+            .modal-card {{ 
+                position: fixed; bottom: 0; left: 0; width: 100%; height: 95vh; 
+                background: #fff; border-radius: 20px 20px 0 0; 
+                transform: translateY(100%); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+                z-index: 2001; display: flex; flex-direction: column;
+                box-shadow: 0 -10px 40px rgba(0,0,0,0.2);
+            }}
             .modal-overlay.open .modal-card {{ transform: translateY(0); }}
-            @media (min-width: 769px) {{ .modal-card {{ width: 720px; height: 90vh; left: 50%; top: 50%; bottom: auto; transform: translate(-50%, -45%) scale(0.95); opacity: 0; border-radius: 16px; }} .modal-overlay.open .modal-card {{ transform: translate(-50%, -50%) scale(1); opacity: 1; }} }}
             
-            .modal-header {{ padding: 0 20px; height: 60px; border-bottom: 1px solid #eaeaea; display: flex; justify-content: space-between; align-items: center; background: #fff; border-radius: 20px 20px 0 0; flex-shrink: 0; }}
+            @media (min-width: 769px) {{
+                .modal-card {{ 
+                    width: 720px; height: 90vh; left: 50%; top: 50%; bottom: auto;
+                    transform: translate(-50%, -45%) scale(0.95); opacity: 0; border-radius: 16px; 
+                }}
+                .modal-overlay.open .modal-card {{ transform: translate(-50%, -50%) scale(1); opacity: 1; }}
+            }}
+            
+            .modal-header {{ 
+                padding: 0 20px; height: 60px; border-bottom: 1px solid #eaeaea; 
+                display: flex; justify-content: space-between; align-items: center; 
+                background: #fff; border-radius: 20px 20px 0 0; flex-shrink: 0; 
+            }}
             .close-btn {{ font-size: 24px; color: #888; cursor: pointer; }}
+            
             .modal-scroll-area {{ flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }}
             .modal-body {{ padding: 30px; }}
 
             .article-title {{ font-size: 24px; font-weight: 800; margin-bottom: 8px; color: #000; line-height: 1.3; }}
+            .article-en-title {{ font-size: 14px; color: #666; margin-bottom: 15px; font-style: italic; }}
             .article-meta {{ color: #999; font-size: 13px; margin-bottom: 25px; }}
             .article-content {{ font-size: 17px; line-height: 1.8; color: #333; white-space: pre-wrap; }}
-            .read-more-btn {{ display: block; width: 100%; text-align: center; background: #f5f5f5; color: #333; padding: 14px; margin-top: 30px; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; }}
+            .read-more-btn {{ 
+                display: block; width: 100%; text-align: center; 
+                background: #f5f5f5; color: #333; 
+                padding: 14px; margin-top: 30px; border-radius: 8px; 
+                text-decoration: none; font-size: 14px; font-weight: 600;
+            }}
             
-            /* AI 区域：恢复为提问框 */
+            /* AI 报告区 */
             .ai-section {{ border-top: 1px solid #eaeaea; background: #fafafa; padding: 24px 30px; }}
             .section-title {{ font-size: 14px; font-weight: 700; color: var(--primary); margin-bottom: 12px; letter-spacing: 0.5px; text-transform: uppercase; }}
-            .ai-chat-box {{ height: 150px; overflow-y: auto; background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 20px; font-size: 15px; line-height: 1.7; color: #222; margin-bottom: 10px; }}
-            .ai-msg {{ margin-bottom: 10px; }}
-            .ai-msg.user {{ color: var(--primary); font-weight: bold; }}
             
-            .ai-input-area {{ display: flex; position: relative; }}
-            .ai-input {{ flex: 1; padding: 12px 16px; border: 1px solid #ddd; border-radius: 24px; font-size: 15px; padding-right: 80px; outline: none; }}
-            .ai-input:focus {{ border-color: var(--primary); }}
-            .ai-send-btn {{ position: absolute; right: 5px; top: 5px; bottom: 5px; background: var(--primary); color: #fff; border: none; padding: 0 16px; border-radius: 20px; cursor: pointer; font-weight: 600; }}
+            .ai-chat-box {{ min-height: 100px; max-height: 300px; overflow-y: auto; background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 20px; font-size: 15px; line-height: 1.7; color: #222; }}
             
+            /* 评论 */
             .comment-section {{ border-top: 1px solid #eaeaea; background: #fff; padding: 24px 30px; }}
             #vcomments .vbtn {{ background: var(--primary); color: #fff; border: none; }}
         </style>
@@ -355,6 +414,7 @@ def generate_html():
                 <div class="modal-scroll-area">
                     <div class="modal-body">
                         <h1 class="article-title" id="mTitle"></h1>
+                        <div class="article-en-title" id="mEnTitle"></div>
                         <div class="article-meta" id="mMeta"></div>
                         <!-- 这里直接显示预先翻译好的中文 -->
                         <div class="article-content" id="mContent"></div> 
@@ -438,17 +498,26 @@ def generate_html():
                 if(!dataDiv) return;
                 
                 const title = dataDiv.getAttribute('data-title');
+                const enTitle = dataDiv.getAttribute('data-en-title'); 
                 const source = dataDiv.getAttribute('data-source');
                 const date = dataDiv.getAttribute('data-date');
                 const link = dataDiv.getAttribute('data-link');
-                const content = dataDiv.innerText.trim(); // 英文全文(隐藏用于AI)
-                const zhContent = dataDiv.getAttribute('data-zh-content'); // 预翻译的中文
+                const content = dataDiv.innerText.trim(); 
+                const zhContent = dataDiv.getAttribute('data-zh-content'); 
 
                 document.getElementById('mTitle').innerText = title;
+                document.getElementById('mEnTitle').innerText = enTitle;
                 document.getElementById('mMeta').innerHTML = `${{source}} · ${{date}}`;
                 
-                // 【核心变化】直接显示预先翻译好的中文内容
-                document.getElementById('mContent').innerHTML = zhContent && zhContent.length > 10 ? zhContent : '<p>内容较短，请查看原文。</p>';
+                // --- 修复点：直接显示已翻译的中文 ---
+                // 解码 Unicode 转义 (如果需要) 其实浏览器会自动处理 json.dumps 的转义
+                try {{
+                    const parsedZh = JSON.parse(zhContent);
+                    document.getElementById('mContent').innerHTML = parsedZh && parsedZh.length > 10 ? parsedZh : '<p>内容较短，请查看原文。</p>';
+                }} catch(e) {{
+                    document.getElementById('mContent').innerHTML = zhContent;
+                }}
+
                 document.getElementById('mLink').href = link;
                 
                 currentArticleContext = `【文章】${{title}}\\n英文原文：${{content.substring(0, 3000)}}`;
@@ -498,7 +567,6 @@ def generate_html():
                 chatBox.scrollTop = chatBox.scrollHeight;
 
                 try {{
-                    // 使用 DeepSeek 进行问答
                     const response = await fetch(API_URL, {{
                         method: "POST",
                         headers: {{ "Content-Type": "application/json", "Authorization": `Bearer ${{API_KEY}}` }},
