@@ -341,11 +341,11 @@ After going public in 2022 with expectations of a valuation near $1 bill
                      data-link="https://forum.torproject.org/t/staying-ahead-of-censors-in-2025-what-weve-learned-from-fighting-censorship-in-iran-and-russia/20898"
                      data-source="HackerNews"
                      data-date="12-29 13:47"
-                     data-zh-content='&quot;文章网址：https://forum.torproject.org/t/staying-ahead-of-censors-in-2025-what-weve-learned-from-fighting-censorship-in-iran-and-Russia/20898\n评论网址：https://news.ycombinator.com/item?id=46417844\n积分：146\n#评论：98&quot;'>
+                     data-zh-content='&quot;文章网址：https://forum.torproject.org/t/staying-ahead-of-censors-in-2025-what-weve-learned-from-fighting-censorship-in-iran-and-Russia/20898\n评论网址：https://news.ycombinator.com/item?id=46417844\n积分：156\n# 评论: 117&quot;'>
                      Article URL: https://forum.torproject.org/t/staying-ahead-of-censors-in-2025-what-weve-learned-from-fighting-censorship-in-iran-and-russia/20898
 Comments URL: https://news.ycombinator.com/item?id=46417844
-Points: 146
-# Comments: 98
+Points: 156
+# Comments: 117
                 </div>
             </div>
         </article>
@@ -378,8 +378,8 @@ Points: 146
                      How small can a language model be while still doing something useful? I wanted to find out, and had some spare time over the holidays.Z80-μLM is a character-level language model with 2-bit quantized weights ({-2,-1,0,+1}) that runs on a Z80 with 64KB RAM. The entire thing: inference, weights, chat UI, it all fits in a 40KB .COM file that you can run in a CP/M emulator and hopefully even real hardware!It won't write your emails, but it can be trained to play a stripped down version of 20 Questions, and is sometimes able to maintain the illusion of having simple but terse conversations with a distinct personality.--The extreme constraints nerd-sniped me and forced interesting trade-offs: trigram hashing (typo-tolerant, loses word order), 16-bit integer math, and some careful massaging of the training data meant I could keep the examples 'interesting'.The key was quantization-aware training that accurately models the inference code limitations. The training loop runs both float and integer-quantized forward passes in parallel, scoring the model on how well its knowledge survives quantization. The weights are progressively pushed toward the 2-bit grid using straight-through estimators, with overflow penalties matching the Z80's 16-bit accumulator limits. By the end of training, the model has already adapted to its constraints, so no post-hoc quantization collapse.Eventually I ended up spending a few dollars on Claude API to generate 20 questions data (see examples/guess/GUESS.COM), I hope Anthropic won't send me a C&D for distilling their model against the ToS ;PBut anyway, happy code-golf season everybody :)
 
 Comments URL: https://news.ycombinator.com/item?id=46417815
-Points: 175
-# Comments: 42
+Points: 195
+# Comments: 46
                 </div>
             </div>
         </article>
@@ -409,11 +409,11 @@ Points: 175
                      data-link="https://maurycyz.com/misc/make-up-tags/"
                      data-source="HackerNews"
                      data-date="12-29 10:47"
-                     data-zh-content='&quot;文章网址：https://maurycyz.com/misc/make-up-tags/\n评论网址：https://news.ycombinator.com/item?id=46416945\n积分：269\n# 评论: 101&quot;'>
+                     data-zh-content='&quot;文章网址：https://maurycyz.com/misc/make-up-tags/\n评论网址：https://news.ycombinator.com/item?id=46416945\n积分：287\n# 评论: 102&quot;'>
                      Article URL: https://maurycyz.com/misc/make-up-tags/
 Comments URL: https://news.ycombinator.com/item?id=46416945
-Points: 269
-# Comments: 101
+Points: 287
+# Comments: 102
                 </div>
             </div>
         </article>
@@ -508,16 +508,50 @@ Points: 114
                      data-link="https://www.newstatesman.com/business/companies/2023/05/ceos-salaries-expensive-automate-robots"
                      data-source="HackerNews"
                      data-date="12-29 07:17"
-                     data-zh-content='&quot;文章网址：https://www.newstatesman.com/business/companies/2023/05/ceos-salaries-expective-automate-robots\n评论网址：https://news.ycombinator.com/item?id=46415488\n积分：214\n# 评论：252&quot;'>
+                     data-zh-content='&quot;文章网址：https://www.newstatesman.com/business/companies/2023/05/ceos-salaries-expective-automate-robots\n评论网址：https://news.ycombinator.com/item?id=46415488\n积分：216\n# 评论：252&quot;'>
                      Article URL: https://www.newstatesman.com/business/companies/2023/05/ceos-salaries-expensive-automate-robots
 Comments URL: https://news.ycombinator.com/item?id=46415488
-Points: 214
+Points: 216
 # Comments: 252
                 </div>
             </div>
         </article>
         
         <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(9)">
+            
+            <div class="item-img" data-type="fallback">
+                <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
+                    H
+                </div>
+            </div>
+            
+            <div class="item-content">
+                <h2 class="item-title">球形牛</h2>
+                <div class="item-meta">
+                    <span class="source-badge" style="color:#ff6600; background:#ff660015;">
+                        HackerNews
+                    </span>
+                    <span class="meta-date">12-29 07:11</span>
+                </div>
+                <p class="item-summary">文章网址：https://lib.rs/crates/spherical-cow
+评论网址：https://news.y...</p>
+                <!-- 隐藏数据 -->
+                <div id="data-9" style="display:none;" 
+                     data-title="球形牛" 
+                     data-en-title='&quot;Spherical Cow&quot;'
+                     data-link="https://lib.rs/crates/spherical-cow"
+                     data-source="HackerNews"
+                     data-date="12-29 07:11"
+                     data-zh-content='&quot;文章网址：https://lib.rs/crates/spherical-cow\n评论网址：https://news.ycombinator.com/item?id=46415458\n积分：101\n# 评论: 14&quot;'>
+                     Article URL: https://lib.rs/crates/spherical-cow
+Comments URL: https://news.ycombinator.com/item?id=46415458
+Points: 101
+# Comments: 14
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(10)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -535,22 +569,22 @@ Points: 214
                 </div>
                 <p class="item-summary">文章网址：https://ny1.com/nyc/all-boroughs/news/2025/11/09/water-...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-9" style="display:none;" 
+                <div id="data-10" style="display:none;" 
                      data-title="62 年的建造：纽约市最新的水隧道接近终点线" 
                      data-en-title='&quot;62 years in the making: NYC's newest water tunnel nears the finish line&quot;'
                      data-link="https://ny1.com/nyc/all-boroughs/news/2025/11/09/water--dep--tunnels-"
                      data-source="HackerNews"
                      data-date="12-29 07:05"
-                     data-zh-content='&quot;文章网址：https://ny1.com/nyc/all-boroughs/news/2025/11/09/water--dep--tunnels-\n评论网址：https://news.ycombinator.com/item?id=46415426\n积分：122\n# 评论: 83&quot;'>
+                     data-zh-content='&quot;文章网址：https://ny1.com/nyc/all-boroughs/news/2025/11/09/water--dep--tunnels-\n评论网址：https://news.ycombinator.com/item?id=46415426\n积分：123\n# 评论: 83&quot;'>
                      Article URL: https://ny1.com/nyc/all-boroughs/news/2025/11/09/water--dep--tunnels-
 Comments URL: https://news.ycombinator.com/item?id=46415426
-Points: 122
+Points: 123
 # Comments: 83
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(10)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(11)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -568,22 +602,22 @@ Points: 122
                 </div>
                 <p class="item-summary">文章网址：https://www.npr.org/2025/12/28/nx-s1-5656190/ai-chips-m...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-10" style="display:none;" 
+                <div id="data-11" style="display:none;" 
                      data-title="随着人工智能吞噬芯片，设备价格可能上涨" 
                      data-en-title='&quot;As AI gobbles up chips, prices for devices may rise&quot;'
                      data-link="https://www.npr.org/2025/12/28/nx-s1-5656190/ai-chips-memory-prices-ram"
                      data-source="HackerNews"
                      data-date="12-29 06:52"
-                     data-zh-content='&quot;文章网址：https://www.npr.org/2025/12/28/nx-s1-5656190/ai-chips-memory-prices-ram\n评论网址：https://news.ycombinator.com/item?id=46415338\n积分：172\n# 评论：249&quot;'>
+                     data-zh-content='&quot;文章网址：https://www.npr.org/2025/12/28/nx-s1-5656190/ai-chips-memory-prices-ram\n评论网址：https://news.ycombinator.com/item?id=46415338\n积分：177\n# 评论：258&quot;'>
                      Article URL: https://www.npr.org/2025/12/28/nx-s1-5656190/ai-chips-memory-prices-ram
 Comments URL: https://news.ycombinator.com/item?id=46415338
-Points: 172
-# Comments: 249
+Points: 177
+# Comments: 258
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="9to5google" onclick="openModal(11)">
+        <article class="news-item " style="display:flex;" data-source="9to5google" onclick="openModal(12)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//9to5google.com/wp-content/uploads/sites/4/2025/12/Google-Pixel-apps-2025.jpg%3Fquality%3D82%26strip%3Dall%26w%3D1600&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -603,7 +637,7 @@ Points: 172
                 </div>
                 <p class="item-summary">Pixel 专属应用程序组合将在 2025 年出现增长趋势，而随着 Google 努力打造差异化体验，这种趋势只会持续下...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-11" style="display:none;" 
+                <div id="data-12" style="display:none;" 
                      data-title="回顾：2025 年的新 Pixel 应用和主要更新" 
                      data-en-title='&quot;Recap: New Pixel apps and major updates in 2025&quot;'
                      data-link="https://9to5google.com/2025/12/28/pixel-apps-2025/"
@@ -616,7 +650,7 @@ more…
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(12)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(13)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -635,22 +669,22 @@ more…
                 <p class="item-summary">文章网址：https://maurycyz.com/misc/raw_photo/
 评论网址：https://news....</p>
                 <!-- 隐藏数据 -->
-                <div id="data-12" style="display:none;" 
+                <div id="data-13" style="display:none;" 
                      data-title="未经处理的照片是什么样子" 
                      data-en-title='&quot;What an unprocessed photo looks like&quot;'
                      data-link="https://maurycyz.com/misc/raw_photo/"
                      data-source="HackerNews"
                      data-date="12-29 06:35"
-                     data-zh-content='&quot;文章网址：https://maurycyz.com/misc/raw_photo/\n评论网址：https://news.ycombinator.com/item?id=46415225\n积分：1550\n# 评论: 257&quot;'>
+                     data-zh-content='&quot;文章网址：https://maurycyz.com/misc/raw_photo/\n评论网址：https://news.ycombinator.com/item?id=46415225\n积分：1604\n# 评论：268&quot;'>
                      Article URL: https://maurycyz.com/misc/raw_photo/
 Comments URL: https://news.ycombinator.com/item?id=46415225
-Points: 1550
-# Comments: 257
+Points: 1604
+# Comments: 268
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(13)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(14)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -668,22 +702,22 @@ Points: 1550
                 </div>
                 <p class="item-summary">文章网址：https://medicine.yale.edu/news-article/molecular-differ...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-13" style="display:none;" 
+                <div id="data-14" style="display:none;" 
                      data-title="研究人员发现自闭症大脑的分子差异" 
                      data-en-title='&quot;Researchers discover molecular difference in autistic brains&quot;'
                      data-link="https://medicine.yale.edu/news-article/molecular-difference-in-autistic-brains/"
                      data-source="HackerNews"
                      data-date="12-29 06:23"
-                     data-zh-content='&quot;文章网址：https://medicine.yale.edu/news-article/molecular-difference-in-autistic-brains/\n评论网址：https://news.ycombinator.com/item?id=46415129\n积分：140\n# 评论: 78&quot;'>
+                     data-zh-content='&quot;文章网址：https://medicine.yale.edu/news-article/molecular-difference-in-autistic-brains/\n评论网址：https://news.ycombinator.com/item?id=46415129\n积分：142\n# 评论: 79&quot;'>
                      Article URL: https://medicine.yale.edu/news-article/molecular-difference-in-autistic-brains/
 Comments URL: https://news.ycombinator.com/item?id=46415129
-Points: 140
-# Comments: 78
+Points: 142
+# Comments: 79
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(14)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(15)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -701,22 +735,22 @@ Points: 140
                 </div>
                 <p class="item-summary">文章网址：https://dolphin-emu.org/blog/2025/12/22/dolphin-progres...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-14" style="display:none;" 
+                <div id="data-15" style="display:none;" 
                      data-title="Dolphin 进度报告：版本 2512" 
                      data-en-title='&quot;Dolphin Progress Report: Release 2512&quot;'
                      data-link="https://dolphin-emu.org/blog/2025/12/22/dolphin-progress-report-release-2512/"
                      data-source="HackerNews"
                      data-date="12-29 05:57"
-                     data-zh-content='&quot;文章网址：https://dolphin-emu.org/blog/2025/12/22/dolphin-progress-report-release-2512/\n评论网址：https://news.ycombinator.com/item?id=46414916\n积分：115\n# 评论: 10&quot;'>
+                     data-zh-content='&quot;文章网址：https://dolphin-emu.org/blog/2025/12/22/dolphin-progress-report-release-2512/\n评论网址：https://news.ycombinator.com/item?id=46414916\n积分：116\n# 评论: 10&quot;'>
                      Article URL: https://dolphin-emu.org/blog/2025/12/22/dolphin-progress-report-release-2512/
 Comments URL: https://news.ycombinator.com/item?id=46414916
-Points: 115
+Points: 116
 # Comments: 10
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(15)">
+        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(16)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2025/12/2026_LG-UltraGear_CES_main.jpg%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -736,7 +770,7 @@ Points: 115
                 </div>
                 <p class="item-summary">LG 在周五的 CES 之前推出了全新的游戏显示器系列。 UltraGear evo 系列都是高端显示器，涵盖一系列技术...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-15" style="display:none;" 
+                <div id="data-16" style="display:none;" 
                      data-title="LG 宣布推出具有 AI 升级功能的全新 UltraGear evo 游戏显示器" 
                      data-en-title='&quot;LG announces new UltraGear evo gaming monitors with AI upscaling&quot;'
                      data-link="https://www.theverge.com/tech/850572/lg-announces-new-ultragear-evo-gaming-monitors-with-ai-upscaling"
@@ -751,7 +785,7 @@ Read the full story at The Verge.
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(16)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(17)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -770,22 +804,22 @@ Read the full story at The Verge.
                 <p class="item-summary">文章网址：https://marekfiser.com/blog/mono-vs-dot-net-in-unity/
 评...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-16" style="display:none;" 
+                <div id="data-17" style="display:none;" 
                      data-title="Unity 的 Mono 问题：为什么 C# 代码运行速度比应有的速度慢" 
                      data-en-title='&quot;Unity's Mono problem: Why your C# code runs slower than it should&quot;'
                      data-link="https://marekfiser.com/blog/mono-vs-dot-net-in-unity/"
                      data-source="HackerNews"
                      data-date="12-29 05:41"
-                     data-zh-content='&quot;文章网址：https://marekfiser.com/blog/mono-vs-dot-net-in-unity/\n评论网址：https://news.ycombinator.com/item?id=46414819\n积分：203\n# 评论: 101&quot;'>
+                     data-zh-content='&quot;文章网址：https://marekfiser.com/blog/mono-vs-dot-net-in-unity/\n评论网址：https://news.ycombinator.com/item?id=46414819\n积分：205\n# 评论: 106&quot;'>
                      Article URL: https://marekfiser.com/blog/mono-vs-dot-net-in-unity/
 Comments URL: https://news.ycombinator.com/item?id=46414819
-Points: 203
-# Comments: 101
+Points: 205
+# Comments: 106
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(17)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(18)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -804,22 +838,22 @@ Points: 203
                 <p class="item-summary">文章网址：https://www.seangoedecke.com/a-little-bit-cynical/
 评论网址...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-17" style="display:none;" 
+                <div id="data-18" style="display:none;" 
                      data-title="软件工程师应该有点愤世嫉俗" 
                      data-en-title='&quot;Software engineers should be a little bit cynical&quot;'
                      data-link="https://www.seangoedecke.com/a-little-bit-cynical/"
                      data-source="HackerNews"
                      data-date="12-29 05:29"
-                     data-zh-content='&quot;文章网址：https://www.seangoedecke.com/a-little-bit-cynical/\n评论网址：https://news.ycombinator.com/item?id=46414723\n积分：205\n# 评论：140&quot;'>
+                     data-zh-content='&quot;文章网址：https://www.seangoedecke.com/a-little-bit-cynical/\n评论网址：https://news.ycombinator.com/item?id=46414723\n积分：209\n# 评论: 146&quot;'>
                      Article URL: https://www.seangoedecke.com/a-little-bit-cynical/
 Comments URL: https://news.ycombinator.com/item?id=46414723
-Points: 205
-# Comments: 140
+Points: 209
+# Comments: 146
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(18)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(19)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -837,51 +871,17 @@ Points: 205
                 </div>
                 <p class="item-summary">文章网址：https://bigdata.2minutestreaming.com/p/mongobleed-expla...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-18" style="display:none;" 
+                <div id="data-19" style="display:none;" 
                      data-title="MongoBleed 简单解释" 
                      data-en-title='&quot;MongoBleed Explained Simply&quot;'
                      data-link="https://bigdata.2minutestreaming.com/p/mongobleed-explained-simply"
                      data-source="HackerNews"
                      data-date="12-29 05:03"
-                     data-zh-content='&quot;文章网址：https://bigdata.2minutestreaming.com/p/mongobleed-explained-simply\n评论网址：https://news.ycombinator.com/item?id=46414475\n积分：197\n# 评论: 77&quot;'>
+                     data-zh-content='&quot;文章网址：https://bigdata.2minutestreaming.com/p/mongobleed-explained-simply\n评论网址：https://news.ycombinator.com/item?id=46414475\n积分：199\n# 评论: 82&quot;'>
                      Article URL: https://bigdata.2minutestreaming.com/p/mongobleed-explained-simply
 Comments URL: https://news.ycombinator.com/item?id=46414475
-Points: 197
-# Comments: 77
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(19)">
-            
-            <div class="item-img" data-type="fallback">
-                <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
-                    H
-                </div>
-            </div>
-            
-            <div class="item-content">
-                <h2 class="item-title">十年后辞去 Mockito 维护者职务</h2>
-                <div class="item-meta">
-                    <span class="source-badge" style="color:#ff6600; background:#ff660015;">
-                        HackerNews
-                    </span>
-                    <span class="meta-date">12-29 04:14</span>
-                </div>
-                <p class="item-summary">文章网址：https://github.com/mockito/mockito/issues/3777
-评论网址：htt...</p>
-                <!-- 隐藏数据 -->
-                <div id="data-19" style="display:none;" 
-                     data-title="十年后辞去 Mockito 维护者职务" 
-                     data-en-title='&quot;Stepping down as Mockito maintainer after ten years&quot;'
-                     data-link="https://github.com/mockito/mockito/issues/3777"
-                     data-source="HackerNews"
-                     data-date="12-29 04:14"
-                     data-zh-content='&quot;文章网址：https://github.com/mockito/mockito/issues/3777\n评论网址：https://news.ycombinator.com/item?id=46414078\n积分：257\n# 评论: 169&quot;'>
-                     Article URL: https://github.com/mockito/mockito/issues/3777
-Comments URL: https://news.ycombinator.com/item?id=46414078
-Points: 257
-# Comments: 169
+Points: 199
+# Comments: 82
                 </div>
             </div>
         </article>
@@ -3269,7 +3269,7 @@ The post British fraudster jailed seven years after stealing millions to fund ga
         </div>
 
         <footer class="main-footer">
-            <p>文章总数: 68 | Updated: 2025-12-29 19:22</p>
+            <p>文章总数: 68 | Updated: 2025-12-29 19:48</p>
             <p><a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2025183710号-1</a></p>
             <p>&copy; 折疼记</p>
         </footer>
