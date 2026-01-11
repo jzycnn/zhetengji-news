@@ -178,11 +178,11 @@
                      data-link="https://www.bbc.com/news/articles/c623r47d67lo"
                      data-source="HackerNews"
                      data-date="01-11 12:45"
-                     data-zh-content='&quot;文章网址：https://www.bbc.com/news/articles/c623r47d67lo\n评论网址：https://news.ycombinator.com/item?id=46572769\n积分：133\n# 评论: 88&quot;'>
+                     data-zh-content='&quot;文章网址：https://www.bbc.com/news/articles/c623r47d67lo\n评论网址：https://news.ycombinator.com/item?id=46572769\n积分：136\n#评论：92&quot;'>
                      Article URL: https://www.bbc.com/news/articles/c623r47d67lo
 Comments URL: https://news.ycombinator.com/item?id=46572769
-Points: 133
-# Comments: 88
+Points: 136
+# Comments: 92
                 </div>
             </div>
         </article>
@@ -212,11 +212,11 @@ Points: 133
                      data-link="https://alienchow.dev/post/fibre_disintegration/"
                      data-source="HackerNews"
                      data-date="01-11 12:19"
-                     data-zh-content='&quot;文章网址：https://alienchow.dev/post/fibre_disintegration/\n评论网址：https://news.ycombinator.com/item?id=46572679\n积分：138\n# 评论: 117&quot;'>
+                     data-zh-content='&quot;文章网址：https://alienchow.dev/post/fibre_disintegration/\n评论网址：https://news.ycombinator.com/item?id=46572679\n积分：141\n# 评论: 122&quot;'>
                      Article URL: https://alienchow.dev/post/fibre_disintegration/
 Comments URL: https://news.ycombinator.com/item?id=46572679
-Points: 138
-# Comments: 117
+Points: 141
+# Comments: 122
                 </div>
             </div>
         </article>
@@ -245,11 +245,11 @@ Points: 138
                      data-link="https://www.fox13seattle.com/video/fmc-w1ga4pk97gxq0hj5"
                      data-source="HackerNews"
                      data-date="01-11 11:15"
-                     data-zh-content='&quot;文章网址：https://www.fox13seattle.com/video/fmc-w1ga4pk97gxq0hj5\n评论网址：https://news.ycombinator.com/item?id=46572392\n积分：100\n# 评论: 20&quot;'>
+                     data-zh-content='&quot;文章网址：https://www.fox13seattle.com/video/fmc-w1ga4pk97gxq0hj5\n评论网址：https://news.ycombinator.com/item?id=46572392\n积分：105\n# 评论: 24&quot;'>
                      Article URL: https://www.fox13seattle.com/video/fmc-w1ga4pk97gxq0hj5
 Comments URL: https://news.ycombinator.com/item?id=46572392
-Points: 100
-# Comments: 20
+Points: 105
+# Comments: 24
                 </div>
             </div>
         </article>
@@ -282,8 +282,8 @@ Points: 100
                      Ferrite: Fast Markdown/Text/Code editor in Rust with native Mermaid diagramsBuilt a Markdown editor using Rust + egui. v0.2.1 just dropped with major Mermaid improvements:→ Native Mermaid diagrams - Flowcharts, sequence, state, ER, git graphs - pure Rust, no JS→ Split view - Raw + rendered side-by-side with sync scrolling→ Syntax highlighting - 40+ languages with large file optimization→ JSON/YAML/TOML tree viewer - Structured editing with expand/collapse→ Git integration - File tree shows modified/staged/untracked statusAlso: minimap, zen mode, auto-save, session restore, code folding indicators.~15MB binary, instant startup. Windows/Linux/macOS.GitHub: https://github.com/OlaProeis/Ferritev0.2.2 coming soon with performance improvements for large files. Looking for feedback!
 
 Comments URL: https://news.ycombinator.com/item?id=46571980
-Points: 148
-# Comments: 62
+Points: 152
+# Comments: 72
                 </div>
             </div>
         </article>
@@ -352,8 +352,8 @@ Points: 119
 This is pre-alpha and runs on a small VPS, so keep that in mind. I never hit the limits in the third-party services, so depending on how this post goes, I’ll or will not find out if the code handles that well.The merger is the heart of the service, and figuring out how to combine conflicting data from different sources was the hardest part. In the end I decided to use field-specific strategies which are quite naive, but work for now.Each extractor has a priority, and results are sorted by that priority before merging. But priority alone isn't enough, so different fields need different treatment.For example:- Titles use a scoring system. I penalize titles containing parentheses or brackets because sources sometimes shove subtitles into the main title field. Overly long titles (80+ chars) also get penalized since they often contain edition information or other metadata that belongs elsewhere.- Covers collect all candidate URLs, then a separate fetcher downloads and scores them by dimensions and quality. The best one gets stored locally and served from the server.For most other fields (publisher, language, page count), I just take the first non-empty value by priority. Simple, but it works.Recently added a caching layer[2] which sped things up nicely. I considered migrating from net/http to fiber at some point[3], but decided against it. Going outside the standard library felt wrong, and the migration didn't provide much in the end.The database layer is being rewritten before v1.0[4]. I'll be honest: the original schema was written by AI, and while I tried to guide it in the right direction with SQLC[5] and good documentation, database design isn't my strong suit and I couldn't confidently vouch for the code. Rather than ship something I don't fully understand, I hired the developers from SourceHut[6] to rewrite it properly.I've got a 5-month-old and we're still adjusting to their schedule, so development is slow. I've mentioned this project in a few HN threads before[7], so I’m pretty happy to finally have something people can try.Code is AGPL and on SourceHut[8].Feedback and patches[9] are very welcome :)[0]: https://sr.ht/~pagina394/librario/[1]: https://paste.sr.ht/~jamesponddotco/a6c3b1130133f384cffd25b3...[2]: https://todo.sr.ht/~pagina394/librario/16[3]: https://todo.sr.ht/~pagina394/librario/13[4]: https://todo.sr.ht/~pagina394/librario/14[5]: https://sqlc.dev[6]: https://sourcehut.org/consultancy/[7]: https://news.ycombinator.com/item?id=45419234[8]: https://sr.ht/~pagina394/librario/[9]: https://git.sr.ht/~pagina394/librario/tree/trunk/item/CONTRI...
 
 Comments URL: https://news.ycombinator.com/item?id=46571149
-Points: 103
-# Comments: 30
+Points: 104
+# Comments: 31
                 </div>
             </div>
         </article>
@@ -382,11 +382,11 @@ Points: 103
                      data-link="https://www.brown.edu/news/2026-01-07/private-equity-autism-centers"
                      data-source="HackerNews"
                      data-date="01-11 07:36"
-                     data-zh-content='&quot;文章网址：https://www.brown.edu/news/2026-01-07/private-equity-autism-centers\n评论网址：https://news.ycombinator.com/item?id=46571095\n积分：263\n# 评论: 174&quot;'>
+                     data-zh-content='&quot;文章网址：https://www.brown.edu/news/2026-01-07/private-equity-autism-centers\n评论网址：https://news.ycombinator.com/item?id=46571095\n积分：264\n# 评论: 175&quot;'>
                      Article URL: https://www.brown.edu/news/2026-01-07/private-equity-autism-centers
 Comments URL: https://news.ycombinator.com/item?id=46571095
-Points: 263
-# Comments: 174
+Points: 264
+# Comments: 175
                 </div>
             </div>
         </article>
@@ -449,11 +449,11 @@ Read the full story at The Verge.
                      data-link="https://reclaimthenet.org/uk-orders-ofcom-to-explore-encryption-backdoors"
                      data-source="HackerNews"
                      data-date="01-11 05:36"
-                     data-zh-content='&quot;文章网址：https://reclaimthenet.org/uk-orders-ofcom-to-explore-encryption-backdoors\n评论网址：https://news.ycombinator.com/item?id=46570158\n积分：110\n# 评论: 39&quot;'>
+                     data-zh-content='&quot;文章网址：https://reclaimthenet.org/uk-orders-ofcom-to-explore-encryption-backdoors\n评论网址：https://news.ycombinator.com/item?id=46570158\n积分：110\n# 评论: 43&quot;'>
                      Article URL: https://reclaimthenet.org/uk-orders-ofcom-to-explore-encryption-backdoors
 Comments URL: https://news.ycombinator.com/item?id=46570158
 Points: 110
-# Comments: 39
+# Comments: 43
                 </div>
             </div>
         </article>
@@ -590,11 +590,11 @@ Points: 101
                      data-link="https://www.economist.com/united-states/2026/01/08/why-overdose-deaths-are-falling-in-america"
                      data-source="HackerNews"
                      data-date="01-11 03:54"
-                     data-zh-content='&quot;文章网址：https://www.economist.com/united-states/2026/01/08/why-overdose-deaths-are-falling-in-america\n评论网址：https://news.ycombinator.com/item?id=46569312\n积分：127\n# 评论: 101&quot;'>
+                     data-zh-content='&quot;文章网址：https://www.economist.com/united-states/2026/01/08/why-overdose-deaths-are-falling-in-america\n评论网址：https://news.ycombinator.com/item?id=46569312\n积分：130\n# 评论: 105&quot;'>
                      Article URL: https://www.economist.com/united-states/2026/01/08/why-overdose-deaths-are-falling-in-america
 Comments URL: https://news.ycombinator.com/item?id=46569312
-Points: 127
-# Comments: 101
+Points: 130
+# Comments: 105
                 </div>
             </div>
         </article>
@@ -623,11 +623,11 @@ Points: 127
                      data-link="https://llmholdem.com/"
                      data-source="HackerNews"
                      data-date="01-11 03:27"
-                     data-zh-content='&quot;我很好奇一些最新模型的表现以及无限德州扑克的表现。我建立了这个网站，它允许您：观看：观看不同模型相互对战。玩：创建自己的牌桌并直接与代理玩手牌。\n\n评论网址：https://news.ycombinator.com/item?id=46569061\n积分：109\n# 评论: 55&quot;'>
+                     data-zh-content='&quot;我很好奇一些最新模型的表现以及无限德州扑克的表现。我建立了这个网站，它允许您：观看：观看不同模型相互对战。玩：创建自己的牌桌并直接与代理玩手牌。\n\n评论网址：https://news.ycombinator.com/item?id=46569061\n积分：111\n# 评论: 55&quot;'>
                      I was curious to see how some of the latest models behaved and played no limit texas holdem.I built this website which allows you to:Spectate: Watch different models play against each other.Play: Create your own table and play hands against the agents directly.
 
 Comments URL: https://news.ycombinator.com/item?id=46569061
-Points: 109
+Points: 111
 # Comments: 55
                 </div>
             </div>
@@ -658,11 +658,11 @@ Points: 109
                      data-link="https://mitchellh.com/writing/ghostty-memory-leak-fix"
                      data-source="HackerNews"
                      data-date="01-11 02:58"
-                     data-zh-content='&quot;文章网址：https://mitchellh.com/writing/ghostty-memory-leak-fix\n评论网址：https://news.ycombinator.com/item?id=46568794\n积分：426\n#评论：92&quot;'>
+                     data-zh-content='&quot;文章网址：https://mitchellh.com/writing/ghostty-memory-leak-fix\n评论网址：https://news.ycombinator.com/item?id=46568794\n积分：434\n#评论：94&quot;'>
                      Article URL: https://mitchellh.com/writing/ghostty-memory-leak-fix
 Comments URL: https://news.ycombinator.com/item?id=46568794
-Points: 426
-# Comments: 92
+Points: 434
+# Comments: 94
                 </div>
             </div>
         </article>
@@ -731,8 +731,8 @@ It gave actually interesting results and required very little orchestration in c
 A fun tendency is that Claude kept getting distracted by topics of secrecy, conspiracy, and hidden systems - as if the task itself summoned a Foucault’s Pendulum mindset.Details:* The books are picked from HN’s favourites (which I collected before: https://hnbooks.pieterma.es/).* Chunks are indexed by topic using Gemini Flash Lite. The whole library cost about £10.* Topics are organised into a tree structure using recursive Leiden partitioning and LLM labels. This gives a high-level sense of the themes.* There are several ways to browse. The most useful are embedding similarity, topic tree siblings, and topics cooccurring within a chunk window.* Everything is stored in SQLite and manipulated using a set of CLI tools.I wrote more about the process here: https://pieterma.es/syntopic-reading-claude/I’m curious if this way of reading resonates for anyone else - LLM-mediated or not.
 
 Comments URL: https://news.ycombinator.com/item?id=46567400
-Points: 341
-# Comments: 91
+Points: 348
+# Comments: 92
                 </div>
             </div>
         </article>
@@ -762,11 +762,11 @@ Points: 341
                      data-link="https://dri.es/ai-is-a-business-model-stress-test"
                      data-source="HackerNews"
                      data-date="01-11 00:56"
-                     data-zh-content='&quot;文章网址：https://dri.es/ai-is-a-business-model-stress-test\n评论网址：https://news.ycombinator.com/item?id=46567392\n积分：248\n# 评论: 251&quot;'>
+                     data-zh-content='&quot;文章网址：https://dri.es/ai-is-a-business-model-stress-test\n评论网址：https://news.ycombinator.com/item?id=46567392\n积分：250\n# 评论：253&quot;'>
                      Article URL: https://dri.es/ai-is-a-business-model-stress-test
 Comments URL: https://news.ycombinator.com/item?id=46567392
-Points: 248
-# Comments: 251
+Points: 250
+# Comments: 253
                 </div>
             </div>
         </article>
@@ -3068,7 +3068,7 @@ The post Polymarket withholds payouts as debate erupts over definition of Venezu
         </div>
 
         <footer class="main-footer">
-            <p>文章总数: 66 | Updated: 2026-01-11 17:49</p>
+            <p>文章总数: 66 | Updated: 2026-01-11 18:25</p>
             <p><a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2025183710号-1</a></p>
             <p>&copy; 折疼记</p>
         </footer>
