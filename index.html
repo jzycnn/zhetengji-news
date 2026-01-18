@@ -153,7 +153,40 @@
         <div class="container">
             <main id="newsContainer">
                 
-        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(0)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(0)">
+            
+            <div class="item-img" data-type="fallback">
+                <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
+                    H
+                </div>
+            </div>
+            
+            <div class="item-content">
+                <h2 class="item-title">诺贝尔奖与获奖者密不可分</h2>
+                <div class="item-meta">
+                    <span class="source-badge" style="color:#ff6600; background:#ff660015;">
+                        HackerNews
+                    </span>
+                    <span class="meta-date">01-19 00:50</span>
+                </div>
+                <p class="item-summary">文章网址：https://www.nobelpeaceprize.org/press/press-releases/th...</p>
+                <!-- 隐藏数据 -->
+                <div id="data-0" style="display:none;" 
+                     data-title="诺贝尔奖与获奖者密不可分" 
+                     data-en-title='&quot;The Nobel Prize and the Laureate Are Inseparable&quot;'
+                     data-link="https://www.nobelpeaceprize.org/press/press-releases/the-nobel-prize-and-the-laureate-are-inseparable"
+                     data-source="HackerNews"
+                     data-date="01-19 00:50"
+                     data-zh-content='&quot;文章网址：https://www.nobelpeaceprize.org/press/press-releases/the-nobel-prize-and-the-laureate-are-inseparable\n评论网址：https://news.ycombinator.com/item?id=46669404\n积分：124\n# 评论: 55&quot;'>
+                     Article URL: https://www.nobelpeaceprize.org/press/press-releases/the-nobel-prize-and-the-laureate-are-inseparable
+Comments URL: https://news.ycombinator.com/item?id=46669404
+Points: 124
+# Comments: 55
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(1)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2025/11/acastro_STK109_microsoft.jpg%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -173,23 +206,21 @@
                 </div>
                 <p class="item-summary">微软于 1 月 13 日发布了 Windows 11 2026 年首个安全更新。仅仅四天后，它就被迫发布了紧急带外更新，...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-0" style="display:none;" 
+                <div id="data-1" style="display:none;" 
                      data-title="微软 2026 年首个 Windows 11 更新阻止了部分计算机关闭" 
                      data-en-title='&quot;Microsoft’s first Windows 11 update of 2026 stopped some computers from shutting down&quot;'
                      data-link="https://www.theverge.com/news/864032/microsofts-out-of-band-windows-11-update-bug"
                      data-source="The Verge"
                      data-date="01-19 00:46"
-                     data-zh-content='&quot;微软于 1 月 13 日发布了 Windows 11 2026 年首个安全更新。仅仅四天后，它就被迫发布了紧急带外更新，以修复第一个引入的一些相当严重的错误。该安全补丁阻止了一些系统正常关闭或休眠，并且还阻止了一些用户通过远程桌面登录。这只是最新的错误更新，迫使微软发布带外更新，这在过去非常罕见，但似乎变得越来越普遍。\n根据变更日志：\n\n微软在安装一月版时发现了问题……\n请在 The Verge 上阅读完整的故事。&quot;'>
-                     Microsoft released its first security update of 2026 for Windows 11 on January 13th. Just four days later, it was forced to release an emergency out-of-band update to fix some pretty serious bugs, the first one introduced. The security patch was stopping some systems from shutting down or hibernating properly, and also preventing some users from logging in via remote desktop. This is just the latest buggy update that has forced Microsoft to issue an out-of-band update, something that used to be pretty rare, but seems to be becoming increasingly common.
-According to the changelog:
-
-Microsoft has identified issues upon installing the January …
+                     data-zh-content='&quot;微软于 1 月 13 日发布了 Windows 11 2026 年首个安全更新。仅仅四天后，它就被迫发布了紧急带外更新，以修复第一个引入的一些相当严重的错误。 \n该安全补丁阻止了一些系统正常关闭或休眠，并且还阻止了一些用户通过远程桌面登录。关闭错误的影响仅限于仍在运行 Windows 11 23H2 的计算机，并且仅限于运行 IoT 企业版的计算机。尽管如此，这只是最新的错误更新，迫使微软发布带外更新，使用......\n请在 The Verge 上阅读完整的故事。&quot;'>
+                     Microsoft released its first security update of 2026 for Windows 11 on January 13th. Just four days later, it was forced to release an emergency out-of-band update to fix some pretty serious bugs, the first one introduced. 
+The security patch was stopping some systems from shutting down or hibernating properly, and also preventing some users from logging in via remote desktop. The impact of the shutdown bug was limited to machines still running Windows 11 23H2, and only those running either the Enterprise of IoT editions. Still, this is just the latest buggy update that has forced Microsoft to issue an out-of-band update, something that use …
 Read the full story at The Verge.
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(1)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(2)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -207,22 +238,22 @@ Read the full story at The Verge.
                 </div>
                 <p class="item-summary">文章网址：https://www.presidentti.fi/statement-by-denmark-finland...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-1" style="display:none;" 
+                <div id="data-2" style="display:none;" 
                      data-title="丹麦、芬兰、法国、德国、荷兰、挪威、瑞典、英国的声明" 
                      data-en-title='&quot;Statement by Denmark, Finland, France, Germany, the Netherlands,Norway,Sweden,UK&quot;'
                      data-link="https://www.presidentti.fi/statement-by-denmark-finland-france-germany-the-netherlands-norway-sweden-and-the-united-kingdom-englanniksi/"
                      data-source="HackerNews"
                      data-date="01-19 00:17"
-                     data-zh-content='&quot;文章网址：https://www.presidentti.fi/statement-by-denmark-finland-france-germany-the-netherlands-norway-sweden-and-the-united-kingdom-englanniksi/\n评论网址：https://news.ycombinator.com/item?id=46669025\n积分：268\n# 评论: 204&quot;'>
+                     data-zh-content='&quot;文章网址：https://www.presidentti.fi/statement-by-denmark-finland-france-germany-the-netherlands-norway-sweden-and-the-united-kingdom-englanniksi/\n评论网址：https://news.ycombinator.com/item?id=46669025\n积分：288\n# 评论：260&quot;'>
                      Article URL: https://www.presidentti.fi/statement-by-denmark-finland-france-germany-the-netherlands-norway-sweden-and-the-united-kingdom-englanniksi/
 Comments URL: https://news.ycombinator.com/item?id=46669025
-Points: 268
-# Comments: 204
+Points: 288
+# Comments: 260
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="macrumors" onclick="openModal(2)">
+        <article class="news-item " style="display:flex;" data-source="macrumors" onclick="openModal(3)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//images.macrumors.com/article-new/2025/10/ipad-pro-orange.jpeg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -242,7 +273,7 @@ Points: 268
                 </div>
                 <p class="item-summary">亚马逊本周末将为 M5 iPad Pro 系列提供折扣，包括 11 英寸和 13 英寸型号。此次的亮点是 256GB W...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-2" style="display:none;" 
+                <div id="data-3" style="display:none;" 
                      data-title="Amazon M5 iPad Pro 最高立减 200 美元，起价 899.99 美元" 
                      data-en-title='&quot;Get Up to $200 Off M5 iPad Pro on Amazon, Starting at $899.99&quot;'
                      data-link="https://www.macrumors.com/2026/01/18/200-off-m5-ipad-pro/"
@@ -317,7 +348,7 @@ Related Roundup: Apple DealsThis article, "Get Up to $200 Off M5 iPad Pro on Ama
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(3)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(4)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -326,7 +357,7 @@ Related Roundup: Apple DealsThis article, "Get Up to $200 Off M5 iPad Pro on Ama
             </div>
             
             <div class="item-content">
-                <h2 class="item-title">AGI 中的 A 代表广告</h2>
+                <h2 class="item-title">预测 OpenAI 的广告策略</h2>
                 <div class="item-meta">
                     <span class="source-badge" style="color:#ff6600; background:#ff660015;">
                         HackerNews
@@ -336,22 +367,22 @@ Related Roundup: Apple DealsThis article, "Get Up to $200 Off M5 iPad Pro on Ama
                 <p class="item-summary">文章网址：https://ossa-ma.github.io/blog/openads
 评论网址：https://new...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-3" style="display:none;" 
-                     data-title="AGI 中的 A 代表广告" 
-                     data-en-title='&quot;The A in AGI Stands for Ads&quot;'
+                <div id="data-4" style="display:none;" 
+                     data-title="预测 OpenAI 的广告策略" 
+                     data-en-title='&quot;Predicting OpenAI's ad strategy&quot;'
                      data-link="https://ossa-ma.github.io/blog/openads"
                      data-source="HackerNews"
                      data-date="01-18 22:25"
-                     data-zh-content='&quot;文章网址：https://ossa-ma.github.io/blog/openads\n评论网址：https://news.ycombinator.com/item?id=46668021\n积分：339\n# 评论：220&quot;'>
+                     data-zh-content='&quot;文章网址：https://ossa-ma.github.io/blog/openads\n评论网址：https://news.ycombinator.com/item?id=46668021\n积分：355\n# 评论：249&quot;'>
                      Article URL: https://ossa-ma.github.io/blog/openads
 Comments URL: https://news.ycombinator.com/item?id=46668021
-Points: 339
-# Comments: 220
+Points: 355
+# Comments: 249
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(4)">
+        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(5)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2025/12/258218_Sony_Bravia_8_II_TV_JHiggins_0009.jpg%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -373,7 +404,7 @@ Points: 339
 
 年初往往很难买到好商品，这正是百思买冬季促销值得一试的...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-4" style="display:none;" 
+                <div id="data-5" style="display:none;" 
                      data-title="以下是百思买冬季促销活动中值得抢购的 10 件商品" 
                      data-en-title='&quot;Here are the 10 deals worth grabbing from Best Buy’s winter sales event&quot;'
                      data-link="https://www.theverge.com/gadgets/863660/best-buy-winter-sale-2026-oled-tvs-headphones-fitness-trackers-deal-sale"
@@ -406,7 +437,41 @@ The original QC Ultra remain our favorite pair for travel, thanks to a foldable 
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(5)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(6)">
+            
+            <div class="item-img" data-type="fallback">
+                <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
+                    H
+                </div>
+            </div>
+            
+            <div class="item-content">
+                <h2 class="item-title">什么是计划9？</h2>
+                <div class="item-meta">
+                    <span class="source-badge" style="color:#ff6600; background:#ff660015;">
+                        HackerNews
+                    </span>
+                    <span class="meta-date">01-18 21:32</span>
+                </div>
+                <p class="item-summary">文章网址：https://fqa.9front.org/fqa0.html#0.1
+评论网址：https://news....</p>
+                <!-- 隐藏数据 -->
+                <div id="data-6" style="display:none;" 
+                     data-title="什么是计划9？" 
+                     data-en-title='&quot;What is Plan 9?&quot;'
+                     data-link="https://fqa.9front.org/fqa0.html#0.1"
+                     data-source="HackerNews"
+                     data-date="01-18 21:32"
+                     data-zh-content='&quot;文章网址：https://fqa.9front.org/fqa0.html#0.1\n评论网址：https://news.ycombinator.com/item?id=46667675\n积分：106\n# 评论：29&quot;'>
+                     Article URL: https://fqa.9front.org/fqa0.html#0.1
+Comments URL: https://news.ycombinator.com/item?id=46667675
+Points: 106
+# Comments: 29
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(7)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2026/01/df58cddf4d5e26344135a5872229a176_pc.jpg%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -426,7 +491,7 @@ The original QC Ultra remain our favorite pair for travel, thanks to a foldable 
                 </div>
                 <p class="item-summary">Kaoss Pad 已经经历了许多不同的迭代，但自 2013 年 KP3+ 推出以来，主线效果单元和采样器尚未得到更新。...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-5" style="display:none;" 
+                <div id="data-7" style="display:none;" 
                      data-title="Kaoss Pad V 是 13 年来对 Korg 触摸效果的首次重大升级" 
                      data-en-title='&quot;Kaoss Pad V is the first major upgrade to Korg’s touch-based effects in 13 years&quot;'
                      data-link="https://www.theverge.com/news/864003/korg-kaoss-pad-v-namm"
@@ -440,7 +505,7 @@ Read the full story at The Verge.
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(6)">
+        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(8)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2026/01/gettyimages-2255802309.jpg%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -460,7 +525,7 @@ Read the full story at The Verge.
                 </div>
                 <p class="item-summary">Coinbase Global Inc. 首席执行官布莱恩·阿姆斯特朗 (Brian Armstrong) 于 2026...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-6" style="display:none;" 
+                <div id="data-8" style="display:none;" 
                      data-title="为什么 Coinbase 破坏了加密行业的政治未来" 
                      data-en-title='&quot;Why Coinbase derailed the crypto industry’s political future&quot;'
                      data-link="https://www.theverge.com/policy/864008/senate-clarity-act-coinbase-crypto-market"
@@ -476,7 +541,7 @@ Read the full story at The Verge.
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(7)">
+        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(9)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2026/01/STK419_DEEPFAKE_3_CVIRGINIA_D.jpg%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -496,7 +561,7 @@ Read the full story at The Verge.
                 </div>
                 <p class="item-summary">这是《The Stepback》，一份每周简讯，详细介绍了科技界的一个重要故事。有关人工智能反乌托邦发展的更多信息，请关...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-7" style="display:none;" 
+                <div id="data-9" style="display:none;" 
                      data-title="在马斯克的领导下，Grok 灾难不可避免" 
                      data-en-title='&quot;Under Musk, the Grok disaster was inevitable&quot;'
                      data-link="https://www.theverge.com/column/863502/grok-deepfake-musk"
@@ -511,7 +576,7 @@ Read the full story at The Verge.
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(8)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(10)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -530,22 +595,22 @@ Read the full story at The Verge.
                 <p class="item-summary">文章网址：https://github.com/cavi-au/Consent-O-Matic
 评论网址：https:/...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-8" style="display:none;" 
+                <div id="data-10" style="display:none;" 
                      data-title="同意-O-Matic" 
                      data-en-title='&quot;Consent-O-Matic&quot;'
                      data-link="https://github.com/cavi-au/Consent-O-Matic"
                      data-source="HackerNews"
                      data-date="01-18 17:35"
-                     data-zh-content='&quot;文章网址：https://github.com/cavi-au/Consent-O-Matic\n评论网址：https://news.ycombinator.com/item?id=46666283\n积分：149\n# 评论: 79&quot;'>
+                     data-zh-content='&quot;文章网址：https://github.com/cavi-au/Consent-O-Matic\n评论网址：https://news.ycombinator.com/item?id=46666283\n积分：152\n# 评论: 79&quot;'>
                      Article URL: https://github.com/cavi-au/Consent-O-Matic
 Comments URL: https://news.ycombinator.com/item?id=46666283
-Points: 149
+Points: 152
 # Comments: 79
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(9)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(11)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -563,22 +628,22 @@ Points: 149
                 </div>
                 <p class="item-summary">文章网址：https://adamdrake.com/command-line-tools-can-be-235x-fa...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-9" style="display:none;" 
+                <div id="data-11" style="display:none;" 
                      data-title="命令行工具比 Hadoop 集群快 235 倍 (2014)" 
                      data-en-title='&quot;Command-line Tools can be 235x Faster than your Hadoop Cluster (2014)&quot;'
                      data-link="https://adamdrake.com/command-line-tools-can-be-235x-faster-than-your-hadoop-cluster.html"
                      data-source="HackerNews"
                      data-date="01-18 16:58"
-                     data-zh-content='&quot;文章网址：https://adamdrake.com/command-line-tools-can-be-235x-faster-than-your-hadoop-cluster.html\n评论网址：https://news.ycombinator.com/item?id=46666085\n积分：158\n#评论：94&quot;'>
+                     data-zh-content='&quot;文章网址：https://adamdrake.com/command-line-tools-can-be-235x-faster-than-your-hadoop-cluster.html\n评论网址：https://news.ycombinator.com/item?id=46666085\n积分：178\n# 评论: 104&quot;'>
                      Article URL: https://adamdrake.com/command-line-tools-can-be-235x-faster-than-your-hadoop-cluster.html
 Comments URL: https://news.ycombinator.com/item?id=46666085
-Points: 158
-# Comments: 94
+Points: 178
+# Comments: 104
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(10)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(12)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -597,22 +662,22 @@ Points: 158
                 <p class="item-summary">文章网址：https://icon-sets.iconify.design/
 评论网址：https://news.yco...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-10" style="display:none;" 
+                <div id="data-12" style="display:none;" 
                      data-title="Iconify：开源图标库" 
                      data-en-title='&quot;Iconify: Library of Open Source Icons&quot;'
                      data-link="https://icon-sets.iconify.design/"
                      data-source="HackerNews"
                      data-date="01-18 14:53"
-                     data-zh-content='&quot;文章网址：https://icon-sets.iconify.design/\n评论网址：https://news.ycombinator.com/item?id=46665411\n积分：424\n# 评论: 45&quot;'>
+                     data-zh-content='&quot;文章网址：https://icon-sets.iconify.design/\n评论网址：https://news.ycombinator.com/item?id=46665411\n积分：431\n# 评论: 49&quot;'>
                      Article URL: https://icon-sets.iconify.design/
 Comments URL: https://news.ycombinator.com/item?id=46665411
-Points: 424
-# Comments: 45
+Points: 431
+# Comments: 49
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(11)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(13)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -631,22 +696,22 @@ Points: 424
                 <p class="item-summary">文章网址：https://thinknextdesign.com/home.html
 评论网址：https://news...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-11" style="display:none;" 
+                <div id="data-13" style="display:none;" 
                      data-title="思考下一步设计" 
                      data-en-title='&quot;ThinkNext Design&quot;'
                      data-link="https://thinknextdesign.com/home.html"
                      data-source="HackerNews"
                      data-date="01-18 14:27"
-                     data-zh-content='&quot;文章网址：https://thinknextdesign.com/home.html\n评论网址：https://news.ycombinator.com/item?id=46665310\n积分：185\n# 评论: 78&quot;'>
+                     data-zh-content='&quot;文章网址：https://thinknextdesign.com/home.html\n评论网址：https://news.ycombinator.com/item?id=46665310\n积分：192\n# 评论: 82&quot;'>
                      Article URL: https://thinknextdesign.com/home.html
 Comments URL: https://news.ycombinator.com/item?id=46665310
-Points: 185
-# Comments: 78
+Points: 192
+# Comments: 82
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(12)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(14)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -665,22 +730,22 @@ Points: 185
                 <p class="item-summary">文章网址：https://blog.jquery.com/2026/01/17/jquery-4-0-0/
 评论网址：h...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-12" style="display:none;" 
+                <div id="data-14" style="display:none;" 
                      data-title="jQuery 4" 
                      data-en-title='&quot;jQuery 4&quot;'
                      data-link="https://blog.jquery.com/2026/01/17/jquery-4-0-0/"
                      data-source="HackerNews"
                      data-date="01-18 12:23"
-                     data-zh-content='&quot;文章网址：https://blog.jquery.com/2026/01/17/jquery-4-0-0/\n评论网址：https://news.ycombinator.com/item?id=46664755\n积分：528\n# 评论: 167&quot;'>
+                     data-zh-content='&quot;文章网址：https://blog.jquery.com/2026/01/17/jquery-4-0-0/\n评论网址：https://news.ycombinator.com/item?id=46664755\n积分：548\n# 评论: 176&quot;'>
                      Article URL: https://blog.jquery.com/2026/01/17/jquery-4-0-0/
 Comments URL: https://news.ycombinator.com/item?id=46664755
-Points: 528
-# Comments: 167
+Points: 548
+# Comments: 176
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(13)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(15)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -698,7 +763,7 @@ Points: 528
                 </div>
                 <p class="item-summary">文章网址：https://torrentfreak.com/u-s-court-order-against-annas-...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-13" style="display:none;" 
+                <div id="data-15" style="display:none;" 
                      data-title="美国法院针对安娜档案馆的命令给该网站带来了更多麻烦" 
                      data-en-title='&quot;U.S. Court Order Against Anna's Archive Spells More Trouble for the Site&quot;'
                      data-link="https://torrentfreak.com/u-s-court-order-against-annas-archive-spells-more-trouble-for-the-site/"
@@ -713,7 +778,7 @@ Points: 108
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(14)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(16)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -731,22 +796,22 @@ Points: 108
                 </div>
                 <p class="item-summary">文章网址： https://en.wikipedia.org/wiki/Lopado%C2%ADtemacho%C2%A...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-14" style="display:none;" 
+                <div id="data-16" style="display:none;" 
                      data-title="最长的希腊单词" 
                      data-en-title='&quot;The longest Greek word&quot;'
                      data-link="https://en.wikipedia.org/wiki/Lopado%C2%ADtemacho%C2%ADselacho%C2%ADgaleo%C2%ADkranio%C2%ADleipsano%C2%ADdrim%C2%ADhypo%C2%ADtrimmato%C2%ADsilphio%C2%ADkarabo%C2%ADmelito%C2%ADkatakechy%C2%ADmeno%C2%ADkichl%C2%ADepi%C2%ADkossypho%C2%ADphatto%C2%ADperister%C2%ADalektryon%C2%ADopte%C2%ADkephallio%C2%ADkigklo%C2%ADpeleio%C2%ADlagoio%C2%ADsiraio%C2%ADbaphe%C2%ADtragano%C2%ADpterygon"
                      data-source="HackerNews"
                      data-date="01-18 11:49"
-                     data-zh-content='&quot;文章网址： https://en.wikipedia.org/wiki/Lopado%C2%ADtemacho%C2%ADselacho%C2%ADgaleo%C2%ADkranio%C2%ADleipsano%C2%ADdrim%C2%ADhypo%C2%ADtrimmato%C2%ADsilphio%C2%ADkarabo%C2%ADmelito%C2%ADkatakechy%C2%A德梅诺%C2%ADkichl%C2%ADepi%C2%ADkossypho%C2%ADphatto%C2%ADperister%C2%ADalektryon%C2%ADopte%C2%A Dkephallio%C2%ADkigklo%C2%ADpeleio%C2%ADlagoio%C2%ADsiraio%C2%ADbaphe%C2%ADtragano%C2%ADpterygon\n评论网址：https://news.ycombinator.com/item?id=46664638\n积分：164\n# 评论: 73&quot;'>
+                     data-zh-content='&quot;文章网址： https://en.wikipedia.org/wiki/Lopado%C2%ADtemacho%C2%ADselacho%C2%ADgaleo%C2%ADkranio%C2%ADleipsano%C2%ADdrim%C2%ADhypo%C2%ADtrimmato%C2%ADsilphio%C2%ADkarabo%C2%ADmelito%C2%ADkatakechy%C2%A德梅诺%C2%ADkichl%C2%ADepi%C2%ADkossypho%C2%ADphatto%C2%ADperister%C2%ADalektryon%C2%ADopte%C2%A Dkephallio%C2%ADkigklo%C2%ADpeleio%C2%ADlagoio%C2%ADsiraio%C2%ADbaphe%C2%ADtragano%C2%ADpterygon\n评论网址：https://news.ycombinator.com/item?id=46664638\n积分：168\n# 评论: 74&quot;'>
                      Article URL: https://en.wikipedia.org/wiki/Lopado%C2%ADtemacho%C2%ADselacho%C2%ADgaleo%C2%ADkranio%C2%ADleipsano%C2%ADdrim%C2%ADhypo%C2%ADtrimmato%C2%ADsilphio%C2%ADkarabo%C2%ADmelito%C2%ADkatakechy%C2%ADmeno%C2%ADkichl%C2%ADepi%C2%ADkossypho%C2%ADphatto%C2%ADperister%C2%ADalektryon%C2%ADopte%C2%ADkephallio%C2%ADkigklo%C2%ADpeleio%C2%ADlagoio%C2%ADsiraio%C2%ADbaphe%C2%ADtragano%C2%ADpterygon
 Comments URL: https://news.ycombinator.com/item?id=46664638
-Points: 164
-# Comments: 73
+Points: 168
+# Comments: 74
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(15)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(17)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -764,22 +829,55 @@ Points: 164
                 </div>
                 <p class="item-summary">文章网址：https://twitter.com/neelsomani/status/20126957141873257...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-15" style="display:none;" 
+                <div id="data-17" style="display:none;" 
                      data-title="使用 ChatGPT 5.2 Pro 解决了鄂尔多斯 281" 
                      data-en-title='&quot;Erdos 281 solved with ChatGPT 5.2 Pro&quot;'
                      data-link="https://twitter.com/neelsomani/status/2012695714187325745"
                      data-source="HackerNews"
                      data-date="01-18 11:48"
-                     data-zh-content='&quot;文章网址：https://twitter.com/neelsomani/status/2012695714187325745\n评论网址：https://news.ycombinator.com/item?id=46664631\n积分：257\n# 评论：230&quot;'>
+                     data-zh-content='&quot;文章网址：https://twitter.com/neelsomani/status/2012695714187325745\n评论网址：https://news.ycombinator.com/item?id=46664631\n积分：263\n# 评论：234&quot;'>
                      Article URL: https://twitter.com/neelsomani/status/2012695714187325745
 Comments URL: https://news.ycombinator.com/item?id=46664631
-Points: 257
-# Comments: 230
+Points: 263
+# Comments: 234
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(16)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(18)">
+            
+            <div class="item-img" data-type="fallback">
+                <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
+                    H
+                </div>
+            </div>
+            
+            <div class="item-content">
+                <h2 class="item-title">科学家如何利用克劳德加速研究和发现</h2>
+                <div class="item-meta">
+                    <span class="source-badge" style="color:#ff6600; background:#ff660015;">
+                        HackerNews
+                    </span>
+                    <span class="meta-date">01-18 11:22</span>
+                </div>
+                <p class="item-summary">文章网址：https://www.anthropic.com/news/acceleating-scientific-r...</p>
+                <!-- 隐藏数据 -->
+                <div id="data-18" style="display:none;" 
+                     data-title="科学家如何利用克劳德加速研究和发现" 
+                     data-en-title='&quot;How scientists are using Claude to accelerate research and discovery&quot;'
+                     data-link="https://www.anthropic.com/news/accelerating-scientific-research"
+                     data-source="HackerNews"
+                     data-date="01-18 11:22"
+                     data-zh-content='&quot;文章网址：https://www.anthropic.com/news/acceleating-scientific-research\n评论网址：https://news.ycombinator.com/item?id=46664540\n积分：100\n# 评论: 64&quot;'>
+                     Article URL: https://www.anthropic.com/news/accelerating-scientific-research
+Comments URL: https://news.ycombinator.com/item?id=46664540
+Points: 100
+# Comments: 64
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(19)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -798,22 +896,22 @@ Points: 257
                 <p class="item-summary">文章网址：https://www.abelard.org/asimov.php
 评论网址：https://news.yc...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-16" style="display:none;" 
+                <div id="data-19" style="display:none;" 
                      data-title="艾萨克·阿西莫夫的《职业》(1957)" 
                      data-en-title='&quot;Profession by Isaac Asimov (1957)&quot;'
                      data-link="https://www.abelard.org/asimov.php"
                      data-source="HackerNews"
                      data-date="01-18 10:17"
-                     data-zh-content='&quot;文章网址：https://www.abelard.org/asimov.php\n评论网址：https://news.ycombinator.com/item?id=46664195\n积分：142\n# 评论: 37&quot;'>
+                     data-zh-content='&quot;文章网址：https://www.abelard.org/asimov.php\n评论网址：https://news.ycombinator.com/item?id=46664195\n积分：145\n# 评论: 39&quot;'>
                      Article URL: https://www.abelard.org/asimov.php
 Comments URL: https://news.ycombinator.com/item?id=46664195
-Points: 142
-# Comments: 37
+Points: 145
+# Comments: 39
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(17)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="hackernews" onclick="openModal(20)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -832,7 +930,7 @@ Points: 142
                 <p class="item-summary">文章网址：https://css.csail.mit.edu/6.858/2024/
 评论网址：https://news...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-17" style="display:none;" 
+                <div id="data-20" style="display:none;" 
                      data-title="计算机系统安全 6.566 / 2024 年春季" 
                      data-en-title='&quot;Computer Systems Security 6.566 / Spring 2024&quot;'
                      data-link="https://css.csail.mit.edu/6.858/2024/"
@@ -843,106 +941,6 @@ Points: 142
 Comments URL: https://news.ycombinator.com/item?id=46663507
 Points: 106
 # Comments: 13
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(18)">
-            
-            <div class="item-img" data-type="fallback">
-                <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
-                    H
-                </div>
-            </div>
-            
-            <div class="item-content">
-                <h2 class="item-title">如果你把苹果图标倒过来，看起来就像有人擅长设计</h2>
-                <div class="item-meta">
-                    <span class="source-badge" style="color:#ff6600; background:#ff660015;">
-                        HackerNews
-                    </span>
-                    <span class="meta-date">01-18 07:47</span>
-                </div>
-                <p class="item-summary">文章网址：https://mastodon.social/@heliographe_studio/11589081950...</p>
-                <!-- 隐藏数据 -->
-                <div id="data-18" style="display:none;" 
-                     data-title="如果你把苹果图标倒过来，看起来就像有人擅长设计" 
-                     data-en-title='&quot;If you put Apple icons in reverse it looks like someone getting good at design&quot;'
-                     data-link="https://mastodon.social/@heliographe_studio/115890819509545391"
-                     data-source="HackerNews"
-                     data-date="01-18 07:47"
-                     data-zh-content='&quot;文章网址：https://mastodon.social/@heliographe_studio/115890819509545391\n评论网址：https://news.ycombinator.com/item?id=46663338\n积分：698\n# 评论：268&quot;'>
-                     Article URL: https://mastodon.social/@heliographe_studio/115890819509545391
-Comments URL: https://news.ycombinator.com/item?id=46663338
-Points: 698
-# Comments: 268
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(19)">
-            
-            <div class="item-img" data-type="fallback">
-                <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
-                    H
-                </div>
-            </div>
-            
-            <div class="item-content">
-                <h2 class="item-title">光模式 InFFFFFFlation</h2>
-                <div class="item-meta">
-                    <span class="source-badge" style="color:#ff6600; background:#ff660015;">
-                        HackerNews
-                    </span>
-                    <span class="meta-date">01-18 06:19</span>
-                </div>
-                <p class="item-summary">文章网址：https://willhbr.net/2025/10/20/light-mode-infffffflatio...</p>
-                <!-- 隐藏数据 -->
-                <div id="data-19" style="display:none;" 
-                     data-title="光模式 InFFFFFFlation" 
-                     data-en-title='&quot;Light Mode InFFFFFFlation&quot;'
-                     data-link="https://willhbr.net/2025/10/20/light-mode-infffffflation/"
-                     data-source="HackerNews"
-                     data-date="01-18 06:19"
-                     data-zh-content='&quot;文章网址：https://willhbr.net/2025/10/20/light-mode-infffffflation/\n评论网址：https://news.ycombinator.com/item?id=46662662\n积分：211\n# 评论: 153&quot;'>
-                     Article URL: https://willhbr.net/2025/10/20/light-mode-infffffflation/
-Comments URL: https://news.ycombinator.com/item?id=46662662
-Points: 211
-# Comments: 153
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item news-item-hidden" style="display:none;" data-source="hackernews" onclick="openModal(20)">
-            
-            <div class="item-img" data-type="fallback">
-                <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
-                    H
-                </div>
-            </div>
-            
-            <div class="item-content">
-                <h2 class="item-title">Kip：一种基于土耳其语语法案例的编程语言</h2>
-                <div class="item-meta">
-                    <span class="source-badge" style="color:#ff6600; background:#ff660015;">
-                        HackerNews
-                    </span>
-                    <span class="meta-date">01-18 04:44</span>
-                </div>
-                <p class="item-summary">文章网址：https://github.com/kip-dili/kip
-评论网址：https://news.ycomb...</p>
-                <!-- 隐藏数据 -->
-                <div id="data-20" style="display:none;" 
-                     data-title="Kip：一种基于土耳其语语法案例的编程语言" 
-                     data-en-title='&quot;Kip: A programming language based on grammatical cases of Turkish&quot;'
-                     data-link="https://github.com/kip-dili/kip"
-                     data-source="HackerNews"
-                     data-date="01-18 04:44"
-                     data-zh-content='&quot;文章网址：https://github.com/kip-dili/kip\n评论网址：https://news.ycombinator.com/item?id=46661897\n积分：221\n# 评论: 62&quot;'>
-                     Article URL: https://github.com/kip-dili/kip
-Comments URL: https://news.ycombinator.com/item?id=46661897
-Points: 221
-# Comments: 62
                 </div>
             </div>
         </article>
@@ -1740,7 +1738,7 @@ more…
             </div>
             
             <div class="item-content">
-                <h2 class="item-title">2026 年 Apple Music 超级碗 LX 中场秀：立即观看预告片</h2>
+                <h2 class="item-title">2026 Apple Music 超级碗 LX 中场秀：立即观看预告片</h2>
                 <div class="item-meta">
                     <span class="source-badge" style="color:#cd201f; background:#cd201f15;">
                         MacRumors
@@ -1750,12 +1748,12 @@ more…
                 <p class="item-summary">9 月，Apple 和 NFL 宣布波多黎各说唱歌手兼歌手 Bad Bunny 将成为 2 月 8 日星期日 Apple...</p>
                 <!-- 隐藏数据 -->
                 <div id="data-38" style="display:none;" 
-                     data-title="2026 年 Apple Music 超级碗 LX 中场秀：立即观看预告片" 
+                     data-title="2026 Apple Music 超级碗 LX 中场秀：立即观看预告片" 
                      data-en-title='&quot;2026 Apple Music Super Bowl LX Halftime Show: Watch the Trailer Now&quot;'
                      data-link="https://www.macrumors.com/2026/01/16/2026-apple-music-halftime-show-trailer/"
                      data-source="MacRumors"
                      data-date="01-17 04:46"
-                     data-zh-content='&quot;9 月，Apple 和 NFL 宣布波多黎各说唱歌手兼歌手 Bad Bunny 将成为 2 月 8 日星期日 Apple Music Super Bowl LX 中场秀的主角。演出将在加利福尼亚州圣克拉拉的 Levi's 体育场举行。\n\n\n\n\nSuper Bowl LX 将在 NBC 播出，并在 Peacock 和 NFL+ 上直播，直播将于下午 6:30 开始。东部时间。 Bad Bunny 的表演可能会在晚上 8 点左右开始。至晚上 8:30东部时间，取决于比赛的进展情况。\n\n\nApple Music 今天分享了超级碗 LX 中场秀的官方预告片：\n\n\n\n\nBad Bunny 是有史以来最伟大的拉丁音乐艺术家之一，拥有许多排行榜冠军单曲。他被评为 Apple Music 2022 年度艺术家。\n\n\nApple Music 自 202 年以来一直赞助超级碗中场秀&quot;'>
+                     data-zh-content='&quot;9 月，Apple 和 NFL 宣布波多黎各说唱歌手兼歌手 Bad Bunny 将成为 2 月 8 日星期日 Apple Music 超级碗 LX 中场秀的主角。演出将在加利福尼亚州圣克拉拉的 Levi's 体育场举行。\n\n\n\n\nSuper Bowl LX 将在 NBC 播出，并在 Peacock 和 NFL+ 上直播，直播将于下午 6:30 开始。东部时间。 Bad Bunny 的表演可能会在晚上 8 点左右开始。至晚上 8:30东部时间，取决于比赛的进展情况。\n\n\nApple Music 今天分享了超级碗 LX 中场秀的官方预告片：\n\n\n\n\nBad Bunny 是有史以来最伟大的拉丁音乐艺术家之一，拥有许多排行榜冠军单曲。他被评为 Apple Music 2022 年度艺术家。\n\n\nApple Music 自 202 年以来一直赞助超级碗中场秀&quot;'>
                      In September, Apple and the NFL announced that Puerto Rican rapper and singer Bad Bunny will headline the Apple Music Super Bowl LX Halftime Show on Sunday, February 8. The performance will take place at Levi's Stadium, in Santa Clara, California.
 
 
@@ -2000,7 +1998,7 @@ The post Campaign for Fairer Gambling criticizes Maine governor over online casi
                      data-link="https://www.macrumors.com/2026/01/16/unprecedented-competition-for-chip-supply/"
                      data-source="MacRumors"
                      data-date="01-17 01:06"
-                     data-zh-content='&quot;随着人工智能需求的激增重塑了产能和客户优先级，苹果越来越需要与其他公司竞争台积电 (TSMC) 生产的芯片。\n\n\n\n\n根据半导体分析师蒂姆·卡尔潘（Tim Culpan）在其博客 Culpium 上发布的一份详细报告，苹果不再保证优先获得台积电的领先制造能力，这标志着十多年来苹果芯片一直是这家代工厂扩张战略核心的显着变化。苹果现在正在与 Nvidia 和 AMD 等专注于人工智能的客户直接竞争供应，特别是在最先进的工艺节点上。\n\n\n与智能手机片上系统相比，人工智能加速器每单位消耗的晶圆面积要大得多，这意味着即使是更小的芯片&quot;'>
+                     data-zh-content='&quot;随着人工智能需求的激增重塑了产能和客户优先级，苹果越来越需要与其他公司竞争台积电 (TSMC) 生产的芯片。\n\n\n\n\n根据半导体分析师蒂姆·卡尔潘（Tim Culpan）在其博客 Culpium 上发布的一份详细报告，苹果不再保证优先获得台积电的领先制造能力，这标志着苹果芯片在十多年来一直是代工厂扩张战略核心的一个显着变化。苹果现在正在与 Nvidia 和 AMD 等专注于人工智能的客户直接竞争供应，特别是在最先进的工艺节点上。\n\n\n与智能手机片上系统相比，人工智能加速器每单位消耗的晶圆面积要大得多，这意味着即使是更小的芯片&quot;'>
                      Apple increasingly has to compete with other companies for chips made by Taiwan Semiconductor Manufacturing Co. (TSMC), as surging demand for artificial intelligence reshapes capacity and customer priority.
 
 
@@ -2110,7 +2108,7 @@ The new emoji listed above would be added directly to the iPhone's emoji keyboar
                      data-link="https://9to5google.com/2026/01/16/deals-galaxy-tab-a11-galaxy-z-fold-7-google-smart-tv/"
                      data-source="9to5Google"
                      data-date="01-17 00:49"
-                     data-zh-content='&quot;周五的 9to5Toys 午休活动以新款 Galaxy Tab A11+ 的首次现金折扣拉开序幕，此外，以旧换新还可享受高达 100 美元的折扣。接下来，我们转向 Galaxy Z Fold 7，其标价比原价低 400 美元；谷歌 45 毫米黑色 Pixel Watch 3 LTE 在亚马逊上的售价比原价低 260 美元；65 英寸 TCL 4K mini-LED 谷歌智能电视降价 50%，售价 450 美元。跳跃以仔细观察一切。 \n更多的…&quot;'>
+                     data-zh-content='&quot;周五的 9to5Toys 午休活动以新款 Galaxy Tab A11+ 的首次现金折扣拉开序幕，此外，以旧换新还可享受高达 100 美元的折扣。接下来，我们转向 Galaxy Z Fold 7，其定价高达 400 美元；谷歌的 45 毫米黑色 Pixel Watch 3 LTE 在亚马逊上的售价比原价低 260 美元；65 英寸 TCL 4K mini-LED 谷歌智能电视降价 50%，售价为 450 美元。跳跃以仔细观察一切。 \n更多的…&quot;'>
                      Friday’s 9to5Toys Lunch Break stars off with the first cash discount on the new Galaxy Tab A11+ alongside up to $100 off with trade-ins. From there we move over to the Galaxy Z Fold 7 with as much as $400 offthe list price, Google’s 45mm black Pixel Watch 3 LTE hitting the Amazon low at $260 off the original price, and this 50% price drop on a 65-inch TCL 4K mini-LED Google Smart TV at $450. Hit the jump for a closer look at everything. 
 more…
                 </div>
@@ -2218,7 +2216,7 @@ more…
                     </span>
                     <span class="meta-date">01-16 23:45</span>
                 </div>
-                <p class="item-summary">Verizon 几天前经历了严重的网络中断，导致用户完全无法访问数据或手机服务。此后，Verizon 向用户提供了 20...</p>
+                <p class="item-summary">Verizon 几天前经历了一次严重的网络中断，导致用户完全无法访问数据或手机服务。此后，Verizon 向用户提供了 ...</p>
                 <!-- 隐藏数据 -->
                 <div id="data-48" style="display:none;" 
                      data-title="Visible 也提供断电信用额度，但不如 Verizon 那么多" 
@@ -2226,7 +2224,7 @@ more…
                      data-link="https://9to5google.com/2026/01/16/visible-offers-outage-credit/"
                      data-source="9to5Google"
                      data-date="01-16 23:45"
-                     data-zh-content='&quot;Verizon 几天前经历了严重的网络中断，导致用户完全无法访问数据或手机服务。此后，Verizon 向用户提供了 20 美元的信用额度，Visible 也紧随其后，因为其用户也受到了影响。\n更多的…&quot;'>
+                     data-zh-content='&quot;Verizon 几天前经历了一次严重的网络中断，导致用户完全无法访问数据或手机服务。此后，Verizon 向用户提供了 20 美元的信用额度，Visible 也紧随其后，因为其用户也受到了影响。\n更多的…&quot;'>
                      Verizon experienced a severe network outage some days ago, leaving users without access to data or cell service entirely. Verizon has since offered users a $20 credit, and Visible is tagging on since its users were affected as well.
 more…
                 </div>
@@ -3207,40 +3205,7 @@ more…
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="9to5google" onclick="openModal(64)">
-            
-            <div class="item-img" data-type="image">
-                <img src="https://wsrv.nl/?url=https%3A//9to5google.com/wp-content/uploads/sites/4/2026/01/mediatek-dimensity-9500s-8500-1.jpg%3Fquality%3D82%26strip%3Dall%26w%3D1600&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
-                     onerror="this.parentElement.setAttribute('data-type', 'fallback'); this.style.display='none';">
-                <div class="img-fallback" style="background-color: #f4b40015; color: #f4b400;">
-                    9
-                </div>
-            </div>
-            
-            <div class="item-content">
-                <h2 class="item-title">联发科天玑 9500s 和天玑 8500 首发，打造安卓“旗舰杀手”手机</h2>
-                <div class="item-meta">
-                    <span class="source-badge" style="color:#f4b400; background:#f4b40015;">
-                        9to5Google
-                    </span>
-                    <span class="meta-date">01-16 03:10</span>
-                </div>
-                <p class="item-summary">近年来，Android 的一大趋势是通过降级至上一代或降压芯片组，将自称为“旗舰杀手”的智能手机定位在较低的价格点。联发...</p>
-                <!-- 隐藏数据 -->
-                <div id="data-64" style="display:none;" 
-                     data-title="联发科天玑 9500s 和天玑 8500 首发，打造安卓“旗舰杀手”手机" 
-                     data-en-title='&quot;MediaTek Dimensity 9500s and Dimensity 8500 debut for Android’s ‘flagship killer’ phones&quot;'
-                     data-link="https://9to5google.com/2026/01/15/mediatek-dimensity-9500s-and-dimensity-8500-debut-for-androids-flagship-killer-phones/"
-                     data-source="9to5Google"
-                     data-date="01-16 03:10"
-                     data-zh-content='&quot;近年来，Android 的一大趋势是通过降级至上一代或降压芯片组，将自称为“旗舰杀手”的智能手机定位在较低的价格点。联发科技希望通过全新的天玑 9500s 和天玑 8500 芯片组为这些设备提供动力。\n更多的…&quot;'>
-                     One big trend in Android in recent years has been positioning self-proclaimed “flagship killer” smartphones at a lower price point by dropping down to a last-gen or step-down chipset. With its new Dimensity 9500s and Dimensity 8500 chipsets, MediaTek is looking to power those devices.
-more…
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(65)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(64)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//readwrite.com/wp-content/uploads/2026/01/Federal-prosecutors-unseal-sweeping-NCAA-basketball-illegal-game-fixing-scheme-tied-to-China-300x200.png&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -3260,7 +3225,7 @@ more…
                 </div>
                 <p class="item-summary">费城联邦检察官已公布刑事指控，他们称这是一项长达数年的国际计划，旨在操纵 NCAA I 级男子篮球比赛，甚至中国的一些职...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-65" style="display:none;" 
+                <div id="data-64" style="display:none;" 
                      data-title="联邦检察官揭露了与中国有关的大规模 NCAA 篮球非法比赛造假计划" 
                      data-en-title='&quot;Federal prosecutors unseal sweeping NCAA basketball illegal game-fixing scheme tied to China&quot;'
                      data-link="https://readwrite.com/federal-prosecutors-ncaa-basketball-illegal-game-fixing-point-shaving-scandal-china/"
@@ -3289,7 +3254,7 @@ The NCAA says it has opened investigations into about 40 student-athletes at 20 
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(66)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(65)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//readwrite.com/wp-content/uploads/2026/01/Barrie-man-ex-Toronto-cop-charged-in-gambling-extortion-probe_20260115_123501_0000-300x200.png&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -3309,7 +3274,7 @@ The NCAA says it has opened investigations into about 40 student-athletes at 20 
                 </div>
                 <p class="item-summary">安大略省约克地区警察组织执法局与南锡姆科警察局合作，对一名前多伦多警官和另一名嫌疑人提出指控，指控他们参与正在进行的涉及...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-66" style="display:none;" 
+                <div id="data-65" style="display:none;" 
                      data-title="前多伦多警官和巴里男子在安大略省警方调查赌博勒索团伙中被指控" 
                      data-en-title='&quot;Former Toronto police officer and Barrie man charged in Ontario police probe gambling extortion ring&quot;'
                      data-link="https://readwrite.com/former-toronto-police-officer-charged-gambling-extortion-probe/"
@@ -3334,7 +3299,7 @@ The post Former Toronto police officer and Barrie man charged in Ontario police 
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(67)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(66)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//readwrite.com/wp-content/uploads/2026/01/ATS-52-1-300x200.png&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -3355,7 +3320,7 @@ The post Former Toronto police officer and Barrie man charged in Ontario police 
                 <p class="item-summary">社交游戏领导联盟 (SGLA) 要求缅因州立法者重新考虑 SP 825 法案，该法案将禁止社交+游戏。
 早在 2025 ...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-67" style="display:none;" 
+                <div id="data-66" style="display:none;" 
                      data-title="SGLA 在缅因州立法者面前作证，敦促他们不要禁止 Social Plus 游戏" 
                      data-en-title='&quot;SGLA testifies before Maine lawmakers, urges them not to ban Social Plus games&quot;'
                      data-link="https://readwrite.com/sgla-maine-lawmakers-not-ban-social-plus-games/"
@@ -3383,7 +3348,7 @@ The post SGLA testifies before Maine lawmakers, urges them not to ban Social Plu
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(68)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(67)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//readwrite.com/wp-content/uploads/2026/01/ATS-51-300x200.png&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -3403,7 +3368,7 @@ The post SGLA testifies before Maine lawmakers, urges them not to ban Social Plu
                 </div>
                 <p class="item-summary">纽约州博彩委员会主席对州长 Kathy Hochul 保护纽约人的承诺表示支持并表示赞赏，她概述了 200 多项举措，包...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-68" style="display:none;" 
+                <div id="data-67" style="display:none;" 
                      data-title="纽约博彩委员会赞扬 Hochul，因为该州针对未成年人在线博彩" 
                      data-en-title='&quot;New York Gaming Commission applauds Hochul as state targets underage online betting&quot;'
                      data-link="https://readwrite.com/new-york-gaming-commission-hochul-underage-online-gambling/"
@@ -3427,7 +3392,7 @@ The post New York Gaming Commission applauds Hochul as state targets underage on
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(69)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(68)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//readwrite.com/wp-content/uploads/2026/01/Calabasas-man-pleads-guilty-to-tax-evasion-and-operating-illegal-offshore-gambling-business-300x200.png&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -3447,7 +3412,7 @@ The post New York Gaming Commission applauds Hochul as state targets underage on
                 </div>
                 <p class="item-summary">美国司法部公共事务办公室发布的一份声明中，加利福尼亚州卡拉巴萨斯州的杰森·诺亚·费曼 (Jason Noah Feinm...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-69" style="display:none;" 
+                <div id="data-68" style="display:none;" 
                      data-title="卡拉巴萨斯男子承认逃税和经营非法离岸赌博业务" 
                      data-en-title='&quot;Calabasas man pleads guilty to tax evasion and operating illegal offshore gambling business&quot;'
                      data-link="https://readwrite.com/calabasas-man-pleads-guilty-tax-evasion-operating-offshore-gambling-business/"
@@ -3481,7 +3446,7 @@ The post Calabasas man pleads guilty to tax evasion and operating illegal offsho
         </div>
 
         <footer class="main-footer">
-            <p>文章总数: 70 | Updated: 2026-01-19 01:20</p>
+            <p>文章总数: 69 | Updated: 2026-01-19 01:48</p>
             <p><a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2025183710号-1</a></p>
             <p>&copy; 折疼记</p>
         </footer>
