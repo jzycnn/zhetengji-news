@@ -162,7 +162,7 @@
             </div>
             
             <div class="item-content">
-                <h2 class="item-title">Show HN：我制作了一个可以处理不相交的间隔集的计算器</h2>
+                <h2 class="item-title">Show HN：我制作了一个计算器，可以处理不相交的间隔集</h2>
                 <div class="item-meta">
                     <span class="source-badge" style="color:#ff6600; background:#ff660015;">
                         HackerNews
@@ -172,7 +172,7 @@
                 <p class="item-summary">过去几周我一直在研究区间算术，这是一个非常有趣的领域，因为虽然过去几十年里发表了大量超级有趣的研究，但在我看来，它从未真...</p>
                 <!-- 隐藏数据 -->
                 <div id="data-0" style="display:none;" 
-                     data-title="Show HN：我制作了一个可以处理不相交的间隔集的计算器" 
+                     data-title="Show HN：我制作了一个计算器，可以处理不相交的间隔集" 
                      data-en-title='&quot;Show HN: I made a calculator that works over disjoint sets of intervals&quot;'
                      data-link="https://victorpoughon.github.io/interval-calculator/"
                      data-source="HackerNews"
@@ -181,8 +181,8 @@
                      I've been studying interval arithmetic for the past few weeks and it's a really interesting field because while there is a ton of super interesting research published over the past decades, it has never really gotten the recognition that it deserves, IMO.One reason for this is that standard interval arithmetic has really poor handling of division by intervals containing zero. If you compute 1 / [-1, 2] in regular interval arithmetic, you get either [-∞, +∞], or you have to say that the operation is undefined. Both solutions are virtually useless. The real answer of course is [-∞, -1] U [0.5, +∞]: i.e. a union of two disjoint intervals.This is useful because you can confidently exclude a non empty set of the real numbers ([-1, 0.5]) from the set of possible values that you can get by dividing 1 by a number between -1 and 2.But this definition of interval division yields a value that is not an interval. This is a problem if you want to define a closed arithmetic system, where you can build and evaluate arbitrary expression over interval values.(This behavior extends to any non continuous function like tan() for example, which is implemented in my project - not without difficulties!)Well the obvious solution is to define your arithmetic over disjoint unions of intervals. This is the subject of a 2017 paper called "Interval Unions" by by Schichl, H., Domes, F., Montanher, T. and Kofler, K..This open-source project I made implements interval union arithmetic in TypeScript in the form of a simple interactive calculator, so you can try it out for yourself! The underlying TypeScript library is dependency free and implements interval union arithmetic over IEEE 754 double precision floats (JS native number type) with outward rounding. This guarantees accuracy of interval results in the presence of rounding issue inherent to floating point.
 
 Comments URL: https://news.ycombinator.com/item?id=47812341
-Points: 139
-# Comments: 22
+Points: 158
+# Comments: 28
                 </div>
             </div>
         </article>
@@ -367,11 +367,11 @@ Apple told India the same thing about the Aadhaar app, informing the IT ministry
                      data-link="https://www.corsix.org/content/simplified-model-of-fil-c"
                      data-source="HackerNews"
                      data-date="04-18 05:38"
-                     data-zh-content='&quot;文章网址：https://www.corsix.org/content/simplified-model-of-fil-c\n评论网址：https://news.ycombinator.com/item?id=47810872\n积分：172\n#评论：93&quot;'>
+                     data-zh-content='&quot;文章网址：https://www.corsix.org/content/simplified-model-of-fil-c\n评论网址：https://news.ycombinator.com/item?id=47810872\n积分：176\n#评论：94&quot;'>
                      Article URL: https://www.corsix.org/content/simplified-model-of-fil-c
 Comments URL: https://news.ycombinator.com/item?id=47810872
-Points: 172
-# Comments: 93
+Points: 176
+# Comments: 94
                 </div>
             </div>
         </article>
@@ -581,11 +581,11 @@ Read the full story at The Verge.
                      data-link="https://electrek.co/2026/04/17/tesla-hw3-owners-be-patient-7-years-fsd/"
                      data-source="HackerNews"
                      data-date="04-18 03:00"
-                     data-zh-content='&quot;文章网址：https://electrek.co/2026/04/17/tesla-hw3-owners-be-patent-7-years-fsd/\n评论网址：https://news.ycombinator.com/item?id=47809347\n积分：199\n# 评论: 158&quot;'>
+                     data-zh-content='&quot;文章网址：https://electrek.co/2026/04/17/tesla-hw3-owners-be-patent-7-years-fsd/\n评论网址：https://news.ycombinator.com/item?id=47809347\n积分：201\n# 评论：159&quot;'>
                      Article URL: https://electrek.co/2026/04/17/tesla-hw3-owners-be-patient-7-years-fsd/
 Comments URL: https://news.ycombinator.com/item?id=47809347
-Points: 199
-# Comments: 158
+Points: 201
+# Comments: 159
                 </div>
             </div>
         </article>
@@ -674,11 +674,11 @@ The ability to connect an iPhone to a satellite without pointing the device towa
                      data-link="https://blog.calif.io/p/mad-bugs-even-cat-readmetxt-is-not"
                      data-source="HackerNews"
                      data-date="04-18 02:43"
-                     data-zh-content='&quot;文章网址：https://blog.calif.io/p/mad-bugs-even-cat-readmetxt-is-not\n评论网址：https://news.ycombinator.com/item?id=47809190\n积分：177\n#评论：93&quot;'>
+                     data-zh-content='&quot;文章网址：https://blog.calif.io/p/mad-bugs-even-cat-readmetxt-is-not\n评论网址：https://news.ycombinator.com/item?id=47809190\n积分：187\n# 评论: 105&quot;'>
                      Article URL: https://blog.calif.io/p/mad-bugs-even-cat-readmetxt-is-not
 Comments URL: https://news.ycombinator.com/item?id=47809190
-Points: 177
-# Comments: 93
+Points: 187
+# Comments: 105
                 </div>
             </div>
         </article>
@@ -707,11 +707,11 @@ Points: 177
                      data-link="https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/The_toxic_side_of_the_Moon"
                      data-source="HackerNews"
                      data-date="04-18 02:17"
-                     data-zh-content='&quot;文章网址：https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/The_有毒_side_of_the_Moon\n评论网址：https://news.ycombinator.com/item?id=47808913\n积分：325\n# 评论：190&quot;'>
+                     data-zh-content='&quot;文章网址：https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/The_有毒_side_of_the_Moon\n评论网址：https://news.ycombinator.com/item?id=47808913\n积分：334\n# 评论: 196&quot;'>
                      Article URL: https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/The_toxic_side_of_the_Moon
 Comments URL: https://news.ycombinator.com/item?id=47808913
-Points: 325
-# Comments: 190
+Points: 334
+# Comments: 196
                 </div>
             </div>
         </article>
@@ -915,11 +915,11 @@ more…
                      data-link="https://github.com/smol-machines/smolvm"
                      data-source="HackerNews"
                      data-date="04-18 01:18"
-                     data-zh-content='&quot;文章网址：https://github.com/smol-machines/smolvm\n评论网址：https://news.ycombinator.com/item?id=47808268\n积分：326\n#评论：99&quot;'>
+                     data-zh-content='&quot;文章网址：https://github.com/smol-machines/smolvm\n评论网址：https://news.ycombinator.com/item?id=47808268\n积分：337\n# 评论: 102&quot;'>
                      Article URL: https://github.com/smol-machines/smolvm
 Comments URL: https://news.ycombinator.com/item?id=47808268
-Points: 326
-# Comments: 99
+Points: 337
+# Comments: 102
                 </div>
             </div>
         </article>
@@ -948,12 +948,12 @@ Points: 326
                      data-link="https://github.com/paniclock/paniclock/"
                      data-source="HackerNews"
                      data-date="04-18 00:38"
-                     data-zh-content='&quot;我在《华盛顿邮报》记者汉娜·纳坦森（Hannah Natanson）被迫用指纹解锁她的电脑的事件发生后写下这篇文章。这导致她可以访问她计算机上的桌面信号，从而泄露消息来源及其对话。https://www.yahoo.com/news/articles/washington-post-raid-pro...编辑：我在应用程序登陆页面上有更多关于合法性和优先级的详细信息https://paniclock.github.io/\n\n评论网址：https://news.ycombinator.com/item?id=47807809\n积分：186\n# 评论: 78&quot;'>
+                     data-zh-content='&quot;我在《华盛顿邮报》记者汉娜·纳坦森（Hannah Natanson）被迫用指纹解锁她的电脑的事件发生后写下这篇文章。这导致她可以访问她计算机上的桌面信号，从而泄露消息来源及其对话。https://www.yahoo.com/news/articles/washington-post-raid-pro...编辑：我在应用程序登陆页面上有更多关于合法性和优先级的详细信息https://paniclock.github.io/\n\n评论网址：https://news.ycombinator.com/item?id=47807809\n积分：194\n# 评论: 85&quot;'>
                      I wrote this after the case of a Washington Post reporter, Hannah Natanson, was compelled to unlock her computer with her fingerprint. This resulted in access to her Desktop Signal on her computer, revealing sources and their conversations.https://www.yahoo.com/news/articles/washington-post-raid-pro...Edit: I've a lot more details about the legality and precedence on the apps landing page https://paniclock.github.io/
 
 Comments URL: https://news.ycombinator.com/item?id=47807809
-Points: 186
-# Comments: 78
+Points: 194
+# Comments: 85
                 </div>
             </div>
         </article>
@@ -982,11 +982,11 @@ Points: 186
                      data-link="https://twitter.com/finmoorhouse/status/2044933442236776794"
                      data-source="HackerNews"
                      data-date="04-18 00:23"
-                     data-zh-content='&quot;文章网址：https://twitter.com/finmoorhouse/status/2044933442236776794\n评论网址：https://news.ycombinator.com/item?id=47807619\n积分：188\n# 评论: 151&quot;'>
+                     data-zh-content='&quot;文章网址：https://twitter.com/finmoorhouse/status/2044933442236776794\n评论网址：https://news.ycombinator.com/item?id=47807619\n积分：195\n# 评论: 157&quot;'>
                      Article URL: https://twitter.com/finmoorhouse/status/2044933442236776794
 Comments URL: https://news.ycombinator.com/item?id=47807619
-Points: 188
-# Comments: 151
+Points: 195
+# Comments: 157
                 </div>
             </div>
         </article>
@@ -1016,11 +1016,11 @@ Points: 188
                      data-link="https://miguelconner.substack.com/p/im-coding-by-hand"
                      data-source="HackerNews"
                      data-date="04-18 00:19"
-                     data-zh-content='&quot;文章网址：https://miguelconner.substack.com/p/im-coding-by-hand\n评论网址：https://news.ycombinator.com/item?id=47807583\n积分：201\n# 评论：201&quot;'>
+                     data-zh-content='&quot;文章网址：https://miguelconner.substack.com/p/im-coding-by-hand\n评论网址：https://news.ycombinator.com/item?id=47807583\n积分：211\n# 评论：213&quot;'>
                      Article URL: https://miguelconner.substack.com/p/im-coding-by-hand
 Comments URL: https://news.ycombinator.com/item?id=47807583
-Points: 201
-# Comments: 201
+Points: 211
+# Comments: 213
                 </div>
             </div>
         </article>
@@ -1175,11 +1175,11 @@ more…
                      data-link="https://nasaforce.gov/"
                      data-source="HackerNews"
                      data-date="04-17 23:47"
-                     data-zh-content='&quot;文章网址：https://nasaforce.gov/\n评论网址：https://news.ycombinator.com/item?id=47807209\n积分：269\n# 评论：266&quot;'>
+                     data-zh-content='&quot;文章网址：https://nasaforce.gov/\n评论网址：https://news.ycombinator.com/item?id=47807209\n积分：275\n# 评论：268&quot;'>
                      Article URL: https://nasaforce.gov/
 Comments URL: https://news.ycombinator.com/item?id=47807209
-Points: 269
-# Comments: 266
+Points: 275
+# Comments: 268
                 </div>
             </div>
         </article>
@@ -1250,7 +1250,7 @@ Read the full story at The Verge.
                      data-link="https://www.macrumors.com/2026/04/17/ios-27-new-iphone-features-coming/"
                      data-source="MacRumors"
                      data-date="04-17 23:40"
-                     data-zh-content='&quot;苹果预计将在 6 月 8 日的 WWDC 2026 主题演讲中发布 iOS 27，更新预计于 9 月发布。\n\n\n\n\n下面，我们概述了传闻中 iOS 27 即将推出的一些新功能，除了期待已久的更加个性化的 Siri 版本之外。\n\n\n据报道，iOS 27 将支持 5G 卫星互联网连接，尽管此功能可能仅限于即将推出的配备苹果下一代 C2 调制解调器的 iPhone 18 Pro 机型。据传还有其他卫星功能，包括通过卫星提供的苹果地图以及通过卫星使用信息时发送和接收照片的功能。\n\n\niOS 27 可能类似于 Mac OS X Snow Leopard，从某种意义上说，苹果显然专注于提高“质量和底层性能”。预计苹果将重点关注&quot;'>
+                     data-zh-content='&quot;苹果预计将在 6 月 8 日的 WWDC 2026 主题演讲中发布 iOS 27，更新预计于 9 月发布。\n\n\n\n\n下面，我们概述了传闻中 iOS 27 即将推出的一些新功能，除了期待已久的更加个性化的 Siri 版本之外。\n\n\n据报道，iOS 27 将支持 5G 卫星互联网连接，尽管此功能可能仅限于即将推出的配备苹果下一代 C2 调制解调器的 iPhone 18 Pro 机型。据传还有其他卫星功能，包括通过卫星提供的苹果地图以及通过卫星使用消息时发送和接收照片的能力。\n\n\niOS 27 可能类似于 Mac OS X Snow Leopard，从某种意义上说，苹果显然专注于提高“质量和底层性能”。预计苹果将重点关注&quot;'>
                      Apple is expected to unveil iOS 27 during its WWDC 2026 keynote on June 8, and the update should be released in September.
 
 
@@ -1349,11 +1349,11 @@ Apple is unlikely to make a big stink about such guerrilla marketing, as it woul
                      data-link="https://www.claudecodecamp.com/p/i-measured-claude-4-7-s-new-tokenizer-here-s-what-it-costs-you"
                      data-source="HackerNews"
                      data-date="04-17 23:29"
-                     data-zh-content='&quot;文章网址：https://www.claudecodecamp.com/p/i-measured-claude-4-7-s-new-tokenizer-here-s-what-it-costs-you\n评论网址：https://news.ycombinator.com/item?id=47807006\n积分：602\n# 评论: 428&quot;'>
+                     data-zh-content='&quot;文章网址：https://www.claudecodecamp.com/p/i-measured-claude-4-7-s-new-tokenizer-here-s-what-it-costs-you\n评论网址：https://news.ycombinator.com/item?id=47807006\n积分：611\n# 评论: 436&quot;'>
                      Article URL: https://www.claudecodecamp.com/p/i-measured-claude-4-7-s-new-tokenizer-here-s-what-it-costs-you
 Comments URL: https://news.ycombinator.com/item?id=47807006
-Points: 602
-# Comments: 428
+Points: 611
+# Comments: 436
                 </div>
             </div>
         </article>
@@ -1383,11 +1383,11 @@ Points: 602
                      data-link="https://awnist.com/slop-cop"
                      data-source="HackerNews"
                      data-date="04-17 23:15"
-                     data-zh-content='&quot;文章网址：https://awnist.com/slop-cop\n评论网址：https://news.ycombinator.com/item?id=47806845\n积分：173\n# 评论: 102&quot;'>
+                     data-zh-content='&quot;文章网址：https://awnist.com/slop-cop\n评论网址：https://news.ycombinator.com/item?id=47806845\n积分：178\n# 评论：109&quot;'>
                      Article URL: https://awnist.com/slop-cop
 Comments URL: https://news.ycombinator.com/item?id=47806845
-Points: 173
-# Comments: 102
+Points: 178
+# Comments: 109
                 </div>
             </div>
         </article>
@@ -1449,10 +1449,10 @@ more…
                      data-link="https://risky.biz/risky-bulletin-nist-gives-up-enriching-most-cves/"
                      data-source="HackerNews"
                      data-date="04-17 23:09"
-                     data-zh-content='&quot;文章网址：https://risky.biz/risky-bulletin-nist-gives-up-enriching-most-cves/\n评论网址：https://news.ycombinator.com/item?id=47806777\n积分：198\n# 评论: 51&quot;'>
+                     data-zh-content='&quot;文章网址：https://risky.biz/risky-bulletin-nist-gives-up-enriching-most-cves/\n评论网址：https://news.ycombinator.com/item?id=47806777\n积分：200\n# 评论: 51&quot;'>
                      Article URL: https://risky.biz/risky-bulletin-nist-gives-up-enriching-most-cves/
 Comments URL: https://news.ycombinator.com/item?id=47806777
-Points: 198
+Points: 200
 # Comments: 51
                 </div>
             </div>
@@ -1530,12 +1530,12 @@ Okay, this isn’t technically a deal, but if you’re looking to save on the Me
                      data-link="https://www.anthropic.com/news/claude-design-anthropic-labs"
                      data-source="HackerNews"
                      data-date="04-17 23:04"
-                     data-zh-content='&quot;相关：https://x.com/flomerboy/status/2045162321589252458（https://xcancel.com/flomerboy/status/2045162321589252458）\n\n评论网址：https://news.ycombinator.com/item?id=47806725\n积分：1028\n# 评论：670&quot;'>
+                     data-zh-content='&quot;相关：https://x.com/flomerboy/status/2045162321589252458（https://xcancel.com/flomerboy/status/2045162321589252458）\n\n评论网址：https://news.ycombinator.com/item?id=47806725\n积分：1048\n# 评论: 686&quot;'>
                      Related: https://x.com/flomerboy/status/2045162321589252458 (https://xcancel.com/flomerboy/status/2045162321589252458)
 
 Comments URL: https://news.ycombinator.com/item?id=47806725
-Points: 1028
-# Comments: 670
+Points: 1048
+# Comments: 686
                 </div>
             </div>
         </article>
@@ -1611,10 +1611,10 @@ Counterpoint warned that manufacturers broadly face a "double hit" of shrinking 
                      data-link="https://www.theguardian.com/world/2026/apr/16/israel-escalates-attacks-on-medics-in-lebanon-with-deadly-quadruple-tap"
                      data-source="HackerNews"
                      data-date="04-17 22:53"
-                     data-zh-content='&quot;文章网址：https://www.theguardian.com/world/2026/apr/16/israel-escalates-attacks-on-medics-in-lebanon-with-deadly-quadruple-tap\n评论网址：https://news.ycombinator.com/item?id=47806596\n积分：219\n# 评论: 144&quot;'>
+                     data-zh-content='&quot;文章网址：https://www.theguardian.com/world/2026/apr/16/israel-escalates-attacks-on-medics-in-lebanon-with-deadly-quadruple-tap\n评论网址：https://news.ycombinator.com/item?id=47806596\n积分：220\n# 评论: 144&quot;'>
                      Article URL: https://www.theguardian.com/world/2026/apr/16/israel-escalates-attacks-on-medics-in-lebanon-with-deadly-quadruple-tap
 Comments URL: https://news.ycombinator.com/item?id=47806596
-Points: 219
+Points: 220
 # Comments: 144
                 </div>
             </div>
@@ -1754,7 +1754,7 @@ Read the full story at The Verge.
             </div>
             
             <div class="item-content">
-                <h2 class="item-title">Google 将单独的酒店价格跟踪功能引入到搜索中，满足您所有夏季旅行的需求</h2>
+                <h2 class="item-title">Google 将单独的酒店价格跟踪功能引入到搜索中，以满足您所有夏季旅行的需求</h2>
                 <div class="item-meta">
                     <span class="source-badge" style="color:#f4b400; background:#f4b40015;">
                         9to5Google
@@ -1765,7 +1765,7 @@ Read the full story at The Verge.
 更多的…...</p>
                 <!-- 隐藏数据 -->
                 <div id="data-40" style="display:none;" 
-                     data-title="Google 将单独的酒店价格跟踪功能引入到搜索中，满足您所有夏季旅行的需求" 
+                     data-title="Google 将单独的酒店价格跟踪功能引入到搜索中，以满足您所有夏季旅行的需求" 
                      data-en-title='&quot;Google brings individual hotel price tracking to Search for all your summer travel needs&quot;'
                      data-link="https://9to5google.com/2026/04/17/google-individual-hotel-price-tracking/"
                      data-source="9to5Google"
@@ -3026,7 +3026,7 @@ The post BetMGM starts 2026 profitable but growth slows and outlook narrows slig
                      data-link="https://readwrite.com/online-sports-betting-grows-risks-rise-us-survey/"
                      data-source="ReadWrite"
                      data-date="04-14 19:14"
-                     data-zh-content='&quot;在线体育博彩正在成为美国日常生活的一部分，尽管对其影响的不安日益加剧，但参与度仍在持续攀升。 4 月 13 日发布的一项新的全国调查显示，这两种趋势同时发生。\n锡耶纳研究所和圣博纳文图尔大学 Jandoli 传播学院的研究人员报告称，27% 的美国人现在在 DraftKings、Caesars、FanDuel 或 BetMGM 等平台上拥有活跃的在线体育博彩账户。这一比例从 2025 年的 22% 到前一年的 19% 稳步增长。另外 6% 的人表示他们曾经拥有一个账户，这意味着大约三分之一的美国人曾在某个时候尝试过在线体育博彩。\n\n新锡耶纳/@BonasJSschool 年度体育迷调查：第 2 部分 – 在线体育博彩超过四分之一&quot;'>
+                     data-zh-content='&quot;在线体育博彩正在成为美国日常生活的一部分，尽管对其影响的不安日益加剧，但参与度仍在持续攀升。 4 月 13 日发布的一项新的全国调查显示，这两种趋势同时发生。\n锡耶纳研究所和圣博纳文图尔大学 Jandoli 传播学院的研究人员报告称，27% 的美国人现在在 DraftKings、Caesars、FanDuel 或 BetMGM 等平台上拥有活跃的在线体育博彩帐户。这一比例从 2025 年的 22% 到前一年的 19% 稳步增长。另外 6% 的人表示他们曾经拥有一个账户，这意味着大约三分之一的美国人曾在某个时候尝试过在线体育博彩。\n\n新锡耶纳/@BonasJSschool 年度体育迷调查：第 2 部分 – 在线体育博彩超过四分之一&quot;'>
                      Online sports betting is becoming a routine part of daily life across the United States, with participation continuing to climb even as unease about its effects grows. A new national survey released April 13 shows both trends moving in tandem.
 Researchers from the Siena Research Institute and St. Bonaventure University’s Jandoli School of Communication report that 27% of Americans now hold an active online sportsbook account with platforms like DraftKings, Caesars, FanDuel, or BetMGM. This has steadily increased from 22% in 2025 and 19% the year before. Another 6% say they used to have an account, meaning roughly one in three Americans has tried online sports betting at some point.
 
@@ -3052,7 +3052,7 @@ Public opinion reflects that tension. About half of Americans support nationwide
         </div>
 
         <footer class="main-footer">
-            <p>文章总数: 67 | Updated: 2026-04-18 17:07</p>
+            <p>文章总数: 67 | Updated: 2026-04-18 18:04</p>
             <p><a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2025183710号-1</a></p>
             <p>&copy; 折疼记</p>
         </footer>
