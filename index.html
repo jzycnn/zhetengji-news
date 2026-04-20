@@ -230,16 +230,84 @@ All in all, expect a Mac Studio refresh around October this year, followed by Ma
                      data-link="https://www.bbc.com/news/articles/cge0grppe3po"
                      data-source="HackerNews"
                      data-date="04-20 09:50"
-                     data-zh-content='&quot;文章网址：https://www.bbc.com/news/articles/cge0grppe3po\n评论网址：https://news.ycombinator.com/item?id=47829486\n积分：143\n# 评论: 53&quot;'>
+                     data-zh-content='&quot;文章网址：https://www.bbc.com/news/articles/cge0grppe3po\n评论网址：https://news.ycombinator.com/item?id=47829486\n积分：226\n# 评论: 108&quot;'>
                      Article URL: https://www.bbc.com/news/articles/cge0grppe3po
 Comments URL: https://news.ycombinator.com/item?id=47829486
-Points: 143
-# Comments: 53
+Points: 226
+# Comments: 108
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="macrumors" onclick="openModal(2)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(2)">
+            
+            <div class="item-img" data-type="fallback">
+                <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
+                    H
+                </div>
+            </div>
+            
+            <div class="item-content">
+                <h2 class="item-title">Show HN：在 Apple Silicon 上本地运行 TRELLIS.2 图像到 3D 生成</h2>
+                <div class="item-meta">
+                    <span class="source-badge" style="color:#ff6600; background:#ff660015;">
+                        HackerNews
+                    </span>
+                    <span class="meta-date">04-20 08:07</span>
+                </div>
+                <p class="item-summary">我通过 PyTorch MPS 移植了 Microsoft 的 TRELLIS.2（4B 参数图像到 3D 模型）以在 ...</p>
+                <!-- 隐藏数据 -->
+                <div id="data-2" style="display:none;" 
+                     data-title="Show HN：在 Apple Silicon 上本地运行 TRELLIS.2 图像到 3D 生成" 
+                     data-en-title='&quot;Show HN: Run TRELLIS.2 Image-to-3D generation natively on Apple Silicon&quot;'
+                     data-link="https://github.com/shivampkumar/trellis-mac"
+                     data-source="HackerNews"
+                     data-date="04-20 08:07"
+                     data-zh-content='&quot;我通过 PyTorch MPS 移植了 Microsoft 的 TRELLIS.2（4B 参数图像到 3D 模型）以在 Apple Silicon 上运行。原始版本需要带有 flash_attn、nvdiffrast 和自定义稀疏卷积内核的 CUDA：这些都不能在 Mac 上工作。我用纯 PyTorch 替代方案替换了 CUDA 特定操作：聚集-分散稀疏 3D 卷积、稀疏变换器的 SDPA 注意力以及替换 CUDA 哈希图操作的基于 Python 的网格提取。 9 个文件中的总更改为几百行。在 M4 Pro (24GB) 上大约 3.5 分钟内从单张照片生成约 400K 顶点网格。不如 H100 快（需要几秒钟），但它可以离线工作，不依赖云。https://github.com/shivampkumar/trellis-mac\n\n评论网址：https://news.ycombinator.com/item?id=47828896\n积分：132\n# 评论&quot;'>
+                     I ported Microsoft's TRELLIS.2 (4B parameter image-to-3D model) to run on Apple Silicon via PyTorch MPS. The original requires CUDA with flash_attn, nvdiffrast, and custom sparse convolution kernels:  none of which work on Mac.I replaced the CUDA-specific ops with pure-PyTorch alternatives: a gather-scatter sparse 3D convolution, SDPA attention for sparse transformers, and a Python-based mesh extraction replacing CUDA hashmap operations. Total changes are a few hundred lines across 9 files.Generates ~400K vertex meshes from single photos in about 3.5 minutes on M4 Pro (24GB). Not as fast as H100 (where it takes seconds), but it works offline with no cloud dependency.https://github.com/shivampkumar/trellis-mac
+
+Comments URL: https://news.ycombinator.com/item?id=47828896
+Points: 132
+# Comments: 21
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(3)">
+            
+            <div class="item-img" data-type="fallback">
+                <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
+                    H
+                </div>
+            </div>
+            
+            <div class="item-content">
+                <h2 class="item-title">2,100 个瑞士城市显示哪个提供商处理其官方电子邮件</h2>
+                <div class="item-meta">
+                    <span class="source-badge" style="color:#ff6600; background:#ff660015;">
+                        HackerNews
+                    </span>
+                    <span class="meta-date">04-20 06:55</span>
+                </div>
+                <p class="item-summary">相关正在进行的话题：瑞士当局希望减少对微软的依赖 - https://news.ycombinator.com/item...</p>
+                <!-- 隐藏数据 -->
+                <div id="data-3" style="display:none;" 
+                     data-title="2,100 个瑞士城市显示哪个提供商处理其官方电子邮件" 
+                     data-en-title='&quot;2,100 Swiss municipalities showing which provider handles their official email&quot;'
+                     data-link="https://mxmap.ch/"
+                     data-source="HackerNews"
+                     data-date="04-20 06:55"
+                     data-zh-content='&quot;相关正在进行的话题：瑞士当局希望减少对微软的依赖 - https://news.ycombinator.com/item?id=47827383\n\n评论网址：https://news.ycombinator.com/item?id=47828420\n积分：114\n# 评论: 36&quot;'>
+                     Related ongoing thread: Swiss authorities want to reduce dependency on Microsoft - https://news.ycombinator.com/item?id=47827383
+
+Comments URL: https://news.ycombinator.com/item?id=47828420
+Points: 114
+# Comments: 36
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item " style="display:flex;" data-source="macrumors" onclick="openModal(4)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//images.macrumors.com/article-new/2025/06/iOS-26-on-Three-iPhones.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -259,7 +327,7 @@ Points: 143
                 </div>
                 <p class="item-summary">据彭博社的 Mark Gurman 报道，苹果计划在 iOS 27 上的 iPhone 主屏幕自定义菜单中添加“撤消”和...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-2" style="display:none;" 
+                <div id="data-4" style="display:none;" 
                      data-title="苹果测试两个新的 iOS 27 主屏幕自定义选项" 
                      data-en-title='&quot;Apple Testing Two New iOS 27 Home Screen Customization Options&quot;'
                      data-link="https://www.macrumors.com/2026/04/19/apple-testing-two-small-yet-useful-ios-27-options/"
@@ -285,7 +353,7 @@ iOS 27 beta testing will begin in June, and the update will be released in Septe
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(3)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(5)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -294,7 +362,7 @@ iOS 27 beta testing will begin in June, and the update will be released in Septe
             </div>
             
             <div class="item-content">
-                <h2 class="item-title">破产人工智能公司前首席执行官、前首席财务官被控欺诈</h2>
+                <h2 class="item-title">iLearningEngines 前首席执行官、前首席财务官被控欺诈</h2>
                 <div class="item-meta">
                     <span class="source-badge" style="color:#ff6600; background:#ff660015;">
                         HackerNews
@@ -303,22 +371,22 @@ iOS 27 beta testing will begin in June, and the update will be released in Septe
                 </div>
                 <p class="item-summary">文章网址：https://www.reuters.com/legal/government/ex-ceo-ex-cfo-...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-3" style="display:none;" 
-                     data-title="破产人工智能公司前首席执行官、前首席财务官被控欺诈" 
-                     data-en-title='&quot;Ex-CEO, ex-CFO of bankrupt AI company charged with fraud&quot;'
+                <div id="data-5" style="display:none;" 
+                     data-title="iLearningEngines 前首席执行官、前首席财务官被控欺诈" 
+                     data-en-title='&quot;Ex-CEO, ex-CFO of iLearningEngines charged with fraud&quot;'
                      data-link="https://www.reuters.com/legal/government/ex-ceo-ex-cfo-bankrupt-ai-company-charged-with-fraud-2026-04-17/"
                      data-source="HackerNews"
                      data-date="04-20 06:30"
-                     data-zh-content='&quot;文章网址：https://www.reuters.com/legal/government/ex-ceo-ex-cfo-bankrupt-ai-company-charged-with-fraud-2026-04-17/\n评论网址：https://news.ycombinator.com/item?id=47828225\n积分：138\n# 评论: 58&quot;'>
+                     data-zh-content='&quot;文章网址：https://www.reuters.com/legal/government/ex-ceo-ex-cfo-bankrupt-ai-company-charged-with-fraud-2026-04-17/\n评论网址：https://news.ycombinator.com/item?id=47828225\n积分：150\n# 评论: 62&quot;'>
                      Article URL: https://www.reuters.com/legal/government/ex-ceo-ex-cfo-bankrupt-ai-company-charged-with-fraud-2026-04-17/
 Comments URL: https://news.ycombinator.com/item?id=47828225
-Points: 138
-# Comments: 58
+Points: 150
+# Comments: 62
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="macrumors" onclick="openModal(4)">
+        <article class="news-item " style="display:flex;" data-source="macrumors" onclick="openModal(6)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//images.macrumors.com/article-new/2026/03/wwdc-2026-horizontal.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -338,7 +406,7 @@ Points: 138
                 </div>
                 <p class="item-summary">据彭博社的 Mark Gurman 称，Apple 的 WWDC 2026 图片“让我们一睹 iOS 27 中改进的 S...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-4" style="display:none;" 
+                <div id="data-6" style="display:none;" 
                      data-title="WWDC 2026 图形预告 iOS 27 主要功能" 
                      data-en-title='&quot;WWDC 2026 Graphic Teases Major iOS 27 Feature&quot;'
                      data-link="https://www.macrumors.com/2026/04/19/wwdc-2026-graphic-teases-ios-27-feature/"
@@ -364,7 +432,7 @@ Apple announced that WWDC 2026 will run from Monday, June 8 through Friday, June
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="9to5google" onclick="openModal(5)">
+        <article class="news-item " style="display:flex;" data-source="9to5google" onclick="openModal(7)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//9to5google.com/wp-content/uploads/sites/4/2023/03/fitbit-logo-5.jpg%3Fquality%3D82%26strip%3Dall%26w%3D1600&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -384,7 +452,7 @@ Apple announced that WWDC 2026 will run from Monday, June 8 through Friday, June
                 </div>
                 <p class="item-summary">三月底，谷歌开始预告一款无屏幕的 Fitbit 手环。 9to5Google 现在可以报告称，该设备将作为“Fitbit...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-5" style="display:none;" 
+                <div id="data-7" style="display:none;" 
                      data-title="资料来源：“Fitbit Air”是一款无屏幕 Whoop 竞争对手，首次推出“Google Health”订阅" 
                      data-en-title='&quot;Sources: ‘Fitbit Air’ is a screen-less Whoop competitor debuting with ‘Google Health’ subscription&quot;'
                      data-link="https://9to5google.com/2026/04/19/fitbit-air-google-health/"
@@ -397,7 +465,7 @@ more…
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(6)">
+        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(8)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2026/04/gettyimages-2271539021.jpg%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -419,7 +487,7 @@ more…
 
 今天，AST SpaceMobile 的蓝鸟 7 号卫星搭载蓝色起源的可重复使用的新...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-6" style="display:none;" 
+                <div id="data-8" style="display:none;" 
                      data-title="蓝色起源成功重复使用新格伦火箭" 
                      data-en-title='&quot;Blue Origin successfully reused its New Glenn rocket&quot;'
                      data-link="https://www.theverge.com/science/914729/blue-origin-successfully-reused-its-new-glenn-rocket"
@@ -437,7 +505,7 @@ Read the full story at The Verge.
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(7)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(9)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -455,22 +523,55 @@ Read the full story at The Verge.
                 </div>
                 <p class="item-summary">文章网址：https://www.swissinfo.ch/eng/swiss-ai/swiss-authorities...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-7" style="display:none;" 
+                <div id="data-9" style="display:none;" 
                      data-title="瑞士当局希望减少对微软的依赖" 
                      data-en-title='&quot;Swiss authorities want to reduce dependency on Microsoft&quot;'
                      data-link="https://www.swissinfo.ch/eng/swiss-ai/swiss-authorities-want-to-reduce-dependency-on-microsoft/91280532"
                      data-source="HackerNews"
                      data-date="04-20 04:25"
-                     data-zh-content='&quot;文章网址：https://www.swissinfo.ch/eng/swiss-ai/swiss-authorities-want-to-reduce-dependency-on-microsoft/91280532\n评论网址：https://news.ycombinator.com/item?id=47827383\n积分：201\n# 评论: 76&quot;'>
+                     data-zh-content='&quot;文章网址：https://www.swissinfo.ch/eng/swiss-ai/swiss-authorities-want-to-reduce-dependency-on-microsoft/91280532\n评论网址：https://news.ycombinator.com/item?id=47827383\n积分：205\n# 评论: 79&quot;'>
                      Article URL: https://www.swissinfo.ch/eng/swiss-ai/swiss-authorities-want-to-reduce-dependency-on-microsoft/91280532
 Comments URL: https://news.ycombinator.com/item?id=47827383
-Points: 201
-# Comments: 76
+Points: 205
+# Comments: 79
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(8)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(10)">
+            
+            <div class="item-img" data-type="fallback">
+                <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
+                    H
+                </div>
+            </div>
+            
+            <div class="item-content">
+                <h2 class="item-title">不要再试图设计出不倾听他人意见的方法</h2>
+                <div class="item-meta">
+                    <span class="source-badge" style="color:#ff6600; background:#ff660015;">
+                        HackerNews
+                    </span>
+                    <span class="meta-date">04-20 04:09</span>
+                </div>
+                <p class="item-summary">文章网址：https://ashley.rolfmore.com/stop-trying-to-engineer-you...</p>
+                <!-- 隐藏数据 -->
+                <div id="data-10" style="display:none;" 
+                     data-title="不要再试图设计出不倾听他人意见的方法" 
+                     data-en-title='&quot;Stop trying to engineer your way out of listening to people&quot;'
+                     data-link="https://ashley.rolfmore.com/stop-trying-to-engineer-your-way-out-of-listening-to-people/"
+                     data-source="HackerNews"
+                     data-date="04-20 04:09"
+                     data-zh-content='&quot;文章网址：https://ashley.rolfmore.com/stop-trying-to-engineer-your-way-out-of-listening-to-people/\n评论网址：https://news.ycombinator.com/item?id=47827259\n积分：117\n# 评论: 36&quot;'>
+                     Article URL: https://ashley.rolfmore.com/stop-trying-to-engineer-your-way-out-of-listening-to-people/
+Comments URL: https://news.ycombinator.com/item?id=47827259
+Points: 117
+# Comments: 36
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(11)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2026/04/Screenshot-2026-04-19-at-3.53.46PM.png%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -490,7 +591,7 @@ Points: 201
                 </div>
                 <p class="item-summary">Vercel 是一个托管和部署 Web 应用程序的主要开发平台，遭到破坏，黑客正试图出售窃取的数据。一名自称是 Shin...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-8" style="display:none;" 
+                <div id="data-11" style="display:none;" 
                      data-title="云开发平台Vercel被黑客攻击" 
                      data-en-title='&quot;Cloud development platform Vercel was hacked&quot;'
                      data-link="https://www.theverge.com/tech/914723/vercel-hacked"
@@ -505,7 +606,7 @@ Read the full story at The Verge.
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="9to5google" onclick="openModal(9)">
+        <article class="news-item " style="display:flex;" data-source="9to5google" onclick="openModal(12)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//9to5google.com/wp-content/uploads/sites/4/2026/03/Gemini-Live-Voice.jpg%3Fquality%3D82%26strip%3Dall%26w%3D1600&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -525,7 +626,7 @@ Read the full story at The Verge.
                 </div>
                 <p class="item-summary">从外观上看，Gemini Live 自推出以来基本保持不变，但谷歌现在正在测试重新设计，删除 Android 上的全屏界...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-9" style="display:none;" 
+                <div id="data-12" style="display:none;" 
                      data-title="Gemini Live 重新设计取代了 Android 上的全屏界面" 
                      data-en-title='&quot;Gemini Live redesign replaces fullscreen interface on Android&quot;'
                      data-link="https://9to5google.com/2026/04/19/gemini-live-app-redesign/"
@@ -538,7 +639,7 @@ more…
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(10)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(13)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -556,23 +657,23 @@ more…
                 </div>
                 <p class="item-summary">Faceoff 是一款用 Python 编写的 TUI 应用程序，用于关注直播 NHL 比赛并浏览排名和统计数据。我从 ...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-10" style="display:none;" 
+                <div id="data-13" style="display:none;" 
                      data-title="显示 HN: Faceoff – 以下 NHL 游戏的终端 UI" 
                      data-en-title='&quot;Show HN: Faceoff – A terminal UI for following NHL games&quot;'
                      data-link="https://www.vincentgregoire.com/faceoff/"
                      data-source="HackerNews"
                      data-date="04-20 01:44"
-                     data-zh-content='&quot;Faceoff 是一款用 Python 编写的 TUI 应用程序，用于关注直播 NHL 比赛并浏览排名和统计数据。我从 Playball 中获得了灵感，这是 HN 上推出的一款类似的 MLB 游戏 TUI 应用程序。该应用程序主要是使用 Claude Code 进行 vivi 编码，但不是一次性的。我通过使用它添加了功能并修复了错误，因为过去几个月我在终端上花费了太多时间。尝试使用“uvx Faceoff”（需要 uv）。\n\n评论网址：https://news.ycombinator.com/item?id=47826104\n积分：104\n# 评论: 35&quot;'>
+                     data-zh-content='&quot;Faceoff 是一款用 Python 编写的 TUI 应用程序，用于关注直播 NHL 比赛并浏览排名和统计数据。我从 Playball 中获得了灵感，这是 HN 上推出的一款类似的 MLB 游戏 TUI 应用程序。该应用程序主要是使用 Claude Code 进行 vivi 编码，但不是一次性的。我通过使用它添加了功能并修复了错误，因为过去几个月我在终端上花费了太多时间。尝试使用“uvx Faceoff”（需要 uv）。\n\n评论网址：https://news.ycombinator.com/item?id=47826104\n积分：109\n# 评论: 35&quot;'>
                      Faceoff is a TUI app written in Python to follow live NHL games and browse standings and stats. I got the inspiration from Playball, a similar TUI app for MLB games that was featured on HN.The app was mostly vibe-coded with Claude Code, but not one-shot. I added features and fixed bugs by using it, as I spent way too much time in the terminal over the last few months.Try it out with `uvx faceoff` (requires uv).
 
 Comments URL: https://news.ycombinator.com/item?id=47826104
-Points: 104
+Points: 109
 # Comments: 35
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(11)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(14)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -590,22 +691,22 @@ Points: 104
                 </div>
                 <p class="item-summary">文章网址：https://warontherocks.com/cogs-of-war/the-bromine-choke...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-11" style="display:none;" 
+                <div id="data-14" style="display:none;" 
                      data-title="溴的瓶颈" 
                      data-en-title='&quot;The Bromine Chokepoint&quot;'
                      data-link="https://warontherocks.com/cogs-of-war/the-bromine-chokepoint-how-strife-in-the-middle-east-could-halt-production-of-the-worlds-memory-chips/"
                      data-source="HackerNews"
                      data-date="04-20 01:44"
-                     data-zh-content='&quot;文章网址：https://warontherocks.com/cogs-of-war/the-bromine-chokepoint-how-strife-in-the-middle-east-could-halt-production-of-the-worlds-memory-chips/\n评论网址：https://news.ycombinator.com/item?id=47826100\n积分：166\n# 评论: 77&quot;'>
+                     data-zh-content='&quot;文章网址：https://warontherocks.com/cogs-of-war/the-bromine-chokepoint-how-strife-in-the-middle-east-could-halt-production-of-the-worlds-memory-chips/\n评论网址：https://news.ycombinator.com/item?id=47826100\n积分：182\n# 评论: 89&quot;'>
                      Article URL: https://warontherocks.com/cogs-of-war/the-bromine-chokepoint-how-strife-in-the-middle-east-could-halt-production-of-the-worlds-memory-chips/
 Comments URL: https://news.ycombinator.com/item?id=47826100
-Points: 166
-# Comments: 77
+Points: 182
+# Comments: 89
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(12)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(15)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -623,22 +724,22 @@ Points: 166
                 </div>
                 <p class="item-summary">文章网址：https://www.ctvnews.ca/politics/article/pm-carney-decla...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-12" style="display:none;" 
+                <div id="data-15" style="display:none;" 
                      data-title="卡尼总理在向加拿大人发表讲话时宣称，美国关系现在是一个“弱点”" 
                      data-en-title='&quot;PM Carney declares U.S. ties now a 'weakness' in address to Canadians&quot;'
                      data-link="https://www.ctvnews.ca/politics/article/pm-carney-declares-us-ties-now-a-weakness-in-address-to-canadians/"
                      data-source="HackerNews"
                      data-date="04-20 00:21"
-                     data-zh-content='&quot;文章网址：https://www.ctvnews.ca/politics/article/pm-carney-declares-us-ties-now-a-weakness-in-address-to-canadians/\n评论网址：https://news.ycombinator.com/item?id=47825423\n积分：112\n# 评论: 72&quot;'>
+                     data-zh-content='&quot;文章网址：https://www.ctvnews.ca/politics/article/pm-carney-declares-us-ties-now-a-weakness-in-address-to-canadians/\n评论网址：https://news.ycombinator.com/item?id=47825423\n积分：123\n# 评论: 90&quot;'>
                      Article URL: https://www.ctvnews.ca/politics/article/pm-carney-declares-us-ties-now-a-weakness-in-address-to-canadians/
 Comments URL: https://news.ycombinator.com/item?id=47825423
-Points: 112
-# Comments: 72
+Points: 123
+# Comments: 90
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="9to5google" onclick="openModal(13)">
+        <article class="news-item " style="display:flex;" data-source="9to5google" onclick="openModal(16)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//9to5google.com/wp-content/uploads/sites/4/2025/11/Pixel-10-Pro-XL-in-Porcelain-1.jpg%3Fquality%3D82%26strip%3Dall%26w%3D1600&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -658,7 +759,7 @@ Points: 112
                 </div>
                 <p class="item-summary">我们本周早些时候报道称，谷歌正在致力于笔记本电脑的复兴，以及即将应用于手机的新“Pixel Glow”灯。但是，你想要它...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-13" style="display:none;" 
+                <div id="data-16" style="display:none;" 
                      data-title="你想要谷歌的“Pixel Glow”灯做什么？" 
                      data-en-title='&quot;What do you want Google’s ‘Pixel Glow’ lights to do?&quot;'
                      data-link="https://9to5google.com/2026/04/19/what-do-you-want-googles-pixel-glow-lights-to-do/"
@@ -671,7 +772,7 @@ more…
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(14)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(17)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -689,22 +790,22 @@ more…
                 </div>
                 <p class="item-summary">文章网址：https://www.pcgamer.com/games/world-of-warcraft/turtle-...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-14" style="display:none;" 
+                <div id="data-17" style="display:none;" 
                      data-title="暴雪赢得禁令后《Turtle WoW》经典服务器宣布关闭" 
                      data-en-title='&quot;Turtle WoW classic server announces shutdown after Blizzard wins injunction&quot;'
                      data-link="https://www.pcgamer.com/games/world-of-warcraft/turtle-wow-classic-server-announces-shutdown-after-blizzard-wins-injunction/"
                      data-source="HackerNews"
                      data-date="04-19 23:48"
-                     data-zh-content='&quot;文章网址：https://www.pcgamer.com/games/world-of-warcraft/turtle-wow-classic-server-announces-shutdown-after-blizzard-wins-injunction/\n评论网址：https://news.ycombinator.com/item?id=47825160\n积分：139\n# 评论: 116&quot;'>
+                     data-zh-content='&quot;文章网址：https://www.pcgamer.com/games/world-of-warcraft/turtle-wow-classic-server-announces-shutdown-after-blizzard-wins-injunction/\n评论网址：https://news.ycombinator.com/item?id=47825160\n积分：186\n# 评论：159&quot;'>
                      Article URL: https://www.pcgamer.com/games/world-of-warcraft/turtle-wow-classic-server-announces-shutdown-after-blizzard-wins-injunction/
 Comments URL: https://news.ycombinator.com/item?id=47825160
-Points: 139
-# Comments: 116
+Points: 186
+# Comments: 159
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(15)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(18)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -722,22 +823,22 @@ Points: 139
                 </div>
                 <p class="item-summary">文章网址：https://decipher.sc/2026/04/19/vercel-says-internal-sys...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-15" style="display:none;" 
+                <div id="data-18" style="display:none;" 
                      data-title="Vercel 表示内部系统遭到破坏" 
                      data-en-title='&quot;Vercel says internal systems hit in breach&quot;'
                      data-link="https://decipher.sc/2026/04/19/vercel-says-internal-systems-hit-in-breach/"
                      data-source="HackerNews"
                      data-date="04-19 23:23"
-                     data-zh-content='&quot;文章网址：https://decipher.sc/2026/04/19/vercel-says-internal-systems-hit-in-breach/\n评论网址：https://news.ycombinator.com/item?id=47824976\n积分：376\n# 评论: 2&quot;'>
+                     data-zh-content='&quot;文章网址：https://decipher.sc/2026/04/19/vercel-says-internal-systems-hit-in-breach/\n评论网址：https://news.ycombinator.com/item?id=47824976\n积分：377\n# 评论: 2&quot;'>
                      Article URL: https://decipher.sc/2026/04/19/vercel-says-internal-systems-hit-in-breach/
 Comments URL: https://news.ycombinator.com/item?id=47824976
-Points: 376
+Points: 377
 # Comments: 2
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(16)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(19)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -755,22 +856,22 @@ Points: 376
                 </div>
                 <p class="item-summary">文章网址：https://twitter.com/weezerOSINT/status/2045849358462222...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-16" style="display:none;" 
+                <div id="data-19" style="display:none;" 
                      data-title="Notion 泄露任何公共页面所有编辑的电子邮件地址" 
                      data-en-title='&quot;Notion leaks email addresses of all editors of any public page&quot;'
                      data-link="https://twitter.com/weezerOSINT/status/2045849358462222720"
                      data-source="HackerNews"
                      data-date="04-19 23:20"
-                     data-zh-content='&quot;文章网址：https://twitter.com/weezerOSINT/status/2045849358462222720\n评论网址：https://news.ycombinator.com/item?id=47824945\n积分：334\n# 评论: 118&quot;'>
+                     data-zh-content='&quot;文章网址：https://twitter.com/weezerOSINT/status/2045849358462222720\n评论网址：https://news.ycombinator.com/item?id=47824945\n积分：349\n# 评论: 125&quot;'>
                      Article URL: https://twitter.com/weezerOSINT/status/2045849358462222720
 Comments URL: https://news.ycombinator.com/item?id=47824945
-Points: 334
-# Comments: 118
+Points: 349
+# Comments: 125
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(17)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="hackernews" onclick="openModal(20)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -788,22 +889,22 @@ Points: 334
                 </div>
                 <p class="item-summary">文章网址：https://12gramsofcarbon.com/p/notes-from-the-sf-peptide...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-17" style="display:none;" 
+                <div id="data-20" style="display:none;" 
                      data-title="SF 肽场景笔记" 
                      data-en-title='&quot;Notes from the SF peptide scene&quot;'
                      data-link="https://12gramsofcarbon.com/p/notes-from-the-sf-peptide-scene"
                      data-source="HackerNews"
                      data-date="04-19 22:43"
-                     data-zh-content='&quot;文章网址：https://12gramsofcarbon.com/p/notes-from-the-sf-peptide-scene\n评论网址：https://news.ycombinator.com/item?id=47824681\n积分：122\n# 评论：130&quot;'>
+                     data-zh-content='&quot;文章网址：https://12gramsofcarbon.com/p/notes-from-the-sf-peptide-scene\n评论网址：https://news.ycombinator.com/item?id=47824681\n积分：126\n# 评论: 134&quot;'>
                      Article URL: https://12gramsofcarbon.com/p/notes-from-the-sf-peptide-scene
 Comments URL: https://news.ycombinator.com/item?id=47824681
-Points: 122
-# Comments: 130
+Points: 126
+# Comments: 134
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(18)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="hackernews" onclick="openModal(21)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -822,22 +923,22 @@ Points: 122
                 <p class="item-summary">文章网址：https://daverupert.com/2026/04/more-talk-less-grok/
 评论网...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-18" style="display:none;" 
+                <div id="data-21" style="display:none;" 
                      data-title="快速移动时，首先要打破的是说话" 
                      data-en-title='&quot;When moving fast, talking is the first thing to break&quot;'
                      data-link="https://daverupert.com/2026/04/more-talk-less-grok/"
                      data-source="HackerNews"
                      data-date="04-19 22:34"
-                     data-zh-content='&quot;文章网址：https://daverupert.com/2026/04/more-talk-less-grok/\n评论网址：https://news.ycombinator.com/item?id=47824611\n积分：108\n# 评论: 46&quot;'>
+                     data-zh-content='&quot;文章网址：https://daverupert.com/2026/04/more-talk-less-grok/\n评论网址：https://news.ycombinator.com/item?id=47824611\n积分：110\n# 评论: 46&quot;'>
                      Article URL: https://daverupert.com/2026/04/more-talk-less-grok/
 Comments URL: https://news.ycombinator.com/item?id=47824611
-Points: 108
+Points: 110
 # Comments: 46
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(19)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(22)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2026/04/CMF-Headphone-Pro-Deal-Image.png%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -857,7 +958,7 @@ Points: 108
                 </div>
                 <p class="item-summary">在过去的几年里，Nothing 的以预算为中心的子公司 CMF 因生产有吸引力的、廉价的产品而享有盛誉，这些产品的功能通...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-19" style="display:none;" 
+                <div id="data-22" style="display:none;" 
                      data-title="Nothing 的模块化 CMF Headphone Pro 价格降至迄今为止最低价" 
                      data-en-title='&quot;Nothing’s modular CMF Headphone Pro are down to their lowest price to date&quot;'
                      data-link="https://www.theverge.com/gadgets/913989/nothing-cmf-noise-canceling-headphone-pro-spring-sale-deal"
@@ -884,7 +985,7 @@ Where to Buy: $59.99 $38 at Amazon  $59.99 $38 at Best Buy $59.99 $39.99 at Targ
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="hackernews" onclick="openModal(20)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="hackernews" onclick="openModal(23)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -902,56 +1003,23 @@ Where to Buy: $59.99 $38 at Amazon  $59.99 $38 at Best Buy $59.99 $39.99 at Targ
                 </div>
                 <p class="item-summary">https://vercel.com/kb/bulletin/vercel-april-2026-security-in...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-20" style="display:none;" 
+                <div id="data-23" style="display:none;" 
                      data-title="Vercel 2026 年 4 月安全事件" 
                      data-en-title='&quot;Vercel April 2026 security incident&quot;'
                      data-link="https://www.bleepingcomputer.com/news/security/vercel-confirms-breach-as-hackers-claim-to-be-selling-stolen-data/"
                      data-source="HackerNews"
                      data-date="04-19 22:14"
-                     data-zh-content='&quot;https://vercel.com/kb/bulletin/vercel-april-2026-security-in...\n\n评论网址：https://news.ycombinator.com/item?id=47824463\n积分：580\n# 评论: 329&quot;'>
+                     data-zh-content='&quot;https://vercel.com/kb/bulletin/vercel-april-2026-security-in...\n\n评论网址：https://news.ycombinator.com/item?id=47824463\n积分：653\n# 评论: 373&quot;'>
                      https://vercel.com/kb/bulletin/vercel-april-2026-security-in...
 
 Comments URL: https://news.ycombinator.com/item?id=47824463
-Points: 580
-# Comments: 329
+Points: 653
+# Comments: 373
                 </div>
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="hackernews" onclick="openModal(21)">
-            
-            <div class="item-img" data-type="fallback">
-                <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
-                    H
-                </div>
-            </div>
-            
-            <div class="item-content">
-                <h2 class="item-title">创意软件行业已向 Adob​​e 宣战</h2>
-                <div class="item-meta">
-                    <span class="source-badge" style="color:#ff6600; background:#ff660015;">
-                        HackerNews
-                    </span>
-                    <span class="meta-date">04-19 22:05</span>
-                </div>
-                <p class="item-summary">文章网址：https://www.theverge.com/tech/913765/adobe-rivals-free-...</p>
-                <!-- 隐藏数据 -->
-                <div id="data-21" style="display:none;" 
-                     data-title="创意软件行业已向 Adob​​e 宣战" 
-                     data-en-title='&quot;The creative software industry has declared war on Adobe&quot;'
-                     data-link="https://www.theverge.com/tech/913765/adobe-rivals-free-creative-software-app-updates"
-                     data-source="HackerNews"
-                     data-date="04-19 22:05"
-                     data-zh-content='&quot;文章网址：https://www.theverge.com/tech/913765/adobe-rivals-free-creative-software-app-updates\n评论网址：https://news.ycombinator.com/item?id=47824403\n积分：193\n# 评论: 152&quot;'>
-                     Article URL: https://www.theverge.com/tech/913765/adobe-rivals-free-creative-software-app-updates
-Comments URL: https://news.ycombinator.com/item?id=47824403
-Points: 193
-# Comments: 152
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(22)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(24)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2026/04/The-Stars-My-Destination.jpg%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -969,17 +1037,17 @@ Points: 193
                     </span>
                     <span class="meta-date">04-19 22:00</span>
                 </div>
-                <p class="item-summary">格利·福伊尔是我的名字……|图片：砖塔出版社	
+                <p class="item-summary">格利·福伊尔是我的名字…… |图片：砖塔出版社	
 
-对于某些人来说，这可能感觉像是一个显而易见的建议，但直到现在它还没有引...</p>
+对于某些人来说，这可能感觉像是一个显而易见的建议，但直到现在它还没有...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-22" style="display:none;" 
+                <div id="data-24" style="display:none;" 
                      data-title="《星星我的目的地》是经典的原始赛博朋克" 
                      data-en-title='&quot;The Stars My Destination is classic proto-cyberpunk&quot;'
                      data-link="https://www.theverge.com/entertainment/914680/the-stars-my-destination-alfred-bester-review-cyberpunk"
                      data-source="The Verge"
                      data-date="04-19 22:00"
-                     data-zh-content='&quot;格利·福伊尔是我的名字……|图片：砖塔出版社\t\n\n对于某些人来说，这可能感觉像是一个显而易见的建议，但直到现在它还没有引起我的注意。阿尔弗雷德·贝斯特 (Alfred Bester) 的《星星我的目的地》（最初在英国出版为《Tiger！Tiger！》）是一部 1956 年的科幻小说，有人将其视为赛博朋克的先驱。我承认我对这部作品有一些矛盾的感觉，但如果你认为自己是科幻迷，我认为它非常值得一读。它也非常值得寻找实体副本，我希望在开始阅读它之前就知道它的客观劣质电子书形式，无法捕捉高潮的遍历元素。\n很难解释《星星》的情节……\n请在 The Verge 上阅读完整的故事。&quot;'>
+                     data-zh-content='&quot;格利·福伊尔是我的名字…… |图片：砖塔出版社\t\n\n对于某些人来说，这可能感觉像是一个显而易见的建议，但直到现在它还没有引起我的注意。阿尔弗雷德·贝斯特 (Alfred Bester) 的《星星我的目的地》（最初在英国出版为《Tiger！Tiger！》）是一部 1956 年的科幻小说，有人将其视为赛博朋克的先驱。我承认我对这部作品有一些矛盾的感觉，但如果你认为自己是科幻迷，我认为它非常值得一读。它也非常值得寻找实体副本，我希望在开始阅读它之前就知道它的客观劣质电子书形式，无法捕捉高潮的遍历元素。\n很难解释《星星》的情节……\n请在 The Verge 上阅读完整的故事。&quot;'>
                      Gully Foyle is my name… | Image: Brick Tower Press	
 
 This might feel like a somewhat obvious recommendation to some, but it flew under my radar until now. Alfred Bester's The Stars My Destination (originally published as Tiger! Tiger! in the UK) is a 1956 sci-fi novel that some have cited as a precursor to cyberpunk. It's a work I admit I have some conflicted feelings about, but one I think is well worth reading if you consider yourself a fan of sci-fi. It's also well worth seeking out a physical copy, something I wish I had known before I started reading it in the objectively inferior e-book form that can't capture the ergodic elements of the climax.
@@ -989,40 +1057,7 @@ Read the full story at The Verge.
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="hackernews" onclick="openModal(23)">
-            
-            <div class="item-img" data-type="fallback">
-                <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
-                    H
-                </div>
-            </div>
-            
-            <div class="item-content">
-                <h2 class="item-title">航空公司工作人员在 WhatsApp 群组分享炸弹损坏照片后被捕</h2>
-                <div class="item-meta">
-                    <span class="source-badge" style="color:#ff6600; background:#ff660015;">
-                        HackerNews
-                    </span>
-                    <span class="meta-date">04-19 21:13</span>
-                </div>
-                <p class="item-summary">文章网址：https://www.lbc.co.uk/article/dubai-police-spied-privat...</p>
-                <!-- 隐藏数据 -->
-                <div id="data-23" style="display:none;" 
-                     data-title="航空公司工作人员在 WhatsApp 群组分享炸弹损坏照片后被捕" 
-                     data-en-title='&quot;Airline worker arrested after sharing photos of bomb damage in WhatsApp group&quot;'
-                     data-link="https://www.lbc.co.uk/article/dubai-police-spied-private-whatsapp-5HjdXwr_2/"
-                     data-source="HackerNews"
-                     data-date="04-19 21:13"
-                     data-zh-content='&quot;文章网址：https://www.lbc.co.uk/article/dubai-police-spied-private-whatsapp-5HjdXwr_2/\n评论网址：https://news.ycombinator.com/item?id=47824068\n积分：251\n# 评论: 164&quot;'>
-                     Article URL: https://www.lbc.co.uk/article/dubai-police-spied-private-whatsapp-5HjdXwr_2/
-Comments URL: https://news.ycombinator.com/item?id=47824068
-Points: 251
-# Comments: 164
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(24)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(25)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2026/04/268472_Keychron_V5_Q1_Ultra_8K_keyboards_ADiBenedetto_0001.jpg%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1042,7 +1077,7 @@ Points: 251
                 </div>
                 <p class="item-summary">Keychron 丰富的键盘目录涵盖了从基本的全尺寸机械键盘到小众布局（如左撇子 Alice 或用于游戏的单手半键盘）的...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-24" style="display:none;" 
+                <div id="data-25" style="display:none;" 
                      data-title="马拉松般的电池续航时间使 Keychron 的 Ultra 8K 键盘成为迄今为止最好的键盘" 
                      data-en-title='&quot;Marathon battery life makes Keychron’s Ultra 8K keyboards its best yet&quot;'
                      data-link="https://www.theverge.com/tech/914085/keychron-q1-v5-ultra-8k-zmk-mechanical-keyboards-review"
@@ -1056,7 +1091,7 @@ Read the full story at The Verge.
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(25)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(26)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2026/04/268461_The_Stepback-_Tegna_nexstar_merger_CVirginia.jpg%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1076,7 +1111,7 @@ Read the full story at The Verge.
                 </div>
                 <p class="item-summary">这是《The Stepback》，一份每周简讯，详细介绍了科技界的一个重要故事。有关华盛顿特区大型科技与政治的更多故事，...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-25" style="display:none;" 
+                <div id="data-26" style="display:none;" 
                      data-title="当地电视新闻的未来已发生特朗普式转变" 
                      data-en-title='&quot;The future of local TV news has taken a Trumpian turn&quot;'
                      data-link="https://www.theverge.com/column/914674/nexstar-tegna-merger-trump-local-news"
@@ -1087,39 +1122,6 @@ Read the full story at The Verge.
 How it started
 A long time ago, in 2004, the Federal Communications Commission laid down a rule designed to prevent a monopoly: No one company could broadcast to more than 39 percent of all the TV households in the United States. But then Donald Trump returned to the White House in 2025. Brendan Carr became FCC chairman and immediately kicked off a deregu …
 Read the full story at The Verge.
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item news-item-hidden" style="display:none;" data-source="hackernews" onclick="openModal(26)">
-            
-            <div class="item-img" data-type="fallback">
-                <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
-                    H
-                </div>
-            </div>
-            
-            <div class="item-content">
-                <h2 class="item-title">Claude Opus 4.6 和 4.7 之间系统提示的变化</h2>
-                <div class="item-meta">
-                    <span class="source-badge" style="color:#ff6600; background:#ff660015;">
-                        HackerNews
-                    </span>
-                    <span class="meta-date">04-19 18:36</span>
-                </div>
-                <p class="item-summary">文章网址：https://simonwillison.net/2026/Apr/18/opus-system-promp...</p>
-                <!-- 隐藏数据 -->
-                <div id="data-26" style="display:none;" 
-                     data-title="Claude Opus 4.6 和 4.7 之间系统提示的变化" 
-                     data-en-title='&quot;Changes in the system prompt between Claude Opus 4.6 and 4.7&quot;'
-                     data-link="https://simonwillison.net/2026/Apr/18/opus-system-prompt/"
-                     data-source="HackerNews"
-                     data-date="04-19 18:36"
-                     data-zh-content='&quot;文章网址：https://simonwillison.net/2026/Apr/18/opus-system-prompt/\n评论网址：https://news.ycombinator.com/item?id=47823270\n积分：235\n# 评论: 133&quot;'>
-                     Article URL: https://simonwillison.net/2026/Apr/18/opus-system-prompt/
-Comments URL: https://news.ycombinator.com/item?id=47823270
-Points: 235
-# Comments: 133
                 </div>
             </div>
         </article>
@@ -1536,7 +1538,55 @@ The special-edition Nike Powerbeats Pro 2 are the same as the regular Powerbeats
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(35)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(35)">
+            
+            <div class="item-img" data-type="image">
+                <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2026/04/dyson_hushjetminicool_1.jpg%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
+                     onerror="this.parentElement.setAttribute('data-type', 'fallback'); this.style.display='none';">
+                <div class="img-fallback" style="background-color: #e1008715; color: #e10087;">
+                    T
+                </div>
+            </div>
+            
+            <div class="item-content">
+                <h2 class="item-title">戴森的手持风扇比我想象的更强大、更响亮</h2>
+                <div class="item-meta">
+                    <span class="source-badge" style="color:#e10087; background:#e1008715;">
+                        The Verge
+                    </span>
+                    <span class="meta-date">04-18 21:00</span>
+                </div>
+                <p class="item-summary">两年前，我在八月参加了一场风景如画的户外婚礼，炎热潮湿的天气让客人们偶尔钻进车里享受空调的吹拂。戴森新款 99.99 美...</p>
+                <!-- 隐藏数据 -->
+                <div id="data-35" style="display:none;" 
+                     data-title="戴森的手持风扇比我想象的更强大、更响亮" 
+                     data-en-title='&quot;Dyson’s handheld fan is more powerful and louder than I expected&quot;'
+                     data-link="https://www.theverge.com/tech/908962/dyson-hushjet-mini-cool-personal-handheld-fan-hands-on"
+                     data-source="The Verge"
+                     data-date="04-18 21:00"
+                     data-zh-content='&quot;两年前，我在八月参加了一场风景如画的户外婚礼，炎热潮湿的天气让客人们偶尔钻进车里享受空调的吹拂。戴森新款 99.99 美元的手持式风扇本来可以提供一些急需的缓解，尽管我不确定在服务或接待期间我是否会舒服地打开它。 HushJet Mini Cool 与戴森最近推出的薄型真空吸尘器和吹风机一样纤薄时尚，但它的安静程度不足以赢得“Hush”这个名字。\n这很不幸，因为 HushJet Mini Cool 是戴森重新设计的另一款产品，其外观和性能都比市场上现有的产品更好。其所有组件（包括电机、5,000mAh 可充电电池和旋转刀片）均安全地容纳在直径为 38 毫米的圆柱形体内。&quot;'>
+                     Two years ago I attended a picturesque outdoor wedding in August where the hot and humid weather had guests occasionally ducking into their cars to enjoy a blast of AC. Dyson’s new $99.99 handheld fan would have provided some much-needed relief then, although I’m not sure I would have been comfortable powering it up during the service or reception. The HushJet Mini Cool is as slim and sleek as Dyson’s recent thin vacuum and hair dryer, but it’s not quiet enough to earn the name “Hush.”
+That’s unfortunate because the HushJet Mini Cool is yet another product Dyson has redesigned to look and perform better than what’s already on the market. All of its components — including the motor, 5,000mAh rechargeable battery, and spinning blades — are safely contained inside a cylindrical body 38mm in diameter that’s easy to slip into a pocket. Many handheld fans use flexible or folding blades that are left exposed and not ideal for kids, or they stuff the moving parts into a bulbous section on top that limits pocketability.
+Dyson HushJet Mini Cool
+
+Where to Buy: $99.99 at Dyson $99.99 at Amazon $99.99 at Best Buy
+At 208 grams the HushJet Mini Cool is about the same weight as an iPhone 17 Pro, so it’s not a terrible burden to schlep around when temperatures soar, and it’s incredibly easy to use. A toggle switch turns the fan on and off, while a rocker button lets you step up and down through five different fan speeds indicated by a strip of five small white LEDs. There’s also an even stronger Boost Mode that’s only activated while you’re holding down the “plus” side of that rocker button.
+
+The only learning curve was remembering to grip the fan above the vent that wraps around its base so as not to block the airflow. Some added texture on the outside of the HushJet Mini Cool to naturally guide where your hand should grip it would be welcome.
+
+Dyson claims up to six hours of battery life at the fan’s lowest setting, but at its highest speed (not Boost Mode) it died after 62 minutes. I was still impressed, because I didn’t expect the fan to last that long at full power. The remaining battery life is displayed using the fan’s five white LEDs, but only when it’s turned off. Being able to track how fast the battery level drops with the fan running would be a useful way to estimate how much cooling time you have left.
+
+The HushJet Mini Cool is bottom-heavy and can be used as a self-standing fan, and Dyson includes an accessory to widen the base and improve its stability. It helps, but it’s also an accessory that’s easy to lose. And while you can power the fan indefinitely by connecting it to a power source over USB-C, you’re limited to the lowest speed setting. At that setting you’ll need to stay within about 5 feet of the fan to feel anything.
+
+Dyson’s marketing for the fan, including the HushJet branding, emphasizes how it’s engineered to be quiet. “Dyson’s obsession with acoustics means tonal comfort: with the HushJet nozzle, we’ve lowered frequencies, eliminated high-pitched whirring, and silenced the sound of whining motors,” the company said in a press release. But it was definitely not as quiet as I expected it to be.
+It doesn’t get anywhere near as loud as Dyson’s cordless vacuums or hair dryers, but the HushJet Mini Cool isn’t whisper-quiet, even at its lowest setting. The handheld fan also has a similar high-pitched whine as those other Dyson devices, despite its tiny electric motor spinning at less than half the speed of theirs.
+
+For the past year my family has been using Nitecore’s izzCool 10 Pro fan to beat the heat whenever AC isn’t available. Its design makes it harder to slip into a pocket, and at full power its blast is nowhere near as strong as Dyson’s — even at half power. While both fans were similarly loud at their lowest settings (measured using the NIOSH Sound Level Meter app on my iPhone), Dyson’s was well over 10 decibels louder at full power. That’s not surprising given Dyson’s fan far outperforms Nitecore’s, but the sou
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(36)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//images.macrumors.com/article-new/2026/04/top-stories-2026-04-18.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1559,7 +1609,7 @@ The special-edition Nike Powerbeats Pro 2 are the same as the regular Powerbeats
 
 ...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-35" style="display:none;" 
+                <div id="data-36" style="display:none;" 
                      data-title="头条新闻：“iPhone Ultra”传闻、Mac Mini 和 Mac Studio 短缺等" 
                      data-en-title='&quot;Top Stories: 'iPhone Ultra' Rumors, Mac Mini and Mac Studio Shortages, and More&quot;'
                      data-link="https://www.macrumors.com/2026/04/18/top-stories-iphone-ultra-rumors/"
@@ -1639,54 +1689,6 @@ Amazon said it will continue supporting iPhone and Apple Watch models that use G
 Check Who's Using Your iPhone Hotspot Data
 
 If you regularly share your iPhone's data connection with your laptop or iPad, or let family members piggyback on you
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(36)">
-            
-            <div class="item-img" data-type="image">
-                <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2026/04/dyson_hushjetminicool_1.jpg%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
-                     onerror="this.parentElement.setAttribute('data-type', 'fallback'); this.style.display='none';">
-                <div class="img-fallback" style="background-color: #e1008715; color: #e10087;">
-                    T
-                </div>
-            </div>
-            
-            <div class="item-content">
-                <h2 class="item-title">戴森的手持风扇比我想象的更强大、更响亮</h2>
-                <div class="item-meta">
-                    <span class="source-badge" style="color:#e10087; background:#e1008715;">
-                        The Verge
-                    </span>
-                    <span class="meta-date">04-18 21:00</span>
-                </div>
-                <p class="item-summary">两年前，我在八月参加了一场风景如画的户外婚礼，炎热潮湿的天气让客人们偶尔钻进车里享受空调的吹拂。戴森新款 99.99 美...</p>
-                <!-- 隐藏数据 -->
-                <div id="data-36" style="display:none;" 
-                     data-title="戴森的手持风扇比我想象的更强大、更响亮" 
-                     data-en-title='&quot;Dyson’s handheld fan is more powerful and louder than I expected&quot;'
-                     data-link="https://www.theverge.com/tech/908962/dyson-hushjet-mini-cool-personal-handheld-fan-hands-on"
-                     data-source="The Verge"
-                     data-date="04-18 21:00"
-                     data-zh-content='&quot;两年前，我在八月参加了一场风景如画的户外婚礼，炎热潮湿的天气让客人们偶尔钻进车里享受空调的吹拂。戴森新款 99.99 美元的手持式风扇本来可以提供一些急需的缓解，尽管我不确定在服务或接待期间我是否会舒服地打开它。 HushJet Mini Cool 与戴森最近推出的薄型真空吸尘器和吹风机一样纤薄时尚，但它的安静程度不足以赢得“Hush”这个名字。\n这很不幸，因为 HushJet Mini Cool 是戴森重新设计的另一款产品，其外观和性能都比市场上现有的产品更好。其所有组件（包括电机、5,000mAh 可充电电池和旋转刀片）均安全地容纳在直径为 38 毫米的圆柱形体内。&quot;'>
-                     Two years ago I attended a picturesque outdoor wedding in August where the hot and humid weather had guests occasionally ducking into their cars to enjoy a blast of AC. Dyson’s new $99.99 handheld fan would have provided some much-needed relief then, although I’m not sure I would have been comfortable powering it up during the service or reception. The HushJet Mini Cool is as slim and sleek as Dyson’s recent thin vacuum and hair dryer, but it’s not quiet enough to earn the name “Hush.”
-That’s unfortunate because the HushJet Mini Cool is yet another product Dyson has redesigned to look and perform better than what’s already on the market. All of its components — including the motor, 5,000mAh rechargeable battery, and spinning blades — are safely contained inside a cylindrical body 38mm in diameter that’s easy to slip into a pocket. Many handheld fans use flexible or folding blades that are left exposed and not ideal for kids, or they stuff the moving parts into a bulbous section on top that limits pocketability.
-Dyson HushJet Mini Cool
-
-Where to Buy: $99.99 at Dyson $99.99 at Amazon $99.99 at Best Buy
-At 208 grams the HushJet Mini Cool is about the same weight as an iPhone 17 Pro, so it’s not a terrible burden to schlep around when temperatures soar, and it’s incredibly easy to use. A toggle switch turns the fan on and off, while a rocker button lets you step up and down through five different fan speeds indicated by a strip of five small white LEDs. There’s also an even stronger Boost Mode that’s only activated while you’re holding down the “plus” side of that rocker button.
-
-The only learning curve was remembering to grip the fan above the vent that wraps around its base so as not to block the airflow. Some added texture on the outside of the HushJet Mini Cool to naturally guide where your hand should grip it would be welcome.
-
-Dyson claims up to six hours of battery life at the fan’s lowest setting, but at its highest speed (not Boost Mode) it died after 62 minutes. I was still impressed, because I didn’t expect the fan to last that long at full power. The remaining battery life is displayed using the fan’s five white LEDs, but only when it’s turned off. Being able to track how fast the battery level drops with the fan running would be a useful way to estimate how much cooling time you have left.
-
-The HushJet Mini Cool is bottom-heavy and can be used as a self-standing fan, and Dyson includes an accessory to widen the base and improve its stability. It helps, but it’s also an accessory that’s easy to lose. And while you can power the fan indefinitely by connecting it to a power source over USB-C, you’re limited to the lowest speed setting. At that setting you’ll need to stay within about 5 feet of the fan to feel anything.
-
-Dyson’s marketing for the fan, including the HushJet branding, emphasizes how it’s engineered to be quiet. “Dyson’s obsession with acoustics means tonal comfort: with the HushJet nozzle, we’ve lowered frequencies, eliminated high-pitched whirring, and silenced the sound of whining motors,” the company said in a press release. But it was definitely not as quiet as I expected it to be.
-It doesn’t get anywhere near as loud as Dyson’s cordless vacuums or hair dryers, but the HushJet Mini Cool isn’t whisper-quiet, even at its lowest setting. The handheld fan also has a similar high-pitched whine as those other Dyson devices, despite its tiny electric motor spinning at less than half the speed of theirs.
-
-For the past year my family has been using Nitecore’s izzCool 10 Pro fan to beat the heat whenever AC isn’t available. Its design makes it harder to slip into a pocket, and at full power its blast is nowhere near as strong as Dyson’s — even at half power. While both fans were similarly loud at their lowest settings (measured using the NIOSH Sound Level Meter app on my iPhone), Dyson’s was well over 10 decibels louder at full power. That’s not surprising given Dyson’s fan far outperforms Nitecore’s, but the sou
                 </div>
             </div>
         </article>
@@ -2031,7 +2033,7 @@ more…
                      data-link="https://www.macrumors.com/2026/04/17/iphones-to-get-these-new-satellite-features/"
                      data-source="MacRumors"
                      data-date="04-18 02:59"
-                     data-zh-content='&quot;亚马逊本周宣布计划收购 Globalstar，这家卫星公司为苹果 iPhone 14 及更新机型和 Apple Watch Ultra 3 上的卫星功能提供支持。反过来，亚马逊宣布已与苹果签署协议，为当前和未来的 iPhone 和 Apple Watch 功能提供卫星连接。\n\n\n\n\n该交易尚待监管部门批准，预计将于 2027 年完成。届时，苹果的功能将由亚马逊 Leo 卫星提供支持。\n\n\n苹果目前的卫星功能：通过卫星紧急求救\n\n通过卫星查找我的\n\n通过卫星提供路边援助\n\n通过卫星发送消息 所有功能目前均可在没有 Wi-Fi 或蜂窝网络连接的受支持区域免费使用。可用性因国家/地区而异。\n\n\n已经有五米了&quot;'>
+                     data-zh-content='&quot;亚马逊本周宣布计划收购 Globalstar，这家卫星公司为苹果 iPhone 14 及更新机型和 Apple Watch Ultra 3 上的卫星功能提供支持。反过来，亚马逊宣布已与苹果签署协议，为当前和未来的 iPhone 和 Apple Watch 功能提供卫星连接。\n\n\n\n\n该交易尚待监管部门批准，预计将于 2027 年完成。届时，苹果的功能将由亚马逊 Leo 卫星提供支持。\n\n\n苹果目前的卫星功能：通过卫星紧急求救\n\n通过卫星查找我的\n\n通过卫星提供路边援助\n\n通过卫星发送消息 目前，所有功能均可在没有 Wi-Fi 或蜂窝网络连接的受支持区域免费使用。可用性因国家/地区而异。\n\n\n已经有五米了&quot;'>
                      Amazon this week announced plans to acquire Globalstar, the satellite company that powers Apple's satellite features on the iPhone 14 and newer and the Apple Watch Ultra 3. In turn, Amazon announced that it has signed an agreement with Apple to provide satellite connectivity for current and future iPhone and Apple Watch features.
 
 
@@ -2315,7 +2317,7 @@ Apple is unlikely to make a big stink about such guerrilla marketing, as it woul
             </div>
             
             <div class="item-content">
-                <h2 class="item-title">评论：科沃斯最好的割草机器人现在有了除草器</h2>
+                <h2 class="item-title">评论：科沃斯最好的机器人割草机现在有了除草器</h2>
                 <div class="item-meta">
                     <span class="source-badge" style="color:#f4b400; background:#f4b40015;">
                         9to5Google
@@ -2325,7 +2327,7 @@ Apple is unlikely to make a big stink about such guerrilla marketing, as it woul
                 <p class="item-summary">如果您要开发机器人割草机，它也应该能够修剪，这是有意义的。科沃斯的 Goat A3000 Pro 正是做到了这一点，使其...</p>
                 <!-- 隐藏数据 -->
                 <div id="data-50" style="display:none;" 
-                     data-title="评论：科沃斯最好的割草机器人现在有了除草器" 
+                     data-title="评论：科沃斯最好的机器人割草机现在有了除草器" 
                      data-en-title='&quot;Review: Ecovacs’ best robot mower has a weed eater now&quot;'
                      data-link="https://9to5google.com/2026/04/17/review-ecovacs-a3000-pro-robot-mower-has-a-weed-eater-now/"
                      data-source="9to5Google"
@@ -3075,7 +3077,7 @@ The post Oakland police raid suspected illegal gambling site, detaining ten peop
                      data-link="https://readwrite.com/betmgm-2026-q1-results-growth-slows/"
                      data-source="ReadWrite"
                      data-date="04-14 19:39"
-                     data-zh-content='&quot;进入 2026 年，BetMGM 仍在盈利，尽管其最新业绩表明该业务已经失去了去年的一些势头。第一季度净收入达到6.96亿美元，比去年同期增长6%。调整后 EBITDA 增长 11%，达到 2500 万美元。在 2025 年实现强劲增长后，该公司仍保持盈利，但目前的步伐显然更为温和。\n\nBetMGM 将于 4 月 14 日拉开最新博彩业企业财报季的序幕；值得关注的故事之一是，随着体育博彩公司利润率的提高和预测市场交易量的增长，游戏行业的其他大部分行业可能会面临放缓的局面——Ryan Butler (@ButlerBets) 2026 年 4 月 9 日\n\n体育博彩业的放缓似乎是最突出的。本季度在线体育收入增至 2.03 亿美元，增长 4%&quot;'>
+                     data-zh-content='&quot;进入 2026 年，BetMGM 仍在盈利，尽管其最新业绩表明该业务已经失去了去年的一些势头。第一季度净收入达到6.96亿美元，比去年同期增长6%。调整后 EBITDA 增长 11%，达到 2500 万美元。在 2025 年实现强劲增长后，该公司仍保持盈利，但目前的步伐显然更为温和。\n\nBetMGM 将于 4 月 14 日拉开最新博彩业企业财报季的序幕；值得关注的故事之一是，随着体育博彩利润率的提高和预测市场交易量的增长，游戏行业的其他大部分行业可能会面临经济放缓的影响——Ryan Butler (@ButlerBets) 2026 年 4 月 9 日\n\n体育博彩业的放缓似乎是最突出的。本季度在线体育收入增至 2.03 亿美元，增长 4%&quot;'>
                      BetMGM entered 2026 still making money, though its latest results point to a business that has lost some of last year’s momentum. First-quarter net revenue reached $696 million, up 6% from the same period a year ago. Adjusted EBITDA rose 11% to $25 million. The company remains profitable after a strong 2025, but the pace is clearly more modest now.
 
 BetMGM will help kick off the latest gaming industry corporate earnings season April 14; among the stories to watch will be potential handle slowdown hitting much of the rest of the industry as sportsbooks' profit margins increase and prediction markets trading volume grows— Ryan Butler (@ButlerBets) April 9, 2026
@@ -3120,7 +3122,7 @@ The post BetMGM starts 2026 profitable but growth slows and outlook narrows slig
                      data-link="https://readwrite.com/online-sports-betting-grows-risks-rise-us-survey/"
                      data-source="ReadWrite"
                      data-date="04-14 19:14"
-                     data-zh-content='&quot;在线体育博彩正在成为美国日常生活的一部分，尽管对其影响的不安日益加剧，但参与度仍在持续攀升。 4 月 13 日发布的一项新的全国调查显示，这两种趋势同时发生。\n锡耶纳研究所和圣博纳文图尔大学 Jandoli 传播学院的研究人员报告称，27% 的美国人现在在 DraftKings、Caesars、FanDuel 或 BetMGM 等平台上拥有活跃的在线体育博彩帐户。这一比例从 2025 年的 22% 到前一年的 19% 稳步增长。另外 6% 的人表示他们曾经拥有一个账户，这意味着大约三分之一的美国人曾在某个时候尝试过在线体育博彩。\n\n新锡耶纳/@BonasJSschool 年度体育迷调查：第 2 部分 – 在线体育博彩超过四分之一&quot;'>
+                     data-zh-content='&quot;在线体育博彩正在成为美国日常生活的一部分，尽管对其影响的不安日益加剧，但参与度仍在持续攀升。 4 月 13 日发布的一项新的全国调查显示，这两种趋势同时发生。\n锡耶纳研究所和圣博纳文图尔大学 Jandoli 传播学院的研究人员报告称，27% 的美国人现在在 DraftKings、Caesars、FanDuel 或 BetMGM 等平台上拥有活跃的在线体育博彩账户。这一比例从 2025 年的 22% 到前一年的 19% 稳步增长。另外 6% 的人表示他们曾经拥有一个账户，这意味着大约三分之一的美国人曾在某个时候尝试过在线体育博彩。\n\n新锡耶纳/@BonasJSschool 年度体育迷调查：第 2 部分 – 在线体育博彩超过四分之一&quot;'>
                      Online sports betting is becoming a routine part of daily life across the United States, with participation continuing to climb even as unease about its effects grows. A new national survey released April 13 shows both trends moving in tandem.
 Researchers from the Siena Research Institute and St. Bonaventure University’s Jandoli School of Communication report that 27% of Americans now hold an active online sportsbook account with platforms like DraftKings, Caesars, FanDuel, or BetMGM. This has steadily increased from 22% in 2025 and 19% the year before. Another 6% say they used to have an account, meaning roughly one in three Americans has tried online sports betting at some point.
 
@@ -3146,7 +3148,7 @@ Public opinion reflects that tension. About half of Americans support nationwide
         </div>
 
         <footer class="main-footer">
-            <p>文章总数: 68 | Updated: 2026-04-20 11:21</p>
+            <p>文章总数: 68 | Updated: 2026-04-20 14:02</p>
             <p><a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2025183710号-1</a></p>
             <p>&copy; 折疼记</p>
         </footer>
