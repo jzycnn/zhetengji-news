@@ -153,7 +153,40 @@
         <div class="container">
             <main id="newsContainer">
                 
-        <article class="news-item " style="display:flex;" data-source="engadget" onclick="openModal(0)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(0)">
+            
+            <div class="item-img" data-type="fallback">
+                <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
+                    H
+                </div>
+            </div>
+            
+            <div class="item-content">
+                <h2 class="item-title">永恒的沉睡</h2>
+                <div class="item-meta">
+                    <span class="source-badge" style="color:#ff6600; background:#ff660015;">
+                        HackerNews
+                    </span>
+                    <span class="meta-date">05-25 11:47</span>
+                </div>
+                <p class="item-summary">文章网址：https://geohot.github.io//blog/jekyll/update/2026/05/24...</p>
+                <!-- 隐藏数据 -->
+                <div id="data-0" style="display:none;" 
+                     data-title="永恒的沉睡" 
+                     data-en-title='&quot;The Eternal Sloptember&quot;'
+                     data-link="https://geohot.github.io//blog/jekyll/update/2026/05/24/the-eternal-sloptember.html"
+                     data-source="HackerNews"
+                     data-date="05-25 11:47"
+                     data-zh-content='&quot;文章网址：https://geohot.github.io//blog/jekyll/update/2026/05/24/the-eternal-sloptember.html\n评论网址：https://news.ycombinator.com/item?id=48263238\n积分：200\n# 评论：139&quot;'>
+                     Article URL: https://geohot.github.io//blog/jekyll/update/2026/05/24/the-eternal-sloptember.html
+Comments URL: https://news.ycombinator.com/item?id=48263238
+Points: 200
+# Comments: 139
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item " style="display:flex;" data-source="engadget" onclick="openModal(1)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//www.engadget.com/img/gallery/check-out-meshchera-an-atmospheric-match-three-game-for-playdate-set-in-a-haunted-marsh/intro-1779663099.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -164,7 +197,7 @@
             </div>
             
             <div class="item-content">
-                <h2 class="item-title">看看 Meshchera，这是一款以闹鬼沼泽为背景的 Playdate 气氛三消游戏</h2>
+                <h2 class="item-title">本周末您可以购买的最佳阵亡将士纪念日促销</h2>
                 <div class="item-meta">
                     <span class="source-badge" style="color:#9059ff; background:#9059ff15;">
                         Engadget
@@ -173,8 +206,8 @@
                 </div>
                 <p class="item-summary">蜘蛛？骷髅？不祥之兆？我喜欢的派对。...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-0" style="display:none;" 
-                     data-title="看看 Meshchera，这是一款以闹鬼沼泽为背景的 Playdate 气氛三消游戏" 
+                <div id="data-1" style="display:none;" 
+                     data-title="本周末您可以购买的最佳阵亡将士纪念日促销" 
                      data-en-title='&quot;Check out Meshchera, an atmospheric match-three game for Playdate set in a haunted marsh&quot;'
                      data-link="https://www.engadget.com/2180280/meshchera-is-an-atmospheric-match-three-puzzle-game-for-playdate-set-in-a-haunted-marsh/"
                      data-source="Engadget"
@@ -185,7 +218,7 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="macrumors" onclick="openModal(1)">
+        <article class="news-item " style="display:flex;" data-source="macrumors" onclick="openModal(2)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//images.macrumors.com/article-new/2026/03/iOS-27-on-iPhone-17-1.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -205,7 +238,7 @@
                 </div>
                 <p class="item-summary">苹果计划在 9 月份发布之前于下个月发布 iOS 27。此次更新预计将包括专用的 Siri 应用程序、钱包、Safari...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-1" style="display:none;" 
+                <div id="data-2" style="display:none;" 
                      data-title="新的 iOS 27 传闻包括改进的 AirPods 设置菜单等" 
                      data-en-title='&quot;New iOS 27 Rumors Include Revamped AirPods Settings Menu and More&quot;'
                      data-link="https://www.macrumors.com/2026/05/24/new-ios-27-details-ahead-of-wwdc/"
@@ -231,7 +264,7 @@ A new Siri interface with a dark color scheme, similar to Apple's WWDC 2026 grap
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(2)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(3)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -249,22 +282,55 @@ A new Siri interface with a dark color scheme, similar to Apple's WWDC 2026 grap
                 </div>
                 <p class="item-summary">文章网址：https://www.cbp.gov/document/directives/cbp-directive-n...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-2" style="display:none;" 
+                <div id="data-3" style="display:none;" 
                      data-title="CBP 指令 3340-049B：电子设备边境搜查" 
                      data-en-title='&quot;CBP Directive 3340-049B: Border Search of Electronic Devices&quot;'
                      data-link="https://www.cbp.gov/document/directives/cbp-directive-no-3340-049b-border-search-electronic-devices"
                      data-source="HackerNews"
                      data-date="05-25 03:12"
-                     data-zh-content='&quot;文章网址：https://www.cbp.gov/document/directives/cbp-directive-no-3340-049b-border-search-Electronic-devices\n评论网址：https://news.ycombinator.com/item?id=48260140\n积分：118\n# 评论: 78&quot;'>
+                     data-zh-content='&quot;文章网址：https://www.cbp.gov/document/directives/cbp-directive-no-3340-049b-border-search-Electronic-devices\n评论网址：https://news.ycombinator.com/item?id=48260140\n积分：140\n# 评论：100&quot;'>
                      Article URL: https://www.cbp.gov/document/directives/cbp-directive-no-3340-049b-border-search-electronic-devices
 Comments URL: https://news.ycombinator.com/item?id=48260140
-Points: 118
-# Comments: 78
+Points: 140
+# Comments: 100
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(3)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(4)">
+            
+            <div class="item-img" data-type="fallback">
+                <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
+                    H
+                </div>
+            </div>
+            
+            <div class="item-content">
+                <h2 class="item-title">航空工程的一个基本原理已被颠覆</h2>
+                <div class="item-meta">
+                    <span class="source-badge" style="color:#ff6600; background:#ff660015;">
+                        HackerNews
+                    </span>
+                    <span class="meta-date">05-25 03:10</span>
+                </div>
+                <p class="item-summary">文章网址：https://www.wired.com/story/a-fundamental-principle-of-...</p>
+                <!-- 隐藏数据 -->
+                <div id="data-4" style="display:none;" 
+                     data-title="航空工程的一个基本原理已被颠覆" 
+                     data-en-title='&quot;A fundamental principle of aeronautical engineering has been overturned&quot;'
+                     data-link="https://www.wired.com/story/a-fundamental-principle-of-aeronautical-engineering-has-been-overturned/"
+                     data-source="HackerNews"
+                     data-date="05-25 03:10"
+                     data-zh-content='&quot;文章网址：https://www.wired.com/story/a-fundamental-principle-of-aeronautical-engineering-has-been-overturned/\n评论网址：https://news.ycombinator.com/item?id=48260117\n积分：124\n# 评论: 67&quot;'>
+                     Article URL: https://www.wired.com/story/a-fundamental-principle-of-aeronautical-engineering-has-been-overturned/
+Comments URL: https://news.ycombinator.com/item?id=48260117
+Points: 124
+# Comments: 67
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(5)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -282,22 +348,22 @@ Points: 118
                 </div>
                 <p class="item-summary">文章网址：https://scienceaim.com/australia-just-proved-the-four-d...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-3" style="display:none;" 
+                <div id="data-5" style="display:none;" 
                      data-title="澳大利亚每周工作四天：100:80:100 早期采用者的见解" 
                      data-en-title='&quot;The four-day workweek in Australia: insights from early adopters of 100:80:100&quot;'
                      data-link="https://scienceaim.com/australia-just-proved-the-four-day-work-week-works-here-is-what-the-data-actually-says/"
                      data-source="HackerNews"
                      data-date="05-25 02:56"
-                     data-zh-content='&quot;文章网址：https://scienceaim.com/australia-just-proved-the-four-day-work-week-works-here-is-what-the-data-actually-says/\n评论网址：https://news.ycombinator.com/item?id=48259990\n积分：233\n# 评论：187&quot;'>
+                     data-zh-content='&quot;文章网址：https://scienceaim.com/australia-just-proved-the-four-day-work-week-works-here-is-what-the-data-actually-says/\n评论网址：https://news.ycombinator.com/item?id=48259990\n积分：239\n# 评论：216&quot;'>
                      Article URL: https://scienceaim.com/australia-just-proved-the-four-day-work-week-works-here-is-what-the-data-actually-says/
 Comments URL: https://news.ycombinator.com/item?id=48259990
-Points: 233
-# Comments: 187
+Points: 239
+# Comments: 216
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="macrumors" onclick="openModal(4)">
+        <article class="news-item " style="display:flex;" data-source="macrumors" onclick="openModal(6)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//images.macrumors.com/article-new/2026/05/Apple-Watch-Ultra-2-Black-Titanium.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -317,7 +383,7 @@ Points: 233
                 </div>
                 <p class="item-summary">苹果将​​于 6 月 8 日星期一的 WWDC 2026 主题演讲中推出 watchOS 27，并且已经有传言称将推出一...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-4" style="display:none;" 
+                <div id="data-6" style="display:none;" 
                      data-title="watchOS 27 将为您的 Apple Watch 添加这些新功能" 
                      data-en-title='&quot;watchOS 27 Will Add These New Features to Your Apple Watch&quot;'
                      data-link="https://www.macrumors.com/2026/05/24/watchos-27-rumored-features/"
@@ -373,7 +439,40 @@ Apple is largely focused on "stability, performance, and smaller refinements" fo
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(5)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(7)">
+            
+            <div class="item-img" data-type="fallback">
+                <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
+                    H
+                </div>
+            </div>
+            
+            <div class="item-content">
+                <h2 class="item-title">用柔术战胜 Git 严格疲劳</h2>
+                <div class="item-meta">
+                    <span class="source-badge" style="color:#ff6600; background:#ff660015;">
+                        HackerNews
+                    </span>
+                    <span class="meta-date">05-25 02:39</span>
+                </div>
+                <p class="item-summary">文章网址：https://ikesau.co/blog/defeating-git-rigour-fatigue-wit...</p>
+                <!-- 隐藏数据 -->
+                <div id="data-7" style="display:none;" 
+                     data-title="用柔术战胜 Git 严格疲劳" 
+                     data-en-title='&quot;Defeating Git Rigour Fatigue with Jujutsu&quot;'
+                     data-link="https://ikesau.co/blog/defeating-git-rigour-fatigue-with-jujutsu/"
+                     data-source="HackerNews"
+                     data-date="05-25 02:39"
+                     data-zh-content='&quot;文章网址：https://ikesau.co/blog/defeating-git-rigour-fatigue-with-jujutsu/\n评论网址：https://news.ycombinator.com/item?id=48259861\n积分：114\n# 评论: 119&quot;'>
+                     Article URL: https://ikesau.co/blog/defeating-git-rigour-fatigue-with-jujutsu/
+Comments URL: https://news.ycombinator.com/item?id=48259861
+Points: 114
+# Comments: 119
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(8)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -392,22 +491,22 @@ Apple is largely focused on "stability, performance, and smaller refinements" fo
                 <p class="item-summary">文章网址：https://corrode.dev/learn/migration-guides/go-to-rust/
 ...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-5" style="display:none;" 
+                <div id="data-8" style="display:none;" 
                      data-title="从 Go 迁移到 Rust" 
                      data-en-title='&quot;Migrating from Go to Rust&quot;'
                      data-link="https://corrode.dev/learn/migration-guides/go-to-rust/"
                      data-source="HackerNews"
                      data-date="05-25 02:31"
-                     data-zh-content='&quot;文章网址：https://corrode.dev/learn/migration-guides/go-to-rust/\n评论网址：https://news.ycombinator.com/item?id=48259808\n积分：130\n# 评论: 123&quot;'>
+                     data-zh-content='&quot;文章网址：https://corrode.dev/learn/migration-guides/go-to-rust/\n评论网址：https://news.ycombinator.com/item?id=48259808\n积分：202\n# 评论：197&quot;'>
                      Article URL: https://corrode.dev/learn/migration-guides/go-to-rust/
 Comments URL: https://news.ycombinator.com/item?id=48259808
-Points: 130
-# Comments: 123
+Points: 202
+# Comments: 197
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(6)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(9)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -425,22 +524,22 @@ Points: 130
                 </div>
                 <p class="item-summary">文章网址：https://www.hollandtech.net/claude-is-not-your-architec...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-6" style="display:none;" 
+                <div id="data-9" style="display:none;" 
                      data-title="克劳德不是你的建筑师。别让它假装" 
                      data-en-title='&quot;Claude is not your architect. Stop letting it pretend&quot;'
                      data-link="https://www.hollandtech.net/claude-is-not-your-architect/"
                      data-source="HackerNews"
                      data-date="05-25 02:28"
-                     data-zh-content='&quot;文章网址：https://www.hollandtech.net/claude-is-not-your-architect/\n评论网址：https://news.ycombinator.com/item?id=48259784\n积分：229\n# 评论: 172&quot;'>
+                     data-zh-content='&quot;文章网址：https://www.hollandtech.net/claude-is-not-your-architect/\n评论网址：https://news.ycombinator.com/item?id=48259784\n积分：239\n# 评论: 174&quot;'>
                      Article URL: https://www.hollandtech.net/claude-is-not-your-architect/
 Comments URL: https://news.ycombinator.com/item?id=48259784
-Points: 229
-# Comments: 172
+Points: 239
+# Comments: 174
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="engadget" onclick="openModal(7)">
+        <article class="news-item " style="display:flex;" data-source="engadget" onclick="openModal(10)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//www.engadget.com/img/gallery/the-white-house-is-reportedly-forcing-its-official-app-onto-all-government-employee-phones/intro-1779645823.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -460,7 +559,7 @@ Points: 229
                 </div>
                 <p class="item-summary">你必须以某种方式提高这些下载量。...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-7" style="display:none;" 
+                <div id="data-10" style="display:none;" 
                      data-title="据报道，白宫正在强制所有政府雇员手机安装其官方应用程序" 
                      data-en-title='&quot;The White House is reportedly forcing its official app onto all government employee phones&quot;'
                      data-link="https://www.engadget.com/2180247/white-house-is-reportedly-forcing-its-official-app-onto-all-government-employee-phones/"
@@ -472,7 +571,7 @@ Points: 229
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(8)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(11)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -490,22 +589,22 @@ Points: 229
                 </div>
                 <p class="item-summary">文章网址：https://epoch.ai/data-insights/ai-chip-component-cost-s...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-8" style="display:none;" 
+                <div id="data-11" style="display:none;" 
                      data-title="内存已占 AI 芯片组件成本的近三分之二" 
                      data-en-title='&quot;Memory has grown to nearly two-thirds of AI chip component costs&quot;'
                      data-link="https://epoch.ai/data-insights/ai-chip-component-cost-shares"
                      data-source="HackerNews"
                      data-date="05-25 00:31"
-                     data-zh-content='&quot;文章网址：https://epoch.ai/data-insights/ai-chip-component-cost-shares\n评论网址：https://news.ycombinator.com/item?id=48258684\n积分：288\n# 评论: 309&quot;'>
+                     data-zh-content='&quot;文章网址：https://epoch.ai/data-insights/ai-chip-component-cost-shares\n评论网址：https://news.ycombinator.com/item?id=48258684\n积分：356\n# 评论: 367&quot;'>
                      Article URL: https://epoch.ai/data-insights/ai-chip-component-cost-shares
 Comments URL: https://news.ycombinator.com/item?id=48258684
-Points: 288
-# Comments: 309
+Points: 356
+# Comments: 367
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="9to5google" onclick="openModal(9)">
+        <article class="news-item " style="display:flex;" data-source="9to5google" onclick="openModal(12)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//9to5google.com/wp-content/uploads/sites/4/2026/05/Gemini-App-Redesign-2-1.jpg%3Fquality%3D82%26strip%3Dall%26w%3D1600&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -525,7 +624,7 @@ Points: 288
                 </div>
                 <p class="item-summary">人工智能继续让我对未来有复杂的感觉，这是继上周另一场双子座重磅 Google I/O 之后的首要考虑因素。一方面，谷歌继...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-9" style="display:none;" 
+                <div id="data-12" style="display:none;" 
                      data-title="谷歌展示了Gemini对实用AI的关注，但我仍然百感交集" 
                      data-en-title='&quot;Google showcased Gemini’s focus on practical AI, but I still have mixed feelings&quot;'
                      data-link="https://9to5google.com/2026/05/24/google-io-2026-gemini-practical-ai-opinion/"
@@ -538,7 +637,7 @@ more…
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(10)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(13)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -557,22 +656,22 @@ more…
                 <p class="item-summary">文章网址：https://ti.to/codeforgood/rubyforgood
 评论网址：https://news...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-10" style="display:none;" 
+                <div id="data-13" style="display:none;" 
                      data-title="红宝石为善" 
                      data-en-title='&quot;Ruby for Good&quot;'
                      data-link="https://ti.to/codeforgood/rubyforgood"
                      data-source="HackerNews"
                      data-date="05-24 23:49"
-                     data-zh-content='&quot;文章网址：https://ti.to/codeforgood/rubyforgood\n评论网址：https://news.ycombinator.com/item?id=48258254\n积分：118\n# 评论: 51&quot;'>
+                     data-zh-content='&quot;文章网址：https://ti.to/codeforgood/rubyforgood\n评论网址：https://news.ycombinator.com/item?id=48258254\n积分：129\n# 评论: 53&quot;'>
                      Article URL: https://ti.to/codeforgood/rubyforgood
 Comments URL: https://news.ycombinator.com/item?id=48258254
-Points: 118
-# Comments: 51
+Points: 129
+# Comments: 53
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(11)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(14)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -591,22 +690,22 @@ Points: 118
                 <p class="item-summary">文章网址：https://usborne.com/us/books/computer-and-coding-books
 ...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-11" style="display:none;" 
+                <div id="data-14" style="display:none;" 
                      data-title="尤斯伯恩 20 世纪 80 年代计算机书籍" 
                      data-en-title='&quot;Usborne 1980s Computer Books&quot;'
                      data-link="https://usborne.com/us/books/computer-and-coding-books"
                      data-source="HackerNews"
                      data-date="05-24 23:43"
-                     data-zh-content='&quot;文章网址：https://usborne.com/us/books/computer-and-coding-books\n评论网址：https://news.ycombinator.com/item?id=48258194\n积分：157\n# 评论: 48&quot;'>
+                     data-zh-content='&quot;文章网址：https://usborne.com/us/books/computer-and-coding-books\n评论网址：https://news.ycombinator.com/item?id=48258194\n积分：172\n# 评论: 51&quot;'>
                      Article URL: https://usborne.com/us/books/computer-and-coding-books
 Comments URL: https://news.ycombinator.com/item?id=48258194
-Points: 157
-# Comments: 48
+Points: 172
+# Comments: 51
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="engadget" onclick="openModal(12)">
+        <article class="news-item " style="display:flex;" data-source="engadget" onclick="openModal(15)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//www.engadget.com/img/gallery/kalshi-and-rhode-island-sue-each-other-in-latest-challenge-to-prediction-markets/intro-1779636733.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -626,7 +725,7 @@ Points: 157
                 </div>
                 <p class="item-summary">罗德岛州与其他州一起采取了类似的法律行动。...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-12" style="display:none;" 
+                <div id="data-15" style="display:none;" 
                      data-title="卡尔希和罗德岛州在预测市场的最新挑战中相互起诉" 
                      data-en-title='&quot;Kalshi and Rhode Island sue each other in latest challenge to prediction markets&quot;'
                      data-link="https://www.engadget.com/2180225/kalshi-and-rhode-island-sue-each-other-in-latest-challenge-to-prediction-markets/"
@@ -638,70 +737,7 @@ Points: 157
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(13)">
-            
-            <div class="item-img" data-type="image">
-                <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/24900403/sonosmove2.jpg%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
-                     onerror="this.parentElement.setAttribute('data-type', 'fallback'); this.style.display='none';">
-                <div class="img-fallback" style="background-color: #e1008715; color: #e10087;">
-                    T
-                </div>
-            </div>
-            
-            <div class="item-content">
-                <h2 class="item-title">本周末您可以购买的最佳阵亡将士纪念日促销</h2>
-                <div class="item-meta">
-                    <span class="source-badge" style="color:#e10087; background:#e1008715;">
-                        The Verge
-                    </span>
-                    <span class="meta-date">05-24 23:28</span>
-                </div>
-                <p class="item-summary">阵亡将士纪念日即将到来，这意味着季节性销售正如火如荼地进行。如果您的周末计划涉及泳池派对或烧烤，那么现在是购买便携式扬声...</p>
-                <!-- 隐藏数据 -->
-                <div id="data-13" style="display:none;" 
-                     data-title="本周末您可以购买的最佳阵亡将士纪念日促销" 
-                     data-en-title='&quot;The best Memorial Day sales you can shop this weekend&quot;'
-                     data-link="https://www.theverge.com/gadgets/936196/best-memorial-day-sales-tech-deals-2026"
-                     data-source="The Verge"
-                     data-date="05-24 23:28"
-                     data-zh-content='&quot;阵亡将士纪念日即将到来，这意味着季节性销售正如火如荼地进行。如果您的周末计划涉及泳池派对或烧烤，那么现在是购买便携式扬声器或太阳能灯的好时机，因为我们最喜​​欢的许多型号目前都在打折。您还可以找到各种商品的优惠，从 4K OLED 电视和降噪耳机到帐篷、笔记本电脑以及许多我们最喜欢的日常必需品。\n为了给您提供更多选择，我们还提供了一系列来自零售商的优惠活动，这些零售商不一定会举办自己的阵亡将士纪念日促销活动，但仍在 5 月 25 日之前提供限时优惠。\n毕竟，储蓄就是储蓄。\n\n\n\n\n耳塞和耳机 \nAirPods Pro 3\nAirPods Pro 3 采用全新设计，改善了贴合度、卓越的降噪效果、更好的低音、&quot;'>
-                     Memorial Day is nearly here, meaning the seasonal sales are in full swing. If your weekend plans involve pool parties or barbecues, now is a great time to pick up a portable speaker or set of solar lights, as many of our favorite models are currently on sale. You can also find deals on everything from 4K OLED TVs and noise-canceling earbuds to tents, laptops, and plenty of our favorite everyday essentials.
-To give you more options, we’ve also included a selection of deals from retailers that aren’t necessarily running their own Memorial Day sales but are still offering limited-time deals in the run-up to May 25th.
-Savings are savings, after all.
-
-
-
-
-Earbuds and headphones 
-AirPods Pro 3
-The AirPods Pro 3 have a new design that improves their fit, superior noise cancellation, better bass, and fairly accurate heart rate sensors. Read our review.
-
-Where to Buy: $249 $199.99 at Amazon $249 $199.99 at Walmart $249.99 $199.99 at Best BuyNothing Headphone A
-Nothing’s second over-ear headphones may not offer everything found on the pricier Nothing Headphone 1, but you do get physical controls, good sound, and more than five days of battery life per charge. Their design is also a bit more discreet, for better or worse. Read our review.
-
-Where to Buy: $199 $169 at Amazon $199 $169 at NothingBose QuietComfort Ultra Earbuds (2nd Gen)
-The second-gen QuietComfort Ultra Earbuds have dynamic, rich sound and the best noise cancellation currently available in a pair of true wireless earbuds. They’re a terrific pick if you want to listen to your music in peace. Read our review.
-
-Where to Buy: $299 $249 at Amazon $299 $249 at Walmart $299 $249 at Best Buy
-
-Samsung’s Galaxy Buds 3 Pro are on sale for $149.99 ($100 off) at Best Buy, which matches their all-time low price. The wireless earbuds are our top pick for Samsung Galaxy phone device owners, thanks to their comfortable AirPods-inspired design, terrific sound quality, and good noise cancellation. They also offer helpful voice controls that let you adjust volume or playback without a wake word, while delivering excellent voice call quality. Read our review.
-If you’re an Apple user, there’s no better pair of starter buds than the open-style AirPods 4, which have fallen to a new low of $99 ($30 off) at Amazon and Walmart. The latest model sounds significantly better than the third-gen pair, particularly for voice calls. More importantly, they offer robust integration with the rest of the Apple ecosystem, letting you take advantage of audio sharing, automatic device switching, hands-free “Hey Siri” commands, Apple TV integration, and more. Read our review.
-
-Shokz OpenRun Pro 2
-The OpenRun Pro 2 are Shokz’s best bone conduction headphones yet, with better sound and more bass than their predecessor. Our reviewer Victoria Song praised their cozy fit as well as their USB-C charging (goodbye, proprietary charger!). Read our review.
-
-Where to Buy: $179.99 $129.99 at Best BuyNothing Ear (a)
-Nothing’s Ear (a) earbuds have the same general design as the company’s previous earbuds — but you can get these in a snazzy yellow. They include ANC, more than decent sound quality, and other features like multipoint for just under $100. Read our impressions.
-
-Where to Buy: $99 $58.99 at Amazon $99 $59 at Nothing
-
-Sennheiser’s Momentum True Wireless 4 earbuds are down to around $199.95 ($100 off) at Amazon and Best Buy, which is $20 shy of their best price to date. If sound quality matters most, they’re an easy recommendation, delivering rich, detailed audio with EQ customization to fine-tune the listening experience. Optional wing tips are included to help keep them secure and comfortable. Read our review.
-Amazon and Best Buy are selling the last-gen AirPods Max (USB-C) for $449 ($100 off), which is $50 shy of their all-time low. Apple’s luxe over-ear headphones offer a premium design and work especially well with other Apple devices. They still deliver great sound quality and effective noise cancellation, even if 
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(14)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(16)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -720,22 +756,22 @@ Amazon and Best Buy are selling the last-gen AirPods Max (USB-C) for $449 ($100 
                 <p class="item-summary">文章网址：https://audiomass.co/?multitrack=1
 评论网址：https://news.yc...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-14" style="display:none;" 
+                <div id="data-16" style="display:none;" 
                      data-title="Show HN：Audiomas – 一款免费、开源的网络多轨音频编辑器" 
                      data-en-title='&quot;Show HN: Audiomass – a free, open-source multitrack audio editor for the web&quot;'
                      data-link="https://audiomass.co/?multitrack=1"
                      data-source="HackerNews"
                      data-date="05-24 23:25"
-                     data-zh-content='&quot;文章网址：https://audiomass.co/?multitrack=1\n评论网址：https://news.ycombinator.com/item?id=48258015\n积分：137\n# 评论: 36&quot;'>
+                     data-zh-content='&quot;文章网址：https://audiomass.co/?multitrack=1\n评论网址：https://news.ycombinator.com/item?id=48258015\n积分：284\n# 评论: 58&quot;'>
                      Article URL: https://audiomass.co/?multitrack=1
 Comments URL: https://news.ycombinator.com/item?id=48258015
-Points: 137
-# Comments: 36
+Points: 284
+# Comments: 58
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(15)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(17)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -753,22 +789,22 @@ Points: 137
                 </div>
                 <p class="item-summary">文章网址：https://www.theguardian.com/technology/2026/may/24/ai-w...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-15" style="display:none;" 
+                <div id="data-17" style="display:none;" 
                      data-title="“人工智能清洗”：企业正争先恐后地将自己重塑为以技术为中心的公司" 
                      data-en-title='&quot;'AI washing': firms are scrambling to rebrand themselves as tech-focused&quot;'
                      data-link="https://www.theguardian.com/technology/2026/may/24/ai-washing-pr-firms-scrambling-rebrand"
                      data-source="HackerNews"
                      data-date="05-24 23:21"
-                     data-zh-content='&quot;文章网址：https://www.theguardian.com/technology/2026/may/24/ai-washing-pr-firms-scrambling-rebrand\n评论网址：https://news.ycombinator.com/item?id=48257980\n积分：148\n# 评论：140&quot;'>
+                     data-zh-content='&quot;文章网址：https://www.theguardian.com/technology/2026/may/24/ai-washing-pr-firms-scrambling-rebrand\n评论网址：https://news.ycombinator.com/item?id=48257980\n积分：157\n# 评论: 146&quot;'>
                      Article URL: https://www.theguardian.com/technology/2026/may/24/ai-washing-pr-firms-scrambling-rebrand
 Comments URL: https://news.ycombinator.com/item?id=48257980
-Points: 148
-# Comments: 140
+Points: 157
+# Comments: 146
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(16)">
+        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(18)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2026/05/On-Trails.jpg%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -788,7 +824,7 @@ Points: 148
                 </div>
                 <p class="item-summary">徒步旅行是人生一大乐趣。关掉屏幕，长时间（甚至可能是几天）走进大自然，可以让人恢复活力。不幸的是，作为一个有两个孩子和背...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-16" style="display:none;" 
+                <div id="data-18" style="display:none;" 
                      data-title="《On Trails》是一个融合了徒步旅行、科学和历史的流浪故事" 
                      data-en-title='&quot;On Trails is a wandering tale that blends hiking, science, and history&quot;'
                      data-link="https://www.theverge.com/entertainment/936860/robert-moor-on-trails-book-review"
@@ -802,7 +838,7 @@ Read the full story at The Verge.
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(17)">
+        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(19)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2026/03/268408_Apple_MacBook_Air_15_M5_laptop_ADiBenedetto_0026.jpg%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -822,7 +858,7 @@ Read the full story at The Verge.
                 </div>
                 <p class="item-summary">如果您正在寻找一款几年后仍能表现出色的笔记本电脑，Apple 最新的 MacBook Air 是您的最佳选择。现在尤其是...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-17" style="display:none;" 
+                <div id="data-19" style="display:none;" 
                      data-title="苹果最新款 MacBook Air 两种尺寸均在阵亡将士纪念日降价 200 美元" 
                      data-en-title='&quot;Apple’s latest MacBook Air is $200 off in both sizes for Memorial Day&quot;'
                      data-link="https://www.theverge.com/gadgets/936610/apple-macbook-air-m5-memorial-day-2026-deal-sale"
@@ -842,7 +878,7 @@ Read our full 2026 MacBook Air review.
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(18)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="hackernews" onclick="openModal(20)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -861,22 +897,22 @@ Read our full 2026 MacBook Air review.
                 <p class="item-summary">文章网址：https://abyss.fish/your_dotfiles_are_not_a_distro
 评论网址：...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-18" style="display:none;" 
+                <div id="data-20" style="display:none;" 
                      data-title="Omarchy 不是一个发行版" 
                      data-en-title='&quot;Omarchy Is Not A Distro&quot;'
                      data-link="https://abyss.fish/your_dotfiles_are_not_a_distro"
                      data-source="HackerNews"
                      data-date="05-24 22:37"
-                     data-zh-content='&quot;文章网址：https://abyss.fish/your_dotfiles_are_not_a_distro\n评论网址：https://news.ycombinator.com/item?id=48257612\n积分：159\n# 评论: 148&quot;'>
+                     data-zh-content='&quot;文章网址：https://abyss.fish/your_dotfiles_are_not_a_distro\n评论网址：https://news.ycombinator.com/item?id=48257612\n积分：167\n# 评论：154&quot;'>
                      Article URL: https://abyss.fish/your_dotfiles_are_not_a_distro
 Comments URL: https://news.ycombinator.com/item?id=48257612
-Points: 159
-# Comments: 148
+Points: 167
+# Comments: 154
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(19)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="hackernews" onclick="openModal(21)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -894,22 +930,22 @@ Points: 159
                 </div>
                 <p class="item-summary">文章网址：https://www.statnews.com/2026/05/22/seed-oils-healthy-f...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-19" style="display:none;" 
+                <div id="data-21" style="display:none;" 
                      data-title="种子油恐慌正在伤害我的心脏病患者" 
                      data-en-title='&quot;The seed oil panic is hurting my cardiac patients&quot;'
                      data-link="https://www.statnews.com/2026/05/22/seed-oils-healthy-fats-tallow-fact-check-cardiac-health/"
                      data-source="HackerNews"
                      data-date="05-24 22:27"
-                     data-zh-content='&quot;文章网址：https://www.statnews.com/2026/05/22/seed-oils-healthy-fats-tallow-fact-check-cardiac-health/\n评论网址：https://news.ycombinator.com/item?id=48257532\n积分：148\n# 评论：215&quot;'>
+                     data-zh-content='&quot;文章网址：https://www.statnews.com/2026/05/22/seed-oils-healthy-fats-tallow-fact-check-cardiac-health/\n评论网址：https://news.ycombinator.com/item?id=48257532\n积分：150\n# 评论：219&quot;'>
                      Article URL: https://www.statnews.com/2026/05/22/seed-oils-healthy-fats-tallow-fact-check-cardiac-health/
 Comments URL: https://news.ycombinator.com/item?id=48257532
-Points: 148
-# Comments: 215
+Points: 150
+# Comments: 219
                 </div>
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="hackernews" onclick="openModal(20)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="hackernews" onclick="openModal(22)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -927,85 +963,17 @@ Points: 148
                 </div>
                 <p class="item-summary">文章网址：https://www.bloomberg.com/news/articles/2026-05-23/deep...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-20" style="display:none;" 
+                <div id="data-22" style="display:none;" 
                      data-title="DeepSeek 旗舰 AI 模型永久享受 75% 折扣" 
                      data-en-title='&quot;DeepSeek to Make Permanent 75% Discount on Flagship AI Model&quot;'
                      data-link="https://www.bloomberg.com/news/articles/2026-05-23/deepseek-to-make-permanent-75-discount-on-flagship-ai-model"
                      data-source="HackerNews"
                      data-date="05-24 22:09"
-                     data-zh-content='&quot;文章网址：https://www.bloomberg.com/news/articles/2026-05-23/deepseek-to-make-permanent-75-discount-on-flagship-ai-model\n评论网址：https://news.ycombinator.com/item?id=48257410\n积分：204\n# 评论: 2&quot;'>
+                     data-zh-content='&quot;文章网址：https://www.bloomberg.com/news/articles/2026-05-23/deepseek-to-make-permanent-75-discount-on-flagship-ai-model\n评论网址：https://news.ycombinator.com/item?id=48257410\n积分：206\n# 评论: 2&quot;'>
                      Article URL: https://www.bloomberg.com/news/articles/2026-05-23/deepseek-to-make-permanent-75-discount-on-flagship-ai-model
 Comments URL: https://news.ycombinator.com/item?id=48257410
-Points: 204
+Points: 206
 # Comments: 2
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item news-item-hidden" style="display:none;" data-source="hackernews" onclick="openModal(21)">
-            
-            <div class="item-img" data-type="fallback">
-                <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
-                    H
-                </div>
-            </div>
-            
-            <div class="item-content">
-                <h2 class="item-title">DeepSeek Reasonix，高缓存、低成本的 DeepSeek 原生编码代理</h2>
-                <div class="item-meta">
-                    <span class="source-badge" style="color:#ff6600; background:#ff660015;">
-                        HackerNews
-                    </span>
-                    <span class="meta-date">05-24 21:02</span>
-                </div>
-                <p class="item-summary">相关正在进行的线程：DeepSeek 使 V4 Pro 价格折扣永久 - https://news.ycombinato...</p>
-                <!-- 隐藏数据 -->
-                <div id="data-21" style="display:none;" 
-                     data-title="DeepSeek Reasonix，高缓存、低成本的 DeepSeek 原生编码代理" 
-                     data-en-title='&quot;DeepSeek reasonix, DeepSeek native coding agent with high caching and low cost&quot;'
-                     data-link="https://esengine.github.io/DeepSeek-Reasonix/"
-                     data-source="HackerNews"
-                     data-date="05-24 21:02"
-                     data-zh-content='&quot;相关正在进行的线程：DeepSeek 使 V4 Pro 价格折扣永久 - https://news.ycombinator.com/item?id=48237663 - 2026 年 5 月（384 条评论）\n\n评论网址：https://news.ycombinator.com/item?id=48256953\n积分：428\n# 评论: 196&quot;'>
-                     Related ongoing thread:DeepSeek makes the V4 Pro price discount permanent - https://news.ycombinator.com/item?id=48237663 - May 2026 (384 comments)
-
-Comments URL: https://news.ycombinator.com/item?id=48256953
-Points: 428
-# Comments: 196
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item news-item-hidden" style="display:none;" data-source="hackernews" onclick="openModal(22)">
-            
-            <div class="item-img" data-type="fallback">
-                <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
-                    H
-                </div>
-            </div>
-            
-            <div class="item-content">
-                <h2 class="item-title">约束衰减：LLM 代理在后端代码生成中的脆弱性</h2>
-                <div class="item-meta">
-                    <span class="source-badge" style="color:#ff6600; background:#ff660015;">
-                        HackerNews
-                    </span>
-                    <span class="meta-date">05-24 20:55</span>
-                </div>
-                <p class="item-summary">文章网址：https://arxiv.org/abs/2605.06445
-评论网址：https://news.ycom...</p>
-                <!-- 隐藏数据 -->
-                <div id="data-22" style="display:none;" 
-                     data-title="约束衰减：LLM 代理在后端代码生成中的脆弱性" 
-                     data-en-title='&quot;Constraint Decay: The Fragility of LLM Agents in Back End Code Generation&quot;'
-                     data-link="https://arxiv.org/abs/2605.06445"
-                     data-source="HackerNews"
-                     data-date="05-24 20:55"
-                     data-zh-content='&quot;文章网址：https://arxiv.org/abs/2605.06445\n评论网址：https://news.ycombinator.com/item?id=48256912\n积分：169\n# 评论: 84&quot;'>
-                     Article URL: https://arxiv.org/abs/2605.06445
-Comments URL: https://news.ycombinator.com/item?id=48256912
-Points: 169
-# Comments: 84
                 </div>
             </div>
         </article>
@@ -1108,41 +1076,7 @@ Related Roundup: Apple DealsThis article, "Anker 3-in-1 Prime Wireless Charging 
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="hackernews" onclick="openModal(24)">
-            
-            <div class="item-img" data-type="fallback">
-                <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
-                    H
-                </div>
-            </div>
-            
-            <div class="item-content">
-                <h2 class="item-title">童年计算</h2>
-                <div class="item-meta">
-                    <span class="source-badge" style="color:#ff6600; background:#ff660015;">
-                        HackerNews
-                    </span>
-                    <span class="meta-date">05-24 20:07</span>
-                </div>
-                <p class="item-summary">文章网址：https://susam.net/childhood-computing.html
-评论网址：https:/...</p>
-                <!-- 隐藏数据 -->
-                <div id="data-24" style="display:none;" 
-                     data-title="童年计算" 
-                     data-en-title='&quot;Childhood Computing&quot;'
-                     data-link="https://susam.net/childhood-computing.html"
-                     data-source="HackerNews"
-                     data-date="05-24 20:07"
-                     data-zh-content='&quot;文章网址：https://susam.net/childhood-computing.html\n评论网址：https://news.ycombinator.com/item?id=48256597\n积分：157\n# 评论: 87&quot;'>
-                     Article URL: https://susam.net/childhood-computing.html
-Comments URL: https://news.ycombinator.com/item?id=48256597
-Points: 157
-# Comments: 87
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(25)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(24)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2025/09/STK414_AI_CVIRGINIA_I__0005_3.png%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1162,7 +1096,7 @@ Points: 157
                 </div>
                 <p class="item-summary">这是《The Stepback》，一份每周简讯，详细介绍了科技界的一个重要故事。有关人工智能恶作剧的更多信息，请关注 R...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-25" style="display:none;" 
+                <div id="data-24" style="display:none;" 
                      data-title="黑客正在学习利用聊天机器人的“个性”；" 
                      data-en-title='&quot;Hackers are learning to exploit chatbot &#8216;personalities&#8217;&quot;'
                      data-link="https://www.theverge.com/column/935545/hackers-ai-chatbots"
@@ -1178,7 +1112,7 @@ Read the full story at The Verge.
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(26)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(25)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2026/05/Photo-4.webp%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1198,7 +1132,7 @@ Read the full story at The Verge.
                 </div>
                 <p class="item-summary">Waymo 是机器人出租车领域无可争议的领导者，在美国至少 10 个城市运营着一支由 3,000 多辆无人驾驶汽车组成的...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-26" style="display:none;" 
+                <div id="data-25" style="display:none;" 
                      data-title="为什么 Nuro 认为成为机器人出租车的“第二推动者”会给它带来优势" 
                      data-en-title='&quot;Why Nuro thinks being a robotaxi ‘second mover’ gives it an advantage&quot;'
                      data-link="https://www.theverge.com/transportation/936126/nuro-robotaxi-dave-ferguson-interview-uber-lucid-waymo"
@@ -1212,7 +1146,7 @@ Read the full story at The Verge.
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(27)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(26)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2026/05/Screenshot-2026-05-23-at-6.30.34PM.png%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1234,7 +1168,7 @@ Read the full story at The Verge.
 
 对于音乐爱好者来说，目前还没有真正与 Goodreads 或 Lette...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-27" style="display:none;" 
+                <div id="data-26" style="display:none;" 
                      data-title="Record Club 正试图成为音乐迷的 Letterboxd" 
                      data-en-title='&quot;Record Club is trying to be Letterboxd for music nerds&quot;'
                      data-link="https://www.theverge.com/entertainment/936829/record-club-letterboxd-for-music-nerds"
@@ -1250,7 +1184,7 @@ Read the full story at The Verge.
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(28)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(27)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//images.macrumors.com/article-new/2024/09/Apple-Intelligence-General-Feature-2.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1270,7 +1204,7 @@ Read the full story at The Verge.
                 </div>
                 <p class="item-summary">据 MacRumors 撰稿人 Aaron Perris 称，苹果正在准备子域名 genai.apple.com，但尚未...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-28" style="display:none;" 
+                <div id="data-27" style="display:none;" 
                      data-title="苹果在 WWDC 之前准备新的“Gen AI”网站" 
                      data-en-title='&quot;Apple Preparing New 'Gen AI' Website Ahead of WWDC&quot;'
                      data-link="https://www.macrumors.com/2026/05/23/apple-gen-ai-subdomain/"
@@ -1299,7 +1233,7 @@ Apple's WWDC 2026 keynote begins on Monday, June 8 at 10 a.m. Pacific Time.Relat
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="9to5google" onclick="openModal(29)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="9to5google" onclick="openModal(28)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//9to5google.com/wp-content/uploads/sites/4/2026/05/Gemini-App-Redesign-1-1.jpg%3Fquality%3D82%26strip%3Dall%26w%3D1600&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1319,7 +1253,7 @@ Apple's WWDC 2026 keynote begins on Monday, June 8 at 10 a.m. Pacific Time.Relat
                 </div>
                 <p class="item-summary">作为 Neural Expressive 重新设计的一部分，Android 上的 Gemini Live 现在可以访问更...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-29" style="display:none;" 
+                <div id="data-28" style="display:none;" 
                      data-title="Gemini Live 重新设计现在可与 Android 上的更多“联网应用程序”配合使用" 
                      data-en-title='&quot;Gemini Live redesign now works with more ‘Connected Apps’ on Android&quot;'
                      data-link="https://9to5google.com/2026/05/23/gemini-live-connected-apps/"
@@ -1332,7 +1266,7 @@ more…
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="engadget" onclick="openModal(30)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="engadget" onclick="openModal(29)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//www.engadget.com/img/gallery/chicks-hatched-from-artificial-eggshells-a-new-mission-to-study-earths-magnetosphere-and-more-science-stories/intro-1779553288.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1352,7 +1286,7 @@ more…
                 </div>
                 <p class="item-summary">本周的科学新闻。...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-30" style="display:none;" 
+                <div id="data-29" style="display:none;" 
                      data-title="从人造蛋壳中孵出小鸡、研究地球磁层的新任务和更多科学故事" 
                      data-en-title='&quot;Chicks hatched from artificial eggshells, a new mission to study Earth's magnetosphere and more science stories&quot;'
                      data-link="https://www.engadget.com/2180073/chicks-hatched-from-artificial-eggshells-smile-mission-to-study-earth-magnetosphere-spacex-starship-launch-europa-water-plumes/"
@@ -1364,7 +1298,7 @@ more…
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="9to5google" onclick="openModal(31)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="9to5google" onclick="openModal(30)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//9to5google.com/wp-content/uploads/sites/4/2026/05/google-ai-overview-2.jpg%3Fquality%3D82%26strip%3Dall%26w%3D1600&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1384,7 +1318,7 @@ more…
                 </div>
                 <p class="item-summary">谷歌搜索中的人工智能可能很有用，但它也是“喜欢它或讨厌它”的工具之一。不过，如果您一直想关闭 Google 搜索中的人工...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-31" style="display:none;" 
+                <div id="data-30" style="display:none;" 
                      data-title="您可以使用这个简单的修改器关闭 Google 搜索结果中的 AI" 
                      data-en-title='&quot;You can turn off AI in Google Search results with this easy modifier&quot;'
                      data-link="https://9to5google.com/2026/05/23/google-ai-overviews-turn-off-modifier/"
@@ -1397,7 +1331,7 @@ more…
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(32)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(31)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2026/05/Roger-Linn-headshot.jpg%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1419,7 +1353,7 @@ more…
 
 罗杰·林恩 (Roger Linn) ...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-32" style="display:none;" 
+                <div id="data-31" style="display:none;" 
                      data-title="传奇 MPC 背后的人 Roger Linn 通过单个浏览器选项卡保持专注" 
                      data-en-title='&quot;The man behind the legendary MPC, Roger Linn, stays focused with a single browser tab&quot;'
                      data-link="https://www.theverge.com/entertainment/936426/mpc-linndrum-roger-linn-questionnaire-music-tech"
@@ -1435,7 +1369,7 @@ Read the full story at The Verge.
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(33)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(32)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2025/02/Amazon_Fire_TV_Stick_4K_Max_2023_Press_Lifestyle_Image.webp%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1455,7 +1389,7 @@ Read the full story at The Verge.
                 </div>
                 <p class="item-summary">大型 OLED 电视和 Sonos 扬声器可能会成为阵亡将士纪念日的焦点，但也有很多超值优惠，不会让您失望。事实上，我们...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-33" style="display:none;" 
+                <div id="data-32" style="display:none;" 
                      data-title="以下是我们推荐的 38 项阵亡将士纪念日优惠，价格不超过 50 美元" 
                      data-en-title='&quot;Here are 38 Memorial Day deals we recommend for $50 or less&quot;'
                      data-link="https://www.theverge.com/gadgets/935751/memorial-day-2026-best-cheap-tech-deals-under-50"
@@ -1494,7 +1428,7 @@ Anker Nano Trav
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(34)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(33)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2026/05/11.-Ayame-and-Fuku.jpg%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1514,7 +1448,7 @@ Anker Nano Trav
                 </div>
                 <p class="item-summary">找到一家适合您的咖啡馆可能是一种启发性的体验。至少对我来说，除了我的房子之外，没有什么地方能让我真正感到舒适。我很幸运，...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-34" style="display:none;" 
+                <div id="data-33" style="display:none;" 
                      data-title="在我最喜欢的东京虚拟咖啡店里闲逛" 
                      data-en-title='&quot;Hanging out in my favorite virtual coffee shop in Tokyo&quot;'
                      data-link="https://www.theverge.com/entertainment/936278/coffee-talk-tokyo-review-switch-xbox-ps5-steam"
@@ -1528,7 +1462,7 @@ Read the full story at The Verge.
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(35)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(34)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//images.macrumors.com/article-new/2026/05/top-stories-2026-05-23.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1548,7 +1482,7 @@ Read the full story at The Verge.
                 </div>
                 <p class="item-summary">本周最重要的苹果新闻围绕着新的 Apple Card 促销活动，主要是向新持卡人提供免费 AirPods Pro 3，以...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-35" style="display:none;" 
+                <div id="data-34" style="display:none;" 
                      data-title="头条新闻：Apple Card AirPods Pro 促销、WWDC 2026 时间表等" 
                      data-en-title='&quot;Top Stories: Apple Card AirPods Pro Promo, WWDC 2026 Schedule, and More&quot;'
                      data-link="https://www.macrumors.com/2026/05/23/top-stories-apple-card-airpods-pro-promo/"
@@ -1628,7 +1562,7 @@ Apple this week re-released the Hikawa Grip & Stand for iPhone in three new colo
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(36)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(35)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2026/05/Installer-129.png%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1648,7 +1582,7 @@ Apple this week re-released the Hikawa Grip & Stand for iPhone in three new colo
                 </div>
                 <p class="item-summary">嗨，朋友们！欢迎来到第 129 号安装程序，这是您了解世界上最好、最前沿的东西的指南。 （如果您是新来的，欢迎，加油，枪...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-36" style="display:none;" 
+                <div id="data-35" style="display:none;" 
                      data-title="我有一个新的首选浏览器" 
                      data-en-title='&quot;I have a new go-to browser&quot;'
                      data-link="https://www.theverge.com/tech/936395/vivaldi-8-review-mandalorian-installer"
@@ -1663,7 +1597,7 @@ Read the full story at The Verge.
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="engadget" onclick="openModal(37)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="engadget" onclick="openModal(36)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//www.engadget.com/img/gallery/myst-and-riven-remakes-the-return-of-bubsy-and-other-new-indie-games-worth-checking-out/intro-1779479221.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1683,7 +1617,7 @@ Read the full story at The Verge.
                 </div>
                 <p class="item-summary">在我们看到的值得一试的独立游戏中，有一款解谜平台游戏，其灵感来自于心理健康挑战，并将失败转化为进步。...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-37" style="display:none;" 
+                <div id="data-36" style="display:none;" 
                      data-title="《神秘岛》和《裂罅》的重制版、《布布西》的回归以及其他值得一试的新独立游戏" 
                      data-en-title='&quot;Myst and Riven remakes, the return of Bubsy and other new indie games worth checking out&quot;'
                      data-link="https://www.engadget.com/2179711/myst-riven-remakes-the-return-of-bubsy-and-other-new-indie-games-worth-checking-out/"
@@ -1695,7 +1629,7 @@ Read the full story at The Verge.
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="9to5google" onclick="openModal(38)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="9to5google" onclick="openModal(37)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//9to5google.com/wp-content/uploads/sites/4/2019/08/chromecast-2013-header.jpg%3Fquality%3D82%26strip%3Dall%26w%3D1600&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1713,22 +1647,22 @@ Read the full story at The Verge.
                     </span>
                     <span class="meta-date">05-23 10:49</span>
                 </div>
-                <p class="item-summary">2013 年的 Chromecast 是 Google 首款真正热门的硬件之一，随着越来越多关于流媒体失败的报道，它开始...</p>
+                <p class="item-summary">2013 年推出的 Chromecast 是 Google 首款真正热门的硬件之一，随着越来越多关于流媒体失败的报道，它...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-38" style="display:none;" 
+                <div id="data-37" style="display:none;" 
                      data-title="13 年后，第一代 Chromecast 流媒体突然无法满足某些用户的需求" 
                      data-en-title='&quot;First-gen Chromecast streamers are suddenly failing for some users, 13 years later&quot;'
                      data-link="https://9to5google.com/2026/05/22/first-gen-chromecast-streamers-are-suddenly-failing-for-some-users-13-years-later/"
                      data-source="9to5Google"
                      data-date="05-23 10:49"
-                     data-zh-content='&quot;2013 年的 Chromecast 是 Google 首款真正热门的硬件之一，随着越来越多关于流媒体失败的报道，它开始停止对某些用户工作。\n更多的…&quot;'>
+                     data-zh-content='&quot;2013 年推出的 Chromecast 是 Google 首款真正热门的硬件之一，随着越来越多关于流媒体失败的报道，它开始停止对部分用户运行。\n更多的…&quot;'>
                      One of Google’s first true hit pieces of hardware, 2013’s Chromecast, is starting to stop working for some users are more reports of failing streams surface.
 more…
                 </div>
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(39)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(38)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//images.macrumors.com/article-new/2026/05/apple-a3577-label-feature.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1748,7 +1682,7 @@ more…
                 </div>
                 <p class="item-summary">美国联邦通信委员会刚刚发布了与一款显然尚未发布的苹果产品（型号为 A3577）相关的文件，该产品被描述为“蓝牙耳罩式耳机...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-39" style="display:none;" 
+                <div id="data-38" style="display:none;" 
                      data-title="新款 Apple 或 Beats 头戴式耳机出现在 FCC 数据库中" 
                      data-en-title='&quot;New Apple or Beats Over-Ear Headphones Appear in FCC Database&quot;'
                      data-link="https://www.macrumors.com/2026/05/22/apple-beats-over-ear-headphones-fcc/"
@@ -1778,7 +1712,7 @@ We'll share additional information as we learn more.This article, "New Apple or 
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="9to5google" onclick="openModal(40)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="9to5google" onclick="openModal(39)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//9to5google.com/wp-content/uploads/sites/4/2026/05/Gemini-Mac-app-summer-26.jpg%3Fquality%3D82%26strip%3Dall%26w%3D1600&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1798,7 +1732,7 @@ We'll share additional information as we learn more.This article, "New Apple or 
                 </div>
                 <p class="item-summary">在 I/O 2026 上，Google 预览了 macOS 上的 Gemini 应用程序的两项主要功能，这些功能将于今年...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-40" style="display:none;" 
+                <div id="data-39" style="display:none;" 
                      data-title="今年夏天，Mac 版 Gemini 应用程序将添加“Spark”代理和语音控制功能" 
                      data-en-title='&quot;Gemini app for Mac adding ‘Spark’ agent and voice control this summer&quot;'
                      data-link="https://9to5google.com/2026/05/22/gemini-mac-spark-control-summer/"
@@ -1811,7 +1745,7 @@ more…
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="9to5google" onclick="openModal(41)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="9to5google" onclick="openModal(40)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//9to5google.com/wp-content/uploads/sites/4/2026/05/Google-gradient-icon-redeisgn-cover.jpg%3Fquality%3D82%26strip%3Dall%26w%3D1600&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1832,7 +1766,7 @@ more…
                 <p class="item-summary">根据我们上个月的报告，谷歌开始为 Workspace 应用程序推出渐变图标重新设计。
 更多的…...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-41" style="display:none;" 
+                <div id="data-40" style="display:none;" 
                      data-title="渐变 Google 图标重新设计在 Android、iOS 和 Web 上推出 [U]" 
                      data-en-title='&quot;Gradient Google icon redesign rolling out on Android, iOS, & web [U]&quot;'
                      data-link="https://9to5google.com/2026/05/22/gradient-google-icon-redesign-web/"
@@ -1845,7 +1779,7 @@ more…
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(42)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(41)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//images.macrumors.com/article-new/2022/02/Google-Logo-Feature-Slack.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1865,7 +1799,7 @@ more…
                 </div>
                 <p class="item-summary">谷歌今天对 2024 年的一项裁决提出上诉，该裁决发现其付费成为 iPhone 上的默认搜索引擎违反了反垄断法。谷歌在向...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-42" style="display:none;" 
+                <div id="data-41" style="display:none;" 
                      data-title="谷歌对反垄断裁决提出上诉，称苹果选择其搜索引擎“公平公正”" 
                      data-en-title='&quot;Google Appeals Antitrust Ruling, Says Apple Chose Its Search Engine 'Fair and Square'&quot;'
                      data-link="https://www.macrumors.com/2026/05/22/google-search-monopoly-appeal/"
@@ -1904,7 +1838,7 @@ Oral arguments for Google's appeal haven't been scheduled, so we're unlikely to 
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(43)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(42)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//images.macrumors.com/article-new/2026/03/aqara-camera-hub-g350%40.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1924,7 +1858,7 @@ Oral arguments for Google's appeal haven't been scheduled, so we're unlikely to 
                 </div>
                 <p class="item-summary">智能家居设备制造商Aqara于3月份推出了Camera Hub G350，它是市场上首款获得Matter认证的智能相机。...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-43" style="display:none;" 
+                <div id="data-42" style="display:none;" 
                      data-title="Aqara Camera Hub G350 评测：4K 录制、双镜头、云台跟踪和 AI 主体检测" 
                      data-en-title='&quot;Aqara Camera Hub G350 Review: 4K Recording, Dual Lenses, Pan-and-Tilt Tracking, and AI Subject Detection&quot;'
                      data-link="https://www.macrumors.com/review/aqara-camera-hub-g350/"
@@ -1986,7 +1920,7 @@ The camera has on-device AI processing that can recognize faces, pets, gestures,
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="arstechnica" onclick="openModal(44)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="arstechnica" onclick="openModal(43)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//cdn.arstechnica.net/wp-content/uploads/2023/12/Screenshot-2023-12-15-162115.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2006,7 +1940,7 @@ The camera has on-device AI processing that can recognize faces, pets, gestures,
                 </div>
                 <p class="item-summary">2023 年 11 月，我们报道了营销公司 Cox Media Group (CMG) Local Solutions ...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-44" style="display:none;" 
+                <div id="data-43" style="display:none;" 
                      data-title="声称可以利用设备进行广告定位的营销商将支付 88 万美元的和解金" 
                      data-en-title='&quot;Marketer that claimed it could tap devices for ad targeting will pay $880K settlement&quot;'
                      data-link="https://arstechnica.com/tech-policy/2026/05/marketer-that-claimed-it-could-tap-devices-for-ad-targeting-will-pay-880k-settlement/"
@@ -2039,7 +1973,7 @@ Comments
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(45)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(44)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//images.macrumors.com/article-new/2026/05/google-ai-overview-disregard.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2059,7 +1993,7 @@ Comments
                 </div>
                 <p class="item-summary">周二，谷歌举办了 I/O 开发者活动，并推出了 Google 搜索的人工智能版本，该公司将其描述为由最新版本 Gemin...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-45" style="display:none;" 
+                <div id="data-44" style="display:none;" 
                      data-title="搜索“无视”会导致谷歌崩溃[更新]" 
                      data-en-title='&quot;Searching for 'Disregard' Breaks Google [Updated]&quot;'
                      data-link="https://www.macrumors.com/2026/05/22/google-search-disregard/"
@@ -2095,7 +2029,7 @@ Update: A Google spokesperson told MacRumors that the bug is unrelated to Google
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="9to5google" onclick="openModal(46)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="9to5google" onclick="openModal(45)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//9to5google.com/wp-content/uploads/sites/4/2026/05/snap-spectacles-1.jpg%3Fquality%3D82%26strip%3Dall%26w%3D1600&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2116,7 +2050,7 @@ Update: A Google spokesperson told MacRumors that the bug is unrelated to Google
                 <p class="item-summary">一份新报告显示，Snap 开发已久的 AR 眼镜“Spectacles”最终将于今年晚些时候推出，但价格昂贵。
 更多的…...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-46" style="display:none;" 
+                <div id="data-45" style="display:none;" 
                      data-title="据报道，Snap 的带显示屏 AR 眼镜击败了 Android XR，但售价为 2,500 美元" 
                      data-en-title='&quot;Snap’s AR glasses with display reportedly beat Android XR to launch, but for $2,500&quot;'
                      data-link="https://9to5google.com/2026/05/22/snap-ar-glasses-spectacles-price-release-date-report/"
@@ -2129,7 +2063,7 @@ more…
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="9to5google" onclick="openModal(47)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="9to5google" onclick="openModal(46)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//9to5google.com/wp-content/uploads/sites/4/2026/05/Google-Play-May-22-2.webp%3Fw%3D1600&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2149,7 +2083,7 @@ more…
                 </div>
                 <p class="item-summary">周五下午的最佳 Android 游戏和应用优惠阵容现已准备就绪，包括 Balatro、Samurai of Hyuga ...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-47" style="display:none;" 
+                <div id="data-46" style="display:none;" 
                      data-title="周五的 Android 应用优惠和赠品：Balatro、Samorost 3、CHUCHEL、Botanicula 等" 
                      data-en-title='&quot;Friday’s Android app deals and freebies: Balatro, Samorost 3, CHUCHEL, Botanicula, more&quot;'
                      data-link="https://9to5toys.com/2026/05/22/friday-android-app-deals-free-balatro-samorost/"
@@ -2162,7 +2096,7 @@ more…
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(48)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(47)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//images.macrumors.com/article-new/2026/05/video-proc-giveaway.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2182,7 +2116,7 @@ more…
                 </div>
                 <p class="item-summary">在本周的赠品中，我们与 Digiarty VideoProc 合作，为 MacRumors 读者提供赢得 iPhone ...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-48" style="display:none;" 
+                <div id="data-47" style="display:none;" 
                      data-title="MacRumors 赠品：赢得 iPhone 17 和 VideoProc Converter AI 的终身副本" 
                      data-en-title='&quot;MacRumors Giveaway: Win an iPhone 17 and a Lifetime Copy of VideoProc Converter AI&quot;'
                      data-link="https://www.macrumors.com/2026/05/22/macrumors-giveaway-iphone-17-digiarty-videoproc/"
@@ -2243,7 +2177,7 @@ Digiarty is
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="9to5google" onclick="openModal(49)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="9to5google" onclick="openModal(48)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//9to5google.com/wp-content/uploads/sites/4/2026/05/google-ai-overview-disregard.jpg%3Fquality%3D82%26strip%3Dall%26w%3D1600&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2264,7 +2198,7 @@ Digiarty is
                 <p class="item-summary">有点有趣的是，有人强调，当你使用“忽视”等词时，谷歌的人工智能概述目前会崩溃。
 更多的…...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-49" style="display:none;" 
+                <div id="data-48" style="display:none;" 
                      data-title="当你使用“忽视”这样的词时，谷歌的人工智能概述会打破字典" 
                      data-en-title='&quot;Google’s AI Overviews break the dictionary when you use words like ‘disregard’&quot;'
                      data-link="https://9to5google.com/2026/05/22/google-ai-overview-dictionary/"
@@ -2277,7 +2211,7 @@ more…
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(50)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(49)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//images.macrumors.com/article-new/2026/05/iOS-26.5.1-Feature.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2297,7 +2231,7 @@ more…
                 </div>
                 <p class="item-summary">根据 MacRumors 访客日志，苹果的软件工程师正在测试 iOS 26.5.1，该日志是即将推出的 iOS 版本的可...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-50" style="display:none;" 
+                <div id="data-49" style="display:none;" 
                      data-title="iPhone 的 iOS 26.5.1 更新即将推出" 
                      data-en-title='&quot;iOS 26.5.1 Update for iPhones is Coming Soon&quot;'
                      data-link="https://www.macrumors.com/2026/05/22/ios-26-5-1-coming-soon/"
@@ -2320,7 +2254,7 @@ Apple is shifting its attention towards iOS 27, which is set to be unveiled duri
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(51)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(50)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//images.macrumors.com/article-new/2026/05/iphone-18-clear-cases-replica-mydrivers.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2340,7 +2274,7 @@ Apple is shifting its attention towards iOS 27, which is set to be unveiled duri
                 </div>
                 <p class="item-summary">iPhone 18、iPhone 18 Pro 和 iPhone 18 Pro Max 的第三方透明保护壳图片表明，苹果...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-51" style="display:none;" 
+                <div id="data-50" style="display:none;" 
                      data-title="苹果可能会用 iPhone 18 Pro 扭转有争议的透明外壳设计" 
                      data-en-title='&quot;Apple Could Reverse Controversial Clear Case Design With iPhone 18 Pro&quot;'
                      data-link="https://www.macrumors.com/2026/05/22/apple-could-reverse-clear-case-design/"
@@ -2374,7 +2308,7 @@ The ‌iPhone 18 Pro‌ and ‌iPhone 18 Pro‌ Max are expected to be announced
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="9to5google" onclick="openModal(52)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="9to5google" onclick="openModal(51)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//9to5google.com/wp-content/uploads/sites/4/2026/05/Pixel-10-Pro-Fold-camera-bar-2.jpg%3Fquality%3D82%26strip%3Dall%26w%3D1600&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2394,7 +2328,7 @@ The ‌iPhone 18 Pro‌ and ‌iPhone 18 Pro‌ Max are expected to be announced
                 </div>
                 <p class="item-summary">又是一年，谷歌又推出了一款可折叠产品，但随着 Pixel 10 Pro Fold 上市六个月，到底哪些方面进展顺利，我们...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-52" style="display:none;" 
+                <div id="data-51" style="display:none;" 
                      data-title="Pixel 10 Pro Fold 长期评测：更棘手的第二部续集 [视频]" 
                      data-en-title='&quot;Pixel 10 Pro Fold long-term review: The even trickier second sequel [Video]&quot;'
                      data-link="https://9to5google.com/2026/05/22/pixel-10-pro-fold-long-term-review/"
@@ -2407,7 +2341,7 @@ more…
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="9to5google" onclick="openModal(53)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="9to5google" onclick="openModal(52)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//9to5google.com/wp-content/uploads/sites/4/2026/05/9to5Google-May-22-2-1.webp%3Fw%3D1600&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2427,7 +2361,7 @@ more…
                 </div>
                 <p class="item-summary">2026 年百思买阵亡将士纪念日促销现已更新，亚马逊活动也已更新，今天的 9to5Toys 午休活动也已准备就绪。您可以...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-53" style="display:none;" 
+                <div id="data-52" style="display:none;" 
                      data-title="优惠：Best Buy 更新阵亡将士纪念日促销，Galaxy Fold 7 立减 800 美元以上，Surface Laptop 7 立减 500 美元以上，更多" 
                      data-en-title='&quot;Deals: Best Buy updated Memorial day sale, Galaxy Fold 7 $800+ off, Surface Laptop 7 $500+ off, more&quot;'
                      data-link="https://9to5google.com/2026/05/22/deals-best-buy-memorial-day-galaxy-fold-surface-laptop/"
@@ -2440,7 +2374,7 @@ more…
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="9to5google" onclick="openModal(54)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="9to5google" onclick="openModal(53)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//9to5google.com/wp-content/uploads/sites/4/2026/05/Google-Wallet-redesign-cover.jpg%3Fquality%3D82%26strip%3Dall%26w%3D1600&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2460,7 +2394,7 @@ more…
                 </div>
                 <p class="item-summary">在 I/O 2026 上，Google 钱包悄然宣布并完成了 Android 的大规模重新设计。最终用户很快就会遇到针对...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-54" style="display:none;" 
+                <div id="data-53" style="display:none;" 
                      data-title="Google 钱包重新设计推出，Google Pay 可让您在 Android 上验证桌面购买" 
                      data-en-title='&quot;Google Wallet redesign launches as Google Pay lets you verify desktop purchases on Android&quot;'
                      data-link="https://9to5google.com/2026/05/22/google-wallet-redesign-i-o-2026/"
@@ -2473,40 +2407,7 @@ more…
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="9to5google" onclick="openModal(55)">
-            
-            <div class="item-img" data-type="image">
-                <img src="https://wsrv.nl/?url=https%3A//9to5google.com/wp-content/uploads/sites/4/2026/05/Wear-Widgets.jpg%3Fquality%3D82%26strip%3Dall%26w%3D1400&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
-                     onerror="this.parentElement.setAttribute('data-type', 'fallback'); this.style.display='none';">
-                <div class="img-fallback" style="background-color: #f4b40015; color: #f4b400;">
-                    9
-                </div>
-            </div>
-            
-            <div class="item-content">
-                <h2 class="item-title">谷歌详细介绍了取代 Tiles 的 Wear OS 小部件，并展示了首批支持的应用程序</h2>
-                <div class="item-meta">
-                    <span class="source-badge" style="color:#f4b400; background:#f4b40015;">
-                        9to5Google
-                    </span>
-                    <span class="meta-date">05-22 23:00</span>
-                </div>
-                <p class="item-summary">Wear OS 通过新的 Wear Widgets 对某些图块引入了视觉变化。谷歌表示，一些第三方应用程序已经准备好添加...</p>
-                <!-- 隐藏数据 -->
-                <div id="data-55" style="display:none;" 
-                     data-title="谷歌详细介绍了取代 Tiles 的 Wear OS 小部件，并展示了首批支持的应用程序" 
-                     data-en-title='&quot;Google details Wear OS widgets that replace Tiles, shows off first apps with support&quot;'
-                     data-link="https://9to5google.com/2026/05/22/google-explains-new-wear-os-widgets/"
-                     data-source="9to5Google"
-                     data-date="05-22 23:00"
-                     data-zh-content='&quot;Wear OS 通过新的 Wear Widgets 对某些图块引入了视觉变化。谷歌表示，一些第三方应用程序已经准备好添加兼容的小部件，这对于 Pixel Watch 和 Galaxy Watch 来说都是个好消息。\n更多的…&quot;'>
-                     Wear OS introduces visual changes to some tiles with new Wear Widgets. Google says some third-party apps are already ready to add compatible widgets, which is good news for both the Pixel Watch and the Galaxy Watch.
-more…
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(56)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(54)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//images.macrumors.com/article-new/2025/02/Best-Apple-Deals-Feature-Shelf-Purple.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2526,7 +2427,7 @@ more…
                 </div>
                 <p class="item-summary">本周，我们看到 Best Buy 等零售商开始推出阵亡将士纪念日优惠，Anker 最新 Prime 充电器的大幅折扣以及...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-56" style="display:none;" 
+                <div id="data-54" style="display:none;" 
                      data-title="本周最佳 Apple 促销：Best Buy 推出阵亡将士纪念日促销，15 英寸 M5 MacBook Air 价格最低" 
                      data-en-title='&quot;Best Apple Deals of the Week: Memorial Day Deals Arrive at Best Buy, Plus Lowest Price Yet on 15-Inch M5 MacBook Air&quot;'
                      data-link="https://www.macrumors.com/2026/05/22/best-apple-deals-of-the-week-5-22-26/"
@@ -2625,7 +2526,7 @@ Related Roundup: Apple DealsThis article, "Best Apple Deals of the Week: Memoria
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(57)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(55)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//images.macrumors.com/article-new/2026/01/Apple-Event-Logo.jpeg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2650,7 +2551,7 @@ Related Roundup: Apple DealsThis article, "Best Apple Deals of the Week: Memoria
 
 苹果预...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-57" style="display:none;" 
+                <div id="data-55" style="display:none;" 
                      data-title="Apple 将于今年晚些时候发布这 15 款新产品" 
                      data-en-title='&quot;Apple to Release These 15 New Products Later This Year&quot;'
                      data-link="https://www.macrumors.com/2026/05/22/apple-to-release-these-15-new-products/"
@@ -2710,7 +2611,7 @@ The next Mac Studio and Mac mini models as well as the MacBook Ultra could be de
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="engadget" onclick="openModal(58)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="engadget" onclick="openModal(56)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//www.engadget.com/img/gallery/oppo-find-x9-ultra-vs-vivo-x300-ultra-battle-of-the-telephoto-smartphones/intro-1779383819.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2730,7 +2631,7 @@ The next Mac Studio and Mac mini models as well as the MacBook Ultra could be de
                 </div>
                 <p class="item-summary">我们将 Oppo Find X9 Ultra 与 Vivo X300 Ultra 进行对比，看看哪款长焦智能手机占据主导...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-58" style="display:none;" 
+                <div id="data-56" style="display:none;" 
                      data-title="Oppo Find X9 Ultra 与 Vivo X300 Ultra：长焦智能手机之战" 
                      data-en-title='&quot;Oppo Find X9 Ultra vs. Vivo X300 Ultra: Battle of the telephoto smartphones&quot;'
                      data-link="https://www.engadget.com/2178762/oppo-find-x9-ultra-vs-vivo-x300-ultra-battle-of-the-telephoto-smartphones/"
@@ -2742,7 +2643,7 @@ The next Mac Studio and Mac mini models as well as the MacBook Ultra could be de
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="engadget" onclick="openModal(59)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="engadget" onclick="openModal(57)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//www.engadget.com/img/gallery/the-morning-after-the-biggest-news-from-google-io-2026/intro-1779442968.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2762,7 +2663,7 @@ The next Mac Studio and Mac mini models as well as the MacBook Ultra could be de
                 </div>
                 <p class="item-summary">Google I/O 2026 大会于本周拉开帷幕，毫不奇怪，它几乎完全是关于人工智能的。...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-59" style="display:none;" 
+                <div id="data-57" style="display:none;" 
                      data-title="第二天早上：Google I/O 2026 的最大新闻" 
                      data-en-title='&quot;The Morning After: The biggest news from Google I/O 2026&quot;'
                      data-link="https://www.engadget.com/2179217/the-morning-after-the-biggest-news-from-google-io-2026/"
@@ -2774,7 +2675,7 @@ The next Mac Studio and Mac mini models as well as the MacBook Ultra could be de
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(60)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(58)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//readwrite.com/wp-content/uploads/2026/05/Kalshi-fires-back-at-FairPredicts-with-cease-and-desist-over-Kalshi-Lies-campaign-300x200.png&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2794,7 +2695,7 @@ The next Mac Studio and Mac mini models as well as the MacBook Ultra could be de
                 </div>
                 <p class="item-summary">卡尔希正式要求监管机构取消一项广告活动，该活动指责该公司像体育博彩公司一样运营，同时又将自己描绘成受联邦监管的金融交易所...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-60" style="display:none;" 
+                <div id="data-58" style="display:none;" 
                      data-title="Kalshi 回击 FairPredicts，停止“Kalshi Lies”活动" 
                      data-en-title='&quot;Kalshi fires back at FairPredicts with cease-and-desist over ‘Kalshi Lies’ campaign&quot;'
                      data-link="https://readwrite.com/kalshi-fairpredicts-cease-and-desist-lies-watchdog-campaign/"
@@ -2825,7 +2726,7 @@ The post Kalshi fires back at FairPredicts with cease-and-desist over ‘Kalshi 
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(61)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(59)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//readwrite.com/wp-content/uploads/2026/05/CFTC-NHL-agreement-expands-oversight-protecting-hockey-prediction-markets-300x200.png&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2845,7 +2746,7 @@ The post Kalshi fires back at FairPredicts with cease-and-desist over ‘Kalshi 
                 </div>
                 <p class="item-summary">美国商品期货交易委员会 (CFTC) 和国家冰球联盟签署了一份谅解备忘录，旨在加强围绕职业冰球诚信和与 NHL 比赛相关...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-61" style="display:none;" 
+                <div id="data-59" style="display:none;" 
                      data-title="CFTC NHL 协议扩大了保护曲棍球预测市场的监管" 
                      data-en-title='&quot;CFTC NHL agreement expands oversight protecting hockey prediction markets&quot;'
                      data-link="https://readwrite.com/cftc-nhl-agreement-prediction-market-oversight/"
@@ -2873,7 +2774,7 @@ The post CFTC NHL agreement expands oversight protecting hockey prediction marke
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(62)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(60)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//readwrite.com/wp-content/uploads/2026/05/Judge-temporarily-blocks-California-cardroom-rules-backed-by-Attorney-General-Bonta-300x200.png&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2893,7 +2794,7 @@ The post CFTC NHL agreement expands oversight protecting hockey prediction marke
                 </div>
                 <p class="item-summary">旧金山高等法院的一名法官暂时阻止了加州总检察长罗布·邦塔 (Rob Bonta) 提议的棋牌室法规的生效，让棋牌室运营商...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-62" style="display:none;" 
+                <div id="data-60" style="display:none;" 
                      data-title="法官暂时阻止司法部长邦塔支持的加州棋牌室规则" 
                      data-en-title='&quot;Judge temporarily blocks California cardroom rules backed by Attorney General Bonta&quot;'
                      data-link="https://readwrite.com/judge-temporarily-blocks-california-cardroom-rules-attorney-general-bonta/"
@@ -2922,7 +2823,7 @@ Featured image: Canva /
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(63)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(61)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//readwrite.com/wp-content/uploads/2026/05/Guam-bingo-operators-sentenced-after-multimillion-dollar-charity-gambling-fraud-targeting-children-300x200.png&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2942,7 +2843,7 @@ Featured image: Canva /
                 </div>
                 <p class="item-summary">与慈善宾果活动有关的三名关岛居民在联邦法院被判刑，检察官称他们从需要医疗的儿童身上挪用了超过 1000 万美元，并将这些...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-63" style="display:none;" 
+                <div id="data-61" style="display:none;" 
                      data-title="关岛宾果游戏运营商因针对儿童的数百万美元慈善赌博欺诈被判刑" 
                      data-en-title='&quot;Guam bingo operators sentenced over multimillion-dollar charity gambling fraud targeting children&quot;'
                      data-link="https://readwrite.com/guam-bingo-operators-sentenced-charity-gambling-fraud/"
@@ -2973,7 +2874,7 @@ The post Guam bingo operators sentenced over multimillion-dollar charity gamblin
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(64)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(62)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//readwrite.com/wp-content/uploads/2026/05/New-Lumbee-website-explains-upcoming-tribal-gaming-amendment-vote-before-June-300x200.png&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -2993,7 +2894,7 @@ The post Guam bingo operators sentenced over multimillion-dollar charity gamblin
                 </div>
                 <p class="item-summary">北卡罗来纳州的 Lumbee 部落推出了一个新网站，旨在帮助部落公民在 6 月 23 日特别选举之前了解拟议的博彩和经济...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-64" style="display:none;" 
+                <div id="data-62" style="display:none;" 
                      data-title="新的 Lumbee 网站解释了六月前即将举行的部落游戏修正案投票" 
                      data-en-title='&quot;New Lumbee website explains upcoming tribal gaming amendment vote before June&quot;'
                      data-link="https://readwrite.com/lumbee-website-tribal-gaming-amendment-vote-june/"
@@ -3019,7 +2920,7 @@ According to materials published on the site, the master plan spans more than 20
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(65)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(63)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//readwrite.com/wp-content/uploads/2026/05/Pennsylvania-regulators-approve-180K-in-gaming-fines-while-expanding-involuntary-exclusion-lists-300x200.png&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -3039,7 +2940,7 @@ According to materials published on the site, the master plan spans more than 20
                 </div>
                 <p class="item-summary">周三，宾夕法尼亚州博彩监管机构在博彩控制委员会每月公开会议上对数家运营商处以 18 万美元的罚款，原因包括未成年人赌博、...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-65" style="display:none;" 
+                <div id="data-63" style="display:none;" 
                      data-title="宾夕法尼亚州监管机构批准对博彩业处以 18 万美元罚款，同时扩大非自愿排除名单" 
                      data-en-title='&quot;Pennsylvania regulators approve $180K in gaming fines while expanding involuntary exclusion lists&quot;'
                      data-link="https://readwrite.com/pennsylvania-regulators-approve-180k-gaming-fines/"
@@ -3067,7 +2968,7 @@ The post Pennsylvania regulators approve $180K in gaming fines while expanding i
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(66)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(64)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//readwrite.com/wp-content/uploads/2026/05/Gov.-Reynolds-signs-Iowa-sweepstakes-and-gambling-crackdown-expanding-enforcement-and-revising-tax-withholding-300x200.png&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -3087,7 +2988,7 @@ The post Pennsylvania regulators approve $180K in gaming fines while expanding i
                 </div>
                 <p class="item-summary">爱荷华州州长金·雷诺兹批准了一项范围广泛的赌博法案，该法案加强了对无证抽奖运营商的执法力度，同时重塑了该州处理赌博奖金预...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-66" style="display:none;" 
+                <div id="data-64" style="display:none;" 
                      data-title="雷诺兹州长签署爱荷华州抽奖和打击赌博行动，扩大执法力度并修改预扣税" 
                      data-en-title='&quot;Gov. Reynolds signs Iowa sweepstakes and gambling crackdown expanding enforcement and revising tax withholding&quot;'
                      data-link="https://readwrite.com/gov-reynolds-signs-iowa-sweepstakes-gambling-enforcement-bill/"
@@ -3112,7 +3013,7 @@ The post Gov. Reynolds signs Iowa sweepstakes and gambling crackdown expanding e
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(67)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(65)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//readwrite.com/wp-content/uploads/2026/05/Teen-sues-Roblox-Fortnite-and-Minecraft-firms-over-alleged-addictive-gaming-design-300x200.png&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -3132,7 +3033,7 @@ The post Gov. Reynolds signs Iowa sweepstakes and gambling crackdown expanding e
                 </div>
                 <p class="item-summary">内华达州一名青少年对 Roblox、Epic Games、微软和 Mojang 提起联邦诉讼，指控这些公司开发的视频游戏...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-67" style="display:none;" 
+                <div id="data-65" style="display:none;" 
                      data-title="青少年起诉 Roblox、Fortnite 和 Minecraft 公司，指控其游戏设计令人上瘾" 
                      data-en-title='&quot;Teen sues Roblox, Fortnite, and Minecraft firms over alleged addictive gaming design&quot;'
                      data-link="https://readwrite.com/nevada-teen-sues-roblox-fortnite-minecraft-alleged-addictive-gaming-design/"
@@ -3160,7 +3061,7 @@ The post Teen sues Roblox, Fortnite, and Minecraft firms over alleged addictive 
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(68)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(66)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//readwrite.com/wp-content/uploads/2026/05/Copy-of-Musk-May-Have-Lost-The-OpenAI-Battle-But-Its-Likely-Hell-Keep-Fighting-Despite-IPO-Reports-This-Week-in-IT-300x200.png&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -3180,7 +3081,7 @@ The post Teen sues Roblox, Fortnite, and Minecraft firms over alleged addictive 
                 </div>
                 <p class="item-summary">周三（5 月 20 日）参议院的一个小组花了几个小时听取美国快速增长的体育博彩业是否超出了旨在控制该行业的规则。商业、科...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-68" style="display:none;" 
+                <div id="data-66" style="display:none;" 
                      data-title="参议员在听证会上与行业官员就体育博彩扩张和预测市场发生冲突" 
                      data-en-title='&quot;Senators clash with industry officials over sports betting expansion and prediction markets during hearing&quot;'
                      data-link="https://readwrite.com/senate-hearing-sports-betting-prediction-markets/"
@@ -3209,7 +3110,7 @@ He told senators that coalition members already operate under federal oversight 
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(69)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(67)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//readwrite.com/wp-content/uploads/2026/05/House-panel-warns-illegal-gambling-fuels-scam-networks-across-Southeast-Asia-targeting-Americans-300x200.png&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -3229,7 +3130,7 @@ He told senators that coalition members already operate under federal oversight 
                 </div>
                 <p class="item-summary">众议院中国问题特别委员会主席表示，东南亚各地的非法在线赌博业务已成为全球诈骗网络的主要推动者，目前每年从美国人手中窃取数...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-69" style="display:none;" 
+                <div id="data-67" style="display:none;" 
                      data-title="众议院小组警告非法赌博助长东南亚各地针对美国人的诈骗网络" 
                      data-en-title='&quot;House panel warns illegal gambling fuels scam networks across Southeast Asia targeting Americans&quot;'
                      data-link="https://readwrite.com/house-panel-warns-illegal-gambling-scam-network-southeast-asia-americans/"
@@ -3260,7 +3161,7 @@ Human trafficking concerns remain central to the investigation. According to law
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(70)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(68)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//readwrite.com/wp-content/uploads/2026/05/FanDuel-joins-Formula-1-as-betting-partnership-expands-across-America-300x200.png&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -3280,7 +3181,7 @@ Human trafficking concerns remain central to the investigation. According to law
                 </div>
                 <p class="item-summary">在通过一项新的多年协议任命 FanDuel 为官方投注运营商后，一级方程式赛车正在深入美国投注市场。此次合作标志着该赛车...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-70" style="display:none;" 
+                <div id="data-68" style="display:none;" 
                      data-title="FanDuel 加入一级方程式锦标赛，投注合作伙伴关系在全美范围内扩展" 
                      data-en-title='&quot;FanDuel joins Formula 1 as betting partnership expands across America&quot;'
                      data-link="https://readwrite.com/fanduel-formula-1-betting-partnership-us/"
@@ -3305,7 +3206,7 @@ The post FanDuel joins Formula 1 as betting partnership expands across America a
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(71)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(69)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//readwrite.com/wp-content/uploads/2026/03/Judge-denies-NCAA-bid-to-block-DraftKings-March-Madness-trademarks-use-300x200.png&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -3325,7 +3226,7 @@ The post FanDuel joins Formula 1 as betting partnership expands across America a
                 </div>
                 <p class="item-summary">DraftKings 正在大力反击 NCAA 的商标诉讼，告诉联邦法院，该体育博彩公司合法使用与男子篮球锦标赛相关的短语...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-71" style="display:none;" 
+                <div id="data-69" style="display:none;" 
                      data-title="DraftKings 就“疯狂三月”博彩促销索赔提起 NCAA 商标诉讼" 
                      data-en-title='&quot;DraftKings fights NCAA trademark lawsuit over March Madness betting promotions claims&quot;'
                      data-link="https://readwrite.com/draftkings-fights-ncaa-trademark-lawsuit-march-madness/"
@@ -3353,7 +3254,7 @@ The post DraftKings fights NCAA trademark lawsuit over March Madness betting pro
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(72)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(70)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//readwrite.com/wp-content/uploads/2026/05/CFTC-lawsuit-challenges-Minnesota-felony-ban-targeting-prediction-market-exchanges-300x200.png&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -3373,7 +3274,7 @@ The post DraftKings fights NCAA trademark lawsuit over March Madness betting pro
                 </div>
                 <p class="item-summary">商品期货交易委员会 (CFTC) 要求联邦法官阻止明尼苏达州的一项新法律，该法律将运营或帮助运营某些预测市场定为重罪，为...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-72" style="display:none;" 
+                <div id="data-70" style="display:none;" 
                      data-title="CFTC 诉讼挑战明尼苏达州针对预测市场交易所的重罪禁令" 
                      data-en-title='&quot;CFTC lawsuit challenges Minnesota felony ban targeting prediction market exchanges&quot;'
                      data-link="https://readwrite.com/cftc-lawsuit-minnesota-felony-ban-prediction-markets/"
@@ -3403,7 +3304,7 @@ Featured image: Gage Skidm
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(73)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="readwrite" onclick="openModal(71)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//readwrite.com/wp-content/uploads/2026/05/Connecticut-police-raid-Tolland-property-arresting-100-suspects-in-cockfighting-gambling-investigation-300x200.png&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -3424,7 +3325,7 @@ Featured image: Gage Skidm
                 <p class="item-summary">周五，康涅狄格州警方突袭托兰乡村一处房产，逮捕了 100 人，调查人员称该房产曾举办大规模斗鸡和非法赌博活动。
 下午 1...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-73" style="display:none;" 
+                <div id="data-71" style="display:none;" 
                      data-title="康涅狄格州警方突击搜查托兰财产，逮捕 100 名斗鸡赌博嫌疑人" 
                      data-en-title='&quot;Connecticut police raid Tolland property arresting 100 suspects in cockfighting gambling investigation&quot;'
                      data-link="https://readwrite.com/connecticut-police-raid-tolland-100-arrests-cockfighting-gambling-investigation/"
@@ -3454,7 +3355,7 @@ The post Connecticut police raid Tolland property arresting 100 suspects in cock
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="engadget" onclick="openModal(74)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="engadget" onclick="openModal(72)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//www.engadget.com/img/gallery/spotify-and-its-hosting-platforms-are-adopting-apples-tech-for-video-podcasts/intro-1778783067.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -3474,7 +3375,7 @@ The post Connecticut police raid Tolland property arresting 100 suspects in cock
                 </div>
                 <p class="item-summary">HTTP Live Streaming 支持将让 Apple Podcast 播放 Spotify 托管的视频播客。...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-74" style="display:none;" 
+                <div id="data-72" style="display:none;" 
                      data-title="Spotify 及其托管平台正在采用苹果的视频播客技术" 
                      data-en-title='&quot;Spotify and its hosting platforms are adopting Apple's tech for video podcasts&quot;'
                      data-link="https://www.engadget.com/2173148/spotify-and-its-hosting-platforms-are-adopting-apples-tech-for-video-podcasts/"
@@ -3486,7 +3387,7 @@ The post Connecticut police raid Tolland property arresting 100 suspects in cock
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="engadget" onclick="openModal(75)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="engadget" onclick="openModal(73)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//www.engadget.com/img/gallery/noble-audio-to-launch-fokus-apollo-pro-headset-for-699/intro-1778782181.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -3506,7 +3407,7 @@ The post Connecticut police raid Tolland property arresting 100 suspects in cock
                 </div>
                 <p class="item-summary">额外支付 50 美元，您就可以在已经高端的耳机上获得更好的材料。...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-75" style="display:none;" 
+                <div id="data-73" style="display:none;" 
                      data-title="Noble Audio 推出 FoKus Apollo Pro 耳机，售价 699 美元" 
                      data-en-title='&quot;Noble Audio to launch FoKus Apollo Pro headset for $699&quot;'
                      data-link="https://www.engadget.com/2173124/noble-audio-to-launch-fokus-apollo-pro-headset-for-dollar699/"
@@ -3518,7 +3419,7 @@ The post Connecticut police raid Tolland property arresting 100 suspects in cock
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="engadget" onclick="openModal(76)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="engadget" onclick="openModal(74)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//www.engadget.com/img/gallery/the-esports-world-cup-will-reportedly-move-to-paris-from-riyadh/intro-1778781860.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -3538,7 +3439,7 @@ The post Connecticut police raid Tolland property arresting 100 suspects in cock
                 </div>
                 <p class="item-summary">中东的不确定性显然迫使地点发生变化。...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-76" style="display:none;" 
+                <div id="data-74" style="display:none;" 
                      data-title="据报道，电子竞技世界杯将从利雅得移至巴黎" 
                      data-en-title='&quot;The Esports World Cup will reportedly move to Paris from Riyadh&quot;'
                      data-link="https://www.engadget.com/2173107/the-esports-world-cup-will-reportedly-move-to-paris-from-riyadh/"
@@ -3550,7 +3451,7 @@ The post Connecticut police raid Tolland property arresting 100 suspects in cock
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="engadget" onclick="openModal(77)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="engadget" onclick="openModal(75)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//www.engadget.com/img/gallery/americans-really-dont-want-ai-data-centers-close-to-their-homes/intro-1778780895.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -3570,7 +3471,7 @@ The post Connecticut police raid Tolland property arresting 100 suspects in cock
                 </div>
                 <p class="item-summary">也许“邻避”这一次是对的。...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-77" style="display:none;" 
+                <div id="data-75" style="display:none;" 
                      data-title="美国人真的不希望人工智能数据中心靠近他们的家" 
                      data-en-title='&quot;Americans really don't want AI data centers close to their homes&quot;'
                      data-link="https://www.engadget.com/2173078/americans-really-dont-want-ai-data-centers-close-to-their-homes/"
@@ -3582,7 +3483,7 @@ The post Connecticut police raid Tolland property arresting 100 suspects in cock
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="engadget" onclick="openModal(78)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="engadget" onclick="openModal(76)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//www.engadget.com/img/gallery/the-chatgpt-desktop-app-for-mac-just-got-hit-with-a-security-breach/intro-1778779179.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -3602,7 +3503,7 @@ The post Connecticut police raid Tolland property arresting 100 suspects in cock
                 </div>
                 <p class="item-summary">OpenAI 没有发现用户数据被访问的证据。...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-78" style="display:none;" 
+                <div id="data-76" style="display:none;" 
                      data-title="Mac 版 ChatGPT 桌面应用程序刚刚遭遇安全漏洞" 
                      data-en-title='&quot;The ChatGPT desktop app for Mac just got hit with a security breach&quot;'
                      data-link="https://www.engadget.com/2173054/the-chatgpt-desktop-app-for-mac-just-got-hit-with-a-security-breach/"
@@ -3614,7 +3515,7 @@ The post Connecticut police raid Tolland property arresting 100 suspects in cock
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="engadget" onclick="openModal(79)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="engadget" onclick="openModal(77)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//www.engadget.com/img/gallery/new-google-accounts-may-only-get-5gb-free-storage-unless-you-link-a-phone-number/intro-1778777204.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -3634,7 +3535,7 @@ The post Connecticut police raid Tolland property arresting 100 suspects in cock
                 </div>
                 <p class="item-summary">谷歌将其描述为区域测试。...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-79" style="display:none;" 
+                <div id="data-77" style="display:none;" 
                      data-title="新的 Google 帐户可能只能获得 5GB 免费存储空间 - 除非您关联电话号码" 
                      data-en-title='&quot;New Google accounts may only get 5GB free storage — unless you link a phone number&quot;'
                      data-link="https://www.engadget.com/2173013/new-google-accounts-may-only-get-5gb-free-storage-unless-you-link-a-phone-number/"
@@ -3646,7 +3547,7 @@ The post Connecticut police raid Tolland property arresting 100 suspects in cock
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="engadget" onclick="openModal(80)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="engadget" onclick="openModal(78)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//www.engadget.com/img/gallery/amd-will-bring-its-next-generation-fsr-4-1-upscaling-tech-to-older-gpus/intro-1778776958.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -3666,7 +3567,7 @@ The post Connecticut police raid Tolland property arresting 100 suspects in cock
                 </div>
                 <p class="item-summary">今年 7 月，RNDA 3 玩家可以开始在 300 多款游戏中使用它。...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-80" style="display:none;" 
+                <div id="data-78" style="display:none;" 
                      data-title="AMD 将把下一代 FSR 4.1 升级技术引入旧款 GPU" 
                      data-en-title='&quot;AMD will bring its next-generation FSR 4.1 upscaling tech to older GPUs&quot;'
                      data-link="https://www.engadget.com/2173003/amd-will-bring-its-next-generation-fsr-41-upscaling-tech-to-older-gpus/"
@@ -3678,7 +3579,7 @@ The post Connecticut police raid Tolland property arresting 100 suspects in cock
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="engadget" onclick="openModal(81)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="engadget" onclick="openModal(79)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//www.engadget.com/img/gallery/the-original-versions-of-metro-2033-and-metro-last-light-land-on-gog/intro-1778773589.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -3698,7 +3599,7 @@ The post Connecticut police raid Tolland property arresting 100 suspects in cock
                 </div>
                 <p class="item-summary">这些是该平台游戏保存程序的最新版本。...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-81" style="display:none;" 
+                <div id="data-79" style="display:none;" 
                      data-title="《地铁 2033》和《地铁：最后的曙光》原版登陆 GOG" 
                      data-en-title='&quot;The original versions of Metro 2033 and Metro: Last Light land on GOG&quot;'
                      data-link="https://www.engadget.com/2172946/original-versions-of-metro-2033-and-metro-last-light-land-on-gog/"
@@ -3715,7 +3616,7 @@ The post Connecticut police raid Tolland property arresting 100 suspects in cock
         </div>
 
         <footer class="main-footer">
-            <p>文章总数: 82 | Updated: 2026-05-25 09:37</p>
+            <p>文章总数: 80 | Updated: 2026-05-25 14:09</p>
             <p><a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2025183710号-1</a></p>
             <p>&copy; 折疼记</p>
         </footer>
