@@ -153,7 +153,41 @@
         <div class="container">
             <main id="newsContainer">
                 
-        <article class="news-item " style="display:flex;" data-source="9to5google" onclick="openModal(0)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(0)">
+            
+            <div class="item-img" data-type="fallback">
+                <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
+                    H
+                </div>
+            </div>
+            
+            <div class="item-content">
+                <h2 class="item-title">调用.cpp</h2>
+                <div class="item-meta">
+                    <span class="source-badge" style="color:#ff6600; background:#ff660015;">
+                        HackerNews
+                    </span>
+                    <span class="meta-date">08-12 12:51</span>
+                </div>
+                <p class="item-summary">文章网址：https://llama.app
+评论网址：https://news.ycombinator.com/ite...</p>
+                <!-- 隐藏数据 -->
+                <div id="data-0" style="display:none;" 
+                     data-title="调用.cpp" 
+                     data-en-title='&quot;llama.cpp&quot;'
+                     data-link="https://llama.app"
+                     data-source="HackerNews"
+                     data-date="08-12 12:51"
+                     data-zh-content='&quot;文章网址：https://llama.app\n评论网址：https://news.ycombinator.com/item?id=49267928\n积分：161\n# 评论: 74&quot;'>
+                     Article URL: https://llama.app
+Comments URL: https://news.ycombinator.com/item?id=49267928
+Points: 161
+# Comments: 74
+                </div>
+            </div>
+        </article>
+        
+        <article class="news-item " style="display:flex;" data-source="9to5google" onclick="openModal(1)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//9to5google.com/wp-content/uploads/sites/4/2026/07/Pixel-11-Pro-teaser-2a.jpg%3Fquality%3D82%26strip%3Dall%26w%3D1600&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -173,7 +207,7 @@
                 </div>
                 <p class="item-summary">距离 Pixel 11 发布会还有不到 24 小时，Google 正在向想要预订新设备的客户发送 150 美元的折扣代码...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-0" style="display:none;" 
+                <div id="data-1" style="display:none;" 
                      data-title="谷歌在 Pixel 11 预订前发出 150 美元折扣代码" 
                      data-en-title='&quot;Google sends out $150 discount codes ahead of Pixel 11 pre-orders&quot;'
                      data-link="https://9to5google.com/2026/08/11/google-pixel-11-discount-code-email/"
@@ -185,7 +219,7 @@
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(1)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(2)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -203,22 +237,22 @@
                 </div>
                 <p class="item-summary">文章网址：https://www.404media.co/company-offering-100- human-wri...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-1" style="display:none;" 
+                <div id="data-2" style="display:none;" 
                      data-title="公司提供“100% 人工编写，绝不人工智能” 医学研究是 100% 人工智能" 
                      data-en-title='&quot;Company Offering '100% Human-Written, Never AI' Medical Research Is 100% AI&quot;'
                      data-link="https://www.404media.co/company-offering-100-human-written-never-ai-peer-review-is-entirely-ai/"
                      data-source="HackerNews"
                      data-date="08-12 10:05"
-                     data-zh-content='&quot;文章网址：https://www.404media.co/company-offering-100- human-writing-never-ai-peer-review-is-entirely-ai/\n评论网址：https://news.ycombinator.com/item?id=49267057\n积分：153\n# 评论: 32&quot;'>
+                     data-zh-content='&quot;文章网址：https://www.404media.co/company-offering-100- human-writing-never-ai-peer-review-is-entirely-ai/\n评论网址：https://news.ycombinator.com/item?id=49267057\n积分：174\n# 评论: 39&quot;'>
                      Article URL: https://www.404media.co/company-offering-100-human-written-never-ai-peer-review-is-entirely-ai/
 Comments URL: https://news.ycombinator.com/item?id=49267057
-Points: 153
-# Comments: 32
+Points: 174
+# Comments: 39
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(2)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(3)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -236,22 +270,22 @@ Points: 153
                 </div>
                 <p class="item-summary">文章网址：https://newbedfordlight.org/new-bedford-police-officer-...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-2" style="display:none;" 
+                <div id="data-3" style="display:none;" 
                      data-title="新贝德福德警官被指控使用 Flock 摄像头追踪前伴侣" 
                      data-en-title='&quot;New Bedford police officer accused of using Flock cameras to track ex-partner&quot;'
                      data-link="https://newbedfordlight.org/new-bedford-police-officer-accused-of-using-flock-cameras-to-track-and-follow-ex-romantic-partner/"
                      data-source="HackerNews"
                      data-date="08-12 09:42"
-                     data-zh-content='&quot;文章网址：https://newbedfordlight.org/new-bedford-police-officer-accused-of-using-flock-cameras-to-track-and-follow-ex-romantic-partner/\n评论网址：https://news.ycombinator.com/item?id=49266899\n积分：161\n# 评论: 77&quot;'>
+                     data-zh-content='&quot;文章网址：https://newbedfordlight.org/new-bedford-police-officer-accused-of-using-flock-cameras-to-track-and-follow-ex-romantic-partner/\n评论网址：https://news.ycombinator.com/item?id=49266899\n积分：176\n# 评论: 81&quot;'>
                      Article URL: https://newbedfordlight.org/new-bedford-police-officer-accused-of-using-flock-cameras-to-track-and-follow-ex-romantic-partner/
 Comments URL: https://news.ycombinator.com/item?id=49266899
-Points: 161
-# Comments: 77
+Points: 176
+# Comments: 81
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(3)">
+        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(4)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2026/08/RS_storefronts_3840x2160_8.jpg%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -271,7 +305,7 @@ Points: 161
                 </div>
                 <p class="item-summary">在一位前首席作家声称 Saber“用 ChatGPT 取代了我”之后，首席执行官马修·卡奇 (Matthew Karch...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-3" style="display:none;" 
+                <div id="data-4" style="display:none;" 
                      data-title="Sabre 否认用 ChatGPT 取代 Rideshare Stimulator 的作者" 
                      data-en-title='&quot;Saber denies replacing Rideshare Stimulator&#8217;s writers with ChatGPT&quot;'
                      data-link="https://www.theverge.com/games/978558/rideshare-stimulator-writer-ai-saber-interactive"
@@ -286,7 +320,7 @@ Read the full story at The Verge.
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(4)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(5)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -305,22 +339,22 @@ Read the full story at The Verge.
                 <p class="item-summary">文章网址：https://www.cftc.gov/PressRoom/PressReleases/9281-26
 评论...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-4" style="display:none;" 
+                <div id="data-5" style="display:none;" 
                      data-title="CFTC 宣布市场紧急状态，命令 Kalshi 继续在纽约运营" 
                      data-en-title='&quot;CFTC declares market emergency, orders Kalshi to continue to operate in New York&quot;'
                      data-link="https://www.cftc.gov/PressRoom/PressReleases/9281-26"
                      data-source="HackerNews"
                      data-date="08-12 08:17"
-                     data-zh-content='&quot;文章网址：https://www.cftc.gov/PressRoom/PressReleases/9281-26\n评论网址：https://news.ycombinator.com/item?id=49266277\n积分：140\n# 评论：130&quot;'>
+                     data-zh-content='&quot;文章网址：https://www.cftc.gov/PressRoom/PressReleases/9281-26\n评论网址：https://news.ycombinator.com/item?id=49266277\n积分：144\n# 评论：129&quot;'>
                      Article URL: https://www.cftc.gov/PressRoom/PressReleases/9281-26
 Comments URL: https://news.ycombinator.com/item?id=49266277
-Points: 140
-# Comments: 130
+Points: 144
+# Comments: 129
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="macrumors" onclick="openModal(5)">
+        <article class="news-item " style="display:flex;" data-source="macrumors" onclick="openModal(6)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//images.macrumors.com/article-new/2024/07/samsung-galaxy-buds-3.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -340,7 +374,7 @@ Points: 140
                 </div>
                 <p class="item-summary">三星今天表示，其 Galaxy Buds 助听器功能已获得美国 FDA 批准，这意味着助听器功能将于 2026 年第四季...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-5" style="display:none;" 
+                <div id="data-6" style="display:none;" 
                      data-title="三星在听力健康方面开始追赶苹果" 
                      data-en-title='&quot;Samsung is Starting to Catch Up to Apple on Hearing Health&quot;'
                      data-link="https://www.macrumors.com/2026/08/11/samsung-galaxy-buds-hearing-aid/"
@@ -369,7 +403,7 @@ After introducing hearing aid features in the U.S. in iOS 18.1, Apple has expand
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(6)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(7)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -387,22 +421,22 @@ After introducing hearing aid features in the U.S. in iOS 18.1, Apple has expand
                 </div>
                 <p class="item-summary">文章网址：https://www.cbsnews.com/news/video-gamer-air-traffic-co...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-6" style="display:none;" 
+                <div id="data-7" style="display:none;" 
                      data-title="美国雇佣超过 2000 名视频游戏玩家担任空中交通管制员" 
                      data-en-title='&quot;US hires over 2k video gamers as air traffic controllers&quot;'
                      data-link="https://www.cbsnews.com/news/video-gamer-air-traffic-controllers-faa-recruitment-sean-duffy/"
                      data-source="HackerNews"
                      data-date="08-12 07:26"
-                     data-zh-content='&quot;文章网址：https://www.cbsnews.com/news/video-gamer-air-traffic-controllers-faa-recruitment-sean-duffy/\n评论网址：https://news.ycombinator.com/item?id=49265879\n积分：108\n#评论：94&quot;'>
+                     data-zh-content='&quot;文章网址：https://www.cbsnews.com/news/video-gamer-air-traffic-controllers-faa-recruitment-sean-duffy/\n评论网址：https://news.ycombinator.com/item?id=49265879\n积分：111\n#评论：95&quot;'>
                      Article URL: https://www.cbsnews.com/news/video-gamer-air-traffic-controllers-faa-recruitment-sean-duffy/
 Comments URL: https://news.ycombinator.com/item?id=49265879
-Points: 108
-# Comments: 94
+Points: 111
+# Comments: 95
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="macrumors" onclick="openModal(7)">
+        <article class="news-item " style="display:flex;" data-source="macrumors" onclick="openModal(8)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//images.macrumors.com/article-new/2024/09/sonos-ace-purple.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -422,7 +456,7 @@ Points: 108
                 </div>
                 <p class="item-summary">据彭博社报道，Sonos 正在开发支持人工智能的 Ace 耳机升级版。 Sonos Ace Ultra 本周早些时候出现...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-7" style="display:none;" 
+                <div id="data-8" style="display:none;" 
                      data-title="Sonos 为 AirPods Max 竞争对手准备了语音助手支持" 
                      data-en-title='&quot;Sonos Preparing AirPods Max Rival With Voice Assistant Support&quot;'
                      data-link="https://www.macrumors.com/2026/08/11/sonos-ace-ultra/"
@@ -448,7 +482,7 @@ The original Sonos Ace were priced at $449 at launch and were competitive with t
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(8)">
+        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(9)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2026/08/closer-xbox-elite-3-leak.jpg%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -468,7 +502,7 @@ The original Sonos Ace were priced at $449 at launch and were competitive with t
                 </div>
                 <p class="item-summary">微软游戏手柄原型是否从卡车后面掉下来了？我们不能说，但 Redditor 上有一张看上去很合法的 Xbox 控制器原型照...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-8" style="display:none;" 
+                <div id="data-9" style="display:none;" 
                      data-title="Xbox Elite 3 原型机泄露，内置屏幕很小" 
                      data-en-title='&quot;Xbox Elite 3 prototype pad leaks with tiny built-in screen&quot;'
                      data-link="https://www.theverge.com/games/978374/xbox-elite-3-prototype-pad-leaks-with-tiny-built-in-screen"
@@ -483,7 +517,7 @@ Read the full story at The Verge.
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="macrumors" onclick="openModal(9)">
+        <article class="news-item " style="display:flex;" data-source="macrumors" onclick="openModal(10)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//images.macrumors.com/article-new/2026/08/satechi-chargeview-240w.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -503,7 +537,7 @@ Read the full story at The Verge.
                 </div>
                 <p class="item-summary">Satechi 今天推出了 ChargeView 240W 桌面充电器，它是去年发布的 140W ChargeView ...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-9" style="display:none;" 
+                <div id="data-10" style="display:none;" 
                      data-title="Satechi 推出具有 6 个 USB-C 端口的 240W ChargeView 桌面充电器" 
                      data-en-title='&quot;Satechi Launches 240W ChargeView Desktop Charger With Six USB-C Ports&quot;'
                      data-link="https://www.macrumors.com/2026/08/11/satechi-240w-chargeview/"
@@ -529,7 +563,7 @@ The ChargeView 240W can be purchased from the Satechi website or from Amazon for
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(10)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(11)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -548,22 +582,22 @@ The ChargeView 240W can be purchased from the Satechi website or from Amazon for
                 <p class="item-summary">文章网址：https://tencent-hunyuan.github.io/Hunyuan3D-WorldClaw/
 ...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-10" style="display:none;" 
+                <div id="data-11" style="display:none;" 
                      data-title="WorldClaw Agentic 3D 大规模开放世界生成" 
                      data-en-title='&quot;WorldClaw Agentic 3D open-world generation at scale&quot;'
                      data-link="https://tencent-hunyuan.github.io/Hunyuan3D-WorldClaw/"
                      data-source="HackerNews"
                      data-date="08-12 05:56"
-                     data-zh-content='&quot;文章网址：https://tencent-hunyuan.github.io/Hunyuan3D-WorldClaw/\n评论网址：https://news.ycombinator.com/item?id=49265051\n积分：192\n# 评论: 57&quot;'>
+                     data-zh-content='&quot;文章网址：https://tencent-hunyuan.github.io/Hunyuan3D-WorldClaw/\n评论网址：https://news.ycombinator.com/item?id=49265051\n积分：212\n# 评论: 64&quot;'>
                      Article URL: https://tencent-hunyuan.github.io/Hunyuan3D-WorldClaw/
 Comments URL: https://news.ycombinator.com/item?id=49265051
-Points: 192
-# Comments: 57
+Points: 212
+# Comments: 64
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(11)">
+        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(12)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/25475375/DSCF7410.jpg%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -583,7 +617,7 @@ Points: 192
                 </div>
                 <p class="item-summary">看起来我们将在今年秋天的某个时候推出 Sonos Ace 耳机的继任者，首席执行官汤姆·康拉德 (Tom Conrad)...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-11" style="display:none;" 
+                <div id="data-12" style="display:none;" 
                      data-title="FCC 文件指出新的 Sonos 耳机即将推出" 
                      data-en-title='&quot;An FCC filing points to new Sonos headphones coming soon&quot;'
                      data-link="https://www.theverge.com/tech/978355/sonos-headphones-fcc-filing"
@@ -597,7 +631,7 @@ Read the full story at The Verge.
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="macrumors" onclick="openModal(12)">
+        <article class="news-item " style="display:flex;" data-source="macrumors" onclick="openModal(13)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//images.macrumors.com/article-new/2026/07/Apple-2026-Back-to-School-Graphic.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -617,7 +651,7 @@ Read the full story at The Verge.
                 </div>
                 <p class="item-summary">Apple 今天将 2026 年返校促销活动延长至 9 月 24 日，这意味着它将比原计划延长近一个月。该延期适用于美国...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-12" style="display:none;" 
+                <div id="data-13" style="display:none;" 
                      data-title="Apple 将 2026 年返校促销活动延长至 9 月 24 日" 
                      data-en-title='&quot;Apple Extends 2026 Back to School Promotion Until September 24&quot;'
                      data-link="https://www.macrumors.com/2026/08/11/apple-extends-2026-back-to-school-promo/"
@@ -646,7 +680,7 @@ Apple previously planned to end its Back to School promotion on August 27.Tag: B
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="macrumors" onclick="openModal(13)">
+        <article class="news-item " style="display:flex;" data-source="macrumors" onclick="openModal(14)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//images.macrumors.com/article-new/2026/01/grok-logo-purple-gradient.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -666,7 +700,7 @@ Apple previously planned to end its Back to School promotion on August 27.Tag: B
                 </div>
                 <p class="item-summary">埃隆·马斯克 (Elon Musk) 的 SpaceXAI 今天宣布推出 Grok Bot，这是一个“永远在线的代理团队...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-13" style="display:none;" 
+                <div id="data-14" style="display:none;" 
                      data-title="Grok Bot 将始终在线的 AI 代理引入 macOS 和 iOS" 
                      data-en-title='&quot;Grok Bot Brings Always-On AI Agents to macOS and iOS&quot;'
                      data-link="https://www.macrumors.com/2026/08/11/grok-bot-macos-ios/"
@@ -695,7 +729,7 @@ Grok Bot is in beta and available for SuperGrok Heavy, Cursor Ultra, and Cursor 
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(14)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(15)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -713,22 +747,22 @@ Grok Bot is in beta and available for SuperGrok Heavy, Cursor Ultra, and Cursor 
                 </div>
                 <p class="item-summary">文章网址：https://economist.com/science-and-technology/2026/08/11...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-14" style="display:none;" 
+                <div id="data-15" style="display:none;" 
                      data-title="大脑可能即将迎来臭氧时刻" 
                      data-en-title='&quot;The brain may be about to have its Ozempic moment&quot;'
                      data-link="https://economist.com/science-and-technology/2026/08/11/the-brain-may-be-about-to-have-its-ozempic-moment"
                      data-source="HackerNews"
                      data-date="08-12 04:01"
-                     data-zh-content='&quot;文章网址：https://economist.com/science-and-technology/2026/08/11/the-brain-may-be-about-to-have-its-ozempic-moment\n评论网址：https://news.ycombinator.com/item?id=49263658\n积分：104\n# 评论: 153&quot;'>
+                     data-zh-content='&quot;文章网址：https://economist.com/science-and-technology/2026/08/11/the-brain-may-be-about-to-have-its-ozempic-moment\n评论网址：https://news.ycombinator.com/item?id=49263658\n积分：105\n# 评论：154&quot;'>
                      Article URL: https://economist.com/science-and-technology/2026/08/11/the-brain-may-be-about-to-have-its-ozempic-moment
 Comments URL: https://news.ycombinator.com/item?id=49263658
-Points: 104
-# Comments: 153
+Points: 105
+# Comments: 154
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(15)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(16)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -747,22 +781,22 @@ Points: 104
                 <p class="item-summary">文章网址：https://ngrok.com/blog/compression-is-prediction
 评论网址：h...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-15" style="display:none;" 
+                <div id="data-16" style="display:none;" 
                      data-title="压缩就是预测" 
                      data-en-title='&quot;Compression is prediction&quot;'
                      data-link="https://ngrok.com/blog/compression-is-prediction"
                      data-source="HackerNews"
                      data-date="08-12 03:49"
-                     data-zh-content='&quot;文章网址：https://ngrok.com/blog/compression-is-prediction\n评论网址：https://news.ycombinator.com/item?id=49263497\n积分：448\n# 评论：189&quot;'>
+                     data-zh-content='&quot;文章网址：https://ngrok.com/blog/compression-is-prediction\n评论网址：https://news.ycombinator.com/item?id=49263497\n积分：490\n# 评论: 207&quot;'>
                      Article URL: https://ngrok.com/blog/compression-is-prediction
 Comments URL: https://news.ycombinator.com/item?id=49263497
-Points: 448
-# Comments: 189
+Points: 490
+# Comments: 207
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(16)">
+        <article class="news-item " style="display:flex;" data-source="verge" onclick="openModal(17)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2025/02/gemini-live-ai-ad.png%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -782,15 +816,15 @@ Points: 448
                 </div>
                 <p class="item-summary">很多人整天与他们的人工智能朋友聊天。 |图片：谷歌	
 
-这是 Google 产品第 14 次拥有 10 亿用户。谷歌首席...</p>
+这是 Google 产品第 14 次突破 10 亿用户。谷歌首席...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-16" style="display:none;" 
+                <div id="data-17" style="display:none;" 
                      data-title="ChatGPT 和 Gemini 用户数量均刚刚突破 10 亿" 
                      data-en-title='&quot;ChatGPT and Gemini both just passed 1 billion users&quot;'
                      data-link="https://www.theverge.com/ai-artificial-intelligence/978113/chatgpt-gemini-1-billion-users"
                      data-source="The Verge"
                      data-date="08-12 03:41"
-                     data-zh-content='&quot;很多人整天与他们的人工智能朋友聊天。 |图片：谷歌\t\n\n这是 Google 产品第 14 次拥有 10 亿用户。谷歌首席执行官桑达尔·皮查伊 (Sundar Pichai) 在 X 上发帖称，每月有 10 亿人在使用 Gemini，而且 Gemini 是谷歌有史以来增长最快的产品。\n十亿用户是一个巨大的里程碑，但谷歌并不是第一个达到这一目标的人工智能应用程序。 OpenAI 的 ChatGPT 几周前就取得了成功，尽管该公司在一篇关于人们如何使用人工智能的博客文章中隐藏了“超过 10 亿人正在使用 ChatGPT”的声明。外部数据显示，ChatGPT 早在今年 6 月就突破了 10 亿用户，但 OpenAI 直到 8 月 6 日发布消息才宣布任何消息。  ……\n请在 The Verge 上阅读完整的故事。&quot;'>
+                     data-zh-content='&quot;很多人整天与他们的人工智能朋友聊天。 |图片：谷歌\t\n\n这是 Google 产品第 14 次突破 10 亿用户。谷歌首席执行官桑达尔·皮查伊 (Sundar Pichai) 在 X 上发帖称，每月有 10 亿人在使用 Gemini，而且 Gemini 是谷歌有史以来增长最快的产品。\n十亿用户是一个巨大的里程碑，但谷歌并不是第一个达到这一目标的人工智能应用程序。 OpenAI 的 ChatGPT 几周前就取得了成功，尽管该公司在一篇关于人们如何使用人工智能的博客文章中隐藏了“超过 10 亿人正在使用 ChatGPT”的声明。外部数据显示，ChatGPT 早在今年 6 月就突破了 10 亿用户，但 OpenAI 直到 8 月 6 日发布消息才宣布任何消息。  ……\n请在 The Verge 上阅读完整的故事。&quot;'>
                      That’s a lot of people chatting with their AI friends all day. | Image: Google	
 
 For the 14th time, a Google product has hit 1 billion users. Google CEO Sundar Pichai posted on X that a billion people are using Gemini every month, and that Gemini is Google's fastest-growing product ever.
@@ -800,7 +834,7 @@ Read the full story at The Verge.
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(17)">
+        <article class="news-item " style="display:flex;" data-source="hackernews" onclick="openModal(18)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -818,22 +852,22 @@ Read the full story at The Verge.
                 </div>
                 <p class="item-summary">文章网址：https://blogs.nvidia.com/blog/nemotron-lightning-switch...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-17" style="display:none;" 
+                <div id="data-18" style="display:none;" 
                      data-title="Nvidia Nemotron 3.5 Lightning 和 NeMo Switchyard" 
                      data-en-title='&quot;Nvidia Nemotron 3.5 Lightning and NeMo Switchyard&quot;'
                      data-link="https://blogs.nvidia.com/blog/nemotron-lightning-switchyard-rtx-dgx/"
                      data-source="HackerNews"
                      data-date="08-12 03:35"
-                     data-zh-content='&quot;文章网址：https://blogs.nvidia.com/blog/nemotron-lightning-switchyard-rtx-dgx/\n评论网址：https://news.ycombinator.com/item?id=49263340\n积分：213\n# 评论: 110&quot;'>
+                     data-zh-content='&quot;文章网址：https://blogs.nvidia.com/blog/nemotron-lightning-switchyard-rtx-dgx/\n评论网址：https://news.ycombinator.com/item?id=49263340\n积分：221\n# 评论: 114&quot;'>
                      Article URL: https://blogs.nvidia.com/blog/nemotron-lightning-switchyard-rtx-dgx/
 Comments URL: https://news.ycombinator.com/item?id=49263340
-Points: 213
-# Comments: 110
+Points: 221
+# Comments: 114
                 </div>
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="9to5google" onclick="openModal(18)">
+        <article class="news-item " style="display:flex;" data-source="9to5google" onclick="openModal(19)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//9to5google.com/wp-content/uploads/sites/4/2026/07/gemini-logo.jpg%3Fquality%3D82%26strip%3Dall%26w%3D1600&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -853,7 +887,7 @@ Points: 213
                 </div>
                 <p class="item-summary">谷歌今天宣布，每月有超过 10 亿人使用 Gemini 应用程序。...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-18" style="display:none;" 
+                <div id="data-19" style="display:none;" 
                      data-title="Gemini 应用每月用户数突破 10 亿，谷歌预告下一步发展" 
                      data-en-title='&quot;Gemini app hits 1 billion monthly users, Google teases what’s next&quot;'
                      data-link="https://9to5google.com/2026/08/11/gemini-app-1-billion/"
@@ -865,7 +899,7 @@ Points: 213
             </div>
         </article>
         
-        <article class="news-item " style="display:flex;" data-source="macrumors" onclick="openModal(19)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(20)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//images.macrumors.com/article-new/2021/05/app-store-blue-banner-epic-1.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -885,7 +919,7 @@ Points: 213
                 </div>
                 <p class="item-summary">苹果在与 Epic Games 正在进行的法律诉讼中再次未能获得费用计算的中止。 Apple 的案件将于 10 月份开始...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-19" style="display:none;" 
+                <div id="data-20" style="display:none;" 
                      data-title="苹果在等待最高法院期间不能推迟应用商店费用之争" 
                      data-en-title='&quot;Apple Can't Delay App Store Fee Fight While Waiting on Supreme Court&quot;'
                      data-link="https://www.macrumors.com/2026/08/11/app-store-epic-games-fee-fight-proceeds/"
@@ -919,7 +953,7 @@ The court will now determine a fee, and Apple will need to change its ‌App Sto
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(20)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(21)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2026/08/499619485_1363901821956630_4656091347422593965_n.webp%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -939,7 +973,7 @@ The court will now determine a fee, and Apple will need to change its ‌App Sto
                 </div>
                 <p class="item-summary">Meta 周二宣布，该公司已推出适用于 Meta Quest VR 耳机的 Threads 应用程序。上个月，Meta ...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-20" style="display:none;" 
+                <div id="data-21" style="display:none;" 
                      data-title="Threads 现在有一个 VR 应用程序" 
                      data-en-title='&quot;Threads has a VR app now&quot;'
                      data-link="https://www.theverge.com/tech/978181/meta-threads-quest-vr-app"
@@ -954,7 +988,7 @@ Read the full story at The Verge.
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="9to5google" onclick="openModal(21)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="9to5google" onclick="openModal(22)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//9to5google.com/wp-content/uploads/sites/4/2026/08/google-tv-freeplay-movies-ondemand.webp%3Fw%3D1600&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -974,7 +1008,7 @@ Read the full story at The Verge.
                 </div>
                 <p class="item-summary">除了过去几年添加的数百个直播电视频道之外，Google TV Freeplay 现在还提供超过 10,000 个点播电影...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-21" style="display:none;" 
+                <div id="data-22" style="display:none;" 
                      data-title="Google TV 添加了超过 10,000 部免费电影和节目点播，无需任何应用" 
                      data-en-title='&quot;Google TV adds over 10,000 free movies & shows on-demand, no apps needed&quot;'
                      data-link="https://9to5google.com/2026/08/11/google-tv-free-movies-on-demand/"
@@ -986,7 +1020,7 @@ Read the full story at The Verge.
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="hackernews" onclick="openModal(22)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="hackernews" onclick="openModal(23)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -1004,22 +1038,22 @@ Read the full story at The Verge.
                 </div>
                 <p class="item-summary">文章网址：https://blog.jordan.matelsky.com/Penplotter-holography/...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-22" style="display:none;" 
+                <div id="data-23" style="display:none;" 
                      data-title="用笔式绘图仪制作全息图" 
                      data-en-title='&quot;Making holograms with a pen plotter&quot;'
                      data-link="https://blog.jordan.matelsky.com/Penplotter-holography/"
                      data-source="HackerNews"
                      data-date="08-12 02:51"
-                     data-zh-content='&quot;文章网址：https://blog.jordan.matelsky.com/Penplotter-holography/\n评论网址：https://news.ycombinator.com/item?id=49262811\n积分：148\n# 评论: 15&quot;'>
+                     data-zh-content='&quot;文章网址：https://blog.jordan.matelsky.com/Penplotter-holography/\n评论网址：https://news.ycombinator.com/item?id=49262811\n积分：154\n# 评论: 16&quot;'>
                      Article URL: https://blog.jordan.matelsky.com/Penplotter-holography/
 Comments URL: https://news.ycombinator.com/item?id=49262811
-Points: 148
-# Comments: 15
+Points: 154
+# Comments: 16
                 </div>
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="hackernews" onclick="openModal(23)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="hackernews" onclick="openModal(24)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -1037,7 +1071,7 @@ Points: 148
                 </div>
                 <p class="item-summary">文章网址：https://www.millenniumresearch.ai/leanscreen.html#catch...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-23" style="display:none;" 
+                <div id="data-24" style="display:none;" 
                      data-title="精益评估以实现忠诚度一致性" 
                      data-en-title='&quot;Lean Eval for Alignment on Faithfulness&quot;'
                      data-link="https://www.millenniumresearch.ai/leanscreen.html#catch"
@@ -1052,7 +1086,7 @@ Points: 103
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(24)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(25)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//images.macrumors.com/article-new/2021/06/AirPods-Pro-Beta-Firmware.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1072,13 +1106,13 @@ Points: 103
                 </div>
                 <p class="item-summary">Apple 今天发布了新的 AirPods 测试版固件，可供公共测试人员使用。该固件的内部版本号为9A5336b，适用于...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-24" style="display:none;" 
+                <div id="data-25" style="display:none;" 
                      data-title="苹果为公共 Beta 测试者发布新的 iOS 27 AirPods 固件" 
                      data-en-title='&quot;Apple Releases New iOS 27 AirPods Firmware for Public Beta Testers&quot;'
                      data-link="https://www.macrumors.com/2026/08/11/apple-releases-airpods-firmware-public-beta/"
                      data-source="MacRumors"
                      data-date="08-12 02:37"
-                     data-zh-content='&quot;Apple 今天发布了新的 AirPods 测试版固件，可供公共测试人员使用。该固件的内部版本号为9A5336b，适用于AirPods Pro 2、AirPods Pro 3、AirPods 4和AirPods Max 2。它与上周为开发者发布的AirPods测试版相同。\n\n\n\n\n在 iOS 27、iPadOS 27 和 macOS Golden Gate 中，苹果添加了新的 AirPods 界面、自适应模式滑块以及对自定义 EQ 的支持，因此固件允许公共 Beta 测试人员使用这些功能。 AirPods 还兼容新的 Siri AI。\n\n\n当 AirPods 连接到运行 iOS 26、iPadOS 26 或 macOS 26 或更高版本的 iPhone、iPad 或 Mac 时，可以在 AirPods 设置界面中访问测试版固件选项。切换测试版更新允许用户安装测试版固件。&quot;'>
+                     data-zh-content='&quot;Apple 今天发布了新的 AirPods 测试版固件，可供公共测试人员使用。该固件的内部版本号为9A5336b，适用于AirPods Pro 2、AirPods Pro 3、AirPods 4和AirPods Max 2。它与上周为开发者发布的AirPods测试版相同。\n\n\n\n\n在 iOS 27、iPadOS 27 和 macOS Golden Gate 中，苹果添加了新的 AirPods 界面、自适应模式滑块以及对自定义 EQ 的支持，因此固件允许公共 Beta 测试人员使用这些功能。 AirPods 还与新的 Siri AI 兼容。\n\n\n当 AirPods 连接到运行 iOS 26、iPadOS 26 或 macOS 26 或更高版本的 iPhone、iPad 或 Mac 时，可以在 AirPods 设置界面中访问测试版固件选项。切换测试版更新允许用户安装测试版固件。&quot;'>
                      Apple today released new AirPods beta firmware available for public testers. The firmware has a build number of 9A5336b, and it is available for the AirPods Pro 2, AirPods Pro 3, AirPods 4, and AirPods Max 2. It is the same as the AirPods beta released for developers last week.
 
 
@@ -1095,7 +1129,7 @@ Firmware updates can be downloaded by connecting the AirPods to an Apple device 
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(25)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(26)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2026/08/google-tv-freeplay-vod.webp%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1115,7 +1149,7 @@ Firmware updates can be downloaded by connecting the AirPods to an Apple device 
                 </div>
                 <p class="item-summary">Google TV Freeplay 是该公司免费的、支持广告的流媒体服务，现在支持视频点播。您现在可以从 10,000...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-25" style="display:none;" 
+                <div id="data-26" style="display:none;" 
                      data-title="谷歌的免费流媒体服务现在可以让你选择要观看的节目和电影" 
                      data-en-title='&quot;Google’s free streaming service now lets you pick shows and movies to watch&quot;'
                      data-link="https://www.theverge.com/tech/978152/google-tv-freeplay-on-demand"
@@ -1129,7 +1163,7 @@ Read the full story at The Verge.
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="9to5google" onclick="openModal(26)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="9to5google" onclick="openModal(27)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//9to5google.com/wp-content/uploads/sites/4/2026/08/Google-Play-Aug-11-2.webp%3Fw%3D1600&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1149,7 +1183,7 @@ Read the full story at The Verge.
                 </div>
                 <p class="item-summary">周二下午的最佳 Android 游戏和应用优惠阵容现已准备就绪，包括《Balatro》、《Cyber​​lords – ...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-26" style="display:none;" 
+                <div id="data-27" style="display:none;" 
                      data-title="今日 Android 应用优惠和免费赠品：Balatro、Cyber​​lords、Defenchick 等" 
                      data-en-title='&quot;Today’s Android app deals and freebies: Balatro, Cyberlords, Defenchick, and more&quot;'
                      data-link="https://9to5toys.com/2026/08/11/today-android-app-deals-balatro-cyberlords/"
@@ -1161,7 +1195,7 @@ Read the full story at The Verge.
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(27)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(28)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//images.macrumors.com/article-new/2023/11/apple-pay-feature-dynamic-island.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1181,7 +1215,7 @@ Read the full story at The Verge.
                 </div>
                 <p class="item-summary">据彭博社报道，Apple Pay 高管詹妮弗·贝利 (Jennifer Bailey) 将于 10 月退休并离开苹果公司...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-27" style="display:none;" 
+                <div id="data-28" style="display:none;" 
                      data-title="Apple Pay 首席执行官 Jennifer Bailey 将于 10 月退休" 
                      data-en-title='&quot;Apple Pay Chief Jennifer Bailey Retiring in October&quot;'
                      data-link="https://www.macrumors.com/2026/08/11/apple-pay-chief-retiring/"
@@ -1217,7 +1251,7 @@ Bailey is one of several Apple leaders who have retired or are retiring in the n
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(28)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(29)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//images.macrumors.com/article-new/2026/04/airpods-max-2-purple.jpeg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1237,7 +1271,7 @@ Bailey is one of several Apple leaders who have retired or are retiring in the n
                 </div>
                 <p class="item-summary">苹果的 AirPods Max 2 本周在亚马逊上的售价从 549 美元降至 449 美元。这次促销有五种颜色可供选择，...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-28" style="display:none;" 
+                <div id="data-29" style="display:none;" 
                      data-title="亚马逊现有 AirPods Max 2 五种颜色全减 100 美元" 
                      data-en-title='&quot;Amazon Offers AirPods Max 2 for $100 Off in All Five Colors&quot;'
                      data-link="https://www.macrumors.com/2026/08/11/100-off-airpods-max-2/"
@@ -1278,7 +1312,7 @@ Related Roundup: Apple DealsThis article, "Amazon Offers AirPods Max 2 for $100 
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="hackernews" onclick="openModal(29)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="hackernews" onclick="openModal(30)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -1297,22 +1331,22 @@ Related Roundup: Apple DealsThis article, "Amazon Offers AirPods Max 2 for $100 
                 <p class="item-summary">文章网址：https://ironicsans.ghost.io/how-we-used-to-get-jobs/
 评论...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-29" style="display:none;" 
+                <div id="data-30" style="display:none;" 
                      data-title="我们过去如何找到工作：报纸分类故事" 
                      data-en-title='&quot;How we used to get jobs: A newspaper classifieds story&quot;'
                      data-link="https://ironicsans.ghost.io/how-we-used-to-get-jobs/"
                      data-source="HackerNews"
                      data-date="08-12 02:09"
-                     data-zh-content='&quot;文章网址：https://ironicsans.ghost.io/how-we-used-to-get-jobs/\n评论网址：https://news.ycombinator.com/item?id=49262211\n积分：132\n# 评论: 105&quot;'>
+                     data-zh-content='&quot;文章网址：https://ironicsans.ghost.io/how-we-used-to-get-jobs/\n评论网址：https://news.ycombinator.com/item?id=49262211\n积分：142\n# 评论: 106&quot;'>
                      Article URL: https://ironicsans.ghost.io/how-we-used-to-get-jobs/
 Comments URL: https://news.ycombinator.com/item?id=49262211
-Points: 132
-# Comments: 105
+Points: 142
+# Comments: 106
                 </div>
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(30)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(31)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2026/08/gettyimages-2151647832.jpg%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1332,7 +1366,7 @@ Points: 132
                 </div>
                 <p class="item-summary">OpenAI 特殊项目负责人、公司前首席运营官 Brad Lightcap 在人工智能实验室工作了八年后宣布离职。在后来...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-30" style="display:none;" 
+                <div id="data-31" style="display:none;" 
                      data-title="另一位 OpenAI 高管离职" 
                      data-en-title='&quot;Another OpenAI executive takes off&quot;'
                      data-link="https://www.theverge.com/ai-artificial-intelligence/978048/brad-lightcap-openai-executive-departure"
@@ -1347,7 +1381,7 @@ Read the full story at The Verge.
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="hackernews" onclick="openModal(31)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="hackernews" onclick="openModal(32)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -1366,22 +1400,22 @@ Read the full story at The Verge.
                 <p class="item-summary">文章网址：https://www.openssh.org/releasenotes.html#10.5
 评论网址：htt...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-31" style="display:none;" 
+                <div id="data-32" style="display:none;" 
                      data-title="OpenSSH 10.5/10.5p1" 
                      data-en-title='&quot;OpenSSH 10.5/10.5p1&quot;'
                      data-link="https://www.openssh.org/releasenotes.html#10.5"
                      data-source="HackerNews"
                      data-date="08-12 01:49"
-                     data-zh-content='&quot;文章网址：https://www.openssh.org/releasenotes.html#10.5\n评论网址：https://news.ycombinator.com/item?id=49261895\n积分：110\n# 评论: 34&quot;'>
+                     data-zh-content='&quot;文章网址：https://www.openssh.org/releasenotes.html#10.5\n评论网址：https://news.ycombinator.com/item?id=49261895\n积分：112\n# 评论: 35&quot;'>
                      Article URL: https://www.openssh.org/releasenotes.html#10.5
 Comments URL: https://news.ycombinator.com/item?id=49261895
-Points: 110
-# Comments: 34
+Points: 112
+# Comments: 35
                 </div>
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(32)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="verge" onclick="openModal(33)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//platform.theverge.com/wp-content/uploads/sites/2/2026/08/Google-Pixel-Buds-2a-roundup.png%3Fquality%3D90%26strip%3Dall%26crop%3D0%2C0%2C100%2C100&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1403,7 +1437,7 @@ Points: 110
 
 正在寻找一副特别适合 Android 手机的优质...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-32" style="display:none;" 
+                <div id="data-33" style="display:none;" 
                      data-title="经济实惠的 Pixel Buds 2a 现在更便宜" 
                      data-en-title='&quot;The budget-friendly Pixel Buds 2a are even cheaper right now&quot;'
                      data-link="https://www.theverge.com/gadgets/977929/pixel-buds-2a-starfox-switch-deal-sale"
@@ -1444,7 +1478,7 @@ Amazon has the Philips SmartSleep Wake-up Light discounted to $76.29, a 30 perce
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(33)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(34)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//images.macrumors.com/article-new/2026/07/macOS-27-Public-Beta-Thumb-2.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1464,7 +1498,7 @@ Amazon has the Philips SmartSleep Wake-up Light discounted to $76.29, a 30 perce
                 </div>
                 <p class="item-summary">Apple 今天发布了 macOS Golden Gate 的第三个公开测试版，允许非开发人员在秋季发布之前测试该软件。...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-33" style="display:none;" 
+                <div id="data-34" style="display:none;" 
                      data-title="第三个 macOS Golden Gate 公开测试版现已推出" 
                      data-en-title='&quot;Third macOS Golden Gate Public Beta Now Available&quot;'
                      data-link="https://www.macrumors.com/2026/08/11/macos-27-public-beta-3/"
@@ -1496,7 +1530,7 @@ More on the new features in macOS 27 can be found in our macOS Golden Gate round
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="hackernews" onclick="openModal(34)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="hackernews" onclick="openModal(35)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -1515,22 +1549,22 @@ More on the new features in macOS 27 can be found in our macOS Golden Gate round
                 <p class="item-summary">文章网址：https://x.ai/bot
 评论网址：https://news.ycombinator.com/item...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-34" style="display:none;" 
+                <div id="data-35" style="display:none;" 
                      data-title="格罗克机器人" 
                      data-en-title='&quot;Grok Bot&quot;'
                      data-link="https://x.ai/bot"
                      data-source="HackerNews"
                      data-date="08-12 01:23"
-                     data-zh-content='&quot;文章网址：https://x.ai/bot\n评论网址：https://news.ycombinator.com/item?id=49261514\n积分：243\n# 评论: 192&quot;'>
+                     data-zh-content='&quot;文章网址：https://x.ai/bot\n评论网址：https://news.ycombinator.com/item?id=49261514\n积分：267\n# 评论：219&quot;'>
                      Article URL: https://x.ai/bot
 Comments URL: https://news.ycombinator.com/item?id=49261514
-Points: 243
-# Comments: 192
+Points: 267
+# Comments: 219
                 </div>
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(35)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(36)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//images.macrumors.com/article-new/2026/07/iOS-27-Feature-Cool.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1550,7 +1584,7 @@ Points: 243
                 </div>
                 <p class="item-summary">苹果今天发布了 iOS 27 和 iPadOS 27 的第三个公开测试版，允许任何拥有兼容设备的人下载和测试新软件。第三...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-35" style="display:none;" 
+                <div id="data-36" style="display:none;" 
                      data-title="第三个 iOS 27 和 iPadOS 27 公开测试版现已推出" 
                      data-en-title='&quot;Third iOS 27 and iPadOS 27 Public Betas Now Available&quot;'
                      data-link="https://www.macrumors.com/2026/08/11/apple-releases-ios-27-public-beta-3/"
@@ -1582,7 +1616,7 @@ Additional information on the new features in ‌iOS 27‌ can be found in our d
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(36)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="macrumors" onclick="openModal(37)">
             
             <div class="item-img" data-type="image">
                 <img src="https://wsrv.nl/?url=https%3A//images.macrumors.com/article-new/2026/06/watchos-27.jpg&w=280&h=200&fit=cover&output=webp&q=80" loading="lazy" alt="封面" 
@@ -1602,7 +1636,7 @@ Additional information on the new features in ‌iOS 27‌ can be found in our d
                 </div>
                 <p class="item-summary">苹果今天发布了 tvOS 27 和 watchOS 27 的第三个公开测试版，让 Apple TV 和 Apple Wa...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-36" style="display:none;" 
+                <div id="data-37" style="display:none;" 
                      data-title="tvOS 27 和 watchOS 27 第三次公开测试版现已推出" 
                      data-en-title='&quot;tvOS 27 and watchOS 27 Third Public Betas Now Available&quot;'
                      data-link="https://www.macrumors.com/2026/08/11/apple-releases-watchos-27-b3/"
@@ -1634,7 +1668,7 @@ More on what's new in the updates can be found in our watchOS 27 roundup and App
             </div>
         </article>
         
-        <article class="news-item news-item-hidden" style="display:none;" data-source="hackernews" onclick="openModal(37)">
+        <article class="news-item news-item-hidden" style="display:none;" data-source="hackernews" onclick="openModal(38)">
             
             <div class="item-img" data-type="fallback">
                 <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
@@ -1653,51 +1687,17 @@ More on what's new in the updates can be found in our watchOS 27 roundup and App
                 <p class="item-summary">文章网址：https://master.dev/blog/typgraphic-css-tricks/
 评论网址：htt...</p>
                 <!-- 隐藏数据 -->
-                <div id="data-37" style="display:none;" 
+                <div id="data-38" style="display:none;" 
                      data-title="为了更好的文本设计你应该了解的 CSS 属性" 
                      data-en-title='&quot;CSS properties you should know for better text designs&quot;'
                      data-link="https://master.dev/blog/typographic-css-tricks/"
                      data-source="HackerNews"
                      data-date="08-12 01:16"
-                     data-zh-content='&quot;文章网址：https://master.dev/blog/typgraphic-css-tricks/\n评论网址：https://news.ycombinator.com/item?id=49261417\n积分：104\n# 评论: 12&quot;'>
+                     data-zh-content='&quot;文章网址：https://master.dev/blog/typgraphic-css-tricks/\n评论网址：https://news.ycombinator.com/item?id=49261417\n积分：108\n# 评论: 18&quot;'>
                      Article URL: https://master.dev/blog/typographic-css-tricks/
 Comments URL: https://news.ycombinator.com/item?id=49261417
-Points: 104
-# Comments: 12
-                </div>
-            </div>
-        </article>
-        
-        <article class="news-item news-item-hidden" style="display:none;" data-source="hackernews" onclick="openModal(38)">
-            
-            <div class="item-img" data-type="fallback">
-                <div class="img-fallback" style="background-color: #ff660015; color: #ff6600;">
-                    H
-                </div>
-            </div>
-            
-            <div class="item-content">
-                <h2 class="item-title">Flock链接软件将她与凶杀案联系起来后，一名女子两次被拦下</h2>
-                <div class="item-meta">
-                    <span class="source-badge" style="color:#ff6600; background:#ff660015;">
-                        HackerNews
-                    </span>
-                    <span class="meta-date">08-12 01:02</span>
-                </div>
-                <p class="item-summary">https://local12.com/news/nation-world/flock-camera-error-lea...</p>
-                <!-- 隐藏数据 -->
-                <div id="data-38" style="display:none;" 
-                     data-title="Flock链接软件将她与凶杀案联系起来后，一名女子两次被拦下" 
-                     data-en-title='&quot;Woman pulled over twice after Flock-linked software connected her to homicide&quot;'
-                     data-link="https://guessingheadlights.com/yall-failed-me-woman-pulled-over-at-gunpoint-twice-after-flock-camera-glitch/"
-                     data-source="HackerNews"
-                     data-date="08-12 01:02"
-                     data-zh-content='&quot;https://local12.com/news/nation-world/flock-camera-error-lea...\n\n评论网址：https://news.ycombinator.com/item?id=49261218\n积分：252\n# 评论：230&quot;'>
-                     https://local12.com/news/nation-world/flock-camera-error-lea...
-
-Comments URL: https://news.ycombinator.com/item?id=49261218
-Points: 252
-# Comments: 230
+Points: 108
+# Comments: 18
                 </div>
             </div>
         </article>
@@ -1730,7 +1730,7 @@ Points: 252
                      data-link="https://www.theverge.com/tech/977844/made-by-google-pixel-11-launch-power-users-notification-led"
                      data-source="The Verge"
                      data-date="08-12 01:00"
-                     data-zh-content='&quot;Pixel 11 Pro 的背面有一个闪亮的新灯。 |图片：谷歌\t\n\n去年 Pixel 10 的 Made by Google 活动就像一场深夜脱口秀节目，由吉米·法伦 (Jimmy Fallon) 担任主持人，在手机发布一小时后播出。规格潜水和高管露面被名人客串和尴尬的短剧所取代，这让许多顽固的 Pixel 粉丝感到困惑。但它达到了吸引更广泛观众的目的：去年的直播在 YouTube 上吸引了 840 万观众；前一年的发布仅获得了 140 万。\n今年，谷歌只是将问题升级。在明天晚上的直播中，法伦已被特雷弗·诺亚取代，他将领导一个由名人组成的“堆叠”阵容……\n请在 The Verge 上阅读完整的故事。&quot;'>
+                     data-zh-content='&quot;Pixel 11 Pro 的背面有一个闪亮的新灯。 |图片：谷歌\t\n\n去年 Pixel 10 的 Made by Google 活动就像一场深夜脱口秀节目，由吉米·法伦 (Jimmy Fallon) 担任主持人，在手机发布一小时后播出。规格潜水和高管露面被名人客串和尴尬的短剧所取代，这让许多顽固的 Pixel 粉丝感到困惑。但它达到了吸引更广泛受众的目的：去年的直播在 YouTube 上吸引了 840 万观众；前一年的发布仅获得了 140 万。\n今年，谷歌只是将问题升级。在明天晚上的直播中，法伦已被特雷弗·诺亚取代，他将领导一个由名人组成的“堆叠”阵容……\n请在 The Verge 上阅读完整的故事。&quot;'>
                      The Pixel 11 Pro has a flashy new light on the back. | Image: Google	
 
 Last year's Made by Google event for the Pixel 10 resembled a late night talk show, complete with Jimmy Fallon as host, and it aired an hour after the phones were revealed. Spec dives and executive appearances were replaced with celebrity cameos and awkward skits, to the confusion of many diehard Pixel fans. But it served its purpose in reaching a broader audience: Last year's stream racked up 8.4 million viewers on YouTube; the launch the year before only managed 1.4 million.
@@ -1766,7 +1766,7 @@ Read the full story at The Verge.
                      data-link="https://www.theverge.com/tech/977561/made-by-google-2026-pixel-11-news"
                      data-source="The Verge"
                      data-date="08-12 01:00"
-                     data-zh-content='&quot;谷歌正准备在 8 月 12 日发布一系列新的 Pixel 设备。发布会前的一系列泄密表明 Pixel 11 系列将有多种颜色，有迹象表明 Pro 型号将配备内置灯。谷歌的预告片还表明，它将展示下一代 Pixel Fold 和 Pixel Watch 5，有四种不同的外观。可能还会有一个新的像素标签跟踪器。\n谷歌可能会在“Made by Google”直播之前提前揭晓这些新设备。在 Google 的网站上，预订倒计时将于美国东部时间 8 月 12 日上午 10 点结束，比美国东部时间下午 6 点的活动提前八小时。喜剧演员 Trevor Noah 将主持今年的节目，知名嘉宾包括 NBA 球星 Stephen Curry、播客 Alex Cooper、印度板球运动员 Shubman Gill 和&quot;'>
+                     data-zh-content='&quot;谷歌正准备在 8 月 12 日发布一系列新的 Pixel 设备。发布会前的一系列泄密表明 Pixel 11 系列将有多种颜色，有迹象表明 Pro 型号将配备内置灯。谷歌的预告片还表明，它将展示下一代 Pixel Fold 和 Pixel Watch 5，有四种不同的外观。可能还会有一个新的像素标签跟踪器。\n谷歌可能会在“谷歌制造”直播之前揭开新设备的面纱。在 Google 的网站上，预订倒计时将于美国东部时间 8 月 12 日上午 10 点结束，比美国东部时间下午 6 点的活动提前八小时。喜剧演员 Trevor Noah 将主持今年的节目，知名嘉宾包括 NBA 球星 Stephen Curry、播客 Alex Cooper、印度板球运动员 Shubman Gill 和&quot;'>
                      Google is gearing up to reveal a bunch of new Pixel devices on August 12th. A series of leaks leading up to the event suggest that the Pixel 11 lineup will come in an array of colors, with signs pointing to a built-in light coming to Pro models. Teasers from Google also indicate that it will show off a next-gen Pixel Fold alongside a Pixel Watch 5 in four different finishes. There might be a new Pixel Tag tracker as well.
 Google may take the wraps off the new devices well ahead of its Made by Google livestream. On Google’s website, the countdown for preorders ends on August 12th at 10AM ET — eight hours before its event at 6PM ET. Comedian Trevor Noah will host this year’s show, featuring notable guests like NBA star Stephen Curry, podcaster Alex Cooper, Indian cricketer Shubman Gill, and Japanese actress Ayami Nakajo. We’ll be live blogging the event, so stay tuned!
 Follow along for all the latest news about Google’s Pixel devices.
@@ -1839,7 +1839,7 @@ Samsung Display and LG Display remain Apple's primary iPhone ‌OLED‌ supplier
             </div>
             
             <div class="item-content">
-                <h2 class="item-title">优惠：Nothing Phone 立减 200 美元，Pixel Buds 仅需 70 美元起，Galaxy Book 6 最高立减 650 美元，Pixelsnap Charger 立减 50%，更多</h2>
+                <h2 class="item-title">优惠：Nothing Phone 优惠 200 美元，Pixel Buds 优惠仅 70 美元，Galaxy Book 6 优惠高达 650 美元，Pixelsnap Charger 优惠 50%，更多</h2>
                 <div class="item-meta">
                     <span class="source-badge" style="color:#f4b400; background:#f4b40015;">
                         9to5Google
@@ -1849,7 +1849,7 @@ Samsung Display and LG Display remain Apple's primary iPhone ‌OLED‌ supplier
                 <p class="item-summary">除了百思买更新的 2026 年返校促销之外，今天的 9to5Toys 午休活动的主角是 Nothing Phone (3...</p>
                 <!-- 隐藏数据 -->
                 <div id="data-42" style="display:none;" 
-                     data-title="优惠：Nothing Phone 立减 200 美元，Pixel Buds 仅需 70 美元起，Galaxy Book 6 最高立减 650 美元，Pixelsnap Charger 立减 50%，更多" 
+                     data-title="优惠：Nothing Phone 优惠 200 美元，Pixel Buds 优惠仅 70 美元，Galaxy Book 6 优惠高达 650 美元，Pixelsnap Charger 优惠 50%，更多" 
                      data-en-title='&quot;Deals: Nothing Phone $200 off, Pixel Buds from just $70, Galaxy Book 6 up to $650 off, Pixelsnap Charger 50% off, more&quot;'
                      data-link="https://9to5google.com/2026/08/11/deals-nothing-phone-pixel-buds-galaxy-book-6-pixelsnap/"
                      data-source="9to5Google"
@@ -2406,7 +2406,7 @@ The post FlightAware sues Kalshi o
                      data-link="https://9to5google.com/2026/08/10/august-2026-google-system-updates/"
                      data-source="9to5Google"
                      data-date="08-11 06:11"
-                     data-zh-content='&quot;每月的“Google 系统发行说明”主要详细介绍了 Play 服务、Play 商店以及 Android 手机/平板电脑、Wear OS、Google/Android TV、汽车和 PC 上的 Play 系统更新的新增内容。 有些功能适用于最终用户，而其他功能则针对开发人员。&quot;'>
+                     data-zh-content='&quot;每月的“Google 系统发行说明”主要详细介绍了 Play 服务、Play 商店以及 Android 手机/平板电脑、Wear OS、Google/Android TV、汽车和 PC 上的 Play 系统更新的新增内容。 有些功能适用于最终用户，而另一些功能则针对开发人员。&quot;'>
                      The monthly “Google System Release Notes” primarily detail what’s new in Play services, Play Store, and Play system update across Android phones/tablets, Wear OS, Google/Android TV, Auto, and PC. Some features apply to end users, while others are aimed at developers.
                 </div>
             </div>
@@ -2494,7 +2494,7 @@ The post FlightAware sues Kalshi o
                     </span>
                     <span class="meta-date">08-11 03:45</span>
                 </div>
-                <p class="item-summary">在下个月发布之前，三星 Galaxy S26 FE 的完整规格已被泄露，同时该设备的价格也更高，而其存在只是为了更实惠。...</p>
+                <p class="item-summary">在下个月发布之前，三星 Galaxy S26 FE 的完整规格已被泄露，同时该设备的价格也更高，而其存在只是为了更便宜。...</p>
                 <!-- 隐藏数据 -->
                 <div id="data-58" style="display:none;" 
                      data-title="Galaxy S26 FE 规格泄露，价格也更高" 
@@ -2502,7 +2502,7 @@ The post FlightAware sues Kalshi o
                      data-link="https://9to5google.com/2026/08/10/galaxy-s26-fe-specs-leak-alongside-a-higher-price-tag/"
                      data-source="9to5Google"
                      data-date="08-11 03:45"
-                     data-zh-content='&quot;在下个月发布之前，三星 Galaxy S26 FE 的完整规格已被泄露，同时该设备的价格也更高，而其存在只是为了更实惠。&quot;'>
+                     data-zh-content='&quot;在下个月发布之前，三星 Galaxy S26 FE 的完整规格已被泄露，同时该设备的价格也更高，而其存在只是为了更便宜。&quot;'>
                      Ahead of its launch that will likely happen next month, Samsung’s Galaxy S26 FE has had its full specs leak alongside a higher price tag for the device that exists solely to be more affordable.
                 </div>
             </div>
@@ -2646,7 +2646,7 @@ The post Honolulu police shuts down Ewa Beach gambling room, making arrest appea
                      data-link="https://readwrite.com/ballys-slows-chicago-casino-construction-vgts/"
                      data-source="ReadWrite"
                      data-date="08-10 19:14"
-                     data-zh-content='&quot;Bally’s 正在放缓其耗资 17 亿美元的芝加哥永久性赌场的部分建设进度，因为它反对在该市扩建视频赌博终端 (VGT)。该公司告诉芝加哥社区建设者集体，它正在“重新调整”一些工作的节奏。\n目前，该公司表示，调整不会推迟赌场计划于 2027 年初开业的时间。\n该公司表示：“Bally's 向芝加哥社区建设者集体 (CCBC) 发出通知，称其正在重新调整 Bally's 芝加哥永久赌场的建设步伐。”\n\n巴利的糟糕决策和鲁莽的边缘政策不应影响市政府控制的 CDOT 项目。巴利肯定需要重新开放桥梁和道路，如果他们所谓的未来赌场运营希望看到任何&quot;'>
+                     data-zh-content='&quot;Bally’s 正在放缓其耗资 17 亿美元的芝加哥永久性赌场的部分建设进度，因为它反对在该市扩建视频赌博终端 (VGT)。该公司告诉芝加哥社区建设者集体，它正在“重新调整”一些工作的节奏。\n目前，该公司表示，调整不会推迟赌场计划于 2027 年初开业的时间。\n该公司表示：“Bally's 向芝加哥社区建设者集体 (CCBC) 发出通知，称其正在重新调整 Bally's 芝加哥永久赌场的建设步伐。”\n\n巴利的糟糕决策和鲁莽的边缘政策不应影响市政府控制的 CDOT 项目。巴利肯定需要重新开放桥梁和道路，如果他们所谓的未来赌场运营希望看到任何情况的话&quot;'>
                      Bally’s is slowing parts of construction on its $1.7 billion permanent Chicago casino as it pushes back against the possible expansion of video gambling terminals (VGTs) in the city. The company told the Chicago Community Builders Collective that it is “resetting the pace” of some work.
 For now, the corporation says that adjustment will not delay the casino’s planned early 2027 opening.
 “Bally’s issued a notification to the Chicago Community Builders Collective (CCBC) that it is resetting the pace of construction of elements of Bally’s Chicago permanent casino,” the company said.
@@ -2865,7 +2865,7 @@ The post Ontario regulator AGCO fines Betty Gaming after underage gambling failu
         </div>
 
         <footer class="main-footer">
-            <p>文章总数: 67 | Updated: 2026-08-12 14:48</p>
+            <p>文章总数: 67 | Updated: 2026-08-12 16:20</p>
             <p><a href="https://beian.miit.gov.cn/" target="_blank">浙ICP备2025183710号-1</a></p>
             <p>&copy; 折疼记</p>
         </footer>
